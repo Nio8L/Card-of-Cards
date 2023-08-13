@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Deck : MonoBehaviour
 {
     public List<Card> cards = new();
 
     public void AddCard(Card card){
-        cards.Add(card);
+        Card newCard = Instantiate(card);
+        newCard.name = card.name;
+        cards.Add(newCard);
         PrintDeck();
     }
 
     //FOR TESTING
     public List<Card> randomCardSelection = new();
     public void AddCard(){
+        
         AddCard(randomCardSelection[Random.Range(0, randomCardSelection.Count)]);
     }
 
@@ -26,14 +30,15 @@ public class Deck : MonoBehaviour
         PrintDeck();
     }
 
+    public TMP_Text Text;
     public void PrintDeck(){
         string cardsInDeck = "";
         foreach (Card card in cards)
         {
-            cardsInDeck += card.name;
-            cardsInDeck += ", ";
+            cardsInDeck += card.name + " - Health: " + card.hp.ToString() + ", Damage: " + card.attack.ToString() + "\n";
         }
-        Debug.Log(cardsInDeck);
+        //Debug.Log(cardsInDeck);
+        Text.text = cardsInDeck;
     }
 
 
@@ -44,5 +49,6 @@ public class Deck : MonoBehaviour
             int k = random.Next(i + 1);
             (cards[i], cards[k]) = (cards[k], cards[i]);
         }
+        PrintDeck();
     }
 }
