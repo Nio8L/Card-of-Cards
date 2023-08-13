@@ -8,27 +8,25 @@ public class CardInHand : MonoBehaviour
 {
     public Card card;
     public Deck deck;
-    Transform slot;
     void Start()
     {
         UpdateCardAppearance();
     }
-    private void Update()
-    {
-        if (deck.selectedCard == transform)
-        {
-            if (CheckForSlot())
-            {
-                PlayCard(slot);
-                deck.selectedCard = null;
-            }
-        }
-    }
 
-    public void OnClick()
+    public void OnDrag()
     {
         if (deck.selectedCard != transform) deck.selectedCard = transform; 
-        else deck.selectedCard = null;
+    }
+
+    public void OnStopDrag()
+    {
+        CardSlot cardSlot = CheckForSlot();
+        if (cardSlot != null && cardSlot.playerSlot && deck.combatManager.playerCards[cardSlot.slot] == null && deck.energy >= card.cost)
+        {
+            PlayCard(cardSlot);
+            deck.selectedCard = null;
+        }
+        deck.selectedCard = null;
     }
 
     void UpdateCardAppearance()
@@ -39,31 +37,34 @@ public class CardInHand : MonoBehaviour
         transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = card.cost.ToString();
         transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.hp.ToString();
         transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
-
     }
 
-    bool CheckForSlot()
+    CardSlot CheckForSlot()
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 100);
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.tag == "CardSlot")
             {
-                slot = hit.collider.transform;
-                return true;
+                return hit.transform.GetComponent<CardSlot>();
             }
         }
-        return false;
+        return null;
     }
 
-    public void PlayCard(Transform _transform)
+    public void PlayCard(CardSlot slot)
     {
-        GameObject cardToCreate =  Instantiate(deck.cardInCombatPrefab, _transform.position, Quaternion.identity);
+        GameObject cardToCreate =  Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.canvasTransform);
         cardToCreate.transform.localScale = Vector3.one;
+
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
         cardInCombat.deck = deck;
+
+        deck.energy -= card.cost;
+        deck.combatManager.playerCards[slot.slot] = cardInCombat;
+
         Destroy(gameObject);
     }
 }

@@ -1,22 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Deck : MonoBehaviour
 {
+    public int gamePhase = 0; // 0 - player turn, 1 - enemy turn -> combat phase
+
+    public int energy = 3;
+     
     public List<Card> cards = new();
     public List<Card> cardsInHand = new();
+
+    public CombatManager combatManager;
+
     GameObject cardInHandPrefab;
     public GameObject cardInCombatPrefab;
+
     public Transform canvasTransform;
 
     public Transform selectedCard;
+
+    TextMeshProUGUI energyText;
 
     private void Start()
     {
         cardInHandPrefab = Resources.Load<GameObject>("Prefabs/CardInHand");
         cardInCombatPrefab = Resources.Load<GameObject>("Prefabs/CardInCombat");
         canvasTransform = GameObject.Find("Canvas").transform;
+        combatManager = GetComponent<CombatManager>();
+        energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -26,7 +39,7 @@ public class Deck : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             selectedCard.position = new Vector3(mousePosition.x, mousePosition.y, 0);
         }
-
+        energyText.text = energy + "/3";
     }
     public void AddCard(Card card){
         cards.Add(card);
@@ -65,9 +78,9 @@ public class Deck : MonoBehaviour
         var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
         card.transform.SetParent(canvasTransform);
         card.transform.localScale = Vector3.one;
-        CardInHand cardInHan = card.GetComponent<CardInHand>();
-        cardInHan.card = cardsInHand[cardsInHand.Count - 1];
-        cardInHan.deck = this;
+        CardInHand cardInHand = card.GetComponent<CardInHand>();
+        cardInHand.card = cardsInHand[cardsInHand.Count - 1];
+        cardInHand.deck = this;
         cards.RemoveAt(0);
     }
 
@@ -79,4 +92,11 @@ public class Deck : MonoBehaviour
             (cards[i], cards[k]) = (cards[k], cards[i]);
         }
     }
+
+    public void NextTurn()
+    {
+        gamePhase = 1;
+        combatManager.StartEnemyTurn();
+    }
+    
 }

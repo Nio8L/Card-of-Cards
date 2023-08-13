@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
+  deck: {fileID: 0}
 --- !u!114 &5146008635801136994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,13 +517,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 4
+  - eventID: 13
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3821532531122000845}
           m_TargetAssemblyTypeName: CardInHand, Assembly-CSharp
-          m_MethodName: OnClick
+          m_MethodName: OnDrag
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 14
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3821532531122000845}
+          m_TargetAssemblyTypeName: CardInHand, Assembly-CSharp
+          m_MethodName: OnStopDrag
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

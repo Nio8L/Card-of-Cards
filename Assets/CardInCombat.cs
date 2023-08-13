@@ -8,6 +8,8 @@ public class CardInCombat : MonoBehaviour
 {
     public Card card;
     public Deck deck;
+
+    public bool playerCard = true;
     void Start()
     {
         UpdateCardAppearance();
