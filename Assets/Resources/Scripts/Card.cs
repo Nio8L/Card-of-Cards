@@ -5,43 +5,35 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Card")]
 public class Card : ScriptableObject
 {
-    public int hp;
+    public int health;
     public int attack;
     public int cost;
     public Sprite image;
 
-    public enum TypeOfDmg
+    public enum TypeOfDamage
     {
         Poison,
         Bite,
         Scratch
     };
 
-    public List<TypeOfDmg> typeOfDmg;
+    public TypeOfDamage typeOfDamage;
 
     public List<Sigil> sigils;
 
-    public Dictionary<TypeOfDmg, bool> deadFrom = new();
-    
-    public void Die(List<TypeOfDmg> causes)
+    public List<TypeOfDamage> injuries = new();
+
+    public void CreateCard(TypeOfDamage causeOfDeath)
     {
-        foreach (TypeOfDmg cause in causes)
+        foreach (TypeOfDamage type in injuries)
         {
-            if (deadFrom[cause])
+            if (type == causeOfDeath)
             {
-                //turnToLostSoul
+                // Lost soul
                 return;
             }
-            //new card
         }
-    }
-
-    public void Die(TypeOfDmg cause)
-    {
-        if (deadFrom[cause]){
-            //turnToLostSoul
-            return;
-        }
+        injuries.Add(causeOfDeath);
         //new card
     }
 

@@ -10,6 +10,6 @@ public class Sigil : ScriptableObject
 
     public virtual void ApplyEffectsOnStart(Card cardToApplyItTo)
     {
-        cardToApplyItTo.hp++;//effect should be here
+        cardToApplyItTo.health++;//effect should be here
     }
 }

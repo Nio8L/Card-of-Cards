@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  hp: 1
+  health: 1
   attack: 2
   cost: 1
   image: {fileID: 21300000, guid: 68d8ce4e4e6d8864cb138166e2a90e84, type: 3}
-  typeOfDmg: 0000000001000000
+  typeOfDamage: 0
   sigils: []
+  injuries: 00000000

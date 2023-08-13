@@ -5,8 +5,6 @@ using TMPro;
 
 public class Deck : MonoBehaviour, IDataPersistence
 {
-    public int gamePhase = 0; // 0 - player turn, 1 - enemy turn -> combat phase
-
     public int energy = 3;
      
     public List<Card> cards = new();
@@ -22,17 +20,20 @@ public class Deck : MonoBehaviour, IDataPersistence
     public Transform selectedCard;
 
     TextMeshProUGUI energyText;
+
+    #region Saving
+    //--------------------------------//
     public void LoadData(GameData data){
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
-            Card newCard = Instantiate(randomCardSelection[Random.Range(0, randomCardSelection.Count)]);
+            Card newCard = new Card();
 
             AddCard(newCard);
-
-            cards[cards.Count - 1].name = data.cardNames[i];
-            cards[cards.Count - 1].attack = data.cardAttacks[i];
-            cards[cards.Count - 1].hp = data.cardHealths[i];
-            cards[cards.Count - 1].cost = data.cardCosts[i];
+            cards[^1].name = data.cardNames[i];
+            cards[^1].attack = data.cardAttacks[i];
+            cards[^1].health = data.cardHealths[i];
+            cards[^1].cost = data.cardCosts[i];
+            cards[^1].image = Resources.Load<Sprite>("Sprites/" + data.cardImages[i]);
         }
     }
 
@@ -41,6 +42,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         data.cardAttacks.Clear();
         data.cardHealths.Clear();
         data.cardCosts.Clear();
+        data.cardImages.Clear();
         
         List<Card> newCardList = new();
         newCardList.AddRange(cardsInHand);
@@ -50,10 +52,13 @@ public class Deck : MonoBehaviour, IDataPersistence
         for(int i = 0; i < cards.Count; i++){
             data.cardNames.Add(cards[i].name);
             data.cardAttacks.Add(cards[i].attack);
-            data.cardHealths.Add(cards[i].hp);
+            data.cardHealths.Add(cards[i].health);
             data.cardCosts.Add(cards[i].cost);
+            data.cardImages.Add(cards[i].image.name);
         }
     }
+    //--------------------------------//
+    #endregion
 
     private void Start()
     {
@@ -73,6 +78,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         }
         energyText.text = energy + "/3";
     }
+
+    #region Deck Functions
+    //--------------------------------//
     public void AddCard(Card card){
         Card newCard = Instantiate(card);
         newCard.name = card.name;
@@ -127,11 +135,6 @@ public class Deck : MonoBehaviour, IDataPersistence
             (cards[i], cards[k]) = (cards[k], cards[i]);
         }
     }
-
-    public void NextTurn()
-    {
-        gamePhase = 1;
-        combatManager.StartEnemyTurn();
-    }
-    
+    //--------------------------------//
+    #endregion
 }

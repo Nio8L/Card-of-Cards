@@ -10,12 +10,14 @@ public class GameData
     public List<int> cardAttacks;
     public List<int> cardHealths;
     public List<int> cardCosts;
+    public List<string> cardImages;
 
     public GameData(){
        cardNames = new();
        cardAttacks = new();
        cardHealths = new();
-       cardCosts = new(); 
+       cardCosts = new();
+       cardImages = new();
     }
     
 }
