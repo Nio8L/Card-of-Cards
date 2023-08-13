@@ -6,8 +6,41 @@ using UnityEngine;
 public class Card : ScriptableObject
 {
     public int hp;
+    public int attack;
+    public int cost;
 
-    bool diedFromScratch;
-    bool diedFromPoison;
-    bool diedFromBite;
+    public List<TypeOfDmg> typeOfDmg;
+
+    public List<Sigil> sigils;
+
+    Dictionary<TypeOfDmg, bool> deadFrom;
+
+    public void Die(List<TypeOfDmg> cause)
+    {
+        foreach (TypeOfDmg cause in causes)
+        {
+            if (deadFrom[cause])
+            {
+                //turnToLostSoul
+                return;
+            }
+            //new card
+        }
+    }
+
+    public void Die(TypeOfDmg cause)
+    {
+        if (deadFrom[cause]){
+            //turnToLostSoul
+            return;
+        }
+        //new card
+    }
+
+    public enum TypeOfDmg
+    {
+        Poison,
+        Bite,
+        Scratch
+    };
 }
