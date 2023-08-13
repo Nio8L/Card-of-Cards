@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour
+public class Deck : MonoBehaviour, IDataPersistence
 {
     public List<Card> cards = new();
     public List<Card> cardsInHand = new();
@@ -11,6 +11,39 @@ public class Deck : MonoBehaviour
     public Transform canvasTransform;
 
     public Transform selectedCard;
+
+    public void LoadData(GameData data){
+        cards.Clear();
+        for(int i = 0; i < data.cardNames.Count; i++){
+            Card newCard = Instantiate(randomCardSelection[Random.Range(0, randomCardSelection.Count)]);
+
+            AddCard(newCard);
+
+            cards[cards.Count - 1].name = data.cardNames[i];
+            cards[cards.Count - 1].attack = data.cardAttacks[i];
+            cards[cards.Count - 1].hp = data.cardHealths[i];
+            cards[cards.Count - 1].cost = data.cardCosts[i];
+        }
+    }
+
+    public void SaveData(ref GameData data){
+        data.cardNames.Clear();
+        data.cardAttacks.Clear();
+        data.cardHealths.Clear();
+        data.cardCosts.Clear();
+        
+        List<Card> newCardList = new();
+        newCardList.AddRange(cardsInHand);
+        newCardList.AddRange(cards); 
+        cards = newCardList;
+
+        for(int i = 0; i < cards.Count; i++){
+            data.cardNames.Add(cards[i].name);
+            data.cardAttacks.Add(cards[i].attack);
+            data.cardHealths.Add(cards[i].hp);
+            data.cardCosts.Add(cards[i].cost);
+        }
+    }
 
     private void Start()
     {
@@ -29,7 +62,10 @@ public class Deck : MonoBehaviour
 
     }
     public void AddCard(Card card){
-        cards.Add(card);
+        Card newCard = Instantiate(card);
+        newCard.name = card.name;
+
+        cards.Add(newCard);
         PrintDeck();
     }
 
