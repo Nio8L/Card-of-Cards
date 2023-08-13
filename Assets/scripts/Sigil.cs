@@ -5,10 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil")]
 public class Sigil : ScriptableObject
 {
-    public string name;
+    public string sigilName;
+    public Sprite image;
 
     public virtual void ApplyEffectsOnStart(Card cardToApplyItTo)
     {
-        cardToApplyIt.hp++;//effect should be here
+        cardToApplyItTo.hp++;//effect should be here
     }
 }

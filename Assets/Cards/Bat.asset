@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: New Card
+  m_Name: Bat
   m_EditorClassIdentifier: 
-  hp: 0
-  attack: 0
-  cost: 0
-  typeOfDmg: 
+  hp: 1
+  attack: 2
+  cost: 1
+  image: {fileID: 0}
+  typeOfDmg: 0000000001000000
+  sigils: []

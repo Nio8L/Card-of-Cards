@@ -8,14 +8,22 @@ public class Card : ScriptableObject
     public int hp;
     public int attack;
     public int cost;
+    public Sprite image;
+
+    public enum TypeOfDmg
+    {
+        Poison,
+        Bite,
+        Scratch
+    };
 
     public List<TypeOfDmg> typeOfDmg;
 
     public List<Sigil> sigils;
 
-    Dictionary<TypeOfDmg, bool> deadFrom;
-
-    public void Die(List<TypeOfDmg> cause)
+    public Dictionary<TypeOfDmg, bool> deadFrom = new();
+    
+    public void Die(List<TypeOfDmg> causes)
     {
         foreach (TypeOfDmg cause in causes)
         {
@@ -37,10 +45,5 @@ public class Card : ScriptableObject
         //new card
     }
 
-    public enum TypeOfDmg
-    {
-        Poison,
-        Bite,
-        Scratch
-    };
+    
 }
