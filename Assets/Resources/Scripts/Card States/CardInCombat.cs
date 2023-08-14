@@ -59,6 +59,16 @@ public class CardInCombat : MonoBehaviour
 
     }
 
+    public void PutOnOrOffTheBenchEnemyCards()
+    {
+        if (benched)
+        {
+            transform.position = deck.combatManager.enemyBenchSlots[slot].transform.position;
+            return;
+        }
+        transform.position = deck.combatManager.enemyCombatSlots[slot].transform.position;
+    }
+
     public void BenchOrUnbench() 
     {
         if (!playerCard) return;

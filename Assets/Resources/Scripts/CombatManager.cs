@@ -11,7 +11,10 @@ public class CombatManager : MonoBehaviour
 
     public CardInCombat[] playerCards = new CardInCombat[3];
     public CardInCombat[] enemyCards = new CardInCombat[3];
-    public CardSlot[] enemySlots = new CardSlot[3];
+
+    public GameObject[] enemyCombatSlots = new GameObject[3];
+    public GameObject[] enemyBenchSlots = new GameObject[3];
+
     public GameObject[] playerCombatSlots = new GameObject[3];
     public GameObject[] playerBenchSlots = new GameObject[3];
 
@@ -40,8 +43,18 @@ public class CombatManager : MonoBehaviour
 
         if (failEscape < 20)
         {
-            EnemyPlayCard(cardToPlay, enemySlots[rand]);
+            EnemyPlayCard(cardToPlay, enemyBenchSlots[rand], rand);
         }
+
+        foreach (CardInCombat cardToUnbench in enemyCards)
+        {
+            if (cardToUnbench != null)
+            {
+                cardToUnbench.benched = false;
+                cardToUnbench.PutOnOrOffTheBenchEnemyCards();
+            }
+        }
+
         StartCombatPhase();
     }
     void StartCombatPhase()
@@ -58,12 +71,14 @@ public class CombatManager : MonoBehaviour
     }
     void StartPlayerTurn()
     {
+        deck.DiscardHand();
         deck.energy = 3;
+        deck.DrawCard(5);
         gamePhase = 0;
     }
     //--------------------------------//
     #endregion
-    public void EnemyPlayCard(Card card, CardSlot slot)
+    public void EnemyPlayCard(Card card, GameObject slot, int slotNumber)
     {
         GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
@@ -72,11 +87,11 @@ public class CombatManager : MonoBehaviour
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
         cardInCombat.deck = deck;
-        cardInCombat.slot = slot.slot;
+        cardInCombat.slot = slotNumber;
         cardInCombat.playerCard = false;
-        cardInCombat.benched = false;
+        cardInCombat.benched = true;
 
-        deck.combatManager.enemyCards[slot.slot] = cardInCombat;
+        enemyCards[slotNumber] = cardInCombat;
     }
 
     #region Attacks
@@ -91,6 +106,7 @@ public class CombatManager : MonoBehaviour
         else playerHealth -= card.card.attack;
         //to do
     }
+
     public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
     {
         
