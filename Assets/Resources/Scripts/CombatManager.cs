@@ -85,15 +85,27 @@ public class CombatManager : MonoBehaviour
     {
         if (card.benched) return;
         card.PerformShortAttackAnimation();
-        Debug.Log("Direct hit by " + card.card.name);
 
         if (card.playerCard) enemyHealth -= card.card.attack;
         else playerHealth -= card.card.attack;
         //to do
     }
+
+    public void DirectHit(CardInCombat card, int damage)
+    {
+        if (card.benched) return;
+        card.PerformShortAttackAnimation();
+
+        if (card.playerCard) enemyHealth -= damage;
+        else playerHealth -= damage;
+        //to do
+    }
     public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
     {
         
+        int playerOldHp = playerCard.card.health;
+        int enemyOldHp = enemyCard.card.health;
+
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
         else if (enemyCard.benched) {DirectHit(playerCard); return;}
@@ -103,11 +115,17 @@ public class CombatManager : MonoBehaviour
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, playerOldHp, enemyOldHp);
         playerCard.card.ActivateOnTakeDamageEffects(playerCard);
        
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, enemyOldHp, playerOldHp);
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
+
+        playerCard.card.lastBattle.LogResult();
+
+
 
 
         playerCard.PerformShortAttackAnimation();
