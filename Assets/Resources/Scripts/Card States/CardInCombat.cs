@@ -21,8 +21,7 @@ public class CardInCombat : MonoBehaviour
     float maxAnimationTime = 0.5f;
     void Start()
     {
-        if (!playerCard) benched = false;
-        UpdateCardAppearance();
+        deck.UpdateCardAppearance(transform, card);
     }
 
     private void Update()
@@ -35,29 +34,32 @@ public class CardInCombat : MonoBehaviour
 
             if (curentAnimationTime < 0f)
             {
-                UpdateCardAppearance();
+                deck.UpdateCardAppearance(transform, card);
             }
         }
         else if (card.health <= 0)
         {
             card.CreateCard(lastTypeOfDamage);
 
-            if (playerCard) deck.combatManager.playerCards[slot] = null;
+            if (playerCard)
+            {
+                deck.combatManager.playerCards[slot] = null;
+                deck.discardPile.Add(card);
+            }
             else deck.combatManager.enemyCards[slot] = null;
 
             Destroy(gameObject);
         }
     }
 
-    public void UpdateCardAppearance()
+    public void PutOnOrOffTheBenchEnemyCards()
     {
-        transform.GetChild(0).GetComponent<Image>().sprite = card.image;
-        //transform.GetChild(2).GetComponent<Image>().sprite = ;
-        transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = card.name;
-        transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = card.cost.ToString();
-        transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
-        transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
-
+        if (benched)
+        {
+            transform.position = deck.combatManager.enemyBenchSlots[slot].transform.position;
+            return;
+        }
+        transform.position = deck.combatManager.enemyCombatSlots[slot].transform.position;
     }
 
     public void BenchOrUnbench() 

@@ -9,7 +9,6 @@ public class Card : ScriptableObject
     public int attack;
     public int cost;
     public Sprite image;
-
     public enum TypeOfDamage
     {
         Poison,
@@ -17,11 +16,29 @@ public class Card : ScriptableObject
         Scratch
     };
 
+    public static Sigil negativeSigil;
+
     public TypeOfDamage typeOfDamage;
 
     public List<Sigil> sigils = new();
 
     public List<TypeOfDamage> injuries = new();
+
+    public BattleData lastBattle;
+
+    public Card Copy() 
+    {
+        return new Card()
+        {
+            health = health,
+            attack = attack,
+            cost = cost,
+            image = image,
+            typeOfDamage = typeOfDamage,
+            sigils = sigils,
+            injuries = injuries
+        };
+    }
 
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
@@ -29,20 +46,34 @@ public class Card : ScriptableObject
         {
             if (type == causeOfDeath)
             {
-                // Lost soul
+                //lost soul
                 return;
             }
         }
         injuries.Add(causeOfDeath);
-        //new card
+
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            if (!sigils[i].negative)
+            {
+                sigils.RemoveAt(i);
+            }
+        }
+
+        if(sigils.Count != 3)sigils.Add(negativeSigil);
     }
-    public void ActivateOnHitEffects(Card enemyCard) 
+    public void ActivateOnHitEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect();
+        foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect(card);
     }
 
-    public void ActivatePasiveEffects(Card[] enemyCards, Card[] fiendlyCards) 
+    public void ActivatePasiveEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.PasiveEffect();
+        foreach (Sigil sigil in sigils) sigil.PasiveEffect(card);
+    }
+
+    public void ActivateOnTakeDamageEffects(CardInCombat card)
+    {
+        foreach (Sigil sigil in sigils) sigil.OnTakeDamageEffect(card);
     }
 }

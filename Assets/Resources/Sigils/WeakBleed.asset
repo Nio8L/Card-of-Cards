@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Cat
+  m_Script: {fileID: 11500000, guid: 35f510655e78ce9418aaf202078fceb0, type: 3}
+  m_Name: WeakBleed
   m_EditorClassIdentifier: 
-  health: 2
-  attack: 1
-  cost: 1
-  image: {fileID: 21300000, guid: 0d2af32fece02fc4695bf2ff398a362f, type: 3}
-  typeOfDamage: 2
-  sigils: []
-  injuries: 
+  sigilName: Bleed
+  image: {fileID: 21300000, guid: 324f082b08f4237449564c6c684758cd, type: 3}
+  turnToDealDamage: 2
+  damage: 1

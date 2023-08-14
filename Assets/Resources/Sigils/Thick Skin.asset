@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Cat
+  m_Script: {fileID: 11500000, guid: b4026ef8de237ec4cae0f98ad4619895, type: 3}
+  m_Name: Thick Skin
   m_EditorClassIdentifier: 
-  health: 2
-  attack: 1
-  cost: 1
-  image: {fileID: 21300000, guid: 0d2af32fece02fc4695bf2ff398a362f, type: 3}
-  typeOfDamage: 2
-  sigils: []
-  injuries: 
+  sigilName: Thick Skin
+  image: {fileID: 21300000, guid: f569053ecf818dd4fa2ebed4097312d9, type: 3}

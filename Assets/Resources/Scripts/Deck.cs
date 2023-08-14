@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Deck : MonoBehaviour, IDataPersistence
 {
@@ -9,23 +10,36 @@ public class Deck : MonoBehaviour, IDataPersistence
      
     public List<Card> cards = new();
     public List<Card> drawPile;
-
-    public CombatManager combatManager;
+    public List<Card> discardPile;
     public List<GameObject> cardsInHand = new();
+
+    [HideInInspector]
+    public CombatManager combatManager;
+    [HideInInspector]
     GameObject cardInHandPrefab;
+    [HideInInspector]
     public GameObject cardInCombatPrefab;
+    [HideInInspector]
     public GameObject cardInBenchPrefab;
 
     public Transform CardsInHandParent;
     public Transform CardsInCombatParent;
 
+    [HideInInspector]
     public Transform selectedCard;
     TextMeshProUGUI energyText;
 
     public Vector2 centerPointForcardsInHand;
     public float spaceBetweenCardsInHand;
+    [HideInInspector]
     public Transform hoveredCard;
     public float spaceForHoveredCard;
+
+    [HideInInspector]
+    public Sprite biteDamageIcon;
+    public Sprite scrachDamageIcon;
+    public Sprite poisonDamageIcon;
+
 
     #region Saving
     //--------------------------------//
@@ -66,6 +80,10 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardInHandPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInHand");
         cardInCombatPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInCombat");
 
+        biteDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeBite");
+        scrachDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeSlash");
+        poisonDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypePoison");
+
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
 
@@ -73,6 +91,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
+
+        AddCard(10);
+        DrawCard(5);
     }
 
     private void Update()
@@ -104,12 +125,17 @@ public class Deck : MonoBehaviour, IDataPersistence
         PrintDeck();
     }
 
+
     //FOR TESTING
     public List<Card> randomCardSelection = new();
     public void AddCard(){
         AddCard(randomCardSelection[Random.Range(0, randomCardSelection.Count)]);
     }
 
+    public void AddCard(int numOfCards)
+    {
+        for (int i = 0; i < numOfCards; i++) AddCard();
+    }
     public void RemoveCard(Card card){
         drawPile.Remove(card);
         cards.Remove(card);
@@ -163,8 +189,40 @@ public class Deck : MonoBehaviour, IDataPersistence
     // Teglene na karti v //  
     public void DrawCard()
     {
-        if (drawPile.Count != 0)
+        if (drawPile.Count == 0)
         {
+            if (discardPile.Count != 0)
+            {
+                drawPile.AddRange(discardPile);
+                discardPile.Clear();
+            }
+            else return;
+        }
+
+        var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
+        card.transform.SetParent(CardsInHandParent);
+        card.transform.localScale = Vector3.one;
+        CardInHand cardInHand = card.GetComponent<CardInHand>();
+        cardInHand.card = drawPile[0];
+        cardInHand.deck = this;
+        drawPile.RemoveAt(0);
+        cardsInHand.Add(card);
+        TidyHand();
+    }
+
+    public void DrawCard(int numOfCards)
+    {
+        for (int i = 0; i < numOfCards; i++)
+        {
+            if (drawPile.Count == 0) 
+            {
+                if (discardPile.Count != 0)
+                {
+                    drawPile.AddRange(discardPile);
+                    discardPile.Clear();
+                }
+                else return;
+            }
             var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
             card.transform.SetParent(CardsInHandParent);
             card.transform.localScale = Vector3.one;
@@ -173,8 +231,18 @@ public class Deck : MonoBehaviour, IDataPersistence
             cardInHand.deck = this;
             drawPile.RemoveAt(0);
             cardsInHand.Add(card);
-            TidyHand();
         }
+        TidyHand();
+    }
+
+    public void DiscardHand() 
+    {
+        foreach (GameObject cardObject in cardsInHand)
+        {
+            discardPile.Add(cardObject.GetComponent<CardInHand>().card);
+            Destroy(cardObject);
+        }
+        cardsInHand.Clear();
     }
 
     //Shuffle the deck using the Fisher-Yates shuffle
@@ -187,4 +255,42 @@ public class Deck : MonoBehaviour, IDataPersistence
     }
     //--------------------------------//
     #endregion
+
+    public void UpdateCardAppearance(Transform cardGameObject, Card card)
+    {
+        cardGameObject.GetChild(0).GetComponent<Image>().sprite = card.image;
+
+        Sprite damageIcon;
+        if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
+        else if (card.typeOfDamage == Card.TypeOfDamage.Scratch) damageIcon = scrachDamageIcon;
+        else damageIcon = poisonDamageIcon;
+        cardGameObject.GetChild(2).GetComponent<Image>().sprite = damageIcon;
+
+        cardGameObject.GetChild(3).GetComponent<TextMeshProUGUI>().text = card.name;
+        cardGameObject.GetChild(4).GetComponent<TextMeshProUGUI>().text = card.cost.ToString();
+        cardGameObject.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
+        cardGameObject.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
+
+        if (card.sigils.Count == 1)
+        {
+            cardGameObject.GetChild(7).GetComponent<Image>().sprite = card.sigils[0].image;
+            cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        else if (card.sigils.Count == 2)
+        {
+            cardGameObject.GetChild(8).GetComponent<Image>().sprite = card.sigils[0].image;
+            cardGameObject.GetChild(9).GetComponent<Image>().sprite = card.sigils[1].image;
+            cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        else if (card.sigils.Count == 3)
+        {
+            cardGameObject.GetChild(7).GetComponent<Image>().sprite = card.sigils[0].image;
+            cardGameObject.GetChild(8).GetComponent<Image>().sprite = card.sigils[1].image;
+            cardGameObject.GetChild(9).GetComponent<Image>().sprite = card.sigils[2].image;
+            cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+    }
 }

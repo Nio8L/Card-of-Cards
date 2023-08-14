@@ -10,7 +10,7 @@ public class CardInHand : MonoBehaviour
     public Deck deck;
     void Start()
     {
-        UpdateCardAppearance();
+        deck.UpdateCardAppearance(transform, card);
     }
 
     #region Dragging functions
@@ -33,15 +33,7 @@ public class CardInHand : MonoBehaviour
     }
     //--------------------------------//
     #endregion
-    void UpdateCardAppearance()
-    {
-        transform.GetChild(0).GetComponent<Image>().sprite = card.image;
-        //transform.GetChild(2).GetComponent<Image>().sprite = ;
-        transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = card.name;
-        transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = card.cost.ToString();
-        transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
-        transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
-    }
+   
 
     //that is for deck.TidyHand()
     public void GetOnTop(Transform card)
@@ -81,7 +73,7 @@ public class CardInHand : MonoBehaviour
     {
         GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one;
+        cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;

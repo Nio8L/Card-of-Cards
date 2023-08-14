@@ -11,7 +11,10 @@ public class CombatManager : MonoBehaviour
 
     public CardInCombat[] playerCards = new CardInCombat[3];
     public CardInCombat[] enemyCards = new CardInCombat[3];
-    public CardSlot[] enemySlots = new CardSlot[3];
+
+    public GameObject[] enemyCombatSlots = new GameObject[3];
+    public GameObject[] enemyBenchSlots = new GameObject[3];
+
     public GameObject[] playerCombatSlots = new GameObject[3];
     public GameObject[] playerBenchSlots = new GameObject[3];
 
@@ -40,8 +43,18 @@ public class CombatManager : MonoBehaviour
 
         if (failEscape < 20)
         {
-            EnemyPlayCard(cardToPlay, enemySlots[rand]);
+            EnemyPlayCard(cardToPlay, enemyBenchSlots[rand], rand);
         }
+
+        foreach (CardInCombat cardToUnbench in enemyCards)
+        {
+            if (cardToUnbench != null)
+            {
+                cardToUnbench.benched = false;
+                cardToUnbench.PutOnOrOffTheBenchEnemyCards();
+            }
+        }
+
         StartCombatPhase();
     }
     void StartCombatPhase()
@@ -58,50 +71,80 @@ public class CombatManager : MonoBehaviour
     }
     void StartPlayerTurn()
     {
+        foreach (CardInCombat activeCard in playerCards)
+        {
+            activeCard.card.ActivatePasiveEffects(activeCard);
+        }
+        foreach (CardInCombat activeCard in enemyCards)
+        {
+            activeCard.card.ActivatePasiveEffects(activeCard);
+        }
+        deck.DiscardHand();
         deck.energy = 3;
+        deck.DrawCard(5);
         gamePhase = 0;
     }
     //--------------------------------//
     #endregion
-    public void EnemyPlayCard(Card card, CardSlot slot)
+    public void EnemyPlayCard(Card card, GameObject slot, int slotNumber)
     {
         GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one;
+        cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
         cardInCombat.deck = deck;
-        cardInCombat.slot = slot.slot;
+        cardInCombat.slot = slotNumber;
         cardInCombat.playerCard = false;
+        cardInCombat.benched = true;
 
-        deck.combatManager.enemyCards[slot.slot] = cardInCombat;
+        enemyCards[slotNumber] = cardInCombat;
     }
 
     #region Attacks
     //--------------------------------//
-    void DirectHit(CardInCombat card)
+    public void DirectHit(CardInCombat card)
     {
         if (card.benched) return;
         card.PerformShortAttackAnimation();
+        Debug.Log("Direct hit by " + card.card.name);
 
         if (card.playerCard) enemyHealth -= card.card.attack;
         else playerHealth -= card.card.attack;
         //to do
     }
-    void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
+    public void DirectHit(CardInCombat card, int damage)
     {
+        if (card.benched) return;
+        card.PerformShortAttackAnimation();
+
+        if (card.playerCard) enemyHealth -= damage;
+        else playerHealth -= damage;
+        //to do
+    }
+    public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
+    {
+        int oldPlayerHp = playerCard.card.health;
+        int oldEnemyHp = enemyCard.card.health;
+
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
-        else if (enemyCard.benched) {DirectHit(playerCard); return;}
+        else if (enemyCard.benched)  { DirectHit(playerCard); return;}      
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
-        playerCard.card.ActivateOnHitEffects(enemyCard.card);
-
+        playerCard.card.ActivateOnTakeDamageEffects(playerCard);
+       
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
-        enemyCard.card.ActivateOnHitEffects(playerCard.card);
+        enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
+
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
+
+        playerCard.card.ActivateOnHitEffects(playerCard);
+        enemyCard.card.ActivateOnHitEffects(enemyCard);
 
         playerCard.PerformShortAttackAnimation();
         enemyCard.PerformShortAttackAnimation();
