@@ -8,7 +8,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public int energy = 3;
      
     public List<Card> cards = new();
-    public List<Card> drawPile = new(); //TODO: implement draw pile
+    public List<Card> drawPile;
 
     public CombatManager combatManager;
     public List<GameObject> cardsInHand = new();
@@ -84,6 +84,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         combatManager = GetComponent<CombatManager>();
         
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
+        drawPile = CopyCardList(cards);
     }
 
     private void Update()
@@ -99,10 +100,18 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     #region Deck Functions
     //--------------------------------//
+    List<Card> CopyCardList(List<Card> listToCopy) 
+    {
+        List<Card> returnList = new List<Card>();
+        foreach (Card card in listToCopy) returnList.Add(card);
+        return returnList;
+    }
+
     public void AddCard(Card card){
         Card newCard = Instantiate(card);
         newCard.name = card.name;
 
+        drawPile.Add(newCard);
         cards.Add(newCard);
         PrintDeck();
     }
@@ -114,17 +123,25 @@ public class Deck : MonoBehaviour, IDataPersistence
     }
 
     public void RemoveCard(Card card){
+        drawPile.Remove(card);
         cards.Remove(card);
     }
 
     public void RemoveCard(){
-        cards.RemoveAt(cards.Count - 1);
+        drawPile.RemoveAt(drawPile.Count - 1);
         PrintDeck();
     }
 
     public void PrintDeck(){
         string cardsInDeck = "";
         foreach (Card card in cards)
+        {
+            cardsInDeck += card.name;
+            cardsInDeck += ", ";
+        }
+        Debug.Log(cardsInDeck);
+        cardsInDeck = "";
+        foreach (Card card in drawPile)
         {
             cardsInDeck += card.name;
             cardsInDeck += ", ";
@@ -156,13 +173,13 @@ public class Deck : MonoBehaviour, IDataPersistence
     // Teglene na karti v //  
     public void DrawCard()
     {
-        if (cards.Count != 0)
+        if (drawPile.Count != 0)
         {
             var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
             card.transform.SetParent(CardsInHandParent);
             card.transform.localScale = Vector3.one;
             CardInHand cardInHand = card.GetComponent<CardInHand>();
-            cardInHand.card = cards[0];
+            cardInHand.card = drawPile[0];
             cardInHand.deck = this;
             cards.RemoveAt(0);
             cardsInHand.Add(card);
@@ -173,9 +190,9 @@ public class Deck : MonoBehaviour, IDataPersistence
     //Shuffle the deck using the Fisher-Yates shuffle
     System.Random random = new System.Random();
     public void Shuffle(){
-        for(int i = cards.Count - 1; i > 0; i--){
+        for(int i = drawPile.Count - 1; i > 0; i--){
             int k = random.Next(i + 1);
-            (cards[i], cards[k]) = (cards[k], cards[i]);
+            (drawPile[i], drawPile[k]) = (drawPile[k], drawPile[i]);
         }
     }
     //--------------------------------//

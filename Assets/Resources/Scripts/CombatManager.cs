@@ -71,9 +71,11 @@ public class CombatManager : MonoBehaviour
     {
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
+        playerCard.card.ActivateOnHitEffects(enemyCard.card);
 
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
+        enemyCard.card.ActivateOnHitEffects(playerCard.card);
 
         playerCard.UpdateCardAppearance();
         enemyCard.UpdateCardAppearance();

@@ -19,7 +19,7 @@ public class Card : ScriptableObject
 
     public TypeOfDamage typeOfDamage;
 
-    public List<Sigil> sigils;
+    public List<Sigil> sigils = new();
 
     public List<TypeOfDamage> injuries = new();
 
@@ -37,5 +37,13 @@ public class Card : ScriptableObject
         //new card
     }
 
-    
+    public void ActivateOnHitEffects(Card enemyCard) 
+    {
+        foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect(this,enemyCard);
+    }
+
+    public void ActivatePasiveEffects(Card[] enemyCards, Card[] fiendlyCards) 
+    {
+        foreach (Sigil sigil in sigils) sigil.PasiveEffect(enemyCards,fiendlyCards);
+    }
 }
