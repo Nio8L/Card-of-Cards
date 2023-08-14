@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameData
 {
   
+    public long lastSaved;
+
     public List<string> cardNames;
     public List<int> cardAttacks;
     public List<int> cardHealths;

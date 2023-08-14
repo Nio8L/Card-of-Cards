@@ -80,7 +80,7 @@ public class CardInHand : MonoBehaviour
     public void PlayCard(CardSlot slot)
     {
         GameObject cardToCreate =  Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
-        cardToCreate.transform.SetParent(deck.canvasTransform);
+        cardToCreate.transform.SetParent(deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();

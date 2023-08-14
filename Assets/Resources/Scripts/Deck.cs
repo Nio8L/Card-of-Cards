@@ -8,13 +8,15 @@ public class Deck : MonoBehaviour, IDataPersistence
     public int energy = 3;
      
     public List<Card> cards = new();
+    public List<Card> drawPile = new(); //TODO: implement draw pile
 
     public CombatManager combatManager;
     public List<GameObject> cardsInHand = new();
     GameObject cardInHandPrefab;
     public GameObject cardInCombatPrefab;
 
-    public Transform canvasTransform;
+    public Transform CardsInHandParent;
+    public Transform CardsInCombatParent;
 
     public Transform selectedCard;
     TextMeshProUGUI energyText;
@@ -29,7 +31,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data){
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
-            Card newCard = new Card();
+            Card newCard = new();
 
             AddCard(newCard);
             cards[^1].name = data.cardNames[i];
@@ -49,6 +51,12 @@ public class Deck : MonoBehaviour, IDataPersistence
         
         List<Card> newCardList = new();
 
+        for(int i = 0; i < 3; i++){
+            if(combatManager.playerCards[i] != null){
+                newCardList.Add(combatManager.playerCards[i].card);
+            }
+        }
+
         foreach(GameObject card in cardsInHand)newCardList.Add(card.GetComponent<CardInHand>().card);
 
         newCardList.AddRange(cards); 
@@ -67,10 +75,14 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        cardInHandPrefab = Resources.Load<GameObject>("Prefabs/CardInHand");
-        cardInCombatPrefab = Resources.Load<GameObject>("Prefabs/CardInCombat");
-        canvasTransform = GameObject.Find("Canvas").transform;
+        cardInHandPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInHand");
+        cardInCombatPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInCombat");
+
+        CardsInHandParent = GameObject.Find("CardsInHand").transform;
+        CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
+
         combatManager = GetComponent<CombatManager>();
+        
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
     }
 
@@ -147,7 +159,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         if (cards.Count != 0)
         {
             var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
-            card.transform.SetParent(canvasTransform);
+            card.transform.SetParent(CardsInHandParent);
             card.transform.localScale = Vector3.one;
             CardInHand cardInHand = card.GetComponent<CardInHand>();
             cardInHand.card = cards[0];
