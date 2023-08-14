@@ -144,15 +144,18 @@ public class Deck : MonoBehaviour, IDataPersistence
     // Teglene na karti v //  
     public void DrawCard()
     {
-        var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
-        card.transform.SetParent(canvasTransform);
-        card.transform.localScale = Vector3.one;
-        CardInHand cardInHand = card.GetComponent<CardInHand>();
-        cardInHand.card = cards[0];
-        cardInHand.deck = this;
-        cards.RemoveAt(0);
-        cardsInHand.Add(card);
-        TidyHand();
+        if (cards.Count != 0)
+        {
+            var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
+            card.transform.SetParent(canvasTransform);
+            card.transform.localScale = Vector3.one;
+            CardInHand cardInHand = card.GetComponent<CardInHand>();
+            cardInHand.card = cards[0];
+            cardInHand.deck = this;
+            cards.RemoveAt(0);
+            cardsInHand.Add(card);
+            TidyHand();
+        }
     }
 
     //Shuffle the deck using the Fisher-Yates shuffle
