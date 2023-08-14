@@ -41,7 +41,11 @@ public class CardInCombat : MonoBehaviour
         {
             card.CreateCard(lastTypeOfDamage);
 
-            if (playerCard) deck.combatManager.playerCards[slot] = null;
+            if (playerCard)
+            {
+                deck.combatManager.playerCards[slot] = null;
+                deck.discardPile.Add(card);
+            }
             else deck.combatManager.enemyCards[slot] = null;
 
             Destroy(gameObject);
