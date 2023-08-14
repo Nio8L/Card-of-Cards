@@ -21,7 +21,6 @@ public class CardInCombat : MonoBehaviour
     float maxAnimationTime = 0.5f;
     void Start()
     {
-        if (!playerCard) benched = false;
         UpdateCardAppearance();
     }
 

@@ -74,6 +74,7 @@ public class CombatManager : MonoBehaviour
         cardInCombat.deck = deck;
         cardInCombat.slot = slot.slot;
         cardInCombat.playerCard = false;
+        cardInCombat.benched = false;
 
         deck.combatManager.enemyCards[slot.slot] = cardInCombat;
     }
