@@ -16,6 +16,8 @@ public class Card : ScriptableObject
         Scratch
     };
 
+    public static Sigil negativeSigil;
+
     public TypeOfDamage typeOfDamage;
 
     public List<Sigil> sigils = new();
@@ -24,18 +26,41 @@ public class Card : ScriptableObject
 
     public BattleData lastBattle;
 
+    public Card Copy() 
+    {
+        return new Card()
+        {
+            health = health,
+            attack = attack,
+            cost = cost,
+            image = image,
+            typeOfDamage = typeOfDamage,
+            sigils = sigils,
+            injuries = injuries
+        };
+    }
+
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
         foreach (TypeOfDamage type in injuries)
         {
             if (type == causeOfDeath)
             {
-                // Lost soul
+                //lost soul
                 return;
             }
         }
         injuries.Add(causeOfDeath);
-        //new card
+
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            if (!sigils[i].negative)
+            {
+                sigils.RemoveAt(i);
+            }
+        }
+
+        if(sigils.Count != 3)sigils.Add(negativeSigil);
     }
     public void ActivateOnHitEffects(CardInCombat card) 
     {

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Sigil : ScriptableObject
 {
     public string sigilName;
+    public bool negative;
     public Sprite image;
 
     public virtual void PasiveEffect(CardInCombat card) 

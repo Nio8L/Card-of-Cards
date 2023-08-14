@@ -10,6 +10,7 @@ public class Deck : MonoBehaviour, IDataPersistence
      
     public List<Card> cards = new();
     public List<Card> drawPile;
+    public List<Card> discardPile;
     public List<GameObject> cardsInHand = new();
 
     [HideInInspector]
@@ -186,24 +187,40 @@ public class Deck : MonoBehaviour, IDataPersistence
     // Teglene na karti v //  
     public void DrawCard()
     {
-        if (drawPile.Count != 0)
+        if (drawPile.Count == 0)
         {
-            var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
-            card.transform.SetParent(CardsInHandParent);
-            card.transform.localScale = Vector3.one;
-            CardInHand cardInHand = card.GetComponent<CardInHand>();
-            cardInHand.card = drawPile[0];
-            cardInHand.deck = this;
-            drawPile.RemoveAt(0);
-            cardsInHand.Add(card);
-            TidyHand();
+            if (discardPile.Count != 0)
+            {
+                drawPile.AddRange(discardPile);
+                discardPile.Clear();
+            }
+            else return;
         }
+
+        var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
+        card.transform.SetParent(CardsInHandParent);
+        card.transform.localScale = Vector3.one;
+        CardInHand cardInHand = card.GetComponent<CardInHand>();
+        cardInHand.card = drawPile[0];
+        cardInHand.deck = this;
+        drawPile.RemoveAt(0);
+        cardsInHand.Add(card);
+        TidyHand();
     }
 
     public void DrawCard(int numOfCards)
     {
-        for (int i = 0; i < numOfCards && drawPile.Count != 0; i++)
+        for (int i = 0; i < numOfCards; i++)
         {
+            if (drawPile.Count == 0) 
+            {
+                if (discardPile.Count != 0)
+                {
+                    drawPile.AddRange(discardPile);
+                    discardPile.Clear();
+                }
+                else return;
+            }
             var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
             card.transform.SetParent(CardsInHandParent);
             card.transform.localScale = Vector3.one;
@@ -220,7 +237,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     {
         foreach (GameObject cardObject in cardsInHand)
         {
-            drawPile.Add(cardObject.GetComponent<CardInHand>().card);
+            discardPile.Add(cardObject.GetComponent<CardInHand>().card);
             Destroy(cardObject);
         }
         cardsInHand.Clear();
