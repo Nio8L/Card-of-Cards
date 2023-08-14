@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Card")]
 public class Card : ScriptableObject
 {
+    public int maxHealth;
     public int health;
     public int attack;
     public int cost;
@@ -42,16 +43,18 @@ public class Card : ScriptableObject
 
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
+        negativeSigil = Resources.Load<Sigil>("Sigils/WeakBleed");
         foreach (TypeOfDamage type in injuries)
         {
             if (type == causeOfDeath)
             {
+                
                 //lost soul
                 return;
             }
         }
         injuries.Add(causeOfDeath);
-
+        health = maxHealth;
         for (int i = 0; i < sigils.Count; i++)
         {
             if (!sigils[i].negative)
@@ -75,5 +78,14 @@ public class Card : ScriptableObject
     public void ActivateOnTakeDamageEffects(CardInCombat card)
     {
         foreach (Sigil sigil in sigils) sigil.OnTakeDamageEffect(card);
+    }
+
+    public Card ResetCard()
+    {
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            sigils[i] = Instantiate(sigils[i]);
+        }
+        return this;
     }
 }

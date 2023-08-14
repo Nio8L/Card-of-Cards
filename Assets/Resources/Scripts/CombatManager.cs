@@ -73,11 +73,17 @@ public class CombatManager : MonoBehaviour
     {
         foreach (CardInCombat activeCard in playerCards)
         {
-            activeCard.card.ActivatePasiveEffects(activeCard);
+            if (activeCard != null)
+            {
+                activeCard.card.ActivatePasiveEffects(activeCard);
+            }
+
         }
         foreach (CardInCombat activeCard in enemyCards)
         {
-            activeCard.card.ActivatePasiveEffects(activeCard);
+            if (activeCard != null) { 
+                activeCard.card.ActivatePasiveEffects(activeCard);
+            }
         }
         deck.DiscardHand();
         deck.energy = 3;

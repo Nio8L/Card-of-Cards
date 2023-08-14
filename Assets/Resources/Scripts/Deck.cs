@@ -117,9 +117,9 @@ public class Deck : MonoBehaviour, IDataPersistence
     }
 
     public void AddCard(Card card){
-        Card newCard = Instantiate(card);
+        Card newCard = Instantiate(card).ResetCard();
         newCard.name = card.name;
-
+        
         drawPile.Add(newCard);
         cards.Add(newCard);
         PrintDeck();
@@ -153,14 +153,12 @@ public class Deck : MonoBehaviour, IDataPersistence
             cardsInDeck += card.name;
             cardsInDeck += ", ";
         }
-        Debug.Log(cardsInDeck);
         cardsInDeck = "";
         foreach (Card card in drawPile)
         {
             cardsInDeck += card.name;
             cardsInDeck += ", ";
         }
-        Debug.Log(cardsInDeck);
     }
 
     public void TidyHand()
@@ -200,6 +198,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
         card.transform.SetParent(CardsInHandParent);
         card.transform.localScale = Vector3.one;
+
         CardInHand cardInHand = card.GetComponent<CardInHand>();
         cardInHand.card = drawPile[0];
         cardInHand.deck = this;
