@@ -89,6 +89,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
+
+        AddCard(10);
+        DrawCard(5);
     }
 
     private void Update()
@@ -120,12 +123,17 @@ public class Deck : MonoBehaviour, IDataPersistence
         PrintDeck();
     }
 
+
     //FOR TESTING
     public List<Card> randomCardSelection = new();
     public void AddCard(){
         AddCard(randomCardSelection[Random.Range(0, randomCardSelection.Count)]);
     }
 
+    public void AddCard(int numOfCards)
+    {
+        for (int i = 0; i < numOfCards; i++) AddCard();
+    }
     public void RemoveCard(Card card){
         drawPile.Remove(card);
         cards.Remove(card);
@@ -189,6 +197,32 @@ public class Deck : MonoBehaviour, IDataPersistence
             cardsInHand.Add(card);
             TidyHand();
         }
+    }
+
+    public void DrawCard(int numOfCards)
+    {
+        for (int i = 0; i < numOfCards && drawPile.Count != 0; i++)
+        {
+            var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
+            card.transform.SetParent(CardsInHandParent);
+            card.transform.localScale = Vector3.one;
+            CardInHand cardInHand = card.GetComponent<CardInHand>();
+            cardInHand.card = drawPile[0];
+            cardInHand.deck = this;
+            drawPile.RemoveAt(0);
+            cardsInHand.Add(card);
+        }
+        TidyHand();
+    }
+
+    public void DiscardHand() 
+    {
+        foreach (GameObject cardObject in cardsInHand)
+        {
+            drawPile.Add(cardObject.GetComponent<CardInHand>().card);
+            Destroy(cardObject);
+        }
+        cardsInHand.Clear();
     }
 
     //Shuffle the deck using the Fisher-Yates shuffle
