@@ -110,9 +110,6 @@ public class CombatManager : MonoBehaviour
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
         else if (enemyCard.benched) {DirectHit(playerCard); return;}
 
-        playerCard.card.ActivateOnHitEffects(playerCard);
-        enemyCard.card.ActivateOnHitEffects(enemyCard);
-
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, playerOldHp, enemyOldHp);
@@ -124,6 +121,9 @@ public class CombatManager : MonoBehaviour
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
 
         playerCard.card.lastBattle.LogResult();
+
+        playerCard.card.ActivateOnHitEffects(playerCard);
+        enemyCard.card.ActivateOnHitEffects(enemyCard);
 
 
 
