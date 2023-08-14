@@ -71,6 +71,14 @@ public class CombatManager : MonoBehaviour
     }
     void StartPlayerTurn()
     {
+        foreach (CardInCombat activeCard in playerCards)
+        {
+            activeCard.card.ActivatePasiveEffects(activeCard);
+        }
+        foreach (CardInCombat activeCard in enemyCards)
+        {
+            activeCard.card.ActivatePasiveEffects(activeCard);
+        }
         deck.DiscardHand();
         deck.energy = 3;
         deck.DrawCard(5);
@@ -122,7 +130,7 @@ public class CombatManager : MonoBehaviour
 
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
-        else if (enemyCard.benched) {DirectHit(playerCard); return;}      
+        else if (enemyCard.benched)  { DirectHit(playerCard); return;}      
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;

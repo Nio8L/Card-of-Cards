@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Deck : MonoBehaviour, IDataPersistence
 {
@@ -235,4 +236,42 @@ public class Deck : MonoBehaviour, IDataPersistence
     }
     //--------------------------------//
     #endregion
+
+    public void UpdateCardAppearance(Transform cardGameObject, Card card)
+    {
+        cardGameObject.GetChild(0).GetComponent<Image>().sprite = card.image;
+
+        Sprite damageIcon;
+        if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
+        else if (card.typeOfDamage == Card.TypeOfDamage.Scratch) damageIcon = scrachDamageIcon;
+        else damageIcon = poisonDamageIcon;
+        cardGameObject.GetChild(2).GetComponent<Image>().sprite = damageIcon;
+
+        cardGameObject.GetChild(3).GetComponent<TextMeshProUGUI>().text = card.name;
+        cardGameObject.GetChild(4).GetComponent<TextMeshProUGUI>().text = card.cost.ToString();
+        cardGameObject.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
+        cardGameObject.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
+
+        if (card.sigils.Count == 1)
+        {
+            cardGameObject.GetChild(7).GetComponent<Image>().sprite = card.sigils[0].image;
+            cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        else if (card.sigils.Count == 2)
+        {
+            cardGameObject.GetChild(8).GetComponent<Image>().sprite = card.sigils[0].image;
+            cardGameObject.GetChild(9).GetComponent<Image>().sprite = card.sigils[1].image;
+            cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        else if (card.sigils.Count == 3)
+        {
+            cardGameObject.GetChild(7).GetComponent<Image>().sprite = card.sigils[0].image;
+            cardGameObject.GetChild(8).GetComponent<Image>().sprite = card.sigils[1].image;
+            cardGameObject.GetChild(9).GetComponent<Image>().sprite = card.sigils[2].image;
+            cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+    }
 }

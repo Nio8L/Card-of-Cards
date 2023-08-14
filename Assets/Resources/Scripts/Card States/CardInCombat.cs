@@ -21,7 +21,7 @@ public class CardInCombat : MonoBehaviour
     float maxAnimationTime = 0.5f;
     void Start()
     {
-        UpdateCardAppearance();
+        deck.UpdateCardAppearance(transform, card);
     }
 
     private void Update()
@@ -34,7 +34,7 @@ public class CardInCombat : MonoBehaviour
 
             if (curentAnimationTime < 0f)
             {
-                UpdateCardAppearance();
+                deck.UpdateCardAppearance(transform, card);
             }
         }
         else if (card.health <= 0)
@@ -46,17 +46,6 @@ public class CardInCombat : MonoBehaviour
 
             Destroy(gameObject);
         }
-    }
-
-    public void UpdateCardAppearance()
-    {
-        transform.GetChild(0).GetComponent<Image>().sprite = card.image;
-        //transform.GetChild(2).GetComponent<Image>().sprite = ;
-        transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = card.name;
-        transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = card.cost.ToString();
-        transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
-        transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
-
     }
 
     public void PutOnOrOffTheBenchEnemyCards()
