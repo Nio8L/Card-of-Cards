@@ -22,10 +22,10 @@ public class CardInHand : MonoBehaviour
 
     public void OnStopDrag()
     {
-        CardSlot cardSlot = CheckForSlot();
-        if (cardSlot != null && cardSlot.playerSlot && deck.combatManager.playerCards[cardSlot.slot] == null && deck.energy >= card.cost)
+        BenchSlot benchSlot = CheckForSlot();
+        if (benchSlot != null && benchSlot.playerSlot && deck.combatManager.playerCards[benchSlot.slot] == null && deck.energy >= card.cost)
         {
-            PlayCard(cardSlot);
+            PlayCard(benchSlot);
             deck.selectedCard = null;
         }
         deck.selectedCard = null;
@@ -64,31 +64,33 @@ public class CardInHand : MonoBehaviour
     }
     //that is for deck.TidyHand()
 
-    CardSlot CheckForSlot()
+    BenchSlot CheckForSlot()
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 100);
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider.tag == "CardSlot")
+            if (hit.collider.tag == "BenchSlot")
             {
-                return hit.transform.GetComponent<CardSlot>();
+                return hit.transform.GetComponent<BenchSlot>();
             }
         }
         return null;
     }
 
-    public void PlayCard(CardSlot slot)
+    public void PlayCard(BenchSlot slot)
     {
-        GameObject cardToCreate =  Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
+        GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
         cardInCombat.deck = deck;
+        cardInCombat.slot = slot.slot;
 
         deck.energy -= card.cost;
         deck.combatManager.playerCards[slot.slot] = cardInCombat;
+
         //maha go ot deck.cardsInHand
         if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
         Destroy(gameObject);

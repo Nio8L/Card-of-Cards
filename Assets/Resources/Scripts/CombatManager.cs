@@ -6,9 +6,15 @@ public class CombatManager : MonoBehaviour
 {
     public int gamePhase = 0; // 0 - player turn, 1 - enemy turn -> combat phase
 
+    public int playerHealth = 20;
+    public int enemyHealth = 20;
+
     public CardInCombat[] playerCards = new CardInCombat[3];
     public CardInCombat[] enemyCards = new CardInCombat[3];
     public CardSlot[] enemySlots = new CardSlot[3];
+    public GameObject[] playerCombatSlots = new GameObject[3];
+    public GameObject[] playerBenchSlots = new GameObject[3];
+
     Deck deck;
     private void Start()
     {
@@ -64,11 +70,19 @@ public class CombatManager : MonoBehaviour
     //--------------------------------//
     void DirectHit(CardInCombat card)
     {
+        if (card.benched) return;
         card.PerformShortAttackAnimation();
+
+        if (card.playerCard) enemyHealth -= card.card.attack;
+        else playerHealth -= card.card.attack;
         //to do
     }
     void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
     {
+        if (playerCard.benched && enemyCard.benched) return;
+        else if (playerCard.benched) { DirectHit(enemyCard); return;}
+        else if (enemyCard.benched) {DirectHit(playerCard); return;}
+
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
         playerCard.card.ActivateOnHitEffects(enemyCard.card);

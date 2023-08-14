@@ -14,6 +14,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public List<GameObject> cardsInHand = new();
     GameObject cardInHandPrefab;
     public GameObject cardInCombatPrefab;
+    public GameObject cardInBenchPrefab;
 
     public Transform CardsInHandParent;
     public Transform CardsInCombatParent;
@@ -181,7 +182,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             CardInHand cardInHand = card.GetComponent<CardInHand>();
             cardInHand.card = drawPile[0];
             cardInHand.deck = this;
-            cards.RemoveAt(0);
+            drawPile.RemoveAt(0);
             cardsInHand.Add(card);
             TidyHand();
         }

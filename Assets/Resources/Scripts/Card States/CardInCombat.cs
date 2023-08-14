@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class CardInCombat : MonoBehaviour
 {
+    public bool benched = true;
+
     public Card card;
     public Deck deck;
     public Card.TypeOfDamage lastTypeOfDamage;
@@ -19,6 +21,7 @@ public class CardInCombat : MonoBehaviour
     float maxAnimationTime = 0.5f;
     void Start()
     {
+        if (!playerCard) benched = false;
         UpdateCardAppearance();
     }
 
@@ -50,6 +53,23 @@ public class CardInCombat : MonoBehaviour
         transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
         transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
 
+    }
+
+    public void BenchOrUnbench() 
+    {
+        if (!playerCard) return;
+        benched = !benched;
+        PutOnOrOffTheBench();
+    }
+
+    void PutOnOrOffTheBench() 
+    {
+        if (benched) 
+        {
+            transform.position = deck.combatManager.playerBenchSlots[slot].transform.position;
+            return;
+        }
+        transform.position = deck.combatManager.playerCombatSlots[slot].transform.position;
     }
 
     public void PerformShortAttackAnimation()

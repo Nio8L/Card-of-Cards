@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CardSlot
+  - CardInHand
+  - BenchSlot
   layers:
   - Default
   - TransparentFX
