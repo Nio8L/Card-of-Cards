@@ -14,6 +14,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public List<GameObject> cardsInHand = new();
     GameObject cardInHandPrefab;
     public GameObject cardInCombatPrefab;
+    public GameObject cardInBenchPrefab;
 
     public Transform CardsInHandParent;
     public Transform CardsInCombatParent;
@@ -48,19 +49,6 @@ public class Deck : MonoBehaviour, IDataPersistence
         data.cardHealths.Clear();
         data.cardCosts.Clear();
         data.cardImages.Clear();
-        
-        List<Card> newCardList = new();
-
-        for(int i = 0; i < 3; i++){
-            if(combatManager.playerCards[i] != null){
-                newCardList.Add(combatManager.playerCards[i].card);
-            }
-        }
-
-        foreach(GameObject card in cardsInHand)newCardList.Add(card.GetComponent<CardInHand>().card);
-
-        newCardList.AddRange(cards); 
-        cards = newCardList;
 
         for(int i = 0; i < cards.Count; i++){
             data.cardNames.Add(cards[i].name);
