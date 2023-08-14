@@ -16,6 +16,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject cardsInHand;
     [SerializeField] private GameObject cardsInCombat;
     [SerializeField] private GameObject buttons;
+    [SerializeField] private GameObject bench;
 
     private void Update() {
         if(Input.GetKeyUp(KeyCode.Escape)){
@@ -48,5 +49,6 @@ public class GameMenu : MonoBehaviour
         cardsInHand.SetActive(!cardsInHand.activeSelf);
         cardsInCombat.SetActive(!cardsInCombat.activeSelf);
         buttons.SetActive(!backButton.activeSelf);
+        bench.SetActive(!bench.activeSelf);
     }
 }

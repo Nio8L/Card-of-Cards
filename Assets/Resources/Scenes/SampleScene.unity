@@ -993,6 +993,7 @@ MonoBehaviour:
   cardsInHand: {fileID: 1729705259}
   cardsInCombat: {fileID: 743951258}
   buttons: {fileID: 1617487357}
+  bench: {fileID: 291470461}
 --- !u!4 &573670494
 Transform:
   m_ObjectHideFlags: 0
