@@ -74,20 +74,22 @@ public class CombatManager : MonoBehaviour
 
     #region Attacks
     //--------------------------------//
-    void DirectHit(CardInCombat card)
+    public void DirectHit(CardInCombat card)
     {
         card.PerformShortAttackAnimation();
+        Debug.Log("Direct hit by " + card.card.name);
         //to do
     }
-    void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
+    public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
     {
+        playerCard.card.ActivateOnHitEffects(playerCard);
+        enemyCard.card.ActivateOnHitEffects(enemyCard);
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
-        playerCard.card.ActivateOnHitEffects(enemyCard.card);
-
+       
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
-        enemyCard.card.ActivateOnHitEffects(playerCard.card);
+        
 
         playerCard.PerformShortAttackAnimation();
         enemyCard.PerformShortAttackAnimation();
