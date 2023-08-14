@@ -8,18 +8,21 @@ public class Deck : MonoBehaviour, IDataPersistence
     public int energy = 3;
      
     public List<Card> cards = new();
-    public List<Card> cardsInHand = new();
 
     public CombatManager combatManager;
-
+    public List<GameObject> cardsInHand = new();
     GameObject cardInHandPrefab;
     public GameObject cardInCombatPrefab;
 
     public Transform canvasTransform;
 
     public Transform selectedCard;
-
     TextMeshProUGUI energyText;
+
+    public Vector2 centerPointForcardsInHand;
+    public float spaceBetweenCardsInHand;
+    public Transform hoveredCard;
+    public float spaceForHoveredCard;
 
     #region Saving
     //--------------------------------//
@@ -45,7 +48,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         data.cardImages.Clear();
         
         List<Card> newCardList = new();
-        newCardList.AddRange(cardsInHand);
+
+        foreach(GameObject card in cardsInHand)newCardList.Add(card.GetComponent<CardInHand>().card);
+
         newCardList.AddRange(cards); 
         cards = newCardList;
 
@@ -77,6 +82,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             selectedCard.position = new Vector3(mousePosition.x, mousePosition.y, 0);
         }
         energyText.text = energy + "/3";
+
     }
 
     #region Deck Functions
@@ -114,17 +120,39 @@ public class Deck : MonoBehaviour, IDataPersistence
         Debug.Log(cardsInDeck);
     }
 
+    public void TidyHand()
+    {
+        for (int i = 0; i < cardsInHand.Count; i++)
+        {
+            if (cardsInHand[i] != null)cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
+        }
+
+        foreach (GameObject card in cardsInHand)
+        {
+           if(card != hoveredCard) card.transform.SetAsLastSibling();
+        }
+
+        if (hoveredCard != null) 
+        {
+            hoveredCard.SetAsLastSibling();
+            hoveredCard.localScale = new Vector2(1.3f,1.3f);
+            hoveredCard.position = new Vector2(hoveredCard.position.x, hoveredCard.position.y+spaceForHoveredCard);
+        }
+    }
+
+
     // Teglene na karti v //  
     public void DrawCard()
     {
-        cardsInHand.Add(cards[0]);
         var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
         card.transform.SetParent(canvasTransform);
         card.transform.localScale = Vector3.one;
         CardInHand cardInHand = card.GetComponent<CardInHand>();
-        cardInHand.card = cardsInHand[cardsInHand.Count - 1];
+        cardInHand.card = cards[0];
         cardInHand.deck = this;
         cards.RemoveAt(0);
+        cardsInHand.Add(card);
+        TidyHand();
     }
 
     //Shuffle the deck using the Fisher-Yates shuffle

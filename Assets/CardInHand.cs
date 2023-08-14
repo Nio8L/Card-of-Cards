@@ -29,6 +29,7 @@ public class CardInHand : MonoBehaviour
             deck.selectedCard = null;
         }
         deck.selectedCard = null;
+        deck.TidyHand();
     }
     //--------------------------------//
     #endregion
@@ -41,6 +42,27 @@ public class CardInHand : MonoBehaviour
         transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
         transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
     }
+
+    //that is for deck.TidyHand()
+    public void GetOnTop(Transform card)
+    {
+        if (deck.hoveredCard == null) 
+        {
+            deck.hoveredCard = card;
+            deck.TidyHand();
+        }
+    }
+
+    public void Unselect(Transform card) 
+    {
+        if (card == deck.hoveredCard)
+        {
+            deck.hoveredCard.localScale = new Vector2(1,1);
+            deck.hoveredCard = null;
+            deck.TidyHand();
+        }
+    }
+    //that is for deck.TidyHand()
 
     CardSlot CheckForSlot()
     {
@@ -67,7 +89,8 @@ public class CardInHand : MonoBehaviour
 
         deck.energy -= card.cost;
         deck.combatManager.playerCards[slot.slot] = cardInCombat;
-
+        //maha go ot deck.cardsInHand
+        if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
         Destroy(gameObject);
     }
 }

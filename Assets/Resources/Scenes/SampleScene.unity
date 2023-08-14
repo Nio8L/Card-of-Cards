@@ -812,6 +812,10 @@ MonoBehaviour:
   cardInCombatPrefab: {fileID: 0}
   canvasTransform: {fileID: 0}
   selectedCard: {fileID: 0}
+  centerPointForcardsInHand: {x: 0, y: -290}
+  spaceBetweenCardsInHand: 150
+  hoveredCard: {fileID: 0}
+  spaceForHoveredCard: 1
   randomCardSelection:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
