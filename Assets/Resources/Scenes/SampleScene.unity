@@ -966,6 +966,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 291470462}
     m_Modifications:
+    - target: {fileID: 241247089693376529, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
+      propertyPath: slot
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8353563794156794256, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
       propertyPath: m_Name
       value: BenchSlot3
@@ -1111,6 +1115,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 291470462}
     m_Modifications:
+    - target: {fileID: 241247089693376529, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
+      propertyPath: slot
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8353563794156794256, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
       propertyPath: m_Name
       value: BenchSlot5
@@ -1205,6 +1213,9 @@ MonoBehaviour:
   spaceBetweenCardsInHand: 250
   hoveredCard: {fileID: 0}
   spaceForHoveredCard: 1
+  biteDamageIcon: {fileID: 0}
+  scrachDamageIcon: {fileID: 0}
+  poisonDamageIcon: {fileID: 0}
   randomCardSelection:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
@@ -1254,9 +1265,9 @@ MonoBehaviour:
   - {fileID: 2139350438}
   - {fileID: 2121677830}
   enemyBenchSlots:
-  - {fileID: 1257608876}
-  - {fileID: 1907636989}
   - {fileID: 313896877}
+  - {fileID: 1907636989}
+  - {fileID: 1257608876}
   playerCombatSlots:
   - {fileID: 1241588461}
   - {fileID: 466676044}
@@ -1987,6 +1998,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 291470462}
     m_Modifications:
+    - target: {fileID: 241247089693376529, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
+      propertyPath: slot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8353563794156794256, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
       propertyPath: m_Name
       value: BenchSlot4
