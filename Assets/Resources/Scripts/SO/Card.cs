@@ -9,7 +9,6 @@ public class Card : ScriptableObject
     public int attack;
     public int cost;
     public Sprite image;
-
     public enum TypeOfDamage
     {
         Poison,
@@ -22,6 +21,8 @@ public class Card : ScriptableObject
     public List<Sigil> sigils = new();
 
     public List<TypeOfDamage> injuries = new();
+
+    public BattleData lastBattle;
 
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
