@@ -16,6 +16,28 @@ public class FileDataHandler
         this.dataFileName = dataFileName;
     }
 
+    public SettingsData LoadSettings(){
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+
+        SettingsData loadedData = null;
+
+        if(File.Exists(fullPath)){
+            try{
+                string dataToLoad = "";
+                using(FileStream stream = new FileStream(fullPath, FileMode.Open)){
+                    using(StreamReader reader = new StreamReader(stream)){
+                        dataToLoad = reader.ReadToEnd();
+                    }
+                }
+
+                loadedData = JsonUtility.FromJson<SettingsData>(dataToLoad);
+            }catch(Exception e){
+                Debug.LogError("Error ocurred when trying to load from " + fullPath + "\n" + e);
+            }
+        }
+        return loadedData;
+    }
+
     public GameData Load(string profileId){
         if(profileId == null){
             return null;
@@ -42,8 +64,27 @@ public class FileDataHandler
         return loadedData;
     }
 
+    public void SaveSettings(SettingsData data){
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+
+        try{
+            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+
+            string dataToStore = JsonUtility.ToJson(data);
+
+            using(FileStream stream = new FileStream(fullPath, FileMode.Create)){
+                using(StreamWriter writer = new StreamWriter(stream)){
+                    writer.Write(dataToStore);
+                }
+            }
+        }catch(Exception e){
+            Debug.LogError("Error occured when trying to save settings data to " + fullPath + "\n" + e);
+        }
+    }
+
     public void Save(GameData data, string profileId){
         if(profileId == null){
+            Debug.Log("no profileID");
             return;
         }
 

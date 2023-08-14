@@ -117,7 +117,9 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public void RemoveCard(){
         drawPile.RemoveAt(drawPile.Count - 1);
+        cards.RemoveAt(cards.Count - 1);
         PrintDeck();
+        
     }
 
     public void PrintDeck(){
