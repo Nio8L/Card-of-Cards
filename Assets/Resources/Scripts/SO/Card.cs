@@ -36,14 +36,13 @@ public class Card : ScriptableObject
         injuries.Add(causeOfDeath);
         //new card
     }
-
     public void ActivateOnHitEffects(Card enemyCard) 
     {
-        foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect(this,enemyCard);
+        foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect();
     }
 
     public void ActivatePasiveEffects(Card[] enemyCards, Card[] fiendlyCards) 
     {
-        foreach (Sigil sigil in sigils) sigil.PasiveEffect(enemyCards,fiendlyCards);
+        foreach (Sigil sigil in sigils) sigil.PasiveEffect();
     }
 }

@@ -181,7 +181,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             CardInHand cardInHand = card.GetComponent<CardInHand>();
             cardInHand.card = drawPile[0];
             cardInHand.deck = this;
-            cards.RemoveAt(0);
+            drawPile.RemoveAt(0);
             cardsInHand.Add(card);
             TidyHand();
         }

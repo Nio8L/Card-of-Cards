@@ -29,6 +29,11 @@ public class CardInCombat : MonoBehaviour
         {
             curentAnimationTime -= Time.deltaTime;
             transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(curentAnimationTime)*2);
+
+            if (curentAnimationTime < 0f)
+            {
+                UpdateCardAppearance();
+            }
         }
         else if (card.health <= 0)
         {
@@ -54,7 +59,7 @@ public class CardInCombat : MonoBehaviour
 
     public void PerformShortAttackAnimation()
     {
-        curentAnimationTime = maxAnimationTime;
+        curentAnimationTime = maxAnimationTime + 0.25f * slot;
         endPosition = new Vector3(transform.position.x, 0f, 0f);
         startPosition = transform.position;
     }

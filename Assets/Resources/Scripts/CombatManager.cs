@@ -20,11 +20,22 @@ public class CombatManager : MonoBehaviour
     public void StartEnemyTurn()
     {
         gamePhase = 1;
+
         Card card = deck.randomCardSelection[Random.Range(0, deck.randomCardSelection.Count)];
         Card cardToPlay = Instantiate(card);
         cardToPlay.name = card.name;
 
-        EnemyPlayCard(cardToPlay, enemySlots[Random.Range(0, 3)]);
+        int rand, failEscape = 0;
+        do
+        {
+            failEscape++;
+            rand = Random.Range(0, 3);
+        } while (enemyCards[rand] != null && failEscape < 20);
+
+        if (failEscape < 20)
+        {
+            EnemyPlayCard(cardToPlay, enemySlots[rand]);
+        }
         StartCombatPhase();
     }
     void StartCombatPhase()
@@ -55,6 +66,7 @@ public class CombatManager : MonoBehaviour
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
         cardInCombat.deck = deck;
+        cardInCombat.slot = slot.slot;
         cardInCombat.playerCard = false;
 
         deck.combatManager.enemyCards[slot.slot] = cardInCombat;
@@ -76,9 +88,6 @@ public class CombatManager : MonoBehaviour
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
         enemyCard.card.ActivateOnHitEffects(playerCard.card);
-
-        playerCard.UpdateCardAppearance();
-        enemyCard.UpdateCardAppearance();
 
         playerCard.PerformShortAttackAnimation();
         enemyCard.PerformShortAttackAnimation();

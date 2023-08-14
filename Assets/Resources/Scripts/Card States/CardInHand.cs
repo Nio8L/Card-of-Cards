@@ -86,6 +86,7 @@ public class CardInHand : MonoBehaviour
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
         cardInCombat.deck = deck;
+        cardInCombat.slot = slot.slot;
 
         deck.energy -= card.cost;
         deck.combatManager.playerCards[slot.slot] = cardInCombat;
