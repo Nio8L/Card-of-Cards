@@ -67,7 +67,7 @@ public class CombatManager : MonoBehaviour
     {
         GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one;
+        cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
@@ -103,10 +103,12 @@ public class CombatManager : MonoBehaviour
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
+        playerCard.card.ActivateOnTakeDamageEffects(playerCard);
        
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
-        
+        enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
+
 
         playerCard.PerformShortAttackAnimation();
         enemyCard.PerformShortAttackAnimation();

@@ -45,4 +45,9 @@ public class Card : ScriptableObject
     {
         foreach (Sigil sigil in sigils) sigil.PasiveEffect(card);
     }
+
+    public void ActivateOnTakeDamageEffects(CardInCombat card)
+    {
+        foreach (Sigil sigil in sigils) sigil.OnTakeDamageEffect(card);
+    }
 }

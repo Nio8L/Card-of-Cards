@@ -18,4 +18,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 68d8ce4e4e6d8864cb138166e2a90e84, type: 3}
   typeOfDamage: 0
   sigils: []
-  injuries: 00000000
+  injuries: 
