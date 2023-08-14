@@ -15,11 +15,11 @@ public class GameData
     public List<string> cardImages;
 
     public GameData(){
-       cardNames = new();
-       cardAttacks = new();
-       cardHealths = new();
-       cardCosts = new();
-       cardImages = new();
+        cardNames = new();
+        cardAttacks = new();
+        cardHealths = new();
+        cardCosts = new();
+        cardImages = new();
     }
     
 }

@@ -11,22 +11,25 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] private string fileName;
 
     [Header("Developer Tools")]
-    [SerializeField] private bool AutoSaveData = false;
+    [SerializeField] public bool AutoSaveData = false;
 
     private GameData gameData;
+    private SettingsData settingsData;
 
     public static DataPersistenceManager DataManager { get; private set; }
 
     private List<IDataPersistence> dataPersistenceObjects;
-    private FileDataHandler dataHandler;
+    private List<ISettingsPersistence> settingsPersistenceObjects;
 
+    private FileDataHandler dataHandler;
+    private FileDataHandler settingsHandler;
 
 
     private string selectedProfileId = "";
 
     private void Awake() {
         if(DataManager != null){
-            Debug.LogError("Found more than one Data Persistence Manager in this scene. Destroying the newest one.");
+            //Debug.LogError("Found more than one Data Persistence Manager in this scene. Destroying the newest one.");
             Destroy(this.gameObject);
             return;
         }
@@ -34,8 +37,13 @@ public class DataPersistenceManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        settingsHandler = new FileDataHandler(Application.persistentDataPath, "settings.json");
 
         selectedProfileId = dataHandler.GetMostRecentProfileId();
+    }
+
+    private void Start() {
+        settingsPersistenceObjects = FindSettingsPersistenceObject();
     }
 
     private void OnEnable() {
@@ -54,7 +62,10 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     public void OnSceneUnloaded(Scene scene){
-        SaveGame();
+        if(AutoSaveData){
+            SaveGame();
+            SaveSettings();
+        }
     }
 
     public void ChangeSelectedProfileId(string newProfileId){
@@ -63,8 +74,20 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
+    public void NewSettings(){
+        settingsData = new SettingsData();
+    }
+
     public void NewGame(){
         gameData = new GameData();
+    }
+
+    public void SaveSettings(){
+        foreach(ISettingsPersistence settingsPersistenceObject in settingsPersistenceObjects){
+            settingsPersistenceObject.SaveData(ref settingsData);
+        }
+
+        settingsHandler.SaveSettings(settingsData);
     }
 
     public void SaveGame(){
@@ -84,6 +107,21 @@ public class DataPersistenceManager : MonoBehaviour
 
     }
 
+    public void LoadSettings(){
+        settingsData = settingsHandler.LoadSettings();
+
+        settingsPersistenceObjects = FindSettingsPersistenceObject();
+
+        if(settingsData == null){
+            Debug.Log("no settings data was found. Creating new settings file.");
+            NewSettings();
+        }
+
+        foreach(ISettingsPersistence settingsPersistenceObject in settingsPersistenceObjects){
+            settingsPersistenceObject.LoadData(settingsData);
+        }
+    }
+
     public void LoadGame(){
         gameData = dataHandler.Load(selectedProfileId);
 
@@ -101,12 +139,18 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnApplicationQuit() {
         if(AutoSaveData){
             SaveGame();
+            SaveSettings();
         }
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects(){
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
         return new List<IDataPersistence>(dataPersistenceObjects);
+    }
+
+    private List<ISettingsPersistence> FindSettingsPersistenceObject(){
+        IEnumerable<ISettingsPersistence> settingsPersistenceObjects = FindObjectsOfType<MonoBehaviour>(true).OfType<ISettingsPersistence>();
+        return new List<ISettingsPersistence>(settingsPersistenceObjects);
     }
 
     public bool HasGameData(){

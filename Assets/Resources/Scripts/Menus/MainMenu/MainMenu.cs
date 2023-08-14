@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Menu Navigation")]
     [SerializeField] private SaveSlotsMenu saveSlotsMenu;
+    [SerializeField] private SettingsMenu settingsMenu;
 
     [Header("Main Menu Buttons")]
     [SerializeField] private Button continueButton;
@@ -32,6 +33,11 @@ public class MainMenu : MonoBehaviour
     public void OnContinueClick(){
         SceneManager.LoadSceneAsync("SampleScene");
     }  
+
+    public void OnSettingsClick(){
+        settingsMenu.ActivateMenu();
+        DeactivateMenu();
+    }
 
     public void ActivateMenu(){
         gameObject.SetActive(true);
