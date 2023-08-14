@@ -1089,12 +1089,12 @@ MonoBehaviour:
   energy: 3
   cards: []
   drawPile: []
-  combatManager: {fileID: 0}
   cardsInHand: []
+  combatManager: {fileID: 0}
   cardInCombatPrefab: {fileID: 0}
   cardInBenchPrefab: {fileID: 0}
-  CardsInHandParent: {fileID: 0}
-  CardsInCombatParent: {fileID: 0}
+  CardsInHandParent: {fileID: 1729705260}
+  CardsInCombatParent: {fileID: 743951259}
   selectedCard: {fileID: 0}
   centerPointForcardsInHand: {x: 0, y: -450}
   spaceBetweenCardsInHand: 250

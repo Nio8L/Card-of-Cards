@@ -9,23 +9,35 @@ public class Deck : MonoBehaviour, IDataPersistence
      
     public List<Card> cards = new();
     public List<Card> drawPile;
-
-    public CombatManager combatManager;
     public List<GameObject> cardsInHand = new();
+
+    [HideInInspector]
+    public CombatManager combatManager;
+    [HideInInspector]
     GameObject cardInHandPrefab;
+    [HideInInspector]
     public GameObject cardInCombatPrefab;
+    [HideInInspector]
     public GameObject cardInBenchPrefab;
 
     public Transform CardsInHandParent;
     public Transform CardsInCombatParent;
 
+    [HideInInspector]
     public Transform selectedCard;
     TextMeshProUGUI energyText;
 
     public Vector2 centerPointForcardsInHand;
     public float spaceBetweenCardsInHand;
+    [HideInInspector]
     public Transform hoveredCard;
     public float spaceForHoveredCard;
+
+    [HideInInspector]
+    public Sprite biteDamageIcon;
+    public Sprite scrachDamageIcon;
+    public Sprite poisonDamageIcon;
+
 
     #region Saving
     //--------------------------------//
@@ -65,6 +77,10 @@ public class Deck : MonoBehaviour, IDataPersistence
     {
         cardInHandPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInHand");
         cardInCombatPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInCombat");
+
+        biteDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeBite");
+        scrachDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeSlash");
+        poisonDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypePoison");
 
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
