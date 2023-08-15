@@ -18,16 +18,12 @@ public class Migrate : Sigil
             direction = -1;
         }
 
-        if (card.deck.combatManager.playerCards[card.slot + direction] == null)
-        {
-            Move(card);
-        }
-        else
+        if (card.deck.combatManager.playerCards[card.slot + direction] != null)
         {
             direction *= -1;
-            Move(card);
         }
-        
+        Move(card);
+
     }
 
     void Move(CardInCombat card)

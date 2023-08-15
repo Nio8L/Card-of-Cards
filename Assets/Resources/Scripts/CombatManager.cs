@@ -52,7 +52,7 @@ public class CombatManager : MonoBehaviour
         Card cardToPlay = Instantiate(card);
         cardToPlay.name = card.name;
 
-        int rand, failEscape = 0;
+        int rand, failEscape = 20;
         do
         {
             failEscape++;
@@ -90,24 +90,45 @@ public class CombatManager : MonoBehaviour
     }
     void StartPlayerTurn()
     {
-        foreach (CardInCombat activeCard in playerCards)
+        if (gamePhase == 1)
         {
-            if (activeCard != null)
+            foreach (CardInCombat activeCard in playerCards)
             {
-                activeCard.card.ActivatePasiveEffects(activeCard);
+                if (activeCard != null)
+                {
+                    activeCard.passivesTurnedOnThisTurn = false;
+                }
+
+            }
+            foreach (CardInCombat activeCard in enemyCards)
+            {
+                if (activeCard != null)
+                {
+                    activeCard.passivesTurnedOnThisTurn = false;
+                }
             }
 
-        }
-        foreach (CardInCombat activeCard in enemyCards)
-        {
-            if (activeCard != null) { 
-                activeCard.card.ActivatePasiveEffects(activeCard);
+            foreach (CardInCombat activeCard in playerCards)
+            {
+                if (activeCard != null && activeCard.passivesTurnedOnThisTurn == false) 
+                {
+                    activeCard.passivesTurnedOnThisTurn = true;
+                    activeCard.card.ActivatePasiveEffects(activeCard);
+                }
             }
+            foreach (CardInCombat activeCard in enemyCards)
+            {
+                if (activeCard != null && activeCard.passivesTurnedOnThisTurn == false)
+                {
+                    activeCard.passivesTurnedOnThisTurn = true;
+                    activeCard.card.ActivatePasiveEffects(activeCard);
+                }
+            }
+            deck.DiscardHand();
+            deck.energy = 3;
+            deck.DrawCard(5);
+            gamePhase = 0;
         }
-        deck.DiscardHand();
-        deck.energy = 3;
-        deck.DrawCard(5);
-        gamePhase = 0;
     }
     //--------------------------------//
     #endregion

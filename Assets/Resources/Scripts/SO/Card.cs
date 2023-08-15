@@ -87,7 +87,12 @@ public class Card : ScriptableObject
 
     public void ActivatePasiveEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.PasiveEffect(card);
+        Debug.Log("ActivatePasiveEffects started on " + card.card.name);
+        foreach (Sigil sigil in sigils) 
+        {
+            Debug.Log("Activating " + card.card.name);
+            sigil.PasiveEffect(card);
+        } 
     }
 
     public void ActivateOnTakeDamageEffects(CardInCombat card)
