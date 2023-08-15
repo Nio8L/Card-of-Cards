@@ -53,6 +53,8 @@ public class CardInCombat : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
     public void PutOnOrOffTheBenchEnemyCards()

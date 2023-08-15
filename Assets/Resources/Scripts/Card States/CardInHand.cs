@@ -23,10 +23,30 @@ public class CardInHand : MonoBehaviour
     public void OnStopDrag()
     {
         BenchSlot benchSlot = CheckForSlot();
-        if (benchSlot != null && benchSlot.playerSlot && deck.combatManager.playerCards[benchSlot.slot] == null && deck.energy >= card.cost)
-        {
-            PlayCard(benchSlot);
-        }
+        
+            if (benchSlot != null && benchSlot.playerSlot && deck.energy >= card.cost)
+            {
+                if(card.name != "LostSoul"){
+                    if(deck.combatManager.playerCards[benchSlot.slot] == null){
+                        PlayCard(benchSlot);
+                    }
+                }else if(deck.combatManager.playerCards[benchSlot.slot] != null){
+                    Card healedCard = deck.combatManager.playerCards[benchSlot.slot].GetComponent<CardInCombat>().card;
+                    
+                    healedCard.AcceptLostSoul();
+                    deck.UpdateCardAppearance(deck.combatManager.playerCards[benchSlot.slot].transform, healedCard);
+                    Debug.Log("playing lost soul on " + healedCard.name);
+                    for(int i = 0; i < healedCard.sigils.Count; i++){
+                        Debug.Log(healedCard.sigils[i].name);
+                    }
+
+                    deck.cards.Remove(card);
+
+                    if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
+                    Destroy(gameObject);
+                }
+            }
+        
         deck.selectedCard = null;
         deck.TidyHand();
     }

@@ -1103,6 +1103,7 @@ MonoBehaviour:
   card: {fileID: 0}
   deck: {fileID: 0}
   lastTypeOfDamage: 0
+  passivesTurnedOnThisTurn: 0
   playerCard: 1
   slot: 0
 --- !u!114 &8919155628295456012

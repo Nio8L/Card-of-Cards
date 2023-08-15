@@ -42,6 +42,23 @@ public class Card : ScriptableObject
         };
     }
 
+    public void AcceptLostSoul(){
+        RemoveNegativeSigils();
+        RemoveInjuries();
+    }
+
+    public void RemoveNegativeSigils(){
+        for(int i = 0; i < sigils.Count; i++){
+            if(sigils[i].negative){
+                sigils.Remove(sigils[i]);
+            }
+        }
+    }
+
+    public void RemoveInjuries(){
+        injuries.Clear();
+    }
+
     public void CopyFrom(Card cardToCopyFrom)
     {
         name = cardToCopyFrom.name;
