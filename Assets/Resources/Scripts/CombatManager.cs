@@ -51,7 +51,7 @@ public class CombatManager : MonoBehaviour
         gamePhase = 1;
 
         Card card = deck.randomCardSelection[Random.Range(0, deck.randomCardSelection.Count)];
-        Card cardToPlay = Instantiate(card);
+        Card cardToPlay = Instantiate(card).ResetCard();
         cardToPlay.name = card.name;
 
         int rand, failEscape = 0;
@@ -146,24 +146,49 @@ public class CombatManager : MonoBehaviour
     }
     void StartPlayerTurn()
     {
-        foreach (CardInCombat activeCard in playerCards)
+        if (gamePhase == 1)
         {
-            if (activeCard != null)
+            deck.DiscardHand();
+            deck.energy = 3;
+            deck.DrawCard(5);
+
+            foreach (CardInCombat activeCard in playerCards)
             {
-                activeCard.card.ActivatePasiveEffects(activeCard);
+                if (activeCard != null)
+                {
+                    activeCard.passivesTurnedOnThisTurn = false;
+                }
+
+            }
+            foreach (CardInCombat activeCard in enemyCards)
+            {
+                if (activeCard != null)
+                {
+                    activeCard.passivesTurnedOnThisTurn = false;
+                }
             }
 
-        }
-        foreach (CardInCombat activeCard in enemyCards)
-        {
-            if (activeCard != null) { 
-                activeCard.card.ActivatePasiveEffects(activeCard);
+            foreach (CardInCombat activeCard in playerCards)
+            {
+                if (activeCard != null && activeCard.passivesTurnedOnThisTurn == false) 
+                {
+                    activeCard.passivesTurnedOnThisTurn = true;
+                    activeCard.card.ActivatePasiveEffects(activeCard);
+                    deck.UpdateCardAppearance(activeCard.transform, activeCard.card);
+                }
             }
+            foreach (CardInCombat activeCard in enemyCards)
+            {
+                if (activeCard != null && activeCard.passivesTurnedOnThisTurn == false)
+                {
+                    activeCard.passivesTurnedOnThisTurn = true;
+                    activeCard.card.ActivatePasiveEffects(activeCard);
+                    deck.UpdateCardAppearance(activeCard.transform, activeCard.card);
+                }
+            }
+            
+            gamePhase = 0;
         }
-        deck.DiscardHand();
-        deck.energy = 3;
-        deck.DrawCard(5);
-        gamePhase = 0;
     }
     //--------------------------------//
     #endregion
@@ -211,7 +236,11 @@ public class CombatManager : MonoBehaviour
 
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
-        else if (enemyCard.benched)  { DirectHit(playerCard); return;}      
+        else if (enemyCard.benched)  { DirectHit(playerCard); return;}
+
+        // Generate inaccurate battle data
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
@@ -221,6 +250,7 @@ public class CombatManager : MonoBehaviour
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
 
+        // Generate accurate battle data
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
         enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 

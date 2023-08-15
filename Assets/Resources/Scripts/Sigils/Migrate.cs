@@ -18,26 +18,39 @@ public class Migrate : Sigil
             direction = -1;
         }
 
-        if (card.deck.combatManager.playerCards[card.slot + direction] == null)
-        {
-            Move(card);
-        }
-        else
+
+        if (card.playerCard && card.deck.combatManager.playerCards[card.slot + direction] != null)
         {
             direction *= -1;
-            Move(card);
         }
-        
+        else if (!card.playerCard && card.deck.combatManager.enemyCards[card.slot + direction] != null)
+        {
+            direction *= -1;
+        }
+        Move(card);
+
     }
 
     void Move(CardInCombat card)
     {
+        if (card.slot + direction < 0 || card.slot + direction >= card.deck.combatManager.playerCombatSlots.Length) return;
+
         if (!card.benched)
         {
-            card.deck.combatManager.playerCards[card.slot] = null;
-            card.deck.combatManager.playerCards[card.slot + direction] = card;
-            card.slot += direction;
-            card.transform.position = card.deck.combatManager.playerCombatSlots[card.slot].transform.position;
+            if (card.playerCard && card.deck.combatManager.playerCards[card.slot + direction] == null)
+            {
+                card.deck.combatManager.playerCards[card.slot] = null;
+                card.deck.combatManager.playerCards[card.slot + direction] = card;
+                card.slot += direction;
+                card.transform.position = card.deck.combatManager.playerCombatSlots[card.slot].transform.position;
+            }
+            else if (!card.playerCard && card.deck.combatManager.enemyCards[card.slot + direction] == null)
+            {
+                card.deck.combatManager.enemyCards[card.slot] = null;
+                card.deck.combatManager.enemyCards[card.slot + direction] = card;
+                card.slot += direction;
+                card.transform.position = card.deck.combatManager.enemyCombatSlots[card.slot].transform.position;
+            }
         }
 
     }

@@ -12,6 +12,9 @@ public class CardInCombat : MonoBehaviour
     public Deck deck;
     public Card.TypeOfDamage lastTypeOfDamage;
 
+    [HideInInspector]
+    public bool passivesTurnedOnThisTurn = false;
+
     public bool playerCard = true;
     public int slot = 0;
     public bool moved;

@@ -87,7 +87,10 @@ public class Card : ScriptableObject
 
     public void ActivatePasiveEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.PasiveEffect(card);
+        foreach (Sigil sigil in sigils) 
+        {
+            sigil.PasiveEffect(card);
+        } 
     }
 
     public void ActivateOnTakeDamageEffects(CardInCombat card)
@@ -100,7 +103,9 @@ public class Card : ScriptableObject
         health = maxHealth;
         for (int i = 0; i < sigils.Count; i++)
         {
+            string oldSigilName = sigils[i].name;
             sigils[i] = Instantiate(sigils[i]);
+            sigils[i].name = oldSigilName;
         }
         return this;
     }
