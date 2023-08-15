@@ -57,11 +57,12 @@ public class Deck : MonoBehaviour, IDataPersistence
             cards[^1].cost = data.cardCosts[i];
             cards[^1].image = Resources.Load<Sprite>("Sprites/" + data.cardImages[i]);
 
-            for(int j = 0; j < data.sigils[i].list.Count; j++){
-                Sigil originalSigil = Resources.Load<Sigil>("Sigils/" + data.sigils[i].list[j]);
+            for(int j = 0; j < data.cardSigils[i].list.Count; j++){
+                Sigil originalSigil = Resources.Load<Sigil>("Sigils/" + data.cardSigils[i].list[j]);
                 Sigil sigilToAdd = Instantiate(originalSigil);
                 sigilToAdd.name = originalSigil.name;
                 cards[^1].sigils.Add(sigilToAdd);
+            }
             cards[^1].typeOfDamage = (Card.TypeOfDamage) Enum.Parse(typeof(Card.TypeOfDamage), data.cardDamageType[i]);
 
             for(int j = 0; j < data.cardInjuries[i].list.Count; j++){
