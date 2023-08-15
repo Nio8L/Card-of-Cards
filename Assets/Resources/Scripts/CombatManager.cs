@@ -36,6 +36,8 @@ public class CombatManager : MonoBehaviour
         }
         else if (startPlayerTurn)
         {
+            foreach (CardInCombat card in playerCards) if(card != null) card.PutOnOrOffTheBench();
+            foreach (CardInCombat card in enemyCards) if (card != null) card.PutOnOrOffTheBenchEnemyCards();
             StartPlayerTurn();
             startPlayerTurn = false;
         }
@@ -74,7 +76,64 @@ public class CombatManager : MonoBehaviour
         }
 
         StartCombatPhase();
+        BenchMovement();
     }
+
+    void BenchMovement()
+    {
+        FindCardsToSwap(playerCards);
+        FindCardsToSwap(enemyCards);
+
+        ResetMovedCards();
+
+        timerToNextTurn = resetTimerTo;
+        startPlayerTurn = true;
+    }
+
+    void FindCardsToSwap(CardInCombat[] colection) 
+    {
+        foreach (CardInCombat card in colection)
+        {
+            if (card == null || card.moved) continue;
+
+            int slot = card.slot;
+            if (card.benched && colection.Length > slot + 1 && (colection[slot + 1] == null || !colection[slot + 1].benched))
+            {
+                card.moved = true;
+                if (colection[slot + 1] != null) colection[slot + 1].moved = true;
+                SwapCards(slot, slot + 1, colection, playerBenchSlots);
+            }
+            else if (card.benched && slot - 1 >= 0 && (colection[slot - 1] == null || !colection[slot - 1].benched))
+            {
+                card.moved = true;
+                if (colection[slot - 1] != null) colection[slot - 1].moved = true;
+                SwapCards(slot, slot - 1, colection, playerBenchSlots);
+            }
+        }
+    }
+
+    void SwapCards(int card1, int card2, CardInCombat[] colection, GameObject[] benchSlots) 
+    {
+        CardInCombat temp = colection[card1];
+        colection[card1] = colection[card2];
+        colection[card2] = temp;
+
+        colection[card2].transform.position = benchSlots[card2].transform.position;
+        colection[card2].slot = card2;
+
+        if (colection[card1] != null)
+        {
+            colection[card1].transform.position = benchSlots[card1].transform.position;
+            colection[card1].slot = card1;
+        }
+    }
+
+    void ResetMovedCards() 
+    {
+        foreach (CardInCombat card in playerCards) if (card != null)card.moved = false;
+        foreach (CardInCombat card in enemyCards) if (card != null) card.moved = false;
+    }
+
     void StartCombatPhase()
     {
 
@@ -84,9 +143,6 @@ public class CombatManager : MonoBehaviour
             else if (playerCards[i] != null) DirectHit(playerCards[i]);
             else if (enemyCards[i] != null) DirectHit(enemyCards[i]);
         }
-
-        timerToNextTurn = resetTimerTo;
-        startPlayerTurn = true;
     }
     void StartPlayerTurn()
     {

@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 7f343d334e3d08d44b83c5f3087b2e40
+guid: daefadd2cd7d41b488b5b6138b76ac3e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - image: {instanceID: 0}
-  - negativeSigil: {fileID: 11400000, guid: 56bf0572d90e004499bfa0fe5fe9741c, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

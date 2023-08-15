@@ -17,6 +17,7 @@ public class CardInCombat : MonoBehaviour
 
     public bool playerCard = true;
     public int slot = 0;
+    public bool moved;
 
     Vector3 startPosition;
     Vector3 endPosition;
@@ -74,7 +75,7 @@ public class CardInCombat : MonoBehaviour
         PutOnOrOffTheBench();
     }
 
-    void PutOnOrOffTheBench() 
+    public void PutOnOrOffTheBench() 
     {
         if (benched) 
         {
