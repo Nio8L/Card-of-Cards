@@ -105,7 +105,9 @@ public class Card : ScriptableObject
         health = maxHealth;
         for (int i = 0; i < sigils.Count; i++)
         {
+            string oldSigilName = sigils[i].name;
             sigils[i] = Instantiate(sigils[i]);
+            sigils[i].name = oldSigilName;
         }
         return this;
     }

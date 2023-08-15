@@ -78,7 +78,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
             for(int j = 0; j < cards[i].sigils.Count; j++){
                 string sigilName = cards[i].sigils[j].name;
-                data.sigils[i].list.Add(sigilName.Remove(sigilName.Length - 7));
+                data.sigils[i].list.Add(sigilName);
             }
         }
     }
