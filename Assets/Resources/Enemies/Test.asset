@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  maxHealth: 15
+  cards:
+  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
+  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
+  startPlayingDefensivelyAt: 10
+  startPlayingAggressivelyAt: 10
+  useKillerStrategyInstead: 0

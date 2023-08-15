@@ -8,12 +8,15 @@ using System;
 
 public class Deck : MonoBehaviour, IDataPersistence
 {
+    public bool playerDeck = false;
+
     public int energy = 3;
      
     public List<Card> cards = new();
     public List<Card> drawPile;
     public List<Card> discardPile;
     public List<GameObject> cardsInHand = new();
+    public List<Card> cardsInHandAsCards = new();
 
     [HideInInspector]
     public CombatManager combatManager;
@@ -45,6 +48,9 @@ public class Deck : MonoBehaviour, IDataPersistence
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
+
+        if (!playerDeck) return;
+
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
             Card newCard = new();
@@ -76,6 +82,8 @@ public class Deck : MonoBehaviour, IDataPersistence
     }
 
     public void SaveData(ref GameData data){
+        if (!playerDeck) return;
+
         data.cardNames.Clear();
         data.cardAttacks.Clear();
         //data.cardHealths.Clear();
@@ -133,7 +141,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
 
-        if(cards.Count == 0){
+        if(cards.Count == 0 && playerDeck){
             AddCard(10);
         }
         DrawCard(5);
@@ -240,15 +248,21 @@ public class Deck : MonoBehaviour, IDataPersistence
             else return;
         }
 
-        var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
-        card.transform.SetParent(CardsInHandParent);
-        card.transform.localScale = Vector3.one;
+        if (playerDeck)
+        {
+            var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
+            card.transform.SetParent(CardsInHandParent);
+            card.transform.localScale = Vector3.one;
 
-        CardInHand cardInHand = card.GetComponent<CardInHand>();
-        cardInHand.card = drawPile[0];
-        cardInHand.deck = this;
+            CardInHand cardInHand = card.GetComponent<CardInHand>();
+            cardInHand.card = drawPile[0];
+            cardInHand.deck = this;
+            cardsInHand.Add(card);
+        }
+
+        cardsInHandAsCards.Add(drawPile[0]);
+        
         drawPile.RemoveAt(0);
-        cardsInHand.Add(card);
         TidyHand();
     }
 
@@ -256,35 +270,24 @@ public class Deck : MonoBehaviour, IDataPersistence
     {
         for (int i = 0; i < numOfCards; i++)
         {
-            if (drawPile.Count == 0) 
-            {
-                if (discardPile.Count != 0)
-                {
-                    drawPile.AddRange(discardPile);
-                    discardPile.Clear();
-                }
-                else return;
-            }
-            var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
-            card.transform.SetParent(CardsInHandParent);
-            card.transform.localScale = Vector3.one;
-            CardInHand cardInHand = card.GetComponent<CardInHand>();
-            cardInHand.card = drawPile[0];
-            cardInHand.deck = this;
-            drawPile.RemoveAt(0);
-            cardsInHand.Add(card);
+            DrawCard();
         }
-        TidyHand();
     }
 
     public void DiscardHand() 
     {
-        foreach (GameObject cardObject in cardsInHand)
+        for (int i = 0; i < cardsInHandAsCards.Count; i++)
         {
-            discardPile.Add(cardObject.GetComponent<CardInHand>().card);
-            Destroy(cardObject);
+            discardPile.Add(cardsInHandAsCards[i]);
+
+            if (playerDeck)
+            {
+                GameObject cardObject = cardsInHand[i];
+                Destroy(cardObject);
+            }
         }
         cardsInHand.Clear();
+        cardsInHandAsCards.Clear();
     }
 
     //Shuffle the deck using the Fisher-Yates shuffle

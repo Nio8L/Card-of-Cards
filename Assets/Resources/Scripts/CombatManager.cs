@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
+
+    public EnemyAI enemy;
+
     public int gamePhase = 0; // 0 - player turn, 1 - enemy turn -> combat phase
 
     public int playerHealth = 20;
@@ -23,9 +26,12 @@ public class CombatManager : MonoBehaviour
     bool startPlayerTurn = false;
 
     Deck deck;
+    public Deck enemyDeck;
     private void Start()
     {
         deck = GetComponent<Deck>();
+        enemyDeck = GameObject.Find("EnemyDeck").GetComponent<Deck>();
+        enemy.Initialize();
     }
 
     private void Update()
@@ -48,35 +54,17 @@ public class CombatManager : MonoBehaviour
         if (gamePhase == 1) return;
         gamePhase = 1;
 
-        Card card = deck.randomCardSelection[Random.Range(0, deck.randomCardSelection.Count)];
-        Card cardToPlay = Instantiate(card).ResetCard();
-        cardToPlay.name = card.name;
+        enemyDeck.DiscardHand();
+        enemyDeck.energy = 3;
+        enemyDeck.DrawCard(5);
 
-        int rand, failEscape = 0;
-        do
-        {
-            failEscape++;
-            rand = Random.Range(0, 3);
-        } while (enemyCards[rand] != null && failEscape < 20);
-
-        if (failEscape < 20)
-        {
-            EnemyPlayCard(cardToPlay, enemyBenchSlots[rand], rand);
-        }
-
-        foreach (CardInCombat cardToUnbench in enemyCards)
-        {
-            if (cardToUnbench != null)
-            {
-                cardToUnbench.benched = false;
-                cardToUnbench.PutOnOrOffTheBenchEnemyCards();
-            }
-        }
+        enemy.StartTurn();
 
         StartCombatPhase();
     }
     void StartCombatPhase()
     {
+        Debug.Log("Start combat");
 
         for (int i = 0; i < 3; i++)
         {
@@ -136,9 +124,9 @@ public class CombatManager : MonoBehaviour
     }
     //--------------------------------//
     #endregion
-    public void EnemyPlayCard(Card card, GameObject slot, int slotNumber)
+    public void EnemyPlayCard(Card card, int slotNumber)
     {
-        GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
+        GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, enemyCombatSlots[slotNumber].transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
@@ -147,9 +135,11 @@ public class CombatManager : MonoBehaviour
         cardInCombat.deck = deck;
         cardInCombat.slot = slotNumber;
         cardInCombat.playerCard = false;
-        cardInCombat.benched = true;
+        cardInCombat.benched = false;
 
         enemyCards[slotNumber] = cardInCombat;
+        enemyDeck.energy -= card.cost;
+        if (enemyDeck.cardsInHandAsCards.Contains(card)) enemyDeck.cardsInHandAsCards.Remove(card);
     }
 
     #region Attacks

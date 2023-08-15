@@ -504,7 +504,7 @@ Transform:
   - {fileID: 1907636993}
   - {fileID: 313896881}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &313896877 stripped
 GameObject:
@@ -1090,7 +1090,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &743951258
 GameObject:
@@ -1227,11 +1227,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5395177cee3a9c649a66ffea4205b81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDeck: 1
   energy: 3
   cards: []
   drawPile: []
   discardPile: []
   cardsInHand: []
+  cardsInHandAsCards: []
   combatManager: {fileID: 0}
   cardInCombatPrefab: {fileID: 0}
   cardInBenchPrefab: {fileID: 0}
@@ -1245,7 +1247,6 @@ MonoBehaviour:
   biteDamageIcon: {fileID: 0}
   scrachDamageIcon: {fileID: 0}
   poisonDamageIcon: {fileID: 0}
-  testSigil: {fileID: 0}
   randomCardSelection:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
@@ -1281,6 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8920dcbd911f9c40bf5e52f6872d33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
   gamePhase: 0
   playerHealth: 20
   enemyHealth: 20
@@ -1308,6 +1310,7 @@ MonoBehaviour:
   - {fileID: 502671941}
   - {fileID: 884885375}
   - {fileID: 2946165028615603894}
+  enemyDeck: {fileID: 0}
 --- !u!1 &808257200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,7 +2238,7 @@ Transform:
   - {fileID: 508077339}
   - {fileID: 2017550106}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1241588461 stripped
 GameObject:
@@ -2793,6 +2796,78 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
   m_PrefabInstance: {fileID: 1210418284}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1537027586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1537027588}
+  - component: {fileID: 1537027587}
+  m_Layer: 0
+  m_Name: EnemyDeck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1537027587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537027586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5395177cee3a9c649a66ffea4205b81e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDeck: 0
+  energy: 3
+  cards: []
+  drawPile: []
+  discardPile: []
+  cardsInHand: []
+  cardsInHandAsCards: []
+  combatManager: {fileID: 0}
+  cardInCombatPrefab: {fileID: 0}
+  cardInBenchPrefab: {fileID: 0}
+  CardsInHandParent: {fileID: 1729705260}
+  CardsInCombatParent: {fileID: 743951259}
+  selectedCard: {fileID: 0}
+  centerPointForcardsInHand: {x: 0, y: -450}
+  spaceBetweenCardsInHand: 250
+  hoveredCard: {fileID: 0}
+  spaceForHoveredCard: 1
+  biteDamageIcon: {fileID: 0}
+  scrachDamageIcon: {fileID: 0}
+  poisonDamageIcon: {fileID: 0}
+  randomCardSelection:
+  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
+  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
+  - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
+--- !u!4 &1537027588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537027586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 539.42474, y: 346.21127, z: -690.0945}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1617487357
 GameObject:
   m_ObjectHideFlags: 0

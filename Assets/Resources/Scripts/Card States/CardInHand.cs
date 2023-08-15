@@ -86,6 +86,7 @@ public class CardInHand : MonoBehaviour
 
         //maha go ot deck.cardsInHand
         if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
+        if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
         Destroy(gameObject);
     }
 }
