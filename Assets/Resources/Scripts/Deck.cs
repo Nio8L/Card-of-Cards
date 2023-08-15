@@ -55,7 +55,10 @@ public class Deck : MonoBehaviour, IDataPersistence
             cards[^1].image = Resources.Load<Sprite>("Sprites/" + data.cardImages[i]);
 
             for(int j = 0; j < data.sigils[i].list.Count; j++){
-                cards[^1].sigils.Add(Instantiate(Resources.Load<Sigil>("Sigils/" + data.sigils[i].list[j])));
+                Sigil originalSigil = Resources.Load<Sigil>("Sigils/" + data.sigils[i].list[j]);
+                Sigil sigilToAdd = Instantiate(originalSigil);
+                sigilToAdd.name = originalSigil.name;
+                cards[^1].sigils.Add(sigilToAdd);
             }
         }
     }

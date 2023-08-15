@@ -87,10 +87,8 @@ public class Card : ScriptableObject
 
     public void ActivatePasiveEffects(CardInCombat card) 
     {
-        Debug.Log("ActivatePasiveEffects started on " + card.card.name);
         foreach (Sigil sigil in sigils) 
         {
-            Debug.Log("Activating " + card.card.name);
             sigil.PasiveEffect(card);
         } 
     }

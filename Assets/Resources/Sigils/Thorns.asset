@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39962dbc6e60b1c42970cfdd8d2b4f6a, type: 3}
+  m_Name: Thorns
+  m_EditorClassIdentifier: 
+  sigilName: Thorns
+  negative: 0
+  image: {fileID: 21300000, guid: 686929e7fab3d52479ec268c3918964b, type: 3}
+  damage: 1

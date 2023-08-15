@@ -92,6 +92,10 @@ public class CombatManager : MonoBehaviour
     {
         if (gamePhase == 1)
         {
+            deck.DiscardHand();
+            deck.energy = 3;
+            deck.DrawCard(5);
+
             foreach (CardInCombat activeCard in playerCards)
             {
                 if (activeCard != null)
@@ -114,6 +118,7 @@ public class CombatManager : MonoBehaviour
                 {
                     activeCard.passivesTurnedOnThisTurn = true;
                     activeCard.card.ActivatePasiveEffects(activeCard);
+                    deck.UpdateCardAppearance(activeCard.transform, activeCard.card);
                 }
             }
             foreach (CardInCombat activeCard in enemyCards)
@@ -122,11 +127,10 @@ public class CombatManager : MonoBehaviour
                 {
                     activeCard.passivesTurnedOnThisTurn = true;
                     activeCard.card.ActivatePasiveEffects(activeCard);
+                    deck.UpdateCardAppearance(activeCard.transform, activeCard.card);
                 }
             }
-            deck.DiscardHand();
-            deck.energy = 3;
-            deck.DrawCard(5);
+            
             gamePhase = 0;
         }
     }
@@ -176,7 +180,11 @@ public class CombatManager : MonoBehaviour
 
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
-        else if (enemyCard.benched)  { DirectHit(playerCard); return;}      
+        else if (enemyCard.benched)  { DirectHit(playerCard); return;}
+
+        // Generate inaccurate battle data
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
@@ -186,6 +194,7 @@ public class CombatManager : MonoBehaviour
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
 
+        // Generate accurate battle data
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
         enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 
