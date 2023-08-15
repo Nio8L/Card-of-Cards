@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8920dcbd911f9c40bf5e52f6872d33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 11400000, guid: 9029475f59336d54892a30ba79edaf0e, type: 2}
   gamePhase: 0
   playerHealth: 20
   enemyHealth: 20
