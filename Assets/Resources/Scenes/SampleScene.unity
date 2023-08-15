@@ -1072,11 +1072,11 @@ MonoBehaviour:
   backButton: {fileID: 1471435263}
   saveGameButton: {fileID: 1742293499}
   mainMenuButton: {fileID: 90838027}
-  cardSlots: {fileID: 0}
+  cardSlots: {fileID: 1212856396}
   cardsInHand: {fileID: 1729705259}
   cardsInCombat: {fileID: 743951258}
   buttons: {fileID: 1617487357}
-  bench: {fileID: 0}
+  bench: {fileID: 291470461}
 --- !u!4 &573670494
 Transform:
   m_ObjectHideFlags: 0
@@ -1245,6 +1245,7 @@ MonoBehaviour:
   biteDamageIcon: {fileID: 0}
   scrachDamageIcon: {fileID: 0}
   poisonDamageIcon: {fileID: 0}
+  testSigil: {fileID: 0}
   randomCardSelection:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
