@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+
+public class ListWrapper
+{
+    public List<string> list;
+
+    public ListWrapper(){
+        list = new();
+    }
+}
+
 public class GameData
 {
   
@@ -14,12 +24,15 @@ public class GameData
     public List<int> cardCosts;
     public List<string> cardImages;
 
+    public List<ListWrapper> sigils;
+
     public GameData(){
         cardNames = new();
         cardAttacks = new();
         cardHealths = new();
         cardCosts = new();
         cardImages = new();
+        sigils = new();
     }
     
 }

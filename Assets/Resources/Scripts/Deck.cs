@@ -40,7 +40,6 @@ public class Deck : MonoBehaviour, IDataPersistence
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
 
-
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
@@ -54,6 +53,10 @@ public class Deck : MonoBehaviour, IDataPersistence
             cards[^1].health = data.cardHealths[i];
             cards[^1].cost = data.cardCosts[i];
             cards[^1].image = Resources.Load<Sprite>("Sprites/" + data.cardImages[i]);
+
+            for(int j = 0; j < data.sigils[i].list.Count; j++){
+                cards[^1].sigils.Add(Instantiate(Resources.Load<Sigil>("Sigils/" + data.sigils[i].list[j])));
+            }
         }
     }
 
@@ -63,6 +66,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         data.cardHealths.Clear();
         data.cardCosts.Clear();
         data.cardImages.Clear();
+        data.sigils.Clear();
 
         for(int i = 0; i < cards.Count; i++){
             data.cardNames.Add(cards[i].name);
@@ -70,6 +74,12 @@ public class Deck : MonoBehaviour, IDataPersistence
             data.cardHealths.Add(cards[i].health);
             data.cardCosts.Add(cards[i].cost);
             data.cardImages.Add(cards[i].image.name);
+            data.sigils.Add(new ListWrapper());
+
+            for(int j = 0; j < cards[i].sigils.Count; j++){
+                string sigilName = cards[i].sigils[j].name;
+                data.sigils[i].list.Add(sigilName.Remove(sigilName.Length - 7));
+            }
         }
     }
     //--------------------------------//
