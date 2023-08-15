@@ -102,7 +102,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
 
-        AddCard(10);
+        if(cards.Count == 0){
+            AddCard(10);
+        }
         DrawCard(5);
     }
 

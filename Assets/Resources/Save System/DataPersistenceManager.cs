@@ -80,6 +80,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame(){
         gameData = new GameData();
+        SaveGame();
     }
 
     public void SaveSettings(){
