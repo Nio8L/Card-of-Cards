@@ -26,7 +26,6 @@ public class CardInHand : MonoBehaviour
         if (benchSlot != null && benchSlot.playerSlot && deck.combatManager.playerCards[benchSlot.slot] == null && deck.energy >= card.cost)
         {
             PlayCard(benchSlot);
-            deck.selectedCard = null;
         }
         deck.selectedCard = null;
         deck.TidyHand();
@@ -71,6 +70,8 @@ public class CardInHand : MonoBehaviour
 
     public void PlayCard(BenchSlot slot)
     {
+        if (deck.combatManager.gamePhase == 1) return;
+
         GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one * 0.75f;

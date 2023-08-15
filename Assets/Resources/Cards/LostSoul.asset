@@ -16,7 +16,7 @@ MonoBehaviour:
   health: 0
   attack: 0
   cost: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: cb3d8ee937b49fe489f1680d10a4321d, type: 3}
   typeOfDamage: 0
   sigils: []
   injuries: 

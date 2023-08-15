@@ -64,7 +64,7 @@ public class CardInCombat : MonoBehaviour
 
     public void BenchOrUnbench() 
     {
-        if (!playerCard) return;
+        if (!playerCard || deck.combatManager.gamePhase == 1) return;
         benched = !benched;
         PutOnOrOffTheBench();
     }
@@ -82,7 +82,7 @@ public class CardInCombat : MonoBehaviour
     public void PerformShortAttackAnimation()
     {
         curentAnimationTime = maxAnimationTime + 0.25f * slot;
-        endPosition = new Vector3(transform.position.x, 0f, 0f);
+        endPosition = new Vector3(transform.position.x, 1f, 0f);
         startPosition = transform.position;
     }
 }

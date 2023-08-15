@@ -18,16 +18,34 @@ public class CombatManager : MonoBehaviour
     public GameObject[] playerCombatSlots = new GameObject[3];
     public GameObject[] playerBenchSlots = new GameObject[3];
 
+    float timerToNextTurn = 0f;
+    float resetTimerTo = 2f;
+    bool startPlayerTurn = false;
+
     Deck deck;
     private void Start()
     {
         deck = GetComponent<Deck>();
     }
 
+    private void Update()
+    {
+        if (timerToNextTurn > 0)
+        {
+            timerToNextTurn -= Time.deltaTime;
+        }
+        else if (startPlayerTurn)
+        {
+            StartPlayerTurn();
+            startPlayerTurn = false;
+        }
+    }
+
     #region Game Phases
     //--------------------------------//
     public void StartEnemyTurn()
     {
+        if (gamePhase == 1) return;
         gamePhase = 1;
 
         Card card = deck.randomCardSelection[Random.Range(0, deck.randomCardSelection.Count)];
@@ -67,7 +85,8 @@ public class CombatManager : MonoBehaviour
             else if (enemyCards[i] != null) DirectHit(enemyCards[i]);
         }
 
-        StartPlayerTurn();
+        timerToNextTurn = resetTimerTo;
+        startPlayerTurn = true;
     }
     void StartPlayerTurn()
     {

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: WeakBleed
   m_EditorClassIdentifier: 
   sigilName: Bleed
+  negative: 1
   image: {fileID: 21300000, guid: 324f082b08f4237449564c6c684758cd, type: 3}
+  count: 0
   turnToDealDamage: 2
   damage: 1

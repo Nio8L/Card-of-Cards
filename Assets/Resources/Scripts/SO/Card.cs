@@ -6,6 +6,7 @@ using UnityEngine;
 public class Card : ScriptableObject
 {
     public int maxHealth;
+    [HideInInspector]
     public int health;
     public int attack;
     public int cost;
@@ -41,6 +42,19 @@ public class Card : ScriptableObject
         };
     }
 
+    public void CopyFrom(Card cardToCopyFrom)
+    {
+        name = cardToCopyFrom.name;
+
+        maxHealth = cardToCopyFrom.maxHealth;
+        attack = cardToCopyFrom.attack;
+        cost = cardToCopyFrom.cost;
+        image = cardToCopyFrom.image;
+        typeOfDamage = cardToCopyFrom.typeOfDamage;
+        sigils = cardToCopyFrom.sigils;
+        injuries = cardToCopyFrom.injuries;
+    }
+
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
         negativeSigil = Resources.Load<Sigil>("Sigils/WeakBleed");
@@ -48,8 +62,9 @@ public class Card : ScriptableObject
         {
             if (type == causeOfDeath)
             {
-                
-                //lost soul
+                Card lostSoul = Resources.Load<Card>("Cards/LostSoul");
+                CopyFrom(lostSoul);
+                ResetCard();
                 return;
             }
         }
@@ -82,6 +97,7 @@ public class Card : ScriptableObject
 
     public Card ResetCard()
     {
+        health = maxHealth;
         for (int i = 0; i < sigils.Count; i++)
         {
             sigils[i] = Instantiate(sigils[i]);

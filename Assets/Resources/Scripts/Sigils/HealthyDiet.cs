@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/Bleed")]
-public class Bleed : Sigil
+[CreateAssetMenu(menuName = "Sigil/HealthyDiet")]
+public class HealthyDiet : Sigil
 {
     public int count = 0;
-    public int turnToDealDamage;
-    public int damage;
+    public int turnToHeal;
+    public int heal;
     public override void PasiveEffect(CardInCombat card)
     {
         count++;
-        if (count >= turnToDealDamage)
+        if (count >= turnToHeal && card.card.health < card.card.maxHealth)
         {
-            card.card.health -= damage;
+            card.card.health += heal;
             count = 0;
         }
         
