@@ -49,10 +49,10 @@ public class CombatManager : MonoBehaviour
         gamePhase = 1;
 
         Card card = deck.randomCardSelection[Random.Range(0, deck.randomCardSelection.Count)];
-        Card cardToPlay = Instantiate(card);
+        Card cardToPlay = Instantiate(card).ResetCard();
         cardToPlay.name = card.name;
 
-        int rand, failEscape = 20;
+        int rand, failEscape = 0;
         do
         {
             failEscape++;
