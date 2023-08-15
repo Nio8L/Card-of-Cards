@@ -17,6 +17,7 @@ public class CardInCombat : MonoBehaviour
 
     public bool playerCard = true;
     public int slot = 0;
+    public bool moved;
 
     Vector3 startPosition;
     Vector3 endPosition;
@@ -53,6 +54,8 @@ public class CardInCombat : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
     public void PutOnOrOffTheBenchEnemyCards()
@@ -72,7 +75,7 @@ public class CardInCombat : MonoBehaviour
         PutOnOrOffTheBench();
     }
 
-    void PutOnOrOffTheBench() 
+    public void PutOnOrOffTheBench() 
     {
         if (benched) 
         {

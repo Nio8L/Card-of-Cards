@@ -316,6 +316,10 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
         cardGameObject.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
 
+
+        cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         // Set sigil sprites
         if (card.sigils.Count == 1)
         {
@@ -340,7 +344,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         }
         
         // Set injury marks
-
+        cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         foreach (Card.TypeOfDamage injury in card.injuries)
         {
             if (injury == Card.TypeOfDamage.Bite) cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 1);
