@@ -58,7 +58,7 @@ public class SecondSkin : Sigil
                 cm.enemyCards[card.slot + direction] = card;
                 card.slot += direction;
                 card.transform.position = cm.enemyCombatSlots[card.slot].transform.position;
-                cm.EnemyPlayCard(card,slot);
+                cm.EnemyPlayCard(card.card,slot);
             }
         }
 
