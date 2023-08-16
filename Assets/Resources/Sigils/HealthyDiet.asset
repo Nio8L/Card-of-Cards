@@ -15,6 +15,7 @@ MonoBehaviour:
   sigilName: Healthy Diet
   negative: 0
   image: {fileID: 21300000, guid: c275e3611089ab04eb616a4227bb1848, type: 3}
+  description: Regenerate 1HP every turn.
   count: 0
   turnToHeal: 1
   heal: 1

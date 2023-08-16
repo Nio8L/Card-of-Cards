@@ -15,4 +15,5 @@ MonoBehaviour:
   sigilName: Foresight
   negative: 0
   image: {fileID: 21300000, guid: 7dda844f998fa8248b0c0f8f73b72264, type: 3}
+  description: Draw 1 more card each turn.
   numberOfCardsToDraw: 1

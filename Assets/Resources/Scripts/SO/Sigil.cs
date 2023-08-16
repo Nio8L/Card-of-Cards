@@ -8,6 +8,7 @@ public class Sigil : ScriptableObject
     public string sigilName;
     public bool negative;
     public Sprite image;
+    public string description;
 
     public virtual void PasiveEffect(CardInCombat card) 
     {
