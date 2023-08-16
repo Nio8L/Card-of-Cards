@@ -56,6 +56,7 @@ public class CardInHand : MonoBehaviour
 
                     deck.cards.Remove(card);
 
+                    if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
                     if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
                     Destroy(gameObject);
                 }*/

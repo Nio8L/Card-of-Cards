@@ -14,12 +14,12 @@ public class EnemyAI : ScriptableObject
     //public bool canBench;
     //public bool tryToPredictBench;
     public bool useKillerStrategyInstead;
-    
-    int bias = 0;
-    int thinkLimit;
 
-    Strategy currentStrategy;
-    enum Strategy
+    public int bias = 0;
+    public int thinkLimit;
+
+    public Strategy currentStrategy;
+    public enum Strategy
     {
         Aggressive,
         Killer,
@@ -49,9 +49,7 @@ public class EnemyAI : ScriptableObject
     }
     void Think()
     {
-        Debug.Log("Thinking");
         currentStrategy = PickStrategy();
-        Debug.Log("Strategy: " + currentStrategy);
 
         if (currentStrategy == Strategy.Defensive)
         {
@@ -77,7 +75,14 @@ public class EnemyAI : ScriptableObject
                 Card card = PickCard();
                 if (card != null)
                 {
-                    combatManager.EnemyPlayCard(card, targetIndex);
+                    if (card.name != "LostSoul")
+                    {
+                        combatManager.EnemyPlayCard(card, targetIndex);
+                    }
+                    else
+                    {
+                        UseLostSoul(card);
+                    }
                 }
             }
             else
@@ -112,8 +117,19 @@ public class EnemyAI : ScriptableObject
                 Card card = PickCard();
                 if (card != null)
                 {
-                    combatManager.EnemyPlayCard(card, targetIndex);
+                    if (card.name != "LostSoul")
+                    {
+                        combatManager.EnemyPlayCard(card, targetIndex);
+                    }
+                    else
+                    {
+                        UseLostSoul(card);
+                    }
                 }
+            }
+            else
+            {
+                currentStrategy = Strategy.Random;
             }
 
         }
@@ -137,32 +153,50 @@ public class EnemyAI : ScriptableObject
                 Card card = PickCard();
                 if (card != null)
                 {
-                    combatManager.EnemyPlayCard(card, targetIndex);
+                    if (card.name != "LostSoul")
+                    {
+                        combatManager.EnemyPlayCard(card, targetIndex);
+                    }
+                    else
+                    {
+                        UseLostSoul(card);
+                    }
                 }
+            }
+            else
+            {
+                currentStrategy = Strategy.Random;
             }
 
         }
-        else if (currentStrategy == Strategy.Random)
+        
+        if (currentStrategy == Strategy.Random)
         {
-            Card cardToPlay = PickCard();
+            Card card = PickCard();
 
-            int rand, failEscape = 0;
+            int targetIndex, failEscape = 0;
             do
             {
                 failEscape++;
-                rand = Random.Range(0, 3);
-            } while (combatManager.enemyCards[rand] != null && failEscape < 20);
+                targetIndex = Random.Range(0, 3);
+            } while (combatManager.enemyCards[targetIndex] != null && failEscape < 20);
 
-            if (failEscape < 20 && cardToPlay != null)
+            if (failEscape < 20 && card != null)
             {
-                combatManager.EnemyPlayCard(cardToPlay, rand);
+                if (card.name != "LostSoul")
+                {
+                    combatManager.EnemyPlayCard(card, targetIndex);
+                }
+                else
+                {
+                    UseLostSoul(card);
+                }
             }
         }
 
 
         if (combatManager.enemyDeck.energy > 0 && thinkLimit > 0)
         {
-            Debug.Log("Think again | energy left: " + combatManager.enemyDeck.energy);
             thinkLimit--;
             Think();
         }
@@ -207,8 +241,32 @@ public class EnemyAI : ScriptableObject
                 if (cardToPick == null && card.cost <= combatManager.enemyDeck.energy) cardToPick = card;
             }
         }
-        if (cardToPick != null) Debug.Log("Card picked: " + cardToPick.name);
-        else Debug.Log("No card found");
+
         return cardToPick;
+    }
+
+    void UseLostSoul(Card lostSoulCard)
+    {
+        Debug.Log("Trying to play lost soul");
+        foreach (CardInCombat card in combatManager.enemyCards)
+        {
+            if (card != null && card.card.injuries.Count > 0)
+            {
+                Card healedCard = card.card;
+
+                healedCard.AcceptLostSoul();
+                combatManager.deck.UpdateCardAppearance(card.transform, healedCard);
+                Debug.Log("playing lost soul on " + healedCard.name);
+                for (int i = 0; i < healedCard.sigils.Count; i++)
+                {
+                    Debug.Log(healedCard.sigils[i].name);
+                }
+
+                combatManager.enemyDeck.cards.Remove(lostSoulCard);
+
+                combatManager.enemyDeck.cardsInHandAsCards.Remove(lostSoulCard);
+                return;
+            }
+        }
     }
 }
