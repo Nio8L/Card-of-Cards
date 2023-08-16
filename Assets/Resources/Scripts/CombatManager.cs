@@ -25,7 +25,7 @@ public class CombatManager : MonoBehaviour
     float resetTimerTo = 2f;
     bool startPlayerTurn = false;
 
-    Deck deck;
+    public Deck deck;
     public Deck enemyDeck;
     private void Start()
     {
@@ -204,7 +204,6 @@ public class CombatManager : MonoBehaviour
     {
         if (card.benched) return;
         card.PerformShortAttackAnimation();
-        Debug.Log("Direct hit by " + card.card.name);
 
         if (card.playerCard) enemyHealth -= card.card.attack;
         else playerHealth -= card.card.attack;

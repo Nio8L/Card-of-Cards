@@ -50,7 +50,11 @@ public class CardInCombat : MonoBehaviour
                 deck.combatManager.playerCards[slot] = null;
                 deck.discardPile.Add(card);
             }
-            else deck.combatManager.enemyCards[slot] = null;
+            else
+            {
+                deck.combatManager.enemyCards[slot] = null;
+                deck.combatManager.enemyDeck.discardPile.Add(card);
+            }
 
             Destroy(gameObject);
         }
