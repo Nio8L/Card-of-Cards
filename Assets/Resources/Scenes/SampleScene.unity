@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: Energy is used to play cards
   header: Energy
+  content: Energy is used to play cards
 --- !u!1 &90838027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8920dcbd911f9c40bf5e52f6872d33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: 9029475f59336d54892a30ba79edaf0e, type: 2}
+  enemy: {fileID: 11400000, guid: a8be0f2becc8c7b4b8aa3055dafe03ca, type: 2}
   gamePhase: 0
   playerHealth: 20
   enemyHealth: 20
@@ -1537,6 +1537,7 @@ MonoBehaviour:
   - {fileID: 502671941}
   - {fileID: 884885375}
   - {fileID: 2946165028615603894}
+  deck: {fileID: 0}
   enemyDeck: {fileID: 0}
 --- !u!1 &808257200
 GameObject:
@@ -2381,7 +2382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltip: {fileID: 1834219932}
-  canShow: 1
 --- !u!1001 &1191162031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4093,10 +4093,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  header: Next turn
   content: This button activates the next turn of combat when clicked. This text
     is really long for testing purposes and I hope I remember to fix it before i
     commit these changes.
-  header: Next turn
 --- !u!1 &1834219926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4236,6 +4236,7 @@ MonoBehaviour:
   layoutElement: {fileID: 1834219933}
   parentCanvas: {fileID: 1078086458}
   characterWrapLimit: 20
+  rectTransform: {fileID: 0}
 --- !u!114 &1834219933
 MonoBehaviour:
   m_ObjectHideFlags: 0

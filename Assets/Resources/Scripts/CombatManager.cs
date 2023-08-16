@@ -187,7 +187,7 @@ public class CombatManager : MonoBehaviour
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = card;
+        cardInCombat.card = card.ResetCard();
         cardInCombat.deck = deck;
         cardInCombat.slot = slotNumber;
         cardInCombat.playerCard = false;
