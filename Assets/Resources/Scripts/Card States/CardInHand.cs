@@ -95,7 +95,7 @@ public class CardInHand : MonoBehaviour
         foreach (RaycastResult result in results)
         {
             //Check if the card on which we play "Lost Soul" is in combat and if it's a player's card and not an enemy's card
-            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().deck.playerDeck){
+            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().playerCard){
                 Debug.Log("Playing lost soul on  " + result.gameObject.GetComponent<CardInCombat>().card.name);
                 Card healedCard = result.gameObject.GetComponent<CardInCombat>().card;
 

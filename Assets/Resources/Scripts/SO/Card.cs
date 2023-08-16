@@ -48,7 +48,7 @@ public class Card : ScriptableObject
     }
 
     public void RemoveNegativeSigils(){
-        for(int i = 0; i < sigils.Count; i++){
+        for(int i = sigils.Count - 1; i >= 0; i--){
             if(sigils[i].negative){
                 sigils.Remove(sigils[i]);
             }

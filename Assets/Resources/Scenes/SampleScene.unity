@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: Energy is used to play cards
   header: Energy
+  content: Energy is used to play cards
 --- !u!1 &90838027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,6 +1537,7 @@ MonoBehaviour:
   - {fileID: 502671941}
   - {fileID: 884885375}
   - {fileID: 2946165028615603894}
+  deck: {fileID: 0}
   enemyDeck: {fileID: 0}
 --- !u!1 &808257200
 GameObject:
@@ -2296,6 +2297,7 @@ GameObject:
   - component: {fileID: 1078086458}
   - component: {fileID: 1078086457}
   - component: {fileID: 1078086460}
+  - component: {fileID: 1078086461}
   m_Layer: 5
   m_Name: TooltipCanvas
   m_TagString: Untagged
@@ -2381,7 +2383,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltip: {fileID: 1834219932}
-  canShow: 1
+  hoveredIsSigil: 0
+  canvasGroup: {fileID: 1078086461}
+--- !u!225 &1078086461
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078086456}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1191162031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4093,10 +4108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  header: Next turn
   content: This button activates the next turn of combat when clicked. This text
     is really long for testing purposes and I hope I remember to fix it before i
     commit these changes.
-  header: Next turn
 --- !u!1 &1834219926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4138,9 +4153,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -75.57186, y: 624.5336}
   m_SizeDelta: {x: 250, y: 152.73001}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.46434784, y: 1.1384181}
 --- !u!114 &1834219928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4236,6 +4251,7 @@ MonoBehaviour:
   layoutElement: {fileID: 1834219933}
   parentCanvas: {fileID: 1078086458}
   characterWrapLimit: 20
+  rectTransform: {fileID: 1834219927}
 --- !u!114 &1834219933
 MonoBehaviour:
   m_ObjectHideFlags: 0
