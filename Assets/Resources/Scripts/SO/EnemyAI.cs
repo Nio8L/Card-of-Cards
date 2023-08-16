@@ -43,21 +43,23 @@ public class EnemyAI : ScriptableObject
     }
     public void StartTurn()
     {
-        Debug.Log("Starting enemy turn");
         thinkLimit = 5;
         Think();
     }
     void Think()
     {
         currentStrategy = PickStrategy();
+        Card card = PickCard();
+        bool hasPlay = false;
+        int targetIndex = 0;
 
+        // Pick slot
         if (currentStrategy == Strategy.Defensive)
         {
             bool[] possibleSlots = new bool[3];
 
             int targetDamage = 0;
-            int targetIndex = 0;
-            bool hasPlay = false;
+            
             for (int i = 0; i < 3; i++)
             {
                 if (combatManager.playerCards[i] != null && combatManager.enemyCards[i] == null)
@@ -71,34 +73,20 @@ public class EnemyAI : ScriptableObject
                     }
                 }
             }
-            if (hasPlay) { 
-                Card card = PickCard();
-                if (card != null)
-                {
-                    if (card.name != "LostSoul")
-                    {
-                        combatManager.EnemyPlayCard(card, targetIndex);
-                    }
-                    else
-                    {
-                        UseLostSoul(card);
-                    }
-                }
-            }
-            else
+
+            if (!hasPlay)
             {
-                currentStrategy = Strategy.Aggressive;
                 bias += 5;
+                currentStrategy = Strategy.Random;
             }
 
         }
-        else if (currentStrategy == Strategy.Killer)
+        if (currentStrategy == Strategy.Killer)
         {
             bool[] possibleSlots = new bool[3];
 
             int targetHealth = 0;
-            int targetIndex = 0;
-            bool hasPlay = false;
+            
             for (int i = 0; i < 3; i++)
             {
                 if (combatManager.playerCards[i] != null && combatManager.enemyCards[i] == null)
@@ -112,33 +100,16 @@ public class EnemyAI : ScriptableObject
                     }
                 }
             }
-            if (hasPlay)
+            if (!hasPlay)
             {
-                Card card = PickCard();
-                if (card != null)
-                {
-                    if (card.name != "LostSoul")
-                    {
-                        combatManager.EnemyPlayCard(card, targetIndex);
-                    }
-                    else
-                    {
-                        UseLostSoul(card);
-                    }
-                }
-            }
-            else
-            {
-                currentStrategy = Strategy.Random;
+                currentStrategy = Strategy.Aggressive;
             }
 
         }
-        else if (currentStrategy == Strategy.Aggressive)
+        if (currentStrategy == Strategy.Aggressive)
         {
             bool[] possibleSlots = new bool[3];
 
-            int targetIndex = 0;
-            bool hasPlay = false;
             for (int i = 0; i < 3; i++)
             {
                 if (combatManager.playerCards[i] == null && combatManager.enemyCards[i] == null)
@@ -148,33 +119,15 @@ public class EnemyAI : ScriptableObject
                     targetIndex = i;
                 }
             }
-            if (hasPlay)
-            {
-                Card card = PickCard();
-                if (card != null)
-                {
-                    if (card.name != "LostSoul")
-                    {
-                        combatManager.EnemyPlayCard(card, targetIndex);
-                    }
-                    else
-                    {
-                        UseLostSoul(card);
-                    }
-                }
-            }
-            else
+            if (!hasPlay)
             {
                 currentStrategy = Strategy.Random;
             }
 
         }
-        
         if (currentStrategy == Strategy.Random)
         {
-            Card card = PickCard();
-
-            int targetIndex, failEscape = 0;
+            int failEscape = 0;
             do
             {
                 failEscape++;
@@ -183,18 +136,27 @@ public class EnemyAI : ScriptableObject
 
             if (failEscape < 20 && card != null)
             {
-                if (card.name != "LostSoul")
-                {
-                    combatManager.EnemyPlayCard(card, targetIndex);
-                }
-                else
-                {
-                    UseLostSoul(card);
-                }
+                hasPlay = true;
             }
         }
 
+        // Play card
+        if (hasPlay)
+        {
+            if (card != null)
+            {
+                combatManager.EnemyPlayCard(card, targetIndex);
+            }
+        }
 
+        // Use lost soul
+        for (int i = 0; i < combatManager.enemyDeck.cardsInHandAsCards.Count; i++) 
+        {
+            Card cardInHand = combatManager.enemyDeck.cardsInHandAsCards[i];
+            if (cardInHand.name == "LostSoul") UseLostSoul(cardInHand);
+        }
+
+        // Rethink if the enemy has enough energy
         if (combatManager.enemyDeck.energy > 0 && thinkLimit > 0)
         {
             thinkLimit--;
@@ -234,13 +196,16 @@ public class EnemyAI : ScriptableObject
             {
                 if ((cardToPick == null || cardToPick.attack < card.attack) && card.cost <= combatManager.enemyDeck.energy) cardToPick = card;
             }
-        }else if (currentStrategy == Strategy.Random)
+        }
+        else if (currentStrategy == Strategy.Random)
         {
             foreach (Card card in combatManager.enemyDeck.cardsInHandAsCards)
             {
                 if (cardToPick == null && card.cost <= combatManager.enemyDeck.energy) cardToPick = card;
             }
         }
+
+        if (cardToPick != null && cardToPick.name == "LostSoul") return null;
 
         return cardToPick;
     }
