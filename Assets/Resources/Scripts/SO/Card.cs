@@ -74,7 +74,9 @@ public class Card : ScriptableObject
 
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
-        negativeSigil = Resources.Load<Sigil>("Sigils/WeakBleed");
+        Sigil bleed = Resources.Load<Sigil>("Sigils/WeakBleed");
+        negativeSigil = Instantiate(bleed);
+        negativeSigil.name = bleed.name;
         foreach (TypeOfDamage type in injuries)
         {
             if (type == causeOfDeath)
@@ -97,6 +99,7 @@ public class Card : ScriptableObject
 
         if(sigils.Count != 3)sigils.Add(negativeSigil);
     }
+
     public void ActivateOnHitEffects(CardInCombat card) 
     {
         foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect(card);
