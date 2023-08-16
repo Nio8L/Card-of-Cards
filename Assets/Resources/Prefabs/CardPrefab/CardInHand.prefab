@@ -902,9 +902,11 @@ GameObject:
   - component: {fileID: 7925158816642852385}
   - component: {fileID: 7076728728488750136}
   - component: {fileID: 7104625870598925706}
+  - component: {fileID: 7874381128484305266}
+  - component: {fileID: 2449477711904805248}
   m_Layer: 5
   m_Name: Sigil3
-  m_TagString: Untagged
+  m_TagString: Sigil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -967,6 +969,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7874381128484305266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662207714862509784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6debff2df66fef5428bd01bc9af5d7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2449477711904805248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662207714862509784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: 
+  header: Default sigil header
 --- !u!1 &4250512233669123747
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,9 +1006,11 @@ GameObject:
   - component: {fileID: 5947067090523180724}
   - component: {fileID: 6232686856695748102}
   - component: {fileID: 1897129377096196493}
+  - component: {fileID: 1772369562234517640}
+  - component: {fileID: 6186915627302345787}
   m_Layer: 5
   m_Name: Sigil1
-  m_TagString: Untagged
+  m_TagString: Sigil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1043,6 +1073,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1772369562234517640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4250512233669123747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6debff2df66fef5428bd01bc9af5d7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6186915627302345787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4250512233669123747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: 
+  header: Default sigil header
 --- !u!1 &4571230727087768344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,9 +1321,11 @@ GameObject:
   - component: {fileID: 7872123248334244471}
   - component: {fileID: 8023361318876420730}
   - component: {fileID: 3613968180358876648}
+  - component: {fileID: 2945533570787524667}
+  - component: {fileID: 1371154348836568225}
   m_Layer: 5
   m_Name: Sigil2
-  m_TagString: Untagged
+  m_TagString: Sigil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1330,6 +1388,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2945533570787524667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6389578741227887888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6debff2df66fef5428bd01bc9af5d7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1371154348836568225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6389578741227887888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: 
+  header: Default sigil header
 --- !u!1 &7541215563716237300
 GameObject:
   m_ObjectHideFlags: 0

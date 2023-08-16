@@ -15,4 +15,5 @@ MonoBehaviour:
   sigilName: Migrate
   negative: 0
   image: {fileID: 21300000, guid: 64fd41d049afff34e96e54e0a89736ff, type: 3}
+  description: At the end of each turn move to a free space.
   direction: 1
