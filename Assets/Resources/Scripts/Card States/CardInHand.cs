@@ -3,14 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class CardInHand : MonoBehaviour
 {
     public Card card;
     public Deck deck;
+
+    private GraphicRaycaster m_Raycaster;
+    private PointerEventData m_PointerEventData;
+    private EventSystem m_EventSystem;
+
     void Start()
     {
         deck.UpdateCardAppearance(transform, card);
+
+        m_Raycaster = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
+        m_EventSystem = GetComponent<EventSystem>();
+    }
+
+    private void Update() {
+        
     }
 
     #region Dragging functions
@@ -30,7 +44,7 @@ public class CardInHand : MonoBehaviour
                     if(deck.combatManager.playerCards[benchSlot.slot] == null){
                         PlayCard(benchSlot);
                     }
-                }else if(deck.combatManager.playerCards[benchSlot.slot] != null){
+                }/*else if(deck.combatManager.playerCards[benchSlot.slot] != null){
                     Card healedCard = deck.combatManager.playerCards[benchSlot.slot].GetComponent<CardInCombat>().card;
                     
                     healedCard.AcceptLostSoul();
@@ -44,15 +58,57 @@ public class CardInHand : MonoBehaviour
 
                     if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
                     Destroy(gameObject);
-                }
+                }*/
             }
-        
+
+        //Check if the card to which this script is attachd is a "Lost Soul"
+        //Check if we have selected a card
+        //Check if the selected card is a "Lost Soul" 
+        if (card.name == "LostSoul" && deck.selectedCard != null && deck.selectedCard.GetComponent<CardInHand>().card.name == "LostSoul")
+        {
+            PlayLostSoul();
+        }
+    
         deck.selectedCard = null;
         deck.TidyHand();
     }
     //--------------------------------//
     #endregion
    
+
+    public void PlayLostSoul(){
+        //Set up the new Pointer Event
+        m_PointerEventData = new PointerEventData(m_EventSystem)
+        {
+            //Set the Pointer Event Position to that of the mouse position
+            position = Input.mousePosition
+        };
+
+        //Create a list of Raycast Results
+        List<RaycastResult> results = new();
+
+        //Raycast using the Graphics Raycaster and mouse click position
+        m_Raycaster.Raycast(m_PointerEventData, results);
+
+        //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+        foreach (RaycastResult result in results)
+        {
+            //Check if the card on which we play "Lost Soul" is in combat and if it's a player's card and not an enemy's card
+            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().deck.playerDeck){
+                Debug.Log("Playing lost soul on  " + result.gameObject.GetComponent<CardInCombat>().card.name);
+                Card healedCard = result.gameObject.GetComponent<CardInCombat>().card;
+
+                healedCard.AcceptLostSoul();
+                deck.UpdateCardAppearance(result.gameObject.transform, healedCard);
+
+                deck.cards.Remove(card);
+
+                if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
+                if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
+                Destroy(gameObject);
+            }
+        }
+    }
 
     //that is for deck.TidyHand()
     public void GetOnTop(Transform card)
