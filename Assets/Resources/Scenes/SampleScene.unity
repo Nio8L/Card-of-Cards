@@ -2298,6 +2298,7 @@ GameObject:
   - component: {fileID: 1078086458}
   - component: {fileID: 1078086457}
   - component: {fileID: 1078086460}
+  - component: {fileID: 1078086461}
   m_Layer: 5
   m_Name: TooltipCanvas
   m_TagString: Untagged
@@ -2383,6 +2384,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltip: {fileID: 1834219932}
+  hoveredIsSigil: 0
+  canvasGroup: {fileID: 1078086461}
+--- !u!225 &1078086461
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078086456}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1191162031
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,6 +8,10 @@ public class TooltipSystem : MonoBehaviour
 
     public Tooltip tooltip;
 
+    public bool hoveredIsSigil = false;
+
+    public CanvasGroup canvasGroup;
+
     private void Awake() {
         tooltipSystem = this;
     }
@@ -17,9 +21,15 @@ public class TooltipSystem : MonoBehaviour
             tooltipSystem.tooltip.SetText(content, header);
             tooltipSystem.tooltip.gameObject.SetActive(true);
         }
+        LeanTween.alphaCanvas(tooltipSystem.canvasGroup, 1f, 0.3f);
     }
 
     public static void Hide(){
-        tooltipSystem.tooltip.gameObject.SetActive(false);
+        LeanTween.alphaCanvas(tooltipSystem.canvasGroup, 0f, 0.1f);
+        LeanTween.delayedCall(0.1f, () => {
+            tooltipSystem.tooltip.gameObject.SetActive(false);
+        });
+        
+        
     }
 }
