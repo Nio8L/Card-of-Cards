@@ -47,6 +47,9 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public TextMeshProUGUI drawPileText;
     public TextMeshProUGUI DiscardPileText;
+    public Sprite deathMarkScratch;
+    public Sprite deathMarkBite;
+    public Sprite deathMarkPoison;
 
     #region Saving
     //--------------------------------//
@@ -136,6 +139,10 @@ public class Deck : MonoBehaviour, IDataPersistence
         scrachDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeSlash");
         poisonDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypePoison");
 
+        deathMarkScratch = Resources.Load<Sprite>("Sprites/DeathMarkScratch");
+        deathMarkBite = Resources.Load<Sprite>("Sprites/DeathMarkBite");
+        deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
+
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
 
@@ -185,7 +192,10 @@ public class Deck : MonoBehaviour, IDataPersistence
     //FOR TESTING
     public List<Card> randomCardSelection = new();
     public void AddCard(){
-        AddCard(randomCardSelection[UnityEngine.Random.Range(0, randomCardSelection.Count)]);
+        //AddCard(randomCardSelection[UnityEngine.Random.Range(0, randomCardSelection.Count)]);
+        if (randomCardSelection.Count == 0) return;
+        AddCard(Instantiate(randomCardSelection[0]).ResetCard());
+        randomCardSelection.RemoveAt(0);
     }
 
     public void AddCard(int numOfCards)
