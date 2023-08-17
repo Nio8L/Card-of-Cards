@@ -55,6 +55,8 @@ public class CardInCombat : MonoBehaviour
         }
         else if (card.health <= 0)
         {
+            card.ActivateOnDeadEffects(this);
+
             card.CreateCard(lastTypeOfDamage);
 
             if (playerCard)

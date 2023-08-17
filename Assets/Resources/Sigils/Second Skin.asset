@@ -17,4 +17,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 1914c4c1cf5da274ebd8bdbfb8b101da, type: 3}
   description: temp
   direction: 1
-  Skin: {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  Skin: {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}

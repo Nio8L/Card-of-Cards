@@ -29,4 +29,9 @@ public class Sigil : ScriptableObject
     {
         //maj efecto trebe da e tuka
     }
+
+    public virtual void OnDeadEffects(CardInCombat card) 
+    {
+        //pisna mi da addvam random effect types
+    }
 }

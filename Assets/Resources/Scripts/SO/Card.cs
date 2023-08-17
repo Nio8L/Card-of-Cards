@@ -123,6 +123,11 @@ public class Card : ScriptableObject
         foreach(Sigil sigil in sigils)sigil.OnSummonEffects(card);
     }
 
+    public void ActivateOnDeadEffects(CardInCombat card) 
+    {
+        foreach (Sigil sigil in sigils) sigil.OnDeadEffects(card);
+    }
+
     public Card ResetCard()
     {
         health = maxHealth;

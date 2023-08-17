@@ -9,9 +9,17 @@ public class SecondSkin : Sigil
     public Card Skin;
     int slot;
     CombatManager cm;
+    bool hasASkin = true;
+
+    public override void OnDeadEffects(CardInCombat card) 
+    {
+        hasASkin = true;
+    }
 
     public override void OnTakeDamageEffect(CardInCombat card)
     {
+        if (!hasASkin) return;
+
         cm = card.deck.combatManager;
         card.card.health = card.card.lastBattle.thisCardOldHp;
         slot = card.slot;
@@ -46,19 +54,29 @@ public class SecondSkin : Sigil
         {
             if (card.playerCard && cm.playerCards[card.slot + direction] == null)
             {
-                cm.playerCards[card.slot] = null;
+                SpawnSkin(card);
                 cm.playerCards[card.slot + direction] = card;
                 card.slot += direction;
                 card.transform.position = cm.playerCombatSlots[card.slot].transform.position;
-                SpawnSkin(card);
+
+                card.benched = true;
+                card.PutOnOrOffTheBench();
+                card.moved = true;
+
+                hasASkin = false;
             }
             else if (!card.playerCard && cm.enemyCards[card.slot + direction] == null)
             {
-                cm.enemyCards[card.slot] = null;
+                cm.EnemyPlayCard(card.card, slot);
                 cm.enemyCards[card.slot + direction] = card;
                 card.slot += direction;
                 card.transform.position = cm.enemyCombatSlots[card.slot].transform.position;
-                cm.EnemyPlayCard(card.card,slot);
+
+                card.benched = true;
+                card.PutOnOrOffTheBenchEnemyCards();
+                card.moved = true;
+
+                hasASkin = false;
             }
         }
 
@@ -74,6 +92,7 @@ public class SecondSkin : Sigil
         cardInCombat.card = Skin;
         cardInCombat.deck = card.deck;
         cardInCombat.slot = slot;
+        cardInCombat.benched = false;
 
         card.deck.combatManager.playerCards[slot] = cardInCombat;
     }
