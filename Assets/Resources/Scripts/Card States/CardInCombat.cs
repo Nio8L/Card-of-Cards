@@ -27,10 +27,12 @@ public class CardInCombat : MonoBehaviour
     bool returnMovement;
 
     GameObject bloodSplat;
+    GameObject deathMark;
     void Start()
     {
         deck.UpdateCardAppearance(transform, card);
         bloodSplat = Resources.Load<GameObject>("Prefabs/BloodSplatPart");
+        deathMark = Resources.Load<GameObject>("Prefabs/DeathMark");
     }
 
     private void Update()
@@ -53,21 +55,7 @@ public class CardInCombat : MonoBehaviour
         }
         else if (card.health <= 0)
         {
-            card.CreateCard(lastTypeOfDamage);
-
-            if (playerCard)
-            {
-                deck.combatManager.playerCards[slot] = null;
-                deck.discardPile.Add(card);
-            }
-            else
-            {
-                deck.combatManager.enemyCards[slot] = null;
-                deck.combatManager.enemyDeck.discardPile.Add(card);
-            }
-
-            Instantiate(bloodSplat, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            OnDeath();
         }
 
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
@@ -116,5 +104,34 @@ public class CardInCombat : MonoBehaviour
         endPosition = end;
         startPosition = transform.position;
         returnMovement = false;
+    }
+
+    void OnDeath()
+    {
+        if (GetComponent<DestroyTimer>().enabled == false)
+        {
+            card.CreateCard(lastTypeOfDamage);
+
+            if (playerCard)
+            {
+                deck.combatManager.playerCards[slot] = null;
+                deck.discardPile.Add(card);
+            }
+            else
+            {
+                deck.combatManager.enemyCards[slot] = null;
+                deck.combatManager.enemyDeck.discardPile.Add(card);
+            }
+
+            Sprite markSprite;
+            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deck.deathMarkScratch;
+            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deck.deathMarkBite;
+            else markSprite = deck.deathMarkPoison;
+
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
+            GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
+            deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
+            GetComponent<DestroyTimer>().enabled = true;
+        }
     }
 }
