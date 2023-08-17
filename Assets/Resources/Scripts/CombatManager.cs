@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
@@ -27,6 +29,9 @@ public class CombatManager : MonoBehaviour
 
     public Deck deck;
     public Deck enemyDeck;
+
+    public TextMeshProUGUI playerHPText;
+    public TextMeshProUGUI enemyHPText;
     private void Start()
     {
         deck = GetComponent<Deck>();
@@ -213,6 +218,7 @@ public class CombatManager : MonoBehaviour
 
         if (card.playerCard) enemyHealth -= card.card.attack;
         else playerHealth -= card.card.attack;
+        updateHPText();
         //to do
     }
     public void DirectHit(CardInCombat card, int damage)
@@ -222,8 +228,16 @@ public class CombatManager : MonoBehaviour
 
         if (card.playerCard) enemyHealth -= damage;
         else playerHealth -= damage;
+        updateHPText();
         //to do
     }
+
+    void updateHPText() 
+    {
+        playerHPText.text = "Player HP:" +playerHealth;
+        enemyHPText.text = "Player HP:" + enemyHealth;
+    }
+
     public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
     {
         int oldPlayerHp = playerCard.card.health;
