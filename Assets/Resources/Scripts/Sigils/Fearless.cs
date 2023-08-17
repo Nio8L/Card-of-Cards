@@ -5,8 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Fearless")]
 public class Fearless : Sigil
 {
-    public override void OnSummonEffects(CardInCombat card) 
+    bool canRevive = true;
+
+    public override void OnDeadEffects(CardInCombat card) 
     {
-        card.canBeBenched = false;
+        if (canRevive)
+        {
+            card.card.ResetHP();
+            canRevive = false;
+            return;
+        }
+        canRevive = true;
     }
 }

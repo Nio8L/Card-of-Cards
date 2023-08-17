@@ -9,6 +9,7 @@ public class TooltipSystem : MonoBehaviour
     public Tooltip tooltip;
 
     public bool hoveredIsSigil = false;
+    public SigilTooltip hoveredSigil;
 
     public CanvasGroup canvasGroup;
 
