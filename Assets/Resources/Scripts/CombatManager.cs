@@ -99,19 +99,19 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    void SwapCards(int card1, int card2, CardInCombat[] colection, GameObject[] benchSlots) 
+    void SwapCards(int card1, int card2, CardInCombat[] collection, GameObject[] benchSlots) 
     {
-        CardInCombat temp = colection[card1];
-        colection[card1] = colection[card2];
-        colection[card2] = temp;
+        CardInCombat temp = collection[card1];
+        collection[card1] = collection[card2];
+        collection[card2] = temp;
 
-        colection[card2].transform.position = benchSlots[card2].transform.position;
-        colection[card2].slot = card2;
+        collection[card2].MoveAnimationStarter(0.5f, benchSlots[card2].transform.position);
+        collection[card2].slot = card2;
 
-        if (colection[card1] != null)
+        if (collection[card1] != null)
         {
-            colection[card1].transform.position = benchSlots[card1].transform.position;
-            colection[card1].slot = card1;
+            collection[card1].MoveAnimationStarter(0.5f, benchSlots[card1].transform.position);
+            collection[card1].slot = card1;
         }
     }
 
@@ -187,7 +187,7 @@ public class CombatManager : MonoBehaviour
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = card;
+        cardInCombat.card = card.ResetCard();
         cardInCombat.deck = deck;
         cardInCombat.slot = slotNumber;
         cardInCombat.playerCard = false;

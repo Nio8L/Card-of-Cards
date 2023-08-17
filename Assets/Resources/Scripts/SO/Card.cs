@@ -48,7 +48,7 @@ public class Card : ScriptableObject
     }
 
     public void RemoveNegativeSigils(){
-        for(int i = 0; i < sigils.Count; i++){
+        for(int i = sigils.Count - 1; i >= 0; i--){
             if(sigils[i].negative){
                 sigils.Remove(sigils[i]);
             }
@@ -74,7 +74,9 @@ public class Card : ScriptableObject
 
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
-        negativeSigil = Resources.Load<Sigil>("Sigils/WeakBleed");
+        Sigil bleed = Resources.Load<Sigil>("Sigils/WeakBleed");
+        negativeSigil = Instantiate(bleed);
+        negativeSigil.name = bleed.name;
         foreach (TypeOfDamage type in injuries)
         {
             if (type == causeOfDeath)

@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: Energy is used to play cards
   header: Energy
+  content: Energy is used to play cards
 --- !u!1 &90838027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1015,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.46226418, g: 0.43115693, b: 0.3510591, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1482,6 +1482,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
+  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
 --- !u!4 &769775201
 Transform:
   m_ObjectHideFlags: 0
@@ -1509,7 +1510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8920dcbd911f9c40bf5e52f6872d33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: 9029475f59336d54892a30ba79edaf0e, type: 2}
+  enemy: {fileID: 11400000, guid: a8be0f2becc8c7b4b8aa3055dafe03ca, type: 2}
   gamePhase: 0
   playerHealth: 20
   enemyHealth: 20
@@ -1537,6 +1538,7 @@ MonoBehaviour:
   - {fileID: 502671941}
   - {fileID: 884885375}
   - {fileID: 2946165028615603894}
+  deck: {fileID: 0}
   enemyDeck: {fileID: 0}
 --- !u!1 &808257200
 GameObject:
@@ -2296,6 +2298,7 @@ GameObject:
   - component: {fileID: 1078086458}
   - component: {fileID: 1078086457}
   - component: {fileID: 1078086460}
+  - component: {fileID: 1078086461}
   m_Layer: 5
   m_Name: TooltipCanvas
   m_TagString: Untagged
@@ -2381,7 +2384,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltip: {fileID: 1834219932}
-  canShow: 1
+  hoveredIsSigil: 0
+  canvasGroup: {fileID: 1078086461}
+--- !u!225 &1078086461
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078086456}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1191162031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4093,10 +4109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  header: Next turn
   content: This button activates the next turn of combat when clicked. This text
     is really long for testing purposes and I hope I remember to fix it before i
     commit these changes.
-  header: Next turn
 --- !u!1 &1834219926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4236,6 +4252,7 @@ MonoBehaviour:
   layoutElement: {fileID: 1834219933}
   parentCanvas: {fileID: 1078086458}
   characterWrapLimit: 20
+  rectTransform: {fileID: 0}
 --- !u!114 &1834219933
 MonoBehaviour:
   m_ObjectHideFlags: 0

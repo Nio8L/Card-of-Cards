@@ -154,7 +154,8 @@ public class Deck : MonoBehaviour, IDataPersistence
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             selectedCard.position = new Vector3(mousePosition.x, mousePosition.y, 0);
         }
-        energyText.text = energy + "/3";
+
+        if (playerDeck) energyText.text = energy + "/3";
 
     }
 
