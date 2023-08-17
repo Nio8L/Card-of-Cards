@@ -67,10 +67,20 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         TooltipSystem.tooltipSystem.hoveredIsSigil = true;
+        TooltipSystem.tooltipSystem.hoveredSigil = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         TooltipSystem.tooltipSystem.hoveredIsSigil = false;
+        TooltipSystem.tooltipSystem.hoveredSigil = null;
+    }
+
+        private void OnDestroy() {
+        if(TooltipSystem.tooltipSystem.hoveredSigil != null && TooltipSystem.tooltipSystem.hoveredSigil == this){
+            Debug.Log("trigger destroyed");
+            TooltipSystem.tooltipSystem.hoveredSigil = null;
+            TooltipSystem.Hide();
+        }
     }
 }
