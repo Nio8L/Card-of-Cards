@@ -1490,7 +1490,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1689,6 +1689,9 @@ MonoBehaviour:
   poisonDamageIcon: {fileID: 0}
   drawPileText: {fileID: 857740047}
   DiscardPileText: {fileID: 1082926041}
+  deathMarkScratch: {fileID: 0}
+  deathMarkBite: {fileID: 0}
+  deathMarkPoison: {fileID: 0}
   randomCardSelection:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
@@ -1731,6 +1734,10 @@ MonoBehaviour:
   playerHealth: 20
   enemyHealth: 20
   playerCards:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerCardsAtStartOfTurn:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -2739,6 +2746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltip: {fileID: 1834219932}
   hoveredIsSigil: 0
+  hoveredSigil: {fileID: 0}
   canvasGroup: {fileID: 1078086461}
 --- !u!225 &1078086461
 CanvasGroup:
@@ -3797,6 +3805,9 @@ MonoBehaviour:
   poisonDamageIcon: {fileID: 0}
   drawPileText: {fileID: 0}
   DiscardPileText: {fileID: 0}
+  deathMarkScratch: {fileID: 0}
+  deathMarkBite: {fileID: 0}
+  deathMarkPoison: {fileID: 0}
   randomCardSelection:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
   m_Name: Aggressive Test
   m_EditorClassIdentifier: 
-  maxHealth: 20
   cards:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
@@ -23,6 +22,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  maxHealth: 20
+  maxCardsPerTurn: 3
   startPlayingDefensivelyAt: 0
   startPlayingAggressivelyAt: 20
-  useKillerStrategyInstead: 0
+  canUseLostSoul: 1
+  useKillerStrategyInstead: 1
+  canSeePlayerCardsPlacedThisTurn: 0

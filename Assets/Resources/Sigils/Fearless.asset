@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0136a7c930519dd4aa7318b953885ef4, type: 3}
+  m_Name: Fearless
+  m_EditorClassIdentifier: 
+  sigilName: Fearless
+  negative: 0
+  image: {fileID: 21300000, guid: bb32c229d5d3c564097babb070d4921e, type: 3}
+  description: Grants a single revive.

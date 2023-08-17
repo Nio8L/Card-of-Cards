@@ -115,6 +115,9 @@ public class CardInCombat : MonoBehaviour
         if (GetComponent<DestroyTimer>().enabled == false)
         {
             card.ActivateOnDeadEffects(this);
+
+            if (card.health > 0) return;
+            
             card.CreateCard(lastTypeOfDamage);
 
             if (playerCard)

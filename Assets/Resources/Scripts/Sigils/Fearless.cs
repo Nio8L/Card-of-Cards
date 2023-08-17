@@ -13,8 +13,6 @@ public class Fearless : Sigil
         {
             card.card.ResetHP();
             canRevive = false;
-            return;
         }
-        canRevive = true;
     }
 }

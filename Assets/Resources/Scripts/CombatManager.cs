@@ -236,8 +236,8 @@ public class CombatManager : MonoBehaviour
 
     void updateHPText() 
     {
-        playerHPText.text = "Player HP:" +playerHealth;
-        enemyHPText.text = "Player HP:" + enemyHealth;
+        playerHPText.text = "Player HP: " + playerHealth;
+        enemyHPText.text = "Enemy HP: " + enemyHealth;
     }
 
     public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
