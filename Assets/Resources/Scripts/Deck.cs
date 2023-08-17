@@ -371,6 +371,9 @@ public class Deck : MonoBehaviour, IDataPersistence
             else if (injury == Card.TypeOfDamage.Scratch) cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 1);
             else if (injury == Card.TypeOfDamage.Poison) cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
+        cardGameObject.GetChild(7).GetComponent<SigilTooltip>().UpdateSigilTooltip();
+        cardGameObject.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
+        cardGameObject.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
     }
 
     public void UpdatePileNumbers() 

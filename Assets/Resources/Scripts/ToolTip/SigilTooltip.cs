@@ -15,11 +15,19 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private CardInCombat cardInCombat;
 
     private void Start() {
+        UpdateSigilTooltip();
+    }
+
+    public void UpdateSigilTooltip(){
+        
         tooltipTrigger = GetComponent<TooltipTrigger>();
 
         cardInHand = transform.parent.gameObject.GetComponent<CardInHand>();
 
         index = (int)char.GetNumericValue(name[^1]) - 1;
+
+        tooltipTrigger.header = "";
+        tooltipTrigger.content = "";
 
         if(cardInHand != null){
             if(index < cardInHand.card.sigils.Count){
@@ -42,7 +50,6 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             }
         }else{
             cardInCombat = transform.parent.gameObject.GetComponent<CardInCombat>();
-
             if(index < cardInCombat.card.sigils.Count){
                 if(cardInCombat.card.sigils.Count == 1){
                     tooltipTrigger.content = cardInCombat.card.sigils[index].description;
@@ -62,6 +69,7 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 }
             }
         }
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -83,4 +91,6 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             TooltipSystem.Hide();
         }
     }
+
+        
 }
