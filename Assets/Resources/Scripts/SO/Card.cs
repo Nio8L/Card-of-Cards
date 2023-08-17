@@ -129,6 +129,11 @@ public class Card : ScriptableObject
         foreach (Sigil sigil in sigils) sigil.OnDeadEffects(card);
     }
 
+    public void ResetHP() 
+    {
+        health = maxHealth;
+    }
+
     public Card ResetCard()
     {
         health = maxHealth;

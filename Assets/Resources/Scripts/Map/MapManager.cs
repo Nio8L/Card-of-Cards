@@ -59,16 +59,16 @@ public class MapManager : MonoBehaviour
         float denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
 	
         if (denominator != 0)
-	{
-		float u_a = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
-		float u_b = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+	    {
+	    	float u_a = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+	    	float u_b = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
 
-		//Is intersecting if u_a and u_b are between 0 and 1
-		if (u_a >= 0 && u_a <= 1 && u_b >= 0 && u_b <= 1)
-		{
-			isIntersecting = true;
-		}
-	}
+	    	//Is intersecting if u_a and u_b are between 0 and 1
+	    	if (u_a >= 0 && u_a <= 1 && u_b >= 0 && u_b <= 1)
+	    	{
+		    	isIntersecting = true;
+	    	}
+        }
 
         return isIntersecting;
     }
