@@ -24,4 +24,9 @@ public class Sigil : ScriptableObject
     {
         //effect should be here
     }
+
+    public virtual void OnSummonEffects(CardInCombat card) 
+    {
+        //maj efecto trebe da e tuka
+    }
 }

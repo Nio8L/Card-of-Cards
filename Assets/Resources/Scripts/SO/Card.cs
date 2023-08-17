@@ -97,6 +97,7 @@ public class Card : ScriptableObject
 
         if(sigils.Count != 3)sigils.Add(negativeSigil);
     }
+
     public void ActivateOnHitEffects(CardInCombat card) 
     {
         foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect(card);
@@ -113,6 +114,11 @@ public class Card : ScriptableObject
     public void ActivateOnTakeDamageEffects(CardInCombat card)
     {
         foreach (Sigil sigil in sigils) sigil.OnTakeDamageEffect(card);
+    }
+
+    public void ActivateOnSummonEffects(CardInCombat card) 
+    {
+        foreach(Sigil sigil in sigils)sigil.OnSummonEffects(card);
     }
 
     public Card ResetCard()

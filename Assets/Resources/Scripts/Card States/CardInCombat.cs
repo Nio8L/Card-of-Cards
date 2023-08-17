@@ -15,6 +15,7 @@ public class CardInCombat : MonoBehaviour
     [HideInInspector]
     public bool passivesTurnedOnThisTurn = false;
 
+    public bool canBeBenched = true;
     public bool playerCard = true;
     public int slot = 0;
     public bool moved;
@@ -25,6 +26,7 @@ public class CardInCombat : MonoBehaviour
     float maxAnimationTime = 0.5f;
     void Start()
     {
+        card.ActivateOnSummonEffects(this);
         deck.UpdateCardAppearance(transform, card);
     }
 
@@ -64,6 +66,7 @@ public class CardInCombat : MonoBehaviour
 
     public void PutOnOrOffTheBenchEnemyCards()
     {
+        if(canBeBenched) transform.position = deck.combatManager.enemyCombatSlots[slot].transform.position;
         if (benched)
         {
             transform.position = deck.combatManager.enemyBenchSlots[slot].transform.position;
@@ -74,7 +77,7 @@ public class CardInCombat : MonoBehaviour
 
     public void BenchOrUnbench() 
     {
-        if (!playerCard || deck.combatManager.gamePhase == 1) return;
+        if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 1) return;
         benched = !benched;
         PutOnOrOffTheBench();
     }
