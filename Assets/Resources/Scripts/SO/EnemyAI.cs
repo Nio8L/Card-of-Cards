@@ -5,20 +5,28 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "EnemyAI")]
 public class EnemyAI : ScriptableObject
 {
-    public int maxHealth;
 
+    [Header("Deck")]
     public List<Card> cards = new();
 
+    [Header("Settings")]
+    public int maxHealth;
+    public int maxCardsPerTurn = 3; // Can't more than 3 or less than 1
     public int startPlayingDefensivelyAt;
     public int startPlayingAggressivelyAt;
     //public bool canBench;
     //public bool tryToPredictBench;
+    public bool canUseLostSoul = true;
     public bool useKillerStrategyInstead;
+    public bool canSeePlayerCardsPlacedThisTurn = false;
+    // Settings ^
+    bool useTypeOfDamageToDecideCard = true;
 
     int bias = 0;
     int thinkLimit;
+    int cardsPlayedThisTurn = 0;
 
-    bool useTypeOfDamageToDecideCard = true;
+    CardInCombat[] playerCards;
 
     Strategy currentStrategy;
     enum Strategy
@@ -47,6 +55,9 @@ public class EnemyAI : ScriptableObject
     {
         useTypeOfDamageToDecideCard = true;
         thinkLimit = 5;
+        cardsPlayedThisTurn = 0;
+        if (canSeePlayerCardsPlacedThisTurn) playerCards = combatManager.playerCards;
+        else playerCards = combatManager.playerCardsAtStartOfTurn;
         Think();
     }
     void Think()
@@ -59,18 +70,16 @@ public class EnemyAI : ScriptableObject
         // Pick slot
         if (currentStrategy == Strategy.Defensive)
         {
-            bool[] possibleSlots = new bool[3];
-
             int targetDamage = 0;
             
             for (int i = 0; i < 3; i++)
             {
-                if (combatManager.playerCards[i] != null && combatManager.enemyCards[i] == null)
+                if (playerCards[i] != null && combatManager.enemyCards[i] == null)
                 {
                     hasPlay = true;
-                    if (combatManager.playerCards[i].card.attack > targetDamage)
+                    if (playerCards[i].card.attack > targetDamage)
                     {
-                        targetDamage = combatManager.playerCards[i].card.attack;
+                        targetDamage = playerCards[i].card.attack;
                         targetIndex = i;
                     }
                 }
@@ -90,13 +99,13 @@ public class EnemyAI : ScriptableObject
             
             for (int i = 0; i < 3; i++)
             {
-                if (combatManager.playerCards[i] != null && combatManager.enemyCards[i] == null)
+                if (playerCards[i] != null && combatManager.enemyCards[i] == null)
                 {
                     Debug.Log("Can be played at slot: " + i);
                     hasPlay = true;
-                    if (combatManager.playerCards[i].card.health < targetHealth || targetHealth == 0)
+                    if (playerCards[i].card.health < targetHealth || targetHealth == 0)
                     {
-                        targetHealth = combatManager.playerCards[i].card.health;
+                        targetHealth = playerCards[i].card.health;
                         targetIndex = i;
                     }
                 }
@@ -112,7 +121,7 @@ public class EnemyAI : ScriptableObject
 
             for (int i = 0; i < 3; i++)
             {
-                if (combatManager.playerCards[i] == null && combatManager.enemyCards[i] == null)
+                if (playerCards[i] == null && combatManager.enemyCards[i] == null)
                 {
                     hasPlay = true;
                     targetIndex = i;
@@ -141,9 +150,9 @@ public class EnemyAI : ScriptableObject
 
         // Pick a card;
         Card card;
-        if (combatManager.playerCards[targetIndex] != null)
+        if (playerCards[targetIndex] != null)
         {
-            card = PickCard(combatManager.playerCards[targetIndex].card.typeOfDamage);
+            card = PickCard(playerCards[targetIndex].card.typeOfDamage);
         }
         else
         {
@@ -157,18 +166,22 @@ public class EnemyAI : ScriptableObject
             if (card != null && combatManager.enemyCards[targetIndex] == null)
             {
                 combatManager.EnemyPlayCard(card, targetIndex);
+                cardsPlayedThisTurn++;
             }
         }
 
         // Use lost soul
-        for (int i = 0; i < combatManager.enemyDeck.cardsInHandAsCards.Count; i++) 
+        if (canUseLostSoul)
         {
-            Card cardInHand = combatManager.enemyDeck.cardsInHandAsCards[i];
-            if (cardInHand.name == "LostSoul") UseLostSoul(cardInHand);
+            for (int i = 0; i < combatManager.enemyDeck.cardsInHandAsCards.Count; i++)
+            {
+                Card cardInHand = combatManager.enemyDeck.cardsInHandAsCards[i];
+                if (cardInHand.name == "LostSoul") UseLostSoul(cardInHand);
+            }
         }
 
         // Rethink if the enemy has enough energy
-        if (combatManager.enemyDeck.energy > 0 && thinkLimit > 0)
+        if (combatManager.enemyDeck.energy > 0 && thinkLimit > 0 && cardsPlayedThisTurn < maxCardsPerTurn)
         {
             thinkLimit--;
             Think();
@@ -184,6 +197,7 @@ public class EnemyAI : ScriptableObject
         }
         else if (combatManager.enemyHealth - bias <= startPlayingAggressivelyAt || combatManager.playerHealth - bias < combatManager.enemyHealth)
         {
+            bias -= bias / 2;
             if (useKillerStrategyInstead) return Strategy.Killer;
 
             return Strategy.Aggressive;
@@ -221,7 +235,7 @@ public class EnemyAI : ScriptableObject
             {
                 foreach (Card.TypeOfDamage injury in cardToPick.injuries)
                 {
-                    if (injury == enemyType) { useTypeOfDamageToDecideCard = false; bias += 5; return null; }
+                    if (injury == enemyType) { useTypeOfDamageToDecideCard = false; bias += Random.Range(-15, 15); return null; }
                 }
             }
         }

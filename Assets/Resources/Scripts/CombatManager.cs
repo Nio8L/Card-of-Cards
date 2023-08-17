@@ -13,6 +13,7 @@ public class CombatManager : MonoBehaviour
     public int enemyHealth = 20;
 
     public CardInCombat[] playerCards = new CardInCombat[3];
+    public CardInCombat[] playerCardsAtStartOfTurn = new CardInCombat[3];
     public CardInCombat[] enemyCards = new CardInCombat[3];
 
     public GameObject[] enemyCombatSlots = new GameObject[3];
@@ -140,6 +141,7 @@ public class CombatManager : MonoBehaviour
     void StartPlayerTurn()
     {
         BenchMovement();
+        
         if (gamePhase == 1)
         {
             deck.DiscardHand();
@@ -180,7 +182,7 @@ public class CombatManager : MonoBehaviour
                     deck.UpdateCardAppearance(activeCard.transform, activeCard.card);
                 }
             }
-            
+            playerCards.CopyTo(playerCardsAtStartOfTurn, 0);
             gamePhase = 0;
         }
     }
