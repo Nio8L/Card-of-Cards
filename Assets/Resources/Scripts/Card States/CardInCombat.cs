@@ -19,6 +19,7 @@ public class CardInCombat : MonoBehaviour
     public bool playerCard = true;
     public int slot = 0;
     public bool moved;
+    public int direction = 1;
 
     Vector3 startPosition;
     Vector3 endPosition;

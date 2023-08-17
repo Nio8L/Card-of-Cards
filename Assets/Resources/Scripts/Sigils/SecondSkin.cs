@@ -63,6 +63,8 @@ public class SecondSkin : Sigil
                 card.PutOnOrOffTheBench();
                 card.moved = true;
 
+                cm.Skirmish(cm.playerCards[slot], cm.enemyCards[slot]);
+                cm.enemyCards[slot].card.health += card.card.attack;
                 hasASkin = false;
             }
             else if (!card.playerCard && cm.enemyCards[card.slot + direction] == null)
@@ -76,6 +78,8 @@ public class SecondSkin : Sigil
                 card.PutOnOrOffTheBenchEnemyCards();
                 card.moved = true;
 
+                cm.Skirmish(cm.playerCards[slot], cm.enemyCards[slot]);
+                card.card.health += cm.playerCards[slot].card.attack;
                 hasASkin = false;
             }
         }

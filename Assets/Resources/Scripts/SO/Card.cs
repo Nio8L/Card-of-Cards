@@ -89,11 +89,12 @@ public class Card : ScriptableObject
         }
         injuries.Add(causeOfDeath);
         health = maxHealth;
-        for (int i = 0; i < sigils.Count; i++)
+        for (int i = 0; i < sigils.Count && sigils.Count == 3; i++)
         {
             if (!sigils[i].negative)
             {
                 sigils.RemoveAt(i);
+                break;
             }
         }
 
