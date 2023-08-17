@@ -42,14 +42,14 @@ public class Migrate : Sigil
                 card.deck.combatManager.playerCards[card.slot] = null;
                 card.deck.combatManager.playerCards[card.slot + direction] = card;
                 card.slot += direction;
-                card.transform.position = card.deck.combatManager.playerCombatSlots[card.slot].transform.position;
+                card.MoveAnimationStarter(0.5f, card.deck.combatManager.playerCombatSlots[card.slot].transform.position);
             }
             else if (!card.playerCard && card.deck.combatManager.enemyCards[card.slot + direction] == null)
             {
                 card.deck.combatManager.enemyCards[card.slot] = null;
                 card.deck.combatManager.enemyCards[card.slot + direction] = card;
                 card.slot += direction;
-                card.transform.position = card.deck.combatManager.enemyCombatSlots[card.slot].transform.position;
+                card.MoveAnimationStarter(0.5f, card.deck.combatManager.enemyCombatSlots[card.slot].transform.position);
             }
         }
 

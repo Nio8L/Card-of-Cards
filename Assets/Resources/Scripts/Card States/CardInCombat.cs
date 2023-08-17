@@ -22,16 +22,21 @@ public class CardInCombat : MonoBehaviour
     Vector3 startPosition;
     Vector3 endPosition;
     float curentAnimationTime = -0.5f;
-    float maxAnimationTime = 0.5f;
+    float maxAnimationTime;
+
+    bool returnMovement;
+
+    GameObject bloodSplat;
     void Start()
     {
         deck.UpdateCardAppearance(transform, card);
+        bloodSplat = Resources.Load<GameObject>("Prefabs/BloodSplatPart");
     }
 
     private void Update()
     {
 
-        if (curentAnimationTime > -0.5f)
+        if (returnMovement && curentAnimationTime > -0.5f)
         {
             curentAnimationTime -= Time.deltaTime;
             transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(curentAnimationTime)*2);
@@ -40,6 +45,11 @@ public class CardInCombat : MonoBehaviour
             {
                 deck.UpdateCardAppearance(transform, card);
             }
+        }
+        else if (!returnMovement && curentAnimationTime > 0f)
+        {
+            curentAnimationTime -= Time.deltaTime;
+            transform.position = Vector3.Lerp(endPosition, startPosition, curentAnimationTime * (1/maxAnimationTime));
         }
         else if (card.health <= 0)
         {
@@ -56,6 +66,7 @@ public class CardInCombat : MonoBehaviour
                 deck.combatManager.enemyDeck.discardPile.Add(card);
             }
 
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 
@@ -66,10 +77,10 @@ public class CardInCombat : MonoBehaviour
     {
         if (benched)
         {
-            transform.position = deck.combatManager.enemyBenchSlots[slot].transform.position;
+            MoveAnimationStarter(0.5f, deck.combatManager.enemyBenchSlots[slot].transform.position);
             return;
         }
-        transform.position = deck.combatManager.enemyCombatSlots[slot].transform.position;
+        MoveAnimationStarter(0.5f, deck.combatManager.enemyCombatSlots[slot].transform.position);
     }
 
     public void BenchOrUnbench() 
@@ -83,16 +94,27 @@ public class CardInCombat : MonoBehaviour
     {
         if (benched) 
         {
-            transform.position = deck.combatManager.playerBenchSlots[slot].transform.position;
+            MoveAnimationStarter(0.5f, deck.combatManager.playerBenchSlots[slot].transform.position);
             return;
         }
-        transform.position = deck.combatManager.playerCombatSlots[slot].transform.position;
+        MoveAnimationStarter(0.5f, deck.combatManager.playerCombatSlots[slot].transform.position);
     }
 
     public void PerformShortAttackAnimation()
     {
+        maxAnimationTime = 0.5f;
         curentAnimationTime = maxAnimationTime + 0.25f * slot;
         endPosition = new Vector3(transform.position.x, 1f, 0f);
         startPosition = transform.position;
+        returnMovement = true;
+    }
+
+    public void MoveAnimationStarter(float time, Vector3 end)
+    {
+        maxAnimationTime = time;
+        curentAnimationTime = time;
+        endPosition = end;
+        startPosition = transform.position;
+        returnMovement = false;
     }
 }
