@@ -993,8 +993,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
   header: Default sigil header
+  content: 
 --- !u!1 &4250512233669123747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1008,7 @@ GameObject:
   - component: {fileID: 1897129377096196493}
   - component: {fileID: 1772369562234517640}
   - component: {fileID: 6186915627302345787}
+  - component: {fileID: 6173858810257501602}
   m_Layer: 5
   m_Name: Sigil1
   m_TagString: Sigil
@@ -1097,8 +1098,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
   header: Default sigil header
+  content: 
+--- !u!114 &6173858810257501602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4250512233669123747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &4571230727087768344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,8 +1426,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
   header: Default sigil header
+  content: 
 --- !u!1 &7541215563716237300
 GameObject:
   m_ObjectHideFlags: 0

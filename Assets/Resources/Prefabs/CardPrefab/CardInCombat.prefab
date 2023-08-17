@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
   header: Default sigil header
+  content: 
 --- !u!1 &3317391008563183404
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,8 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
   header: Default sigil header
+  content: 
 --- !u!1 &6632578023628570220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1065,7 @@ GameObject:
   - component: {fileID: 8519147778333559844}
   - component: {fileID: -1797897018395449919}
   - component: {fileID: 8919155628295456012}
+  - component: {fileID: -6247568919862796945}
   m_Layer: 5
   m_Name: CardInCombat
   m_TagString: Untagged
@@ -1192,6 +1193,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &-6247568919862796945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519147778333559846}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeaab7de754daa947931ef7b4301201d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyAfter: 1
+  spawnOnDeath: {fileID: 8753074680907212074, guid: 929b6f3b1a34d024f9132276d09bcd24, type: 3}
 --- !u!1 &8553744118072331269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,8 +1309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
   header: Default sigil header
+  content: 
 --- !u!1 &8665864918513133502
 GameObject:
   m_ObjectHideFlags: 0

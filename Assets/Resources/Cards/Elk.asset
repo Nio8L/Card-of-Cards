@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elk
   m_EditorClassIdentifier: 
   maxHealth: 3
-  health: 0
+  health: 3
   attack: 2
   cost: 2
   image: {fileID: 21300000, guid: b26af8335ad4d0f4ea019e49513a18e3, type: 3}

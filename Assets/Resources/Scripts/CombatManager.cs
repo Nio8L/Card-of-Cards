@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
@@ -27,6 +29,9 @@ public class CombatManager : MonoBehaviour
 
     public Deck deck;
     public Deck enemyDeck;
+
+    public TextMeshProUGUI playerHPText;
+    public TextMeshProUGUI enemyHPText;
     private void Start()
     {
         deck = GetComponent<Deck>();
@@ -63,7 +68,6 @@ public class CombatManager : MonoBehaviour
         enemy.StartTurn();
 
         StartCombatPhase();
-        BenchMovement();
     }
 
     void BenchMovement()
@@ -72,46 +76,50 @@ public class CombatManager : MonoBehaviour
         FindCardsToSwap(enemyCards);
 
         ResetMovedCards();
-
-        timerToNextTurn = resetTimerTo;
-        startPlayerTurn = true;
     }
 
     void FindCardsToSwap(CardInCombat[] colection) 
     {
         foreach (CardInCombat card in colection)
         {
-            if (card == null || card.moved) continue;
+            if (card == null || card.moved || !card.benched) continue;
 
             int slot = card.slot;
-            if (card.benched && colection.Length > slot + 1 && (colection[slot + 1] == null || !colection[slot + 1].benched))
+            int direction = card.direction;
+
+            if (slot+direction < colection.Length && slot + direction>=0 && (colection[slot + direction] == null || !colection[slot + direction].benched))
             {
-                card.moved = true;
-                if (colection[slot + 1] != null) colection[slot + 1].moved = true;
-                SwapCards(slot, slot + 1, colection, playerBenchSlots);
+                SwapCards(slot, slot + direction,colection);
+                continue;
             }
-            else if (card.benched && slot - 1 >= 0 && (colection[slot - 1] == null || !colection[slot - 1].benched))
+
+            direction *= -1;
+            if ((slot + direction < colection.Length && slot + direction >= 0) && (colection[slot + direction] == null || !colection[slot + direction].benched))
             {
-                card.moved = true;
-                if (colection[slot - 1] != null) colection[slot - 1].moved = true;
-                SwapCards(slot, slot - 1, colection, playerBenchSlots);
+                card.direction = direction;
+                SwapCards(slot, slot + direction, colection);
+                continue;
             }
         }
     }
 
-    void SwapCards(int card1, int card2, CardInCombat[] collection, GameObject[] benchSlots) 
+    void SwapCards(int card1, int card2, CardInCombat[] collection) 
     {
         CardInCombat temp = collection[card1];
         collection[card1] = collection[card2];
         collection[card2] = temp;
 
-        collection[card2].MoveAnimationStarter(0.5f, benchSlots[card2].transform.position);
+        if (collection[card2].playerCard) collection[card2].MoveAnimationStarter(0.5f, playerBenchSlots[card2].transform.position);
+        else collection[card2].MoveAnimationStarter(0.5f, enemyBenchSlots[card2].transform.position);
         collection[card2].slot = card2;
+        collection[card2].moved = true;
 
         if (collection[card1] != null)
         {
-            collection[card1].MoveAnimationStarter(0.5f, benchSlots[card1].transform.position);
+            if(collection[card1].playerCard) collection[card1].MoveAnimationStarter(0.5f, playerCombatSlots[card1].transform.position);
+            else collection[card1].MoveAnimationStarter(0.5f, enemyCombatSlots[card1].transform.position);
             collection[card1].slot = card1;
+            collection[card1].moved = true;
         }
     }
 
@@ -131,9 +139,12 @@ public class CombatManager : MonoBehaviour
             else if (playerCards[i] != null) DirectHit(playerCards[i]);
             else if (enemyCards[i] != null) DirectHit(enemyCards[i]);
         }
+        timerToNextTurn = resetTimerTo;
+        startPlayerTurn = true;
     }
     void StartPlayerTurn()
     {
+        BenchMovement();
         if (gamePhase == 1)
         {
             deck.DiscardHand();
@@ -207,6 +218,7 @@ public class CombatManager : MonoBehaviour
 
         if (card.playerCard) enemyHealth -= card.card.attack;
         else playerHealth -= card.card.attack;
+        updateHPText();
         //to do
     }
     public void DirectHit(CardInCombat card, int damage)
@@ -216,8 +228,16 @@ public class CombatManager : MonoBehaviour
 
         if (card.playerCard) enemyHealth -= damage;
         else playerHealth -= damage;
+        updateHPText();
         //to do
     }
+
+    void updateHPText() 
+    {
+        playerHPText.text = "Player HP:" +playerHealth;
+        enemyHPText.text = "Player HP:" + enemyHealth;
+    }
+
     public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
     {
         int oldPlayerHp = playerCard.card.health;

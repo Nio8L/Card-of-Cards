@@ -89,11 +89,12 @@ public class Card : ScriptableObject
         }
         injuries.Add(causeOfDeath);
         health = maxHealth;
-        for (int i = 0; i < sigils.Count; i++)
+        for (int i = 0; i < sigils.Count && sigils.Count == 3; i++)
         {
             if (!sigils[i].negative)
             {
                 sigils.RemoveAt(i);
+                break;
             }
         }
 
@@ -116,6 +117,16 @@ public class Card : ScriptableObject
     public void ActivateOnTakeDamageEffects(CardInCombat card)
     {
         foreach (Sigil sigil in sigils) sigil.OnTakeDamageEffect(card);
+    }
+
+    public void ActivateOnSummonEffects(CardInCombat card) 
+    {
+        foreach(Sigil sigil in sigils)sigil.OnSummonEffects(card);
+    }
+
+    public void ActivateOnDeadEffects(CardInCombat card) 
+    {
+        foreach (Sigil sigil in sigils) sigil.OnDeadEffects(card);
     }
 
     public Card ResetCard()

@@ -45,6 +45,12 @@ public class Deck : MonoBehaviour, IDataPersistence
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
 
+    public TextMeshProUGUI drawPileText;
+    public TextMeshProUGUI DiscardPileText;
+    public Sprite deathMarkScratch;
+    public Sprite deathMarkBite;
+    public Sprite deathMarkPoison;
+
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
@@ -133,6 +139,10 @@ public class Deck : MonoBehaviour, IDataPersistence
         scrachDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeSlash");
         poisonDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypePoison");
 
+        deathMarkScratch = Resources.Load<Sprite>("Sprites/DeathMarkScratch");
+        deathMarkBite = Resources.Load<Sprite>("Sprites/DeathMarkBite");
+        deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
+
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
 
@@ -175,13 +185,17 @@ public class Deck : MonoBehaviour, IDataPersistence
         drawPile.Add(newCard);
         cards.Add(newCard);
         PrintDeck();
+        UpdatePileNumbers();
     }
 
 
     //FOR TESTING
     public List<Card> randomCardSelection = new();
     public void AddCard(){
-        AddCard(randomCardSelection[UnityEngine.Random.Range(0, randomCardSelection.Count)]);
+        //AddCard(randomCardSelection[UnityEngine.Random.Range(0, randomCardSelection.Count)]);
+        if (randomCardSelection.Count == 0) return;
+        AddCard(Instantiate(randomCardSelection[0]).ResetCard());
+        randomCardSelection.RemoveAt(0);
     }
 
     public void AddCard(int numOfCards)
@@ -191,13 +205,14 @@ public class Deck : MonoBehaviour, IDataPersistence
     public void RemoveCard(Card card){
         drawPile.Remove(card);
         cards.Remove(card);
+        UpdatePileNumbers();
     }
 
     public void RemoveCard(){
         drawPile.RemoveAt(drawPile.Count - 1);
         cards.RemoveAt(cards.Count - 1);
         PrintDeck();
-        
+        UpdatePileNumbers();
     }
 
     public void PrintDeck(){
@@ -265,6 +280,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         
         drawPile.RemoveAt(0);
         TidyHand();
+        UpdatePileNumbers();
     }
 
     public void DrawCard(int numOfCards)
@@ -289,6 +305,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         }
         cardsInHand.Clear();
         cardsInHandAsCards.Clear();
+        UpdatePileNumbers();
     }
 
     //Shuffle the deck using the Fisher-Yates shuffle
@@ -354,5 +371,12 @@ public class Deck : MonoBehaviour, IDataPersistence
             else if (injury == Card.TypeOfDamage.Scratch) cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 1);
             else if (injury == Card.TypeOfDamage.Poison) cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
+    }
+
+    public void UpdatePileNumbers() 
+    {
+        if (!playerDeck) return;
+        drawPileText.text = drawPile.Count + "";
+        DiscardPileText.text = discardPile.Count + "";
     }
 }

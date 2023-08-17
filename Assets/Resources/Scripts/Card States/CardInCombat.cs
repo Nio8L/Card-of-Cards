@@ -15,9 +15,11 @@ public class CardInCombat : MonoBehaviour
     [HideInInspector]
     public bool passivesTurnedOnThisTurn = false;
 
+    public bool canBeBenched = true;
     public bool playerCard = true;
     public int slot = 0;
     public bool moved;
+    public int direction = 1;
 
     Vector3 startPosition;
     Vector3 endPosition;
@@ -27,10 +29,13 @@ public class CardInCombat : MonoBehaviour
     bool returnMovement;
 
     GameObject bloodSplat;
+    GameObject deathMark;
     void Start()
     {
+        card.ActivateOnSummonEffects(this);
         deck.UpdateCardAppearance(transform, card);
         bloodSplat = Resources.Load<GameObject>("Prefabs/BloodSplatPart");
+        deathMark = Resources.Load<GameObject>("Prefabs/DeathMark");
     }
 
     private void Update()
@@ -53,21 +58,7 @@ public class CardInCombat : MonoBehaviour
         }
         else if (card.health <= 0)
         {
-            card.CreateCard(lastTypeOfDamage);
-
-            if (playerCard)
-            {
-                deck.combatManager.playerCards[slot] = null;
-                deck.discardPile.Add(card);
-            }
-            else
-            {
-                deck.combatManager.enemyCards[slot] = null;
-                deck.combatManager.enemyDeck.discardPile.Add(card);
-            }
-
-            Instantiate(bloodSplat, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            OnDeath();
         }
 
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
@@ -75,6 +66,7 @@ public class CardInCombat : MonoBehaviour
 
     public void PutOnOrOffTheBenchEnemyCards()
     {
+        if(canBeBenched) transform.position = deck.combatManager.enemyCombatSlots[slot].transform.position;
         if (benched)
         {
             MoveAnimationStarter(0.5f, deck.combatManager.enemyBenchSlots[slot].transform.position);
@@ -85,7 +77,7 @@ public class CardInCombat : MonoBehaviour
 
     public void BenchOrUnbench() 
     {
-        if (!playerCard || deck.combatManager.gamePhase == 1) return;
+        if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 1) return;
         benched = !benched;
         PutOnOrOffTheBench();
     }
@@ -116,5 +108,35 @@ public class CardInCombat : MonoBehaviour
         endPosition = end;
         startPosition = transform.position;
         returnMovement = false;
+    }
+
+    void OnDeath()
+    {
+        if (GetComponent<DestroyTimer>().enabled == false)
+        {
+            card.ActivateOnDeadEffects(this);
+            card.CreateCard(lastTypeOfDamage);
+
+            if (playerCard)
+            {
+                deck.combatManager.playerCards[slot] = null;
+                deck.discardPile.Add(card);
+            }
+            else
+            {
+                deck.combatManager.enemyCards[slot] = null;
+                deck.combatManager.enemyDeck.discardPile.Add(card);
+            }
+
+            Sprite markSprite;
+            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deck.deathMarkScratch;
+            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deck.deathMarkBite;
+            else markSprite = deck.deathMarkPoison;
+
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
+            GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
+            deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
+            GetComponent<DestroyTimer>().enabled = true;
+        }
     }
 }
