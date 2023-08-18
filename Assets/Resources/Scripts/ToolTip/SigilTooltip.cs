@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
 
     private TooltipTrigger tooltipTrigger;
@@ -86,11 +87,24 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         private void OnDestroy() {
         if(TooltipSystem.tooltipSystem.hoveredSigil != null && TooltipSystem.tooltipSystem.hoveredSigil == this){
-            Debug.Log("trigger destroyed");
             TooltipSystem.tooltipSystem.hoveredSigil = null;
             TooltipSystem.Hide();
         }
     }
 
-        
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        gameObject.GetComponent<Image>().raycastTarget = false;
+        if(cardInHand != null){
+            cardInHand.OnDrag(eventData);
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        gameObject.GetComponent<Image>().raycastTarget = true;
+        if(cardInHand != null){
+            cardInHand.OnStopDrag();
+        }
+    }
 }
