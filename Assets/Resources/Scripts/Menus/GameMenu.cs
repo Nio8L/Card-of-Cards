@@ -21,6 +21,7 @@ public class GameMenu : MonoBehaviour
     private void Update() {
         if(Input.GetKeyUp(KeyCode.Escape)){
            ChangeButtonsState();
+           TooltipSystem.Hide();
         }
     }
 
