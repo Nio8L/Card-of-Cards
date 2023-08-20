@@ -17,10 +17,12 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject cardsInCombat;
     [SerializeField] private GameObject buttons;
     [SerializeField] private GameObject bench;
+    [SerializeField] private GameObject pilesAndHp;
 
     private void Update() {
         if(Input.GetKeyUp(KeyCode.Escape)){
            ChangeButtonsState();
+           TooltipSystem.Hide();
         }
     }
 
@@ -50,5 +52,6 @@ public class GameMenu : MonoBehaviour
         cardsInCombat.SetActive(!cardsInCombat.activeSelf);
         buttons.SetActive(!backButton.activeSelf);
         bench.SetActive(!bench.activeSelf);
+        pilesAndHp.SetActive(!pilesAndHp.activeSelf);
     }
 }

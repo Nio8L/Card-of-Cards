@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class CardInHand : MonoBehaviour
+public class CardInHand : MonoBehaviour, IDragHandler
 {
     public Card card;
     public Deck deck;
@@ -24,12 +24,14 @@ public class CardInHand : MonoBehaviour
     }
 
     private void Update() {
-        
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            OnStopDrag();
+        }
     }
 
     #region Dragging functions
     //--------------------------------//
-    public void OnDrag()
+    public void OnDrag(PointerEventData eventData)
     {
         if (deck.selectedCard != transform) deck.selectedCard = transform; 
     }

@@ -1382,6 +1382,7 @@ MonoBehaviour:
   cardsInCombat: {fileID: 743951258}
   buttons: {fileID: 1617487357}
   bench: {fileID: 291470461}
+  pilesAndHp: {fileID: 1363033939}
 --- !u!4 &573670494
 Transform:
   m_ObjectHideFlags: 0
