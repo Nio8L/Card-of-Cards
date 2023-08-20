@@ -24,7 +24,9 @@ public class CardInHand : MonoBehaviour, IDragHandler
     }
 
     private void Update() {
-        
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            OnStopDrag();
+        }
     }
 
     #region Dragging functions
