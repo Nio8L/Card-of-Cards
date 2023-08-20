@@ -1677,6 +1677,7 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   cardInCombatPrefab: {fileID: 0}
   cardInBenchPrefab: {fileID: 0}
+  soulHeart: {fileID: 0}
   CardsInHandParent: {fileID: 1729705260}
   CardsInCombatParent: {fileID: 743951259}
   selectedCard: {fileID: 0}
@@ -3793,6 +3794,7 @@ MonoBehaviour:
   combatManager: {fileID: 0}
   cardInCombatPrefab: {fileID: 0}
   cardInBenchPrefab: {fileID: 0}
+  soulHeart: {fileID: 0}
   CardsInHandParent: {fileID: 1729705260}
   CardsInCombatParent: {fileID: 743951259}
   selectedCard: {fileID: 0}
