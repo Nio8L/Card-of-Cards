@@ -26,6 +26,8 @@ public class Deck : MonoBehaviour, IDataPersistence
     public GameObject cardInCombatPrefab;
     [HideInInspector]
     public GameObject cardInBenchPrefab;
+    [HideInInspector]
+    public GameObject soulHeart;
 
     public Transform CardsInHandParent;
     public Transform CardsInCombatParent;
@@ -142,6 +144,8 @@ public class Deck : MonoBehaviour, IDataPersistence
         deathMarkScratch = Resources.Load<Sprite>("Sprites/DeathMarkScratch");
         deathMarkBite = Resources.Load<Sprite>("Sprites/DeathMarkBite");
         deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
+
+        soulHeart = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
 
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;

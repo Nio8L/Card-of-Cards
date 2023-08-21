@@ -104,6 +104,20 @@ public class CardInHand : MonoBehaviour, IDragHandler
                 healedCard.AcceptLostSoul();
                 deck.UpdateCardAppearance(result.gameObject.transform, healedCard);
 
+                // Visual effect v
+                Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity);
+                
+                LostSoulVisuals soulHeart;
+
+                soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                soulHeart.angle = 120f;
+                soulHeart.primaryHeart = false;
+
+                soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
+                soulHeart.primaryHeart = false;
+                //               ^
+
                 deck.cards.Remove(card);
 
                 if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
