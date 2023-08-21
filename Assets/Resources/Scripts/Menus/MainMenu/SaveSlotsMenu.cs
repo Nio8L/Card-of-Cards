@@ -29,7 +29,7 @@ public class SaveSlotsMenu : MonoBehaviour
             DataPersistenceManager.DataManager.NewGame();
         }
     
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadSceneAsync("Map");
     }
 
     public void OnBackClick(){

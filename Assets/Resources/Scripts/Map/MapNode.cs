@@ -31,6 +31,8 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
 
     public int nodeDepth = 0;
 
+    public int nodeId;
+
     [Header("Generation settings")]
     [SerializeField] public int depth;
     [SerializeField] public int minBranches;
@@ -43,8 +45,9 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/RoomSprites/" + roomType.ToString());
         
-        MapManager.mapManager.mapNodes.Add(this);
-        
+        if(MapManager.mapManager.isGenerating){
+            MapManager.mapManager.mapNodes.Add(this);
+        }
         AddPhysics2DRaycaster();
 
         GenerateNodes(canGenerate);
@@ -72,7 +75,7 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
                 newMapNode.roomType = (RoomType)Random.Range(0, 4);
                 connections.Add(newMapNode);
                 newMapNode.connections.Add(this);
-            
+                
 
                 GameObject newLine = Instantiate(lineObject, transform.position, Quaternion.identity);
                 LineRenderer lineRenderer = newLine.GetComponent<LineRenderer>();
@@ -94,7 +97,7 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
                         MapManager.mapManager.lines.Remove(lineRenderer);
                         lines.Remove(lineRenderer);
                         Destroy(newLine);
-                        Debug.Log("intersecting");
+                        //Debug.Log("intersecting");
                     }
                 }
             }

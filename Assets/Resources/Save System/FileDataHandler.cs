@@ -93,7 +93,7 @@ public class FileDataHandler
         try{
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
-            string dataToStore = JsonUtility.ToJson(data);
+            string dataToStore = JsonUtility.ToJson(data, true);
 
             using(FileStream stream = new FileStream(fullPath, FileMode.Create)){
                 using(StreamWriter writer = new StreamWriter(stream)){
