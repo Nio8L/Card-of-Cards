@@ -48,6 +48,9 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
         if(MapManager.mapManager.isGenerating){
             MapManager.mapManager.mapNodes.Add(this);
         }
+
+        gameObject.transform.SetParent(MapManager.mapManager.transform);
+
         AddPhysics2DRaycaster();
 
         GenerateNodes(canGenerate);

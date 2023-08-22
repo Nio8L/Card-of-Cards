@@ -36,6 +36,8 @@ public class MapClass
 {
     public List<MapNodeClass> mapNodes;
 
+    public int currentNodeId;
+
     public MapClass(){
         mapNodes = new();
     }

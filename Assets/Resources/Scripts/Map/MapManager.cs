@@ -126,7 +126,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
     
                 mapNodes.Add(newMapNode);
             }
-            Debug.Log("from loading map: " + mapNodes.Count);
+    
+            currentNode = mapNodes[data.map.currentNodeId];
+
             for(int i = 0; i < data.map.mapNodes.Count; i++){
                 for(int j = 0; j < data.map.mapNodes[i].connectionIds.Count; j++){
                     for(int k = 0; k < mapNodes.Count; k++){
@@ -145,7 +147,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
                     }
                 }
             }
-            currentNode = mapNodes[0];
         }else{
             currentNode.gameObject.SetActive(true);
             isGenerating = true;
@@ -153,13 +154,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
 
     public void SaveData(ref GameData data)
-    {
-        Debug.Log("SAVING FROM MAP " + mapNodes.Count);
-        for(int i = 0; i < data.map.mapNodes.Count; i++){
-            data.map.mapNodes[i].coordinates.Clear();
-        }
+    {        
         data.map.mapNodes.Clear();
-       Debug.Log(data.map.mapNodes.Count);
+        
+        data.map.currentNodeId = currentNode.nodeId;
+
         for(int i = 0; i < mapNodes.Count; i++){
             data.map.mapNodes.Add(new MapNodeClass());
             data.map.mapNodes[^1].coordinates.Add(mapNodes[i].transform.position.x);
