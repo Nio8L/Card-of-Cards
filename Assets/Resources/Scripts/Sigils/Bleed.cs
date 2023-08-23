@@ -13,9 +13,15 @@ public class Bleed : Sigil
         count++;
         if (count >= turnToDealDamage)
         {
+            Debug.Log("dmged");
             card.card.health -= damage;
             count = 0;
+            if (card.card.health <= 0)
+            {
+                Debug.Log("died From Bleed");
+                card.card.lastBattle = null;
+            }
+            card.deck.UpdateCardAppearance(card.transform, card.card);
         }
-        
     }
 }

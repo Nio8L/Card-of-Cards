@@ -255,10 +255,11 @@ public class CombatManager : MonoBehaviour
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
-        playerCard.card.ActivateOnTakeDamageEffects(playerCard);
        
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
+
+        playerCard.card.ActivateOnTakeDamageEffects(playerCard);
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
 
         // Generate accurate battle data

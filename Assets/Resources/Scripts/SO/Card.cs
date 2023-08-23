@@ -77,6 +77,7 @@ public class Card : ScriptableObject
         Sigil bleed = Resources.Load<Sigil>("Sigils/WeakBleed");
         negativeSigil = Instantiate(bleed);
         negativeSigil.name = bleed.name;
+
         foreach (TypeOfDamage type in injuries)
         {
             if (type == causeOfDeath)
@@ -87,6 +88,7 @@ public class Card : ScriptableObject
                 return;
             }
         }
+
         injuries.Add(causeOfDeath);
         health = maxHealth;
         for (int i = 0; i < sigils.Count && sigils.Count == 3; i++)
