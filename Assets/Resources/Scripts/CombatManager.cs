@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
+    public static bool inCombat;
 
     public EnemyAI enemy;
 
@@ -33,11 +34,33 @@ public class CombatManager : MonoBehaviour
 
     public TextMeshProUGUI playerHPText;
     public TextMeshProUGUI enemyHPText;
+    public GameObject startCombatMenu;
+    public GameObject endCombatMenu;
+    public TextMeshProUGUI endCombatText;
+
     private void Start()
     {
+        Time.timeScale = 0;
+        inCombat = false;
+        startCombatMenu.SetActive(true);
+        endCombatMenu.SetActive(false);
+
         deck = GetComponent<Deck>();
         enemyDeck = GameObject.Find("EnemyDeck").GetComponent<Deck>();
         enemy.Initialize();
+    }
+
+    public void StartGame() 
+    {
+        inCombat = true;
+        Time.timeScale = 1;
+        startCombatMenu.SetActive(false);
+    }
+
+    public void EndGame()
+    {
+        endCombatMenu.SetActive(false);
+        //END THE GAME HERE
     }
 
     private void Update()
@@ -218,8 +241,26 @@ public class CombatManager : MonoBehaviour
         if (card.benched) return;
         card.PerformShortAttackAnimation();
 
-        if (card.playerCard) enemyHealth -= card.card.attack;
-        else playerHealth -= card.card.attack;
+        if (card.playerCard)
+        {
+            enemyHealth -= card.card.attack;
+            if(enemyHealth <= 0) 
+            {
+                endCombatMenu.SetActive(true);
+                Time.timeScale = 0;
+                endCombatText.text = "you won";
+            }
+        }
+        else
+        {
+            playerHealth -= card.card.attack;
+            if (playerHealth <= 0)
+            {
+                endCombatMenu.SetActive(true);
+                Time.timeScale = 0;
+                endCombatText.text = "you lost";
+            }
+        }
         updateHPText();
         //to do
     }
@@ -228,8 +269,24 @@ public class CombatManager : MonoBehaviour
         if (card.benched) return;
         card.PerformShortAttackAnimation();
 
-        if (card.playerCard) enemyHealth -= damage;
-        else playerHealth -= damage;
+        if (card.playerCard)
+        {
+            enemyHealth -= damage;
+            if (enemyHealth <= 0)
+            {
+                endCombatMenu.SetActive(true);
+                endCombatText.text = "you won";
+            }
+        }
+        else
+        {
+            playerHealth -= damage;
+            if (playerHealth <= 0)
+            {
+                endCombatMenu.SetActive(true);
+                endCombatText.text = "you lost";
+            }
+        }
         updateHPText();
         //to do
     }

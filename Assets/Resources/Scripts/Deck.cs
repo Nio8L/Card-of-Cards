@@ -158,6 +158,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         if(cards.Count == 0 && playerDeck){
             AddCard(10);
         }
+        Shuffle();
         DrawCard(5);
     }
 
@@ -264,6 +265,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             {
                 drawPile.AddRange(discardPile);
                 discardPile.Clear();
+                Shuffle();
             }
             else return;
         }
