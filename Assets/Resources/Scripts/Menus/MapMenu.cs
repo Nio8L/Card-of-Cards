@@ -31,4 +31,8 @@ public class MapMenu : MonoBehaviour
         menuButtons.SetActive(!menuButtons.activeSelf);
         SceneManager.LoadSceneAsync("SampleScene");
     }
+
+    public void SaveGame(){
+        DataPersistenceManager.DataManager.SaveGame();
+    }
 }
