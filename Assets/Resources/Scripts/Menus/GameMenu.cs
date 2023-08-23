@@ -7,9 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameMenu : MonoBehaviour
 {
     [Header("Menu Buttons")]
-    [SerializeField] private GameObject backButton;
-    [SerializeField] private GameObject saveGameButton;
-    [SerializeField] private GameObject mainMenuButton;
+    [SerializeField] private GameObject menuButtons;
+
 
     [Header("Stuff to Disable")]
     [SerializeField] private GameObject cardSlots;
@@ -17,6 +16,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject cardsInCombat;
     [SerializeField] private GameObject buttons;
     [SerializeField] private GameObject bench;
+    [SerializeField] private GameObject pilesAndHp;
 
     private void Update() {
         if(Input.GetKeyUp(KeyCode.Escape)){
@@ -39,9 +39,7 @@ public class GameMenu : MonoBehaviour
     }
 
     private void ChangeButtonsState(){
-        backButton.SetActive(!backButton.activeSelf);
-        saveGameButton.SetActive(!saveGameButton.activeSelf);
-        mainMenuButton.SetActive(!mainMenuButton.activeSelf);
+        menuButtons.SetActive(!menuButtons.activeSelf);
         ChangeUIState();
     }
 
@@ -49,7 +47,13 @@ public class GameMenu : MonoBehaviour
         cardSlots.SetActive(!cardSlots.activeSelf);
         cardsInHand.SetActive(!cardsInHand.activeSelf);
         cardsInCombat.SetActive(!cardsInCombat.activeSelf);
-        buttons.SetActive(!backButton.activeSelf);
+        buttons.SetActive(!buttons.activeSelf);
         bench.SetActive(!bench.activeSelf);
+        pilesAndHp.SetActive(!pilesAndHp.activeSelf);
+    }
+
+    public void OnClickMap(){
+        ChangeButtonsState();
+        SceneManager.LoadSceneAsync("Map");
     }
 }

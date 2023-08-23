@@ -16,6 +16,7 @@ public class DeathMark : MonoBehaviour
     void Start()
     {
         currentTime = timeBetweenFlips;
+        transform.localScale = Vector3.one;
     }
 
     // Update is called once per frame

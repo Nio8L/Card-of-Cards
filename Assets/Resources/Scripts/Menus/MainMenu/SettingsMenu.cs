@@ -16,8 +16,10 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [SerializeField] private Toggle autoSaveSwitch;
 
     public void SaveData(ref SettingsData data){
-        data.audioLevel = (int)audioSlider.value;
-        data.autoSave = autoSaveSwitch.isOn;
+        if(audioSlider != null){
+            data.audioLevel = (int)audioSlider.value;
+            data.autoSave = autoSaveSwitch.isOn;
+        }
     }
 
     public void LoadData(SettingsData data){

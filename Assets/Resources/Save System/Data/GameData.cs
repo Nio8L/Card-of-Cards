@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-
 public class ListWrapper
 {
     public List<string> list;
@@ -13,6 +12,38 @@ public class ListWrapper
     }
 }
 
+[System.Serializable]
+public class MapNodeClass
+{
+    public List<float> coordinates;
+
+    public string roomType;
+
+    public List<int> connectionIds;
+
+    public int id;
+
+    public int nodeDepth;
+
+    public MapNodeClass(){
+        coordinates = new();
+        connectionIds = new();
+    }
+}
+
+[System.Serializable]
+public class MapClass
+{
+    public List<MapNodeClass> mapNodes;
+
+    public int currentNodeId;
+
+    public MapClass(){
+        mapNodes = new();
+    }
+}
+
+[System.Serializable]
 public class GameData
 {
   
@@ -31,6 +62,8 @@ public class GameData
 
     public List<string> cardDamageType;
 
+    public MapClass map;
+
     public GameData(){
         cardNames = new();
         cardAttacks = new();
@@ -44,6 +77,9 @@ public class GameData
         cardInjuries = new();
 
         cardDamageType = new();
+
+        map = new();
+        //Debug.Log(map);
     }
     
 }
