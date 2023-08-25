@@ -39,6 +39,7 @@ public class GameMenu : MonoBehaviour
     }
 
     private void ChangeButtonsState(){
+        SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);
         ChangeUIState();
     }
