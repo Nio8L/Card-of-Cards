@@ -13,11 +13,6 @@ public class MainMenu : MonoBehaviour
     [Header("Main Menu Buttons")]
     [SerializeField] private Button continueButton;
     [SerializeField] private Button loadButton;
-
-    [SerializeField] private AudioSource buttonClick;
-    
-    [SerializeField] private GameObject mainMenu;
-
     private void Start() {
         if(!DataPersistenceManager.DataManager.HasGameData()){
             continueButton.interactable = false;
@@ -26,37 +21,29 @@ public class MainMenu : MonoBehaviour
     }
 
     public void OnNewGameClick(){
-        PlaySound();
         saveSlotsMenu.ActivateMenu(false);
         DeactivateMenu();
     }
 
     public void OnLoadGameClicked(){
-        PlaySound();
         saveSlotsMenu.ActivateMenu(true);
         DeactivateMenu();
     }
 
     public void OnContinueClick(){
-        PlaySound();
         SceneManager.LoadSceneAsync("SampleScene");
     }  
 
     public void OnSettingsClick(){
-        PlaySound();
         settingsMenu.ActivateMenu();
         DeactivateMenu();
     }
 
     public void ActivateMenu(){
-        mainMenu.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void DeactivateMenu(){
-        mainMenu.SetActive(false);
+        gameObject.SetActive(false);
     } 
-
-    public void PlaySound(){
-        buttonClick.Play();
-    }
 }

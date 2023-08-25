@@ -30,7 +30,6 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     public void OnBackClick(){
         DataPersistenceManager.DataManager.SaveSettings();
         mainMenu.ActivateMenu();
-        mainMenu.PlaySound();
         DeactivateMenu();
     }
 
