@@ -52,6 +52,7 @@ public class CombatManager : MonoBehaviour
 
     public void StartGame() 
     {
+        SoundManager.soundManager.Play("ButtonClick");
         inCombat = true;
         Time.timeScale = 1;
         startCombatMenu.SetActive(false);

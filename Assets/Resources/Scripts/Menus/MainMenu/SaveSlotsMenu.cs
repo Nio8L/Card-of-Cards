@@ -21,6 +21,8 @@ public class SaveSlotsMenu : MonoBehaviour
     }
 
     public void OnSaveSlotClick(SaveSlot saveSlot){
+        SoundManager.soundManager.Play("ButtonClick");
+
         DisableMenuButtons();
 
         DataPersistenceManager.DataManager.ChangeSelectedProfileId(saveSlot.GetProfileId());
@@ -33,6 +35,7 @@ public class SaveSlotsMenu : MonoBehaviour
     }
 
     public void OnBackClick(){
+        SoundManager.soundManager.Play("ButtonClick");
         mainMenu.ActivateMenu();
         DeactivateMenu();
     }

@@ -21,20 +21,24 @@ public class MainMenu : MonoBehaviour
     }
 
     public void OnNewGameClick(){
+        SoundManager.soundManager.Play("ButtonClick");
         saveSlotsMenu.ActivateMenu(false);
         DeactivateMenu();
     }
 
     public void OnLoadGameClicked(){
+        SoundManager.soundManager.Play("ButtonClick");
         saveSlotsMenu.ActivateMenu(true);
         DeactivateMenu();
     }
 
     public void OnContinueClick(){
+        SoundManager.soundManager.Play("ButtonClick");
         SceneManager.LoadSceneAsync("SampleScene");
     }  
 
     public void OnSettingsClick(){
+        SoundManager.soundManager.Play("ButtonClick");
         settingsMenu.ActivateMenu();
         DeactivateMenu();
     }

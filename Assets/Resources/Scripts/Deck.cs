@@ -68,6 +68,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             cards[^1].attack = data.cardAttacks[i];
             //cards[^1].health = data.cardHealths[i];
             cards[^1].maxHealth = data.cardMaxHealths[i];
+            cards[^1].health = cards[^1].maxHealth;
             cards[^1].cost = data.cardCosts[i];
             cards[^1].image = Resources.Load<Sprite>("Sprites/" + data.cardImages[i]);
 
@@ -81,10 +82,6 @@ public class Deck : MonoBehaviour, IDataPersistence
 
             for(int j = 0; j < data.cardInjuries[i].list.Count; j++){
                 cards[^1].injuries.Add((Card.TypeOfDamage) Enum.Parse(typeof(Card.TypeOfDamage), data.cardInjuries[i].list[j]));
-            }
-
-            for(int j = 0; j < data.cardSigils[i].list.Count; j++){
-                cards[^1].sigils.Add(Instantiate(Resources.Load<Sigil>("Sigils/" + data.cardSigils[i].list[j])));
             }
         }
     }
