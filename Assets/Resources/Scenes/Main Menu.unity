@@ -1646,6 +1646,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: LostSoul
+    clip: {fileID: 8300000, guid: c42180db62cbdcd4eab6e0dcfacaa142, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!4 &1107156820
 Transform:
   m_ObjectHideFlags: 0

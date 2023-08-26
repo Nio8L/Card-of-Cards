@@ -30,4 +30,10 @@ public class SoundManager : MonoBehaviour
         SoundClass sound = Array.Find(sounds, sound => sound.name == name);
         sound.source.Play();
     }
+
+    public void UpdateVolume(float volume){
+        foreach(SoundClass sound in sounds){
+            sound.source.volume = volume;
+        }
+    }
 }

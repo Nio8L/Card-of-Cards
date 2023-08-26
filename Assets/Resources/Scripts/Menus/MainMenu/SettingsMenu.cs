@@ -50,6 +50,6 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
 
     public void SliderChange(){
         audioText.text = "SOUND LEVEL: " + audioSlider.value.ToString() + "%";
-        
+        SoundManager.soundManager.UpdateVolume(audioSlider.value / 100);
     }
 }

@@ -38,7 +38,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnStopDrag()
     {
-        SoundManager.soundManager.Play("CardRetract");
         BenchSlot benchSlot = CheckForSlot();
         
             if (benchSlot != null && benchSlot.playerSlot && deck.energy >= card.cost)
@@ -47,23 +46,14 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                     if(deck.combatManager.playerCards[benchSlot.slot] == null){
                         PlayCard(benchSlot);
                         SoundManager.soundManager.Play("CardPlaced");
+                    }else{
+                        SoundManager.soundManager.Play("CardRetract");
                     }
-                }/*else if(deck.combatManager.playerCards[benchSlot.slot] != null){
-                    Card healedCard = deck.combatManager.playerCards[benchSlot.slot].GetComponent<CardInCombat>().card;
-                    
-                    healedCard.AcceptLostSoul();
-                    deck.UpdateCardAppearance(deck.combatManager.playerCards[benchSlot.slot].transform, healedCard);
-                    Debug.Log("playing lost soul on " + healedCard.name);
-                    for(int i = 0; i < healedCard.sigils.Count; i++){
-                        Debug.Log(healedCard.sigils[i].name);
-                    }
-
-                    deck.cards.Remove(card);
-
-                    if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
-                    if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
-                    Destroy(gameObject);
-                }*/
+                }else{
+                    SoundManager.soundManager.Play("CardRetract");
+                }
+            }else{
+                SoundManager.soundManager.Play("CardRetract");
             }
 
         //Check if the card to which this script is attachd is a "Lost Soul"
@@ -72,7 +62,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         if (card.name == "LostSoul" && deck.selectedCard != null && deck.selectedCard.GetComponent<CardInHand>().card.name == "LostSoul")
         {
             PlayLostSoul();
-            SoundManager.soundManager.Play("CardPlaced");
         }
     
         deck.selectedCard = null;
@@ -101,6 +90,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         {
             //Check if the card on which we play "Lost Soul" is in combat and if it's a player's card and not an enemy's card
             if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().playerCard){
+                SoundManager.soundManager.Play("LostSoul");
                 Debug.Log("Playing lost soul on  " + result.gameObject.GetComponent<CardInCombat>().card.name);
                 Card healedCard = result.gameObject.GetComponent<CardInCombat>().card;
 
