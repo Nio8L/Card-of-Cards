@@ -77,6 +77,8 @@ public class CardInCombat : MonoBehaviour
 
     public void BenchOrUnbench() 
     {
+        SoundManager.soundManager.Play("CardSlide");
+
         if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 1) return;
         benched = !benched;
         PutOnOrOffTheBench();
@@ -141,5 +143,9 @@ public class CardInCombat : MonoBehaviour
             deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
             GetComponent<DestroyTimer>().enabled = true;
         }
+    }
+
+    private void OnDestroy() {
+        SoundManager.soundManager.Play("CardDeath");
     }
 }

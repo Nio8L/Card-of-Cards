@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class CardInHand : MonoBehaviour, IDragHandler
+public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 {
     public Card card;
     public Deck deck;
@@ -38,6 +38,7 @@ public class CardInHand : MonoBehaviour, IDragHandler
 
     public void OnStopDrag()
     {
+        SoundManager.soundManager.Play("CardRetract");
         BenchSlot benchSlot = CheckForSlot();
         
             if (benchSlot != null && benchSlot.playerSlot && deck.energy >= card.cost)
@@ -45,6 +46,7 @@ public class CardInHand : MonoBehaviour, IDragHandler
                 if(card.name != "LostSoul"){
                     if(deck.combatManager.playerCards[benchSlot.slot] == null){
                         PlayCard(benchSlot);
+                        SoundManager.soundManager.Play("CardPlaced");
                     }
                 }/*else if(deck.combatManager.playerCards[benchSlot.slot] != null){
                     Card healedCard = deck.combatManager.playerCards[benchSlot.slot].GetComponent<CardInCombat>().card;
@@ -70,6 +72,7 @@ public class CardInHand : MonoBehaviour, IDragHandler
         if (card.name == "LostSoul" && deck.selectedCard != null && deck.selectedCard.GetComponent<CardInHand>().card.name == "LostSoul")
         {
             PlayLostSoul();
+            SoundManager.soundManager.Play("CardPlaced");
         }
     
         deck.selectedCard = null;
@@ -182,4 +185,10 @@ public class CardInHand : MonoBehaviour, IDragHandler
         if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
         Destroy(gameObject);
     }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        SoundManager.soundManager.Play("CardPickUp");
+    }
+
 }
