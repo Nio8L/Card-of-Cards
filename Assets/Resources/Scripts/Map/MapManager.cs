@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour, IDataPersistence
 {
@@ -56,6 +57,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             currentNode.spriteRenderer.color = Color.white;
             currentNode = newNode;
             currentNode.spriteRenderer.color = Color.red;
+            if (currentNode.roomType == MapNode.RoomType.Combat) SceneManager.LoadSceneAsync("SampleScene");
         }
     }
 
