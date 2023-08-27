@@ -239,6 +239,7 @@ public class CombatManager : MonoBehaviour
     //--------------------------------//
     public void DirectHit(CardInCombat card)
     {
+        SoundManager.soundManager.Play("CardHit");
         if (card.benched) return;
         card.PerformShortAttackAnimation();
 
@@ -329,6 +330,8 @@ public class CombatManager : MonoBehaviour
 
         playerCard.PerformShortAttackAnimation();
         enemyCard.PerformShortAttackAnimation();
+
+        
     }
     //--------------------------------//
     #endregion

@@ -1651,6 +1651,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: CardHit
+    clip: {fileID: 8300000, guid: 7b49f78b8b62ce44d94217961040e964, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!4 &1107156820
 Transform:
   m_ObjectHideFlags: 0
