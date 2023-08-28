@@ -56,8 +56,21 @@ public class DataPersistenceManager : MonoBehaviour
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
+    //DARK MAGIC CODE, DO NOT TOUCH
+    //IF THIS BREAKS WE ARE DOOMED
+    public void MapManagerHandler(){
+        if(MapManager.mapManager != null){
+            if(SceneManager.GetActiveScene().name == "Map"){
+                MapManager.mapManager.gameObject.SetActive(true);
+            }else{
+                MapManager.mapManager.gameObject.SetActive(false);
+            }
+        }
+    }
+
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         dataPersistenceObjects = FindAllDataPersistenceObjects();
+        MapManagerHandler();
         LoadGame();
     }
 
