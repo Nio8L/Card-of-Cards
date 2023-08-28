@@ -28,7 +28,9 @@ public class SoundManager : MonoBehaviour
 
     public void Play(string name){
         SoundClass sound = Array.Find(sounds, sound => sound.name == name);
-        sound.source.Play();
+        if(sound.source != null){
+            sound.source.Play();
+        }
     }
 
     public void UpdateVolume(float volume){

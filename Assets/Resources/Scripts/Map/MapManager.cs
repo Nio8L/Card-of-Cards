@@ -28,6 +28,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     private void Awake() {
         mapManager = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update

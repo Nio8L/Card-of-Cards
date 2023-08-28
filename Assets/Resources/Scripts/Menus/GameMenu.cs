@@ -42,7 +42,7 @@ public class GameMenu : MonoBehaviour
     private void ChangeButtonsState(){
         SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);
-        //mapButton.interactable = !CombatManager.inCombat;
+        mapButton.interactable = !CombatManager.inCombat;
         ChangeUIState();
     }
 
