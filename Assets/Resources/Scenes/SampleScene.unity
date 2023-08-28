@@ -1702,7 +1702,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
 --- !u!4 &769775201
 Transform:
   m_ObjectHideFlags: 0
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8920dcbd911f9c40bf5e52f6872d33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: a8be0f2becc8c7b4b8aa3055dafe03ca, type: 2}
+  enemy: {fileID: 11400000, guid: 86fb60a307a9ef04a863a4dcfd7ef770, type: 2}
   gamePhase: 0
   playerHealth: 20
   enemyHealth: 20

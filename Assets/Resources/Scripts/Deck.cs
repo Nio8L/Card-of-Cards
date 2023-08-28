@@ -147,13 +147,23 @@ public class Deck : MonoBehaviour, IDataPersistence
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
 
-        combatManager = GetComponent<CombatManager>();
-        
+        if (playerDeck) combatManager = GetComponent<CombatManager>();
+        else combatManager = GameObject.Find("Deck").GetComponent<CombatManager>(); 
+
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
 
         if(cards.Count == 0 && playerDeck){
             AddCard(10);
+        }
+        else if (!playerDeck)
+        {
+            if (DataPersistenceManager.DataManager.currentCombatAI != null)
+            {
+                combatManager.enemy = DataPersistenceManager.DataManager.currentCombatAI;
+            }
+            combatManager.enemy.Initialize();
+            combatManager.updateHPText();
         }
         Shuffle();
         DrawCard(5);

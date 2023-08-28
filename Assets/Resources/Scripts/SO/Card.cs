@@ -142,6 +142,7 @@ public class Card : ScriptableObject
         for (int i = 0; i < sigils.Count; i++)
         {
             string oldSigilName = sigils[i].name;
+            Debug.Log("Card name: " + name + "Sigil name: " + sigils[i].name);
             sigils[i] = Instantiate(sigils[i]);
             sigils[i].name = oldSigilName;
         }

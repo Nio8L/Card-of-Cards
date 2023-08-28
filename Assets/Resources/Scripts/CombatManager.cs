@@ -47,7 +47,6 @@ public class CombatManager : MonoBehaviour
 
         deck = GetComponent<Deck>();
         enemyDeck = GameObject.Find("EnemyDeck").GetComponent<Deck>();
-        enemy.Initialize();
     }
 
     public void StartGame() 
@@ -300,7 +299,7 @@ public class CombatManager : MonoBehaviour
         //to do
     }
 
-    void updateHPText() 
+    public void updateHPText() 
     {
         playerHPText.text = "Player HP: " + playerHealth;
         enemyHPText.text = "Enemy HP: " + enemyHealth;

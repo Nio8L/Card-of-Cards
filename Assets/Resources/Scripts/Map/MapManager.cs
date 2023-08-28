@@ -8,7 +8,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 {
     public GameObject nodeObject;
     public GameObject lineObject;
-
+    
     public static MapManager mapManager;
 
     public List<MapNode> mapNodes;
@@ -21,7 +21,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public int nodeNumber = 0   ;
 
-    public bool isGenerating = true; 
+    public bool isGenerating = true;
+
+    // Enemy Ai list
+    EnemyAI[] tier1EnemyAIs;
 
     private void Awake() {
         mapManager = this;
@@ -30,7 +33,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
-        if(currentNode != null){
+        tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
+
+
+        if (currentNode != null){
             currentNode.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
@@ -57,7 +63,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
             currentNode.spriteRenderer.color = Color.white;
             currentNode = newNode;
             currentNode.spriteRenderer.color = Color.red;
-            if (currentNode.roomType == MapNode.RoomType.Combat) SceneManager.LoadSceneAsync("SampleScene");
+            if (currentNode.roomType == MapNode.RoomType.Combat)
+            {
+                EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
+                DataPersistenceManager.DataManager.currentCombatAI = ai;
+                SceneManager.LoadSceneAsync("SampleScene");
+            }
         }
     }
 

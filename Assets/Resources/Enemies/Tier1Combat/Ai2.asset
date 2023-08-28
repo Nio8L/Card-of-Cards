@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
+  m_Name: Ai2
+  m_EditorClassIdentifier: 
+  cards:
+  - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
+  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
+  maxHealth: 15
+  maxCardsPerTurn: 3
+  startPlayingDefensivelyAt: 15
+  startPlayingAggressivelyAt: 5
+  canUseLostSoul: 1
+  useKillerStrategyInstead: 1
+  canSeePlayerCardsPlacedThisTurn: 0

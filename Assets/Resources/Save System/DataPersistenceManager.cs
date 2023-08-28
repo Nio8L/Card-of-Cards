@@ -13,6 +13,8 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("Developer Tools")]
     [SerializeField] public bool AutoSaveData = false;
 
+    public EnemyAI currentCombatAI;
+
     private GameData gameData;
     private SettingsData settingsData;
 

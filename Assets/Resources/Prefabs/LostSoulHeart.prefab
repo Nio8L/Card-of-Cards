@@ -118,4 +118,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyAfter: 1.5
-  spawnOnDeath: {fileID: 8324242001368991893, guid: 8e7bf47932bcf944eb8fb750ed43cbf9, type: 3}
+  spawnOnDeath: {fileID: 4294057561451313952, guid: 91b51a7cfdcb04042a72ea1dc21125cb, type: 3}
