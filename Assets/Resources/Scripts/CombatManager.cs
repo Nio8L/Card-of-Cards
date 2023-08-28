@@ -60,7 +60,10 @@ public class CombatManager : MonoBehaviour
 
     public void EndGame()
     {
+        SoundManager.soundManager.Play("ButtonClick");
+        inCombat = false;
         endCombatMenu.SetActive(false);
+        Time.timeScale = 1;
         //END THE GAME HERE
     }
 
@@ -248,6 +251,7 @@ public class CombatManager : MonoBehaviour
             enemyHealth -= card.card.attack;
             if(enemyHealth <= 0) 
             {
+                TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
                 endCombatMenu.SetActive(true);
                 Time.timeScale = 0;
                 endCombatText.text = "you won";
@@ -258,6 +262,7 @@ public class CombatManager : MonoBehaviour
             playerHealth -= card.card.attack;
             if (playerHealth <= 0)
             {
+                TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
                 endCombatMenu.SetActive(true);
                 Time.timeScale = 0;
                 endCombatText.text = "you lost";
@@ -276,6 +281,7 @@ public class CombatManager : MonoBehaviour
             enemyHealth -= damage;
             if (enemyHealth <= 0)
             {
+                TooltipSystem.Hide();
                 endCombatMenu.SetActive(true);
                 endCombatText.text = "you won";
             }
@@ -285,6 +291,7 @@ public class CombatManager : MonoBehaviour
             playerHealth -= damage;
             if (playerHealth <= 0)
             {
+                TooltipSystem.Hide();
                 endCombatMenu.SetActive(true);
                 endCombatText.text = "you lost";
             }

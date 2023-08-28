@@ -1375,6 +1375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuButtons: {fileID: 796945409}
+  mapButton: {fileID: 1287252755}
   cardSlots: {fileID: 1212856396}
   cardsInHand: {fileID: 1729705259}
   cardsInCombat: {fileID: 743951258}

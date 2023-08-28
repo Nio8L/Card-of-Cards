@@ -8,6 +8,7 @@ public class GameMenu : MonoBehaviour
 {
     [Header("Menu Buttons")]
     [SerializeField] private GameObject menuButtons;
+    [SerializeField] private Button mapButton;
 
 
     [Header("Stuff to Disable")]
@@ -41,6 +42,7 @@ public class GameMenu : MonoBehaviour
     private void ChangeButtonsState(){
         SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);
+        //mapButton.interactable = !CombatManager.inCombat;
         ChangeUIState();
     }
 
