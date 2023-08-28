@@ -49,6 +49,8 @@ public class GameData
   
     public long lastSaved;
 
+    public int playerHealth;
+
     public List<string> cardNames;
     public List<int> cardAttacks;
     //public List<int> cardHealths;
@@ -65,6 +67,8 @@ public class GameData
     public MapClass map;
 
     public GameData(){
+        playerHealth = 20;
+
         cardNames = new();
         cardAttacks = new();
         //scardHealths = new();

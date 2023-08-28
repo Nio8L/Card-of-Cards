@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class CombatManager : MonoBehaviour
+
+public class CombatManager : MonoBehaviour, IDataPersistence
 {
     public static bool inCombat;
 
@@ -63,6 +65,7 @@ public class CombatManager : MonoBehaviour
         inCombat = false;
         endCombatMenu.SetActive(false);
         Time.timeScale = 1;
+        SceneManager.LoadSceneAsync("Map");
         //END THE GAME HERE
     }
 
@@ -280,7 +283,7 @@ public class CombatManager : MonoBehaviour
             enemyHealth -= damage;
             if (enemyHealth <= 0)
             {
-                TooltipSystem.Hide();
+                TooltipSystem.QuickHide();
                 endCombatMenu.SetActive(true);
                 endCombatText.text = "you won";
             }
@@ -290,7 +293,7 @@ public class CombatManager : MonoBehaviour
             playerHealth -= damage;
             if (playerHealth <= 0)
             {
-                TooltipSystem.Hide();
+                TooltipSystem.QuickHide();
                 endCombatMenu.SetActive(true);
                 endCombatText.text = "you lost";
             }
@@ -339,6 +342,17 @@ public class CombatManager : MonoBehaviour
 
         
     }
+
+    public void LoadData(GameData data)
+    {
+        playerHealth = data.playerHealth;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerHealth = playerHealth;
+    }
     //--------------------------------//
+
     #endregion
 }

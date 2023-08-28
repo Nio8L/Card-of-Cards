@@ -15,6 +15,8 @@ public class TooltipSystem : MonoBehaviour
 
     private void Awake() {
         tooltipSystem = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public static void Show(string content, string header = ""){
@@ -23,6 +25,10 @@ public class TooltipSystem : MonoBehaviour
             tooltipSystem.tooltip.gameObject.SetActive(true);
         }
         LeanTween.alphaCanvas(tooltipSystem.canvasGroup, 1f, 0.3f);
+    }
+
+    public static void QuickHide(){
+        tooltipSystem.tooltip.gameObject.SetActive(false);
     }
 
     public static void Hide(){
