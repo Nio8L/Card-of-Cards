@@ -12,6 +12,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     [Header("Developer Tools")]
     [SerializeField] public bool AutoSaveData = false;
+    [SerializeField] public float audioLevel = 0;
 
     public EnemyAI currentCombatAI;
 
@@ -32,20 +33,23 @@ public class DataPersistenceManager : MonoBehaviour
     private void Awake() {
         if(DataManager != null){
             //Debug.LogError("Found more than one Data Persistence Manager in this scene. Destroying the newest one.");
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         DataManager = this;
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
 
         dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         settingsHandler = new FileDataHandler(Application.persistentDataPath, "settings.json");
 
         selectedProfileId = dataHandler.GetMostRecentProfileId();
+
+        
     }
 
     private void Start() {
         settingsPersistenceObjects = FindSettingsPersistenceObject();
+        LoadSettings();
     }
 
     private void OnEnable() {
