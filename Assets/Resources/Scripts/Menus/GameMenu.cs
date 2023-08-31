@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 public class GameMenu : MonoBehaviour
 {
     [Header("Menu Buttons")]
-    [SerializeField] private GameObject menuButtons;
+    [SerializeField] public GameObject menuButtons;
     [SerializeField] private Button mapButton;
 
+    [SerializeField] private GameObject settingsMenu;
 
     [Header("Stuff to Disable")]
     [SerializeField] private GameObject cardSlots;
@@ -32,6 +33,13 @@ public class GameMenu : MonoBehaviour
 
     public void SaveGame(){
         DataPersistenceManager.DataManager.SaveGame();
+    }
+
+    public void OnClickSettings(){
+        SoundManager.soundManager.Play("ButtonClick");
+        DataPersistenceManager.DataManager.LoadSettings();
+        menuButtons.SetActive(!menuButtons.activeSelf);
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
     public void OnClickMainMenu(){

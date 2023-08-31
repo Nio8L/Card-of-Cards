@@ -9,6 +9,7 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
 {
     [Header("Menu Navigation")]
     [SerializeField] private MainMenu mainMenu;
+    [SerializeField] private GameMenu gameMenu;
 
     [Header("Menu Operational Stuff")]
     [SerializeField] private Slider audioSlider;
@@ -30,7 +31,11 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     public void OnBackClick(){
         SoundManager.soundManager.Play("ButtonClick");
         DataPersistenceManager.DataManager.SaveSettings();
-        mainMenu.ActivateMenu();
+        if(mainMenu != null){
+            mainMenu.ActivateMenu();
+        }else{
+            gameMenu.menuButtons.SetActive(!gameMenu.menuButtons.activeSelf);
+        }
         DeactivateMenu();
     }
 
