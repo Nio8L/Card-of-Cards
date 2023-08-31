@@ -14,6 +14,7 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private int index;
     private CardInHand cardInHand;
     private CardInCombat cardInCombat;
+    private CardDisplay cardDisplay;
 
     private void Start() {
         UpdateSigilTooltip();
@@ -51,26 +52,47 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             }
         }else{
             cardInCombat = transform.parent.gameObject.GetComponent<CardInCombat>();
-            if(index < cardInCombat.card.sigils.Count){
-                if(cardInCombat.card.sigils.Count == 1){
-                    tooltipTrigger.content = cardInCombat.card.sigils[index].description;
-                    tooltipTrigger.header = cardInCombat.card.sigils[index].name;
-                }else if(cardInCombat.card.sigils.Count == 3){
-                    tooltipTrigger.content = cardInCombat.card.sigils[index].description;
-                    tooltipTrigger.header = cardInCombat.card.sigils[index].name;
+            if(cardInCombat != null){
+                if(index < cardInCombat.card.sigils.Count){
+                    if(cardInCombat.card.sigils.Count == 1){
+                        tooltipTrigger.content = cardInCombat.card.sigils[index].description;
+                        tooltipTrigger.header = cardInCombat.card.sigils[index].name;
+                    }else if(cardInCombat.card.sigils.Count == 3){
+                        tooltipTrigger.content = cardInCombat.card.sigils[index].description;
+                        tooltipTrigger.header = cardInCombat.card.sigils[index].name;
+                    }
                 }
-            }
-            if(cardInCombat.card.sigils.Count == 2){
-                if(index == 1){
-                    tooltipTrigger.content = cardInCombat.card.sigils[0].description;
-                    tooltipTrigger.header = cardInCombat.card.sigils[0].name;
-                }else if(index == 2){
-                    tooltipTrigger.content = cardInCombat.card.sigils[1].description;
-                    tooltipTrigger.header = cardInCombat.card.sigils[1].name;
+                if(cardInCombat.card.sigils.Count == 2){
+                    if(index == 1){
+                        tooltipTrigger.content = cardInCombat.card.sigils[0].description;
+                        tooltipTrigger.header = cardInCombat.card.sigils[0].name;
+                    }else if(index == 2){
+                        tooltipTrigger.content = cardInCombat.card.sigils[1].description;
+                        tooltipTrigger.header = cardInCombat.card.sigils[1].name;
+                    }
+                }
+            }else{
+                cardDisplay = transform.parent.gameObject.GetComponent<CardDisplay>();
+                if(index < cardDisplay.card.sigils.Count){
+                    if(cardDisplay.card.sigils.Count == 1){
+                        tooltipTrigger.content = cardDisplay.card.sigils[index].description;
+                        tooltipTrigger.header = cardDisplay.card.sigils[index].name;
+                    }else if(cardDisplay.card.sigils.Count == 3){
+                        tooltipTrigger.content = cardDisplay.card.sigils[index].description;
+                        tooltipTrigger.header = cardDisplay.card.sigils[index].name;
+                    }
+                }
+                if(cardDisplay.card.sigils.Count == 2){
+                    if(index == 1){
+                        tooltipTrigger.content = cardDisplay.card.sigils[0].description;
+                        tooltipTrigger.header = cardDisplay.card.sigils[0].name;
+                    }else if(index == 2){
+                        tooltipTrigger.content = cardDisplay.card.sigils[1].description;
+                        tooltipTrigger.header = cardDisplay.card.sigils[1].name;
+                    }
                 }
             }
         }
-        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
