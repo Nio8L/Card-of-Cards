@@ -13,8 +13,6 @@ public class Fearless : Sigil
         {
             card.card.ResetHP();
             canRevive = false;
-            card.deck.UpdateCardAppearance(card.transform, card.card);
-            Debug.Log("revived");
         }
     }
 
@@ -23,10 +21,8 @@ public class Fearless : Sigil
         if(canRevive && card.card.lastBattle == null)
         {
             card.card.ResetHP();
-            canRevive = false;
             card.deck.UpdateCardAppearance(card.transform, card.card);
             Debug.Log("revived From Bleed");
-            return;
         }
         canRevive = true;
     }

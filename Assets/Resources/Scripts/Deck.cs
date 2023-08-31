@@ -334,6 +334,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public void UpdateCardAppearance(Transform cardGameObject, Card card)
     {
+        Debug.Log("UpdateCardAppearance " + card.name + " " + cardGameObject.name);
         cardGameObject.GetChild(0).GetComponent<Image>().sprite = card.image;
 
         Sprite damageIcon;

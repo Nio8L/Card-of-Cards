@@ -13,7 +13,6 @@ public class Bleed : Sigil
         count++;
         if (count >= turnToDealDamage)
         {
-            Debug.Log("dmged");
             card.card.health -= damage;
             count = 0;
             if (card.card.health <= 0)

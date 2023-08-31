@@ -26,6 +26,8 @@ public class CardInCombat : MonoBehaviour
     float curentAnimationTime = -0.5f;
     float maxAnimationTime;
 
+    bool updatedAfterReturnAnimation;
+
     bool returnMovement;
 
     GameObject bloodSplat;
@@ -40,21 +42,25 @@ public class CardInCombat : MonoBehaviour
 
     private void Update()
     {
-
         if (returnMovement && curentAnimationTime > -0.5f)
         {
             curentAnimationTime -= Time.deltaTime;
-            transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(curentAnimationTime)*2);
+            transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(curentAnimationTime) * 2);
 
-            if (curentAnimationTime < 0f)
+            if (curentAnimationTime < 0f && !updatedAfterReturnAnimation)
             {
                 deck.UpdateCardAppearance(transform, card);
+                updatedAfterReturnAnimation = true;
             }
+        }
+        else if (returnMovement && curentAnimationTime <= -0.5 && updatedAfterReturnAnimation) 
+        {
+            updatedAfterReturnAnimation = false;
         }
         else if (!returnMovement && curentAnimationTime > 0f)
         {
             curentAnimationTime -= Time.deltaTime;
-            transform.position = Vector3.Lerp(endPosition, startPosition, curentAnimationTime * (1/maxAnimationTime));
+            transform.position = Vector3.Lerp(endPosition, startPosition, curentAnimationTime * (1 / maxAnimationTime));
         }
         else if (card.health <= 0)
         {
@@ -100,7 +106,7 @@ public class CardInCombat : MonoBehaviour
         curentAnimationTime = maxAnimationTime + 0.25f * slot;
         endPosition = new Vector3(transform.position.x, 1f, 0f);
         startPosition = transform.position;
-        returnMovement = true;
+        returnMovement = true; 
     }
 
     public void MoveAnimationStarter(float time, Vector3 end)

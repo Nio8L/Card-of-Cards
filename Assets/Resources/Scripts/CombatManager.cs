@@ -28,7 +28,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public GameObject[] playerBenchSlots = new GameObject[3];
 
     float timerToNextTurn = 0f;
+    float timerAfterEnemyTurn = 0f;
     float resetTimerTo = 2f;
+    float resetTimerAfterEnemyTurnTo = 0.5f;
+    bool startCombatPhase = false;
     bool startPlayerTurn = false;
 
     public Deck deck;
@@ -71,12 +74,23 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
+        if (timerAfterEnemyTurn > 0)
+        {
+            timerAfterEnemyTurn -= Time.deltaTime;
+        }
+        else if (startCombatPhase) 
+        {
+            startCombatPhase = false;
+            StartCombatPhase();
+        }
+
         if (timerToNextTurn > 0)
         {
             timerToNextTurn -= Time.deltaTime;
         }
         else if (startPlayerTurn)
         {
+            //if (HasInAnimationCard()) return;
             foreach (CardInCombat card in playerCards) if(card != null) card.PutOnOrOffTheBench();
             foreach (CardInCombat card in enemyCards) if (card != null) card.PutOnOrOffTheBenchEnemyCards();
             StartPlayerTurn();
@@ -97,7 +111,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         enemy.StartTurn();
 
-        StartCombatPhase();
+        startCombatPhase = true;
+        timerAfterEnemyTurn = resetTimerAfterEnemyTurnTo;
     }
 
     void BenchMovement()
@@ -316,6 +331,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
         else if (enemyCard.benched)  { DirectHit(playerCard); return;}
+
+        Debug.Log("skirmish");
 
         // Generate inaccurate battle data
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
