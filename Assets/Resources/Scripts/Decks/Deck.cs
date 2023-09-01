@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System;
 
 
-public class Deck : MonoBehaviour, IDataPersistence
+public class Deck : MonoBehaviour
 {
     public bool playerDeck = false;
 
@@ -55,7 +55,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     #region Saving
     //--------------------------------//
-    public void LoadData(GameData data){
+    /*public void LoadData(GameData data){
 
         if (!playerDeck) return;
 
@@ -125,7 +125,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                 data.cardSigils[i].list.Add(sigilName);
             }
         }
-    }
+    }*/
     //--------------------------------//
     #endregion
 
@@ -147,7 +147,12 @@ public class Deck : MonoBehaviour, IDataPersistence
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
 
-        if (playerDeck) combatManager = GetComponent<CombatManager>();
+        if (playerDeck){ 
+            combatManager = GetComponent<CombatManager>();
+
+            cards = CopyCardList(DeckHolder.deckHolder.cards);
+        
+        }
         else combatManager = GameObject.Find("Deck").GetComponent<CombatManager>(); 
 
         energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
@@ -155,6 +160,9 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if(cards.Count == 0 && playerDeck){
             AddCard(10);
+
+            DeckHolder.deckHolder.cards = CopyCardList(cards);
+            Debug.Log("adding 10");
         }
         else if (!playerDeck)
         {
@@ -183,7 +191,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     #region Deck Functions
     //--------------------------------//
-    List<Card> CopyCardList(List<Card> listToCopy) 
+    public List<Card> CopyCardList(List<Card> listToCopy) 
     {
         List<Card> returnList = new List<Card>();
         foreach (Card card in listToCopy) returnList.Add(card);
@@ -217,12 +225,14 @@ public class Deck : MonoBehaviour, IDataPersistence
     public void RemoveCard(Card card){
         drawPile.Remove(card);
         cards.Remove(card);
+        DeckHolder.deckHolder.cards.Remove(card);
         UpdatePileNumbers();
     }
 
     public void RemoveCard(){
         drawPile.RemoveAt(drawPile.Count - 1);
         cards.RemoveAt(cards.Count - 1);
+        DeckHolder.deckHolder.cards.RemoveAt(DeckHolder.deckHolder.cards.Count - 1);
         PrintDeck();
         UpdatePileNumbers();
     }
@@ -334,7 +344,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public void UpdateCardAppearance(Transform cardGameObject, Card card)
     {
-        Debug.Log("UpdateCardAppearance " + card.name + " " + cardGameObject.name);
+        //Debug.Log("UpdateCardAppearance " + card.name + " " + cardGameObject.name);
         cardGameObject.GetChild(0).GetComponent<Image>().sprite = card.image;
 
         Sprite damageIcon;

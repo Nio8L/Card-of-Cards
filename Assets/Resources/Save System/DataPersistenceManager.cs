@@ -99,6 +99,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame(){
         gameData = new GameData();
+        DeckHolder.deckHolder.cards = new();
         SaveGame();
     }
 
