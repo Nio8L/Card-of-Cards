@@ -17,7 +17,7 @@ public class Bleed : Sigil
             count = 0;
             if (card.card.health <= 0)
             {
-                Debug.Log("died From Bleed");
+                //Debug.Log("died From Bleed");
                 card.card.lastBattle = null;
             }
             card.deck.UpdateCardAppearance(card.transform, card.card);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TooltipSystem : MonoBehaviour
@@ -14,6 +15,11 @@ public class TooltipSystem : MonoBehaviour
     public CanvasGroup canvasGroup;
 
     private void Awake() {
+        if(tooltipSystem != null){
+            Destroy(gameObject);
+            return;
+        }
+        
         tooltipSystem = this;
 
         DontDestroyOnLoad(gameObject);
