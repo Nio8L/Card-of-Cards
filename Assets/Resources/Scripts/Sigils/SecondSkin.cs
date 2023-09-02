@@ -49,7 +49,7 @@ public class SecondSkin : Sigil
 
             card.moved = true;
 
-            SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot]);
+            SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot], cardColectionToLookAt);
             card.card.health = card.card.lastBattle.thisCardOldHp;
             enemyCardColection[startingSlot].card.health += card.card.attack;
 
@@ -71,7 +71,7 @@ public class SecondSkin : Sigil
 
             card.moved = true;
 
-            SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot]);
+            SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot], cardColectionToLookAt);
             card.card.health = card.card.lastBattle.thisCardOldHp;
             enemyCardColection[startingSlot].card.health += card.card.attack;
 
@@ -81,7 +81,7 @@ public class SecondSkin : Sigil
         }
     }
 
-    void SpawnSkin(GameObject[] slotColection, int slot, CardInCombat card, CardInCombat enemyCard) 
+    void SpawnSkin(GameObject[] slotColection, int slot, CardInCombat card, CardInCombat enemyCard, CardInCombat[] cardColection) 
     {
         GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, slotColection[slot].transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(card.deck.CardsInCombatParent);
@@ -94,7 +94,7 @@ public class SecondSkin : Sigil
         cardInCombat.slot = slot;
         cardInCombat.benched = false;
 
-        slotColection[slot] = cardToCreate;
+        cardColection[slot] = cardInCombat;
 
         cardInCombat.playerCard = card.playerCard;
     }

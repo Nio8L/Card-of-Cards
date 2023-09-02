@@ -40,7 +40,7 @@ public class EnemyAI : ScriptableObject
     CombatManager combatManager;
     public void Initialize()
     {
-        //Debug.Log("Initializing enemy ai");
+        Debug.Log("Initializing enemy ai");
         combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
         combatManager.enemyHealth = maxHealth;
         foreach (Card card in cards)

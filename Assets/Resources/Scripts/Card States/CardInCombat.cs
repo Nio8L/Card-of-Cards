@@ -92,6 +92,7 @@ public class CardInCombat : MonoBehaviour
 
     public void PutOnOrOffTheBench() 
     {
+        Debug.Log(card.name + " " + deck + " " + deck.combatManager.playerBenchSlots[slot]);
         if (benched) 
         {
             MoveAnimationStarter(0.5f, deck.combatManager.playerBenchSlots[slot].transform.position);
