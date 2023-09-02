@@ -8,13 +8,17 @@ public class Bleed : Sigil
     public int count = 0;
     public int turnToDealDamage;
     public int damage;
+
+    public GameObject bloodSplatParticles;
     public override void PasiveEffect(CardInCombat card)
     {
         count++;
         if (count >= turnToDealDamage)
         {
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.health -= damage;
             count = 0;
+            Instantiate(bloodSplatParticles, card.transform.position, Quaternion.identity);
             if (card.card.health <= 0)
             {
                 //Debug.Log("died From Bleed");

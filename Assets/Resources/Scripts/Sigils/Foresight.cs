@@ -8,6 +8,8 @@ public class Foresight : Sigil
     public int numberOfCardsToDraw;
     public override void PasiveEffect(CardInCombat card)
     {
-        card.deck.DrawCard(numberOfCardsToDraw);
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
+        if (card.playerCard) card.deck.DrawCard(numberOfCardsToDraw);
+        else card.deck.combatManager.enemyDeck.DrawCard(numberOfCardsToDraw);
     }
 }

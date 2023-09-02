@@ -6,8 +6,11 @@ using UnityEngine;
 public class Thorns : Sigil
 {
     public int damage;
+    public GameObject thornsParticlesPrefab;
     public override void OnTakeDamageEffect(CardInCombat card)
     {
         card.card.lastBattle.enemyCard.health -= damage;
+        Instantiate(thornsParticlesPrefab, card.transform.position, Quaternion.identity);
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }
 }

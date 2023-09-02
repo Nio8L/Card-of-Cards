@@ -43,6 +43,7 @@ public class Migrate : Sigil
                 card.deck.combatManager.playerCards[card.slot + direction] = card;
                 card.slot += direction;
                 card.MoveAnimationStarter(0.5f, card.deck.combatManager.playerCombatSlots[card.slot].transform.position);
+                card.deck.PlaySigilAnimation(card.transform, card.card, this);
             }
             else if (!card.playerCard && card.deck.combatManager.enemyCards[card.slot + direction] == null)
             {
@@ -50,6 +51,7 @@ public class Migrate : Sigil
                 card.deck.combatManager.enemyCards[card.slot + direction] = card;
                 card.slot += direction;
                 card.MoveAnimationStarter(0.5f, card.deck.combatManager.enemyCombatSlots[card.slot].transform.position);
+                card.deck.PlaySigilAnimation(card.transform, card.card, this);
             }
         }
 
