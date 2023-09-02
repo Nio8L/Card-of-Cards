@@ -5,11 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/SecondSkin")]
 public class SecondSkin : Sigil
 {
-    public int direction = 1;
-    public Card Skin;
-    int slot;
-    CombatManager cm;
     bool hasASkin = true;
+    public Card Skin;
 
     public override void OnDeadEffects(CardInCombat card) 
     {
@@ -20,84 +17,85 @@ public class SecondSkin : Sigil
     {
         if (!hasASkin) return;
 
-        cm = card.deck.combatManager;
-        card.card.health = card.card.lastBattle.thisCardOldHp;
-        slot = card.slot;
+        int startingSlot = card.slot;
+        CardInCombat[] cardColectionToLookAt;
+        CardInCombat[] enemyCardColection;
+        GameObject[] slotColection;
+        int direction = card.direction;
 
-        if (slot == 0 && direction == -1)
+        if (card.playerCard)
         {
-            direction = 1;
+            slotColection = card.deck.combatManager.playerCombatSlots;
+            cardColectionToLookAt = card.deck.combatManager.playerCards;
+            enemyCardColection = card.deck.combatManager.enemyCards;
         }
-        else if (slot == 2 && direction == 1)
+        else 
         {
-            direction = -1;
+            cardColectionToLookAt = card.deck.combatManager.enemyCards;
+            slotColection = card.deck.combatManager.enemyCombatSlots;
+            enemyCardColection = card.deck.combatManager.playerCards;
         }
 
+        if ((startingSlot + direction < cardColectionToLookAt.Length && startingSlot + direction >= 0) && cardColectionToLookAt[startingSlot + 1] == null) 
+        {
+            cardColectionToLookAt[startingSlot + direction] = card;
+            card.slot += direction;
+            card.transform.position = slotColection[card.slot].transform.position;
 
-        if (card.playerCard && cm.playerCards[slot + direction] != null)
-        {
-            direction *= -1;
+            card.benched = true;
+
+            if (card.playerCard) card.PutOnOrOffTheBench();
+            else card.PutOnOrOffTheBenchEnemyCards();
+
+            card.moved = true;
+
+            SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot], cardColectionToLookAt);
+            card.card.health = card.card.lastBattle.thisCardOldHp;
+            enemyCardColection[startingSlot].card.health += card.card.attack;
+
+            card.deck.combatManager.Skirmish(cardColectionToLookAt[startingSlot], enemyCardColection[startingSlot]);
+
+            hasASkin = false;
         }
-        else if (!card.playerCard && cm.enemyCards[slot + direction] != null)
+        else if((startingSlot - direction < cardColectionToLookAt.Length && startingSlot - direction >= 0) && cardColectionToLookAt[startingSlot - 1] == null)
         {
-            direction *= -1;
+
+            cardColectionToLookAt[card.slot - direction] = card;
+            card.slot -= direction;
+            card.transform.position = slotColection[card.slot].transform.position;
+
+            card.benched = true;
+
+            if (card.playerCard) card.PutOnOrOffTheBench();
+            else card.PutOnOrOffTheBenchEnemyCards();
+
+            card.moved = true;
+
+            SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot], cardColectionToLookAt);
+            card.card.health = card.card.lastBattle.thisCardOldHp;
+            enemyCardColection[startingSlot].card.health += card.card.attack;
+
+            card.deck.combatManager.Skirmish(cardColectionToLookAt[startingSlot], enemyCardColection[startingSlot]);
+
+            hasASkin = false;
         }
-        Move(card);
     }
 
-
-    void Move(CardInCombat card)
+    void SpawnSkin(GameObject[] slotColection, int slot, CardInCombat card, CardInCombat enemyCard, CardInCombat[] cardColection) 
     {
-        if (card.slot + direction < 0 || card.slot + direction >= cm.playerCombatSlots.Length) return;
-
-        if (!card.benched)
-        {
-            if (card.playerCard && cm.playerCards[card.slot + direction] == null)
-            {
-                SpawnSkin(card);
-                cm.playerCards[card.slot + direction] = card;
-                card.slot += direction;
-                card.transform.position = cm.playerCombatSlots[card.slot].transform.position;
-
-                card.benched = true;
-                card.PutOnOrOffTheBench();
-                card.moved = true;
-
-                cm.Skirmish(cm.playerCards[slot], cm.enemyCards[slot]);
-                cm.enemyCards[slot].card.health += card.card.attack;
-                hasASkin = false;
-            }
-            else if (!card.playerCard && cm.enemyCards[card.slot + direction] == null)
-            {
-                cm.EnemyPlayCard(card.card, slot);
-                cm.enemyCards[card.slot + direction] = card;
-                card.slot += direction;
-                card.transform.position = cm.enemyCombatSlots[card.slot].transform.position;
-
-                card.benched = true;
-                card.PutOnOrOffTheBenchEnemyCards();
-                card.moved = true;
-
-                cm.Skirmish(cm.playerCards[slot], cm.enemyCards[slot]);
-                card.card.health += cm.playerCards[slot].card.attack;
-                hasASkin = false;
-            }
-        }
-
-    }
-
-    void SpawnSkin(CardInCombat card)
-    {
-        GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, cm.playerCombatSlots[slot].transform.position, Quaternion.identity);
+        GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, slotColection[slot].transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(card.deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = Skin;
+        cardInCombat.card = Instantiate(Skin);
+        cardInCombat.card.ResetCard();
         cardInCombat.deck = card.deck;
         cardInCombat.slot = slot;
         cardInCombat.benched = false;
 
-        card.deck.combatManager.playerCards[slot] = cardInCombat;
+        cardColection[slot] = cardInCombat;
+
+        cardInCombat.playerCard = card.playerCard;
     }
 }
