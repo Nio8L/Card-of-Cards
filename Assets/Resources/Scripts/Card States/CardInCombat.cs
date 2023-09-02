@@ -14,6 +14,8 @@ public class CardInCombat : MonoBehaviour
 
     [HideInInspector]
     public bool passivesTurnedOnThisTurn = false;
+    [HideInInspector]
+    public bool PerformeAtackAnimation = true;
 
     public bool canBeBenched = true;
     public bool playerCard = true;

@@ -366,10 +366,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerCard.card.ActivateOnHitEffects(playerCard);
         enemyCard.card.ActivateOnHitEffects(enemyCard);
 
-        playerCard.PerformShortAttackAnimation();
-        enemyCard.PerformShortAttackAnimation();
+        if(playerCard.PerformeAtackAnimation) playerCard.PerformShortAttackAnimation();
+        if(enemyCard.PerformeAtackAnimation) enemyCard.PerformShortAttackAnimation();
 
-        
+        enemyCard.PerformeAtackAnimation = true;
+        playerCard.PerformeAtackAnimation = true;
     }
 
     public void LoadData(GameData data)

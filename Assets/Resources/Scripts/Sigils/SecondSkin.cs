@@ -55,6 +55,7 @@ public class SecondSkin : Sigil
 
             card.deck.combatManager.Skirmish(cardColectionToLookAt[startingSlot], enemyCardColection[startingSlot]);
 
+            card.PerformeAtackAnimation = false;
             hasASkin = false;
         }
         else if((startingSlot - direction < cardColectionToLookAt.Length && startingSlot - direction >= 0) && cardColectionToLookAt[startingSlot - 1] == null)
@@ -77,6 +78,7 @@ public class SecondSkin : Sigil
 
             card.deck.combatManager.Skirmish(cardColectionToLookAt[startingSlot], enemyCardColection[startingSlot]);
 
+            card.PerformeAtackAnimation = false;
             hasASkin = false;
         }
     }
