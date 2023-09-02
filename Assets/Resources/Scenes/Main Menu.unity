@@ -1170,7 +1170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1929760794}
-  gameMenu: {fileID: 0}
   audioSlider: {fileID: 2115466278}
   audioText: {fileID: 2134041448}
   autoSaveSwitch: {fileID: 41005907}
@@ -1930,10 +1929,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
-      propertyPath: deckHolder
-      value: 
-      objectReference: {fileID: 637660882894097819, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: AutoSaveData
       value: 0
@@ -3409,79 +3404,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134041446}
   m_CullTransparentMesh: 1
---- !u!1001 &637660883670662951
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097817, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097818, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: randomCardSelection.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 637660882894097818, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: randomCardSelection.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-    - target: {fileID: 637660882894097818, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: randomCardSelection.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-    - target: {fileID: 637660882894097818, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: randomCardSelection.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-    - target: {fileID: 637660882894097819, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
-      propertyPath: m_Name
-      value: DeckHolder
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 96fd29679d2db4e47a6a78e644e1d8b1, type: 3}
 --- !u!1001 &8392279858750975944
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -190,7 +190,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void StartCombatPhase()
     {
-        //Debug.Log("Start combat");
+        Debug.Log("Start combat");
 
         for (int i = 0; i < 3; i++)
         {
@@ -344,7 +344,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
         else if (enemyCard.benched)  { DirectHit(playerCard); return;}
 
-        //Debug.Log("skirmish");
+        Debug.Log("skirmish");
 
         // Generate inaccurate battle data
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);

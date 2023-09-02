@@ -111,7 +111,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                 //               ^
 
                 deck.cards.Remove(card);
-                DeckHolder.deckHolder.cards.Remove(card);
 
                 if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
                 if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);

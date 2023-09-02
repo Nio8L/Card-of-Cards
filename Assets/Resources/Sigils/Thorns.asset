@@ -17,3 +17,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 686929e7fab3d52479ec268c3918964b, type: 3}
   description: Deal 1 damage back.
   damage: 1
+  thornsParticlesPrefab: {fileID: 4294057561451313952, guid: c305d23ede1339042b8e435b15b62e53, type: 3}
