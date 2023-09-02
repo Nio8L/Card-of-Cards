@@ -11,6 +11,7 @@ public class Overwhelm : Sigil
         if (battle.enemyCard.health < 0)
         {
             card.deck.combatManager.DirectHit(card, Mathf.Abs(battle.enemyCard.health));
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
         }
 
     }

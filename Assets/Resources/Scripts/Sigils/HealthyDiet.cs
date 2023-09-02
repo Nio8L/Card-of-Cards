@@ -13,6 +13,7 @@ public class HealthyDiet : Sigil
         count++;
         if (count >= turnToHeal && card.card.health < card.card.maxHealth)
         {
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.health += heal;
             count = 0;
         }

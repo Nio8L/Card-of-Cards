@@ -20,6 +20,7 @@ public class Fearless : Sigil
     {
         if(canRevive && card.card.lastBattle == null)
         {
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.ResetHP();
             card.deck.UpdateCardAppearance(card.transform, card.card);
             Debug.Log("revived From Bleed");

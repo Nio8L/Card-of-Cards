@@ -15,6 +15,7 @@ public class Bleed : Sigil
         count++;
         if (count >= turnToDealDamage)
         {
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.health -= damage;
             count = 0;
             Instantiate(bloodSplatParticles, card.transform.position, Quaternion.identity);
