@@ -11,6 +11,8 @@ public class Card : ScriptableObject
     public int attack;
     public int cost;
     public Sprite image;
+    [HideInInspector]
+    public bool canRevive = true;
     public enum TypeOfDamage
     {
         Poison,
@@ -110,10 +112,7 @@ public class Card : ScriptableObject
 
     public void ActivatePasiveEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) 
-        {
-            sigil.PasiveEffect(card);
-        } 
+        foreach (Sigil sigil in sigils) sigil.PasiveEffect(card);
     }
 
     public void ActivateOnTakeDamageEffects(CardInCombat card)
@@ -138,7 +137,7 @@ public class Card : ScriptableObject
 
     public Card ResetCard()
     {
-        health = maxHealth;
+        ResetHP();
         for (int i = 0; i < sigils.Count; i++)
         {
             string oldSigilName = sigils[i].name;
