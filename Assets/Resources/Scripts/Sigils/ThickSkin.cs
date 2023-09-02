@@ -8,5 +8,6 @@ public class ThickSkin : Sigil
     public override void OnTakeDamageEffect(CardInCombat card)
     {
         card.card.health++;
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }
 }

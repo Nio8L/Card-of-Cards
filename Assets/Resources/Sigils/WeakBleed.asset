@@ -19,4 +19,4 @@ MonoBehaviour:
   count: 0
   turnToDealDamage: 2
   damage: 1
-  bloodSplatParticles: {fileID: 8753074680907212074, guid: 929b6f3b1a34d024f9132276d09bcd24, type: 3}
+  bloodSplatParticles: {fileID: 8753074680907212074, guid: 2099babd7923db64bb0b22bcf90015c9, type: 3}

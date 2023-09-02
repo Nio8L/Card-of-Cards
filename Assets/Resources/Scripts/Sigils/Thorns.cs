@@ -11,5 +11,6 @@ public class Thorns : Sigil
     {
         card.card.lastBattle.enemyCard.health -= damage;
         Instantiate(thornsParticlesPrefab, card.transform.position, Quaternion.identity);
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }
 }

@@ -94,6 +94,7 @@ public class CardInCombat : MonoBehaviour
 
     public void PutOnOrOffTheBench() 
     {
+        //Debug.Log(card.name + " " + deck + " " + deck.combatManager.playerBenchSlots[slot]);
         if (benched) 
         {
             MoveAnimationStarter(0.5f, deck.combatManager.playerBenchSlots[slot].transform.position);
@@ -126,26 +127,10 @@ public class CardInCombat : MonoBehaviour
         {
             card.ActivateOnDeadEffects(this);
 
-            // Return if the cards has gained health via dead effects (ex: Fearless sigil)
             if (card.health > 0) return;
-
-            // Effects v 
-            Sprite markSprite;
-            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deck.deathMarkScratch;
-            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deck.deathMarkBite;
-            else markSprite = deck.deathMarkPoison;
-
-            Instantiate(bloodSplat, transform.position, Quaternion.identity);
-            GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
-            deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
-            GetComponent<DestroyTimer>().enabled = true;
-
-            // Return if the card can't be turned into lost soul (ex: Soulless sigil)
-            if (!card.canRevive) return;
-
+            
             card.CreateCard(lastTypeOfDamage);
 
-            // Add changed card to deck
             if (playerCard)
             {
                 deck.combatManager.playerCards[slot] = null;
@@ -157,7 +142,15 @@ public class CardInCombat : MonoBehaviour
                 deck.combatManager.enemyDeck.discardPile.Add(card);
             }
 
-           
+            Sprite markSprite;
+            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deck.deathMarkScratch;
+            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deck.deathMarkBite;
+            else markSprite = deck.deathMarkPoison;
+
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
+            GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
+            deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
+            GetComponent<DestroyTimer>().enabled = true;
         }
     }
 

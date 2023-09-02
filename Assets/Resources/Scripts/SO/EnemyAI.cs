@@ -40,7 +40,7 @@ public class EnemyAI : ScriptableObject
     CombatManager combatManager;
     public void Initialize()
     {
-        Debug.Log("Initializing enemy ai");
+        //Debug.Log("Initializing enemy ai");
         combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
         combatManager.enemyHealth = maxHealth;
         foreach (Card card in cards)
@@ -101,7 +101,7 @@ public class EnemyAI : ScriptableObject
             {
                 if (playerCards[i] != null && combatManager.enemyCards[i] == null)
                 {
-                    Debug.Log("Can be played at slot: " + i);
+                    //Debug.Log("Can be played at slot: " + i);
                     hasPlay = true;
                     if (playerCards[i].card.health < targetHealth || targetHealth == 0)
                     {
@@ -244,7 +244,7 @@ public class EnemyAI : ScriptableObject
     }
     void UseLostSoul(Card lostSoulCard)
     {
-        Debug.Log("Trying to play lost soul");
+        //Debug.Log("Trying to play lost soul");
         foreach (CardInCombat card in combatManager.enemyCards)
         {
             if (card != null && card.card.injuries.Count > 0)
@@ -253,7 +253,7 @@ public class EnemyAI : ScriptableObject
 
                 healedCard.AcceptLostSoul();
                 combatManager.deck.UpdateCardAppearance(card.transform, healedCard);
-                Debug.Log("playing lost soul on " + healedCard.name);
+                //Debug.Log("playing lost soul on " + healedCard.name);
                 for (int i = 0; i < healedCard.sigils.Count; i++)
                 {
                     Debug.Log(healedCard.sigils[i].name);

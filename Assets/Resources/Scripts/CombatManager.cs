@@ -29,13 +29,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     float timerToNextTurn = 0f;
     float timerAfterEnemyTurn = 0f;
-    float endgameTimer = 0f;
     float resetTimerTo = 2f;
     float resetTimerAfterEnemyTurnTo = 0.5f;
-    float resetEndgameTimerTurnTo = 2f;
     bool startCombatPhase = false;
     bool startPlayerTurn = false;
-    bool endGame = false;
 
     public Deck deck;
     public Deck enemyDeck;
@@ -85,17 +82,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         {
             startCombatPhase = false;
             StartCombatPhase();
-        }
-
-        if (endgameTimer > 0)
-        {
-            endgameTimer -= Time.deltaTime;
-        }
-        else if (endGame) 
-        {
-            endGame = false;
-            TooltipSystem.QuickHide();
-            endCombatMenu.SetActive(true);
         }
 
         if (timerToNextTurn > 0)
@@ -190,7 +176,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void StartCombatPhase()
     {
-        Debug.Log("Start combat");
+        //Debug.Log("Start combat");
 
         for (int i = 0; i < 3; i++)
         {
@@ -282,9 +268,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             enemyHealth -= card.card.attack;
             if(enemyHealth <= 0) 
             {
+                TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
+                endCombatMenu.SetActive(true);
+                Time.timeScale = 0;
                 endCombatText.text = "you won";
-                endGame = true;
-                endgameTimer = resetEndgameTimerTurnTo;
             }
         }
         else
@@ -292,9 +279,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             playerHealth -= card.card.attack;
             if (playerHealth <= 0)
             {
+                TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
+                endCombatMenu.SetActive(true);
+                Time.timeScale = 0;
                 endCombatText.text = "you lost";
-                endGame = true;
-                endgameTimer = resetEndgameTimerTurnTo;
             }
         }
         updateHPText();
@@ -310,9 +298,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             enemyHealth -= damage;
             if (enemyHealth <= 0)
             {
+                TooltipSystem.QuickHide();
+                endCombatMenu.SetActive(true);
                 endCombatText.text = "you won";
-                endGame = true;
-                endgameTimer = resetEndgameTimerTurnTo;
             }
         }
         else
@@ -320,9 +308,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             playerHealth -= damage;
             if (playerHealth <= 0)
             {
+                TooltipSystem.QuickHide();
+                endCombatMenu.SetActive(true);
                 endCombatText.text = "you lost";
-                endGame = true;
-                endgameTimer = resetEndgameTimerTurnTo;
             }
         }
         updateHPText();
@@ -344,7 +332,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
         else if (enemyCard.benched)  { DirectHit(playerCard); return;}
 
-        Debug.Log("skirmish");
+        //Debug.Log("skirmish");
 
         // Generate inaccurate battle data
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);

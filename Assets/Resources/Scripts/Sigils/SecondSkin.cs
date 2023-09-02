@@ -85,6 +85,7 @@ public class SecondSkin : Sigil
 
     void SpawnSkin(GameObject[] slotColection, int slot, CardInCombat card, CardInCombat enemyCard, CardInCombat[] cardColection) 
     {
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
         GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, slotColection[slot].transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(card.deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
