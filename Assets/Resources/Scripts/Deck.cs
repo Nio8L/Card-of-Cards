@@ -183,7 +183,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     #region Deck Functions
     //--------------------------------//
-    List<Card> CopyCardList(List<Card> listToCopy) 
+    public List<Card> CopyCardList(List<Card> listToCopy) 
     {
         List<Card> returnList = new List<Card>();
         foreach (Card card in listToCopy) returnList.Add(card);
