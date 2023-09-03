@@ -390,6 +390,20 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
     }
 
+    public void PlaySigilAnimation(Transform cardGameObject, Card card, Sigil sigilToAnimate)
+    {
+        int index = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            if (card.sigils[i] == sigilToAnimate)
+            {
+                index = i;
+                break;
+            }
+        }
+        cardGameObject.GetChild(7 + index).GetComponent<AnimateSigil>().StartAnimation();
+    }
+
     public void UpdatePileNumbers() 
     {
         if (!playerDeck) return;
