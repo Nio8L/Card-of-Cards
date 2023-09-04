@@ -9,6 +9,8 @@ public class Migrate : Sigil
 
     public override void PasiveEffect(CardInCombat card)
     {
+        canUseAbility = true;
+
         if (card.slot == 0 && direction == -1)
         {
             direction = 1;
