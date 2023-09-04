@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TooltipSystem : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class TooltipSystem : MonoBehaviour
         tooltipSystem = this;
 
         DontDestroyOnLoad(gameObject);
+
+        SceneManager.activeSceneChanged += OnSceneChange;
     }
 
     public static void Show(string content, string header = ""){
@@ -44,5 +48,10 @@ public class TooltipSystem : MonoBehaviour
         });
         
         
+    }
+
+    private void OnSceneChange(Scene current, Scene next)
+    {
+        QuickHide();
     }
 }

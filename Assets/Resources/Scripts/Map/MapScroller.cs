@@ -10,8 +10,10 @@ public class MapScroller : MonoBehaviour
 
     public GameObject deckDisplay;
 
+    public MapManagerManager mapManagerManager;
+
     private void Start() {
-        mapCamera.transform.position = new Vector3(MapManager.mapManager.transform.position.x, MapManager.mapManager.transform.position.y, -10);
+        
     }
 
     private void Update() {
@@ -23,6 +25,10 @@ public class MapScroller : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.D)){
             deckDisplay.transform.position = new Vector3(mapCamera.transform.position.x, mapCamera.transform.position.y, 0);
         }
+    }
+
+    public void SetUpCameraPosition(){
+        mapCamera.transform.position = new Vector3(0, mapManagerManager.mapManagers[0].currentNode.transform.position.y, -10);
     }
     
 }

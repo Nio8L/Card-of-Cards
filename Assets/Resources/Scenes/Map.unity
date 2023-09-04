@@ -900,6 +900,7 @@ MonoBehaviour:
   mapCamera: {fileID: 1049541314}
   sensitivity: 20
   deckDisplay: {fileID: 1549967007}
+  mapManagerManager: {fileID: 2097871020}
 --- !u!1 &1377556450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,7 +1525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed509accd54e6654cadfb3fe43849432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapManager: {fileID: 0}
+  mapManagers: []
+  mapScroller: {fileID: 1049541316}
 --- !u!4 &2097871021
 Transform:
   m_ObjectHideFlags: 0

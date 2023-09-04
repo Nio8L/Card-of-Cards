@@ -6,6 +6,8 @@ public class MapManagerManager : MonoBehaviour
 {
     public List<MapManager> mapManagers;
     
+    public MapScroller mapScroller;
+
     private void Start() {
         mapManagers = FindMapManagers();
 
@@ -16,8 +18,10 @@ public class MapManagerManager : MonoBehaviour
                     Destroy(mapManager.gameObject);
                 }
             }
+            mapScroller.SetUpCameraPosition();
         }catch{
-            Debug.Log("error with map manager shenanigans, ignore this, all good :D");
+            //Debug.Log("error with map manager shenanigans, ignore this, all good :D");
+            mapScroller.SetUpCameraPosition();
         }
     }
 
