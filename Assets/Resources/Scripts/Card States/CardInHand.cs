@@ -38,12 +38,13 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnStopDrag()
     {
-        BenchSlot benchSlot = CheckForSlot();
+        CardSlot benchSlot = CheckForSlot();
         
             if (benchSlot != null && benchSlot.playerSlot && deck.energy >= card.cost)
             {
                 if(card.name != "LostSoul"){
-                    if(deck.combatManager.playerCards[benchSlot.slot] == null){
+                    if(deck.combatManager.playerBenchCards[benchSlot.slot] == null)
+                    {
                         PlayCard(benchSlot);
                         SoundManager.soundManager.Play("CardPlaced");
                     }else{
@@ -141,20 +142,20 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     }
     //that is for deck.TidyHand()
 
-    BenchSlot CheckForSlot()
+    CardSlot CheckForSlot()
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 100);
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.tag == "BenchSlot")
             {
-                return hit.transform.GetComponent<BenchSlot>();
+                return hit.transform.GetComponent<CardSlot>();
             }
         }
         return null;
     }
 
-    public void PlayCard(BenchSlot slot)
+    public void PlayCard(CardSlot slot)
     {
         if (deck.combatManager.gamePhase == 1) return;
 
@@ -168,7 +169,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         cardInCombat.slot = slot.slot;
 
         deck.energy -= card.cost;
-        deck.combatManager.playerCards[slot.slot] = cardInCombat;
+        deck.combatManager.playerBenchCards[slot.slot] = cardInCombat;
 
         //maha go ot deck.cardsInHand
         if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);

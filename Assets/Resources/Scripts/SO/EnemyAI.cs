@@ -56,8 +56,8 @@ public class EnemyAI : ScriptableObject
         useTypeOfDamageToDecideCard = true;
         thinkLimit = 5;
         cardsPlayedThisTurn = 0;
-        if (canSeePlayerCardsPlacedThisTurn) playerCards = combatManager.playerCards;
-        else playerCards = combatManager.playerCardsAtStartOfTurn;
+        if (canSeePlayerCardsPlacedThisTurn) playerCards = combatManager.playerCombatCards;
+        else playerCards = combatManager.playerCombatCardsAtStartOfTurn;
         Think();
     }
     void Think()
@@ -74,7 +74,7 @@ public class EnemyAI : ScriptableObject
             
             for (int i = 0; i < 3; i++)
             {
-                if (playerCards[i] != null && combatManager.enemyCards[i] == null)
+                if (playerCards[i] != null && combatManager.enemyCombatCards[i] == null)
                 {
                     hasPlay = true;
                     if (playerCards[i].card.attack > targetDamage)
@@ -99,7 +99,7 @@ public class EnemyAI : ScriptableObject
             
             for (int i = 0; i < 3; i++)
             {
-                if (playerCards[i] != null && combatManager.enemyCards[i] == null)
+                if (playerCards[i] != null && combatManager.enemyCombatCards[i] == null)
                 {
                     //Debug.Log("Can be played at slot: " + i);
                     hasPlay = true;
@@ -121,7 +121,7 @@ public class EnemyAI : ScriptableObject
 
             for (int i = 0; i < 3; i++)
             {
-                if (playerCards[i] == null && combatManager.enemyCards[i] == null)
+                if (playerCards[i] == null && combatManager.enemyCombatCards[i] == null)
                 {
                     hasPlay = true;
                     targetIndex = i;
@@ -140,7 +140,7 @@ public class EnemyAI : ScriptableObject
             {
                 failEscape++;
                 targetIndex = Random.Range(0, 3);
-            } while (combatManager.enemyCards[targetIndex] != null && failEscape < 20);
+            } while (combatManager.enemyCombatCards[targetIndex] != null && failEscape < 20);
 
             if (failEscape < 20)
             {
@@ -163,7 +163,7 @@ public class EnemyAI : ScriptableObject
         // Play card
         if (hasPlay)
         {
-            if (card != null && combatManager.enemyCards[targetIndex] == null)
+            if (card != null && combatManager.enemyCombatCards[targetIndex] == null)
             {
                 combatManager.EnemyPlayCard(card, targetIndex);
                 cardsPlayedThisTurn++;
@@ -245,7 +245,7 @@ public class EnemyAI : ScriptableObject
     void UseLostSoul(Card lostSoulCard)
     {
         //Debug.Log("Trying to play lost soul");
-        foreach (CardInCombat card in combatManager.enemyCards)
+        foreach (CardInCombat card in combatManager.enemyCombatCards)
         {
             if (card != null && card.card.injuries.Count > 0)
             {

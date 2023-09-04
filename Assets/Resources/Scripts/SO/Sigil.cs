@@ -10,6 +10,10 @@ public class Sigil : ScriptableObject
     public Sprite image;
     public string description;
 
+    [HideInInspector]
+    public bool canUseAbility = false;
+    CardSlot selectedSlot;
+
     public virtual void PasiveEffect(CardInCombat card) 
     {
         //effect should be here
@@ -33,5 +37,10 @@ public class Sigil : ScriptableObject
     public virtual void OnDeadEffects(CardInCombat card) 
     {
         //pisna mi da addvam random effect types
+    }
+
+    public virtual void ActiveEffects(CardInCombat card)
+    {
+        //Ami tyjno marti
     }
 }

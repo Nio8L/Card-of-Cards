@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Sheep
   m_EditorClassIdentifier: 
   maxHealth: 2
-  health: 0
+  health: 1
   attack: 1
   cost: 1
   image: {fileID: 21300000, guid: fa91208b55f8cc643b0f8117c25935e5, type: 3}
+  canRevive: 1
   typeOfDamage: 1
   sigils:
   - {fileID: 11400000, guid: e75a04f09ba93d3419f2423f318a2872, type: 2}
