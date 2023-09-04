@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Migrate")]
 public class Migrate : Sigil
 {
+    /*
     public int direction = 1;
 
     public override void PasiveEffect(CardInCombat card)
@@ -58,4 +59,5 @@ public class Migrate : Sigil
         }
 
     }
+    */
 }
