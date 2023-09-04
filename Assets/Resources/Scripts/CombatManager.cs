@@ -17,9 +17,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public int playerHealth = 20;
     public int enemyHealth = 20;
 
-    public CardInCombat[] playerCards = new CardInCombat[3];
-    public CardInCombat[] playerCardsAtStartOfTurn = new CardInCombat[3];
-    public CardInCombat[] enemyCards = new CardInCombat[3];
+    public CardInCombat[] playerCombatCards = new CardInCombat[3];
+    public CardInCombat[] playerBenchCards = new CardInCombat[3];
+    public CardInCombat[] playerCombatCardsAtStartOfTurn = new CardInCombat[3];
+    public CardInCombat[] playerBenchCardsAtStartOfTurn = new CardInCombat[3];
+
+    public CardInCombat[] enemyCombatCards = new CardInCombat[3];
+    public CardInCombat[] enemyBenchCards = new CardInCombat[3];
 
     public GameObject[] enemyCombatSlots = new GameObject[3];
     public GameObject[] enemyBenchSlots = new GameObject[3];
