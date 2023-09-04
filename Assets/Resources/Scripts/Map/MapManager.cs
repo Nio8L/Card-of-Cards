@@ -59,7 +59,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
 
     public void UpdateCurrentNode(MapNode newNode){
-        if(newNode.nodeDepth > currentNode.nodeDepth && currentNode.connections.Contains(newNode)){
+        if(newNode.nodeDepth > currentNode.nodeDepth && currentNode.connections.Contains(newNode) && newNode != currentNode){
         
             currentNode.spriteRenderer.color = Color.white;
             currentNode = newNode;
