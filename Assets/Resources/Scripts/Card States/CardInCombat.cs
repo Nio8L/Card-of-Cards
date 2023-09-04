@@ -89,6 +89,28 @@ public class CardInCombat : MonoBehaviour
 
         if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 1) return;
         benched = !benched;
+
+        if (benched)
+        {
+            deck.combatManager.playerCombatCards[slot] = deck.combatManager.playerBenchCards[slot];
+            deck.combatManager.playerBenchCards[slot] = this;
+            if (deck.combatManager.playerCombatCards[slot] != null)
+            {
+                deck.combatManager.playerCombatCards[slot].benched = !benched;
+                deck.combatManager.playerCombatCards[slot].PutOnOrOffTheBench();
+            }
+        }
+        else
+        {
+            deck.combatManager.playerBenchCards[slot] = deck.combatManager.playerCombatCards[slot];
+            deck.combatManager.playerCombatCards[slot] = this;
+            if (deck.combatManager.playerBenchCards[slot] != null)
+            {
+                deck.combatManager.playerBenchCards[slot].benched = !benched;
+                deck.combatManager.playerBenchCards[slot].PutOnOrOffTheBench();
+            }
+        }
+
         PutOnOrOffTheBench();
     }
 
@@ -133,12 +155,12 @@ public class CardInCombat : MonoBehaviour
 
             if (playerCard)
             {
-                deck.combatManager.playerCards[slot] = null;
+                RemoveCardFromCardColections();
                 deck.discardPile.Add(card);
             }
             else
             {
-                deck.combatManager.enemyCards[slot] = null;
+                RemoveCardFromCardColections();
                 deck.combatManager.enemyDeck.discardPile.Add(card);
             }
 
@@ -156,5 +178,19 @@ public class CardInCombat : MonoBehaviour
 
     private void OnDestroy() {
         SoundManager.soundManager.Play("CardDeath");
+    }
+
+    public void RemoveCardFromCardColections() 
+    {
+        if (benched)
+        {
+            if(playerCard)deck.combatManager.playerBenchCards[slot] = null;
+            else deck.combatManager.enemyBenchCards[slot] = null;
+        }
+        else
+        {
+            if (playerCard) deck.combatManager.playerCombatCards[slot] = null;
+            else deck.combatManager.enemyCombatCards[slot] = null;
+        }
     }
 }

@@ -19,6 +19,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public CardInCombat[] playerCombatCards = new CardInCombat[3];
     public CardInCombat[] playerBenchCards = new CardInCombat[3];
+
     public CardInCombat[] playerCombatCardsAtStartOfTurn = new CardInCombat[3];
     public CardInCombat[] playerBenchCardsAtStartOfTurn = new CardInCombat[3];
 
@@ -95,8 +96,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         else if (startPlayerTurn)
         {
             //if (HasInAnimationCard()) return;
-            foreach (CardInCombat card in playerCards) if(card != null) card.PutOnOrOffTheBench();
-            foreach (CardInCombat card in enemyCards) if (card != null) card.PutOnOrOffTheBenchEnemyCards();
+            foreach (CardInCombat card in playerBenchCards) if(card != null) card.PutOnOrOffTheBench();
+            foreach (CardInCombat card in playerCombatCards) if (card != null) card.PutOnOrOffTheBench();
+
+            foreach (CardInCombat card in enemyCombatCards) if (card != null) card.PutOnOrOffTheBenchEnemyCards();
+            foreach (CardInCombat card in enemyBenchCards) if (card != null) card.PutOnOrOffTheBenchEnemyCards();
+
             StartPlayerTurn();
             startPlayerTurn = false;
         }
@@ -121,8 +126,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void BenchMovement()
     {
-        FindCardsToSwap(playerCards);
-        FindCardsToSwap(enemyCards);
+        //FindCardsToSwap(playerCards);
+        //FindCardsToSwap(enemyCards);
 
         ResetMovedCards();
     }
@@ -174,8 +179,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void ResetMovedCards() 
     {
-        foreach (CardInCombat card in playerCards) if (card != null)card.moved = false;
-        foreach (CardInCombat card in enemyCards) if (card != null) card.moved = false;
+        foreach (CardInCombat card in playerBenchCards) if (card != null)card.moved = false;
+        foreach (CardInCombat card in playerCombatCards) if (card != null) card.moved = false;
+        foreach (CardInCombat card in enemyBenchCards) if (card != null) card.moved = false;
+        foreach (CardInCombat card in enemyCombatCards) if (card != null) card.moved = false;
     }
 
     void StartCombatPhase()
@@ -184,9 +191,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         for (int i = 0; i < 3; i++)
         {
-            if (playerCards[i] != null && enemyCards[i] != null) Skirmish(playerCards[i], enemyCards[i]);
-            else if (playerCards[i] != null) DirectHit(playerCards[i]);
-            else if (enemyCards[i] != null) DirectHit(enemyCards[i]);
+            if (playerCombatCards[i] != null && enemyCombatCards[i] != null) Skirmish(playerCombatCards[i], enemyCombatCards[i]);
+            else if (playerCombatCards[i] != null) DirectHit(playerCombatCards[i]);
+            else if (playerCombatCards[i] != null) DirectHit(enemyCombatCards[i]);
         }
         timerToNextTurn = resetTimerTo;
         startPlayerTurn = true;
@@ -201,41 +208,57 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             deck.energy = 3;
             deck.DrawCard(5);
 
-            foreach (CardInCombat activeCard in playerCards)
+            for(int i = 0; i < 3 ;i++)
             {
-                if (activeCard != null)
+                if (playerCombatCards[i] != null)
                 {
-                    activeCard.passivesTurnedOnThisTurn = false;
+                    playerCombatCards[i].passivesTurnedOnThisTurn = false;
                 }
+                if (playerBenchCards[i] != null)
+                {
+                    playerBenchCards[i].passivesTurnedOnThisTurn = false;
+                }
+            }
+            for(int i = 0; i < 3 ;i++)
+            {
+                if (enemyBenchCards[i] != null)
+                {
+                    enemyBenchCards[i].passivesTurnedOnThisTurn = false;
+                }
+            }
 
-            }
-            foreach (CardInCombat activeCard in enemyCards)
+            for (int i = 0; i < 3; i++)
             {
-                if (activeCard != null)
+                if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false) 
                 {
-                    activeCard.passivesTurnedOnThisTurn = false;
+                    playerBenchCards[i].passivesTurnedOnThisTurn = true;
+                    playerBenchCards[i].card.ActivatePasiveEffects(playerBenchCards[i]);
+                    deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
+                }
+                if(playerCombatCards[i] != null && playerCombatCards[i].passivesTurnedOnThisTurn == false)
+                {
+                    playerCombatCards[i].passivesTurnedOnThisTurn = true;
+                    playerCombatCards[i].card.ActivatePasiveEffects(playerCombatCards[i]);
+                    deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
                 }
             }
-
-            foreach (CardInCombat activeCard in playerCards)
+            for (int i = 0; i < 3; i++)
             {
-                if (activeCard != null && activeCard.passivesTurnedOnThisTurn == false) 
+                if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false)
                 {
-                    activeCard.passivesTurnedOnThisTurn = true;
-                    activeCard.card.ActivatePasiveEffects(activeCard);
-                    deck.UpdateCardAppearance(activeCard.transform, activeCard.card);
+                    enemyBenchCards[i].passivesTurnedOnThisTurn = true;
+                    enemyBenchCards[i].card.ActivatePasiveEffects(enemyBenchCards[i]);
+                    deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
+                }
+                if (enemyCombatCards[i] != null && enemyCombatCards[i].passivesTurnedOnThisTurn == false)
+                {
+                    enemyCombatCards[i].passivesTurnedOnThisTurn = true;
+                    enemyCombatCards[i].card.ActivatePasiveEffects(enemyCombatCards[i]);
+                    deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
                 }
             }
-            foreach (CardInCombat activeCard in enemyCards)
-            {
-                if (activeCard != null && activeCard.passivesTurnedOnThisTurn == false)
-                {
-                    activeCard.passivesTurnedOnThisTurn = true;
-                    activeCard.card.ActivatePasiveEffects(activeCard);
-                    deck.UpdateCardAppearance(activeCard.transform, activeCard.card);
-                }
-            }
-            playerCards.CopyTo(playerCardsAtStartOfTurn, 0);
+            playerCombatCards.CopyTo(playerCombatCardsAtStartOfTurn, 0);
+            playerBenchCards.CopyTo(playerBenchCardsAtStartOfTurn, 0);
             gamePhase = 0;
         }
     }
@@ -254,7 +277,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         cardInCombat.playerCard = false;
         cardInCombat.benched = false;
 
-        enemyCards[slotNumber] = cardInCombat;
+        enemyCombatCards[slotNumber] = cardInCombat;
         enemyDeck.energy -= card.cost;
         if (enemyDeck.cardsInHandAsCards.Contains(card)) enemyDeck.cardsInHandAsCards.Remove(card);
     }

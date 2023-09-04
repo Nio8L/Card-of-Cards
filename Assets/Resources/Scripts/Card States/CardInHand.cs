@@ -43,7 +43,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
             if (benchSlot != null && benchSlot.playerSlot && deck.energy >= card.cost)
             {
                 if(card.name != "LostSoul"){
-                    if(deck.combatManager.playerCards[benchSlot.slot] == null){
+                    if(deck.combatManager.playerBenchCards[benchSlot.slot] == null)
+                    {
                         PlayCard(benchSlot);
                         SoundManager.soundManager.Play("CardPlaced");
                     }else{
@@ -168,7 +169,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         cardInCombat.slot = slot.slot;
 
         deck.energy -= card.cost;
-        deck.combatManager.playerCards[slot.slot] = cardInCombat;
+        deck.combatManager.playerBenchCards[slot.slot] = cardInCombat;
 
         //maha go ot deck.cardsInHand
         if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
