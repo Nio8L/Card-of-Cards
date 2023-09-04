@@ -24,3 +24,4 @@ MonoBehaviour:
   canUseLostSoul: 1
   useKillerStrategyInstead: 0
   canSeePlayerCardsPlacedThisTurn: 0
+  canHideCardsThatAreAboutToDie: 1

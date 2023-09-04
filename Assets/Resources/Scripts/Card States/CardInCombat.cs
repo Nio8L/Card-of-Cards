@@ -72,16 +72,7 @@ public class CardInCombat : MonoBehaviour
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
-    public void PutOnOrOffTheBenchEnemyCards()
-    {
-        if(canBeBenched) transform.position = deck.combatManager.enemyCombatSlots[slot].transform.position;
-        if (benched)
-        {
-            MoveAnimationStarter(0.5f, deck.combatManager.enemyBenchSlots[slot].transform.position);
-            return;
-        }
-        MoveAnimationStarter(0.5f, deck.combatManager.enemyCombatSlots[slot].transform.position);
-    }
+
 
     public void BenchOrUnbench() 
     {
@@ -112,11 +103,41 @@ public class CardInCombat : MonoBehaviour
         }
 
         PutOnOrOffTheBench();
-    }
 
+        
+    }
+    public void BenchOrUnbenchEnemy()
+    {
+        SoundManager.soundManager.Play("CardSlide");
+
+        if (!canBeBenched || playerCard) return;
+        benched = !benched;
+
+        if (benched)
+        {
+            deck.combatManager.enemyCombatCards[slot] = deck.combatManager.enemyBenchCards[slot];
+            deck.combatManager.enemyBenchCards[slot] = this;
+            if (deck.combatManager.enemyCombatCards[slot] != null)
+            {
+                deck.combatManager.enemyCombatCards[slot].benched = !benched;
+                deck.combatManager.enemyCombatCards[slot].PutOnOrOffTheBenchEnemyCards();
+            }
+        }
+        else
+        {
+            deck.combatManager.enemyBenchCards[slot] = deck.combatManager.enemyCombatCards[slot];
+            deck.combatManager.enemyCombatCards[slot] = this;
+            if (deck.combatManager.enemyBenchCards[slot] != null)
+            {
+                deck.combatManager.enemyBenchCards[slot].benched = !benched;
+                deck.combatManager.enemyBenchCards[slot].PutOnOrOffTheBenchEnemyCards();
+            }
+        }
+
+        PutOnOrOffTheBenchEnemyCards();
+    }
     public void PutOnOrOffTheBench() 
     {
-        //Debug.Log(card.name + " " + deck + " " + deck.combatManager.playerBenchSlots[slot]);
         if (benched) 
         {
             MoveAnimationStarter(0.5f, deck.combatManager.playerBenchSlots[slot].transform.position);
@@ -124,6 +145,16 @@ public class CardInCombat : MonoBehaviour
         }
         MoveAnimationStarter(0.5f, deck.combatManager.playerCombatSlots[slot].transform.position);
     }
+    public void PutOnOrOffTheBenchEnemyCards()
+    {
+        if (benched)
+        {
+            MoveAnimationStarter(0.5f, deck.combatManager.enemyBenchSlots[slot].transform.position);
+            return;
+        }
+        MoveAnimationStarter(0.5f, deck.combatManager.enemyCombatSlots[slot].transform.position);
+    }
+
 
     public void PerformShortAttackAnimation()
     {
@@ -155,12 +186,12 @@ public class CardInCombat : MonoBehaviour
 
             if (playerCard)
             {
-                RemoveCardFromCardColections();
+                RemoveCardFromCardCollections();
                 deck.discardPile.Add(card);
             }
             else
             {
-                RemoveCardFromCardColections();
+                RemoveCardFromCardCollections();
                 deck.combatManager.enemyDeck.discardPile.Add(card);
             }
 
@@ -180,7 +211,7 @@ public class CardInCombat : MonoBehaviour
         SoundManager.soundManager.Play("CardDeath");
     }
 
-    public void RemoveCardFromCardColections() 
+    public void RemoveCardFromCardCollections() 
     {
         if (benched)
         {
