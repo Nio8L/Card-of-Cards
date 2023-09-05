@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards:
   - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
-  maxHealth: 1
+  maxHealth: 5
   maxCardsPerTurn: 1
   startPlayingDefensivelyAt: 10
   startPlayingAggressivelyAt: 0

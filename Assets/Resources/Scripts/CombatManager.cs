@@ -12,7 +12,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public EnemyAI enemy;
 
-    public int gamePhase = 0; // 0 - player turn, 1 - enemy turn -> combat phase
+    public int gamePhase = 0; // 0 - player turn, 1 - enemy turn, 2 - combat phase
 
     public int playerHealth = 20;
     public int enemyHealth = 20;
@@ -105,7 +105,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     //--------------------------------//
     public void StartEnemyTurn()
     {
-        if (gamePhase == 1) return;
+        if (gamePhase > 0) return;
         gamePhase = 1;
 
         enemyDeck.DiscardHand();
@@ -183,6 +183,15 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void StartCombatPhase()
     {
         //Debug.Log("Start combat");
+        for (int i = 0; i < 3; i++)
+        {
+            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleStartEffects(playerCombatCards[i]);
+            if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleStartEffects(playerBenchCards[i]);
+            if (enemyCombatCards[i] != null) enemyCombatCards[i].card.ActivateOnBattleStartEffects(enemyCombatCards[i]);
+            if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleStartEffects(enemyBenchCards[i]);
+        }
+
+        gamePhase = 2;
 
         for (int i = 0; i < 3; i++)
         {
@@ -190,6 +199,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             else if (playerCombatCards[i] != null) DirectHit(playerCombatCards[i]);
             else if (enemyCombatCards[i] != null) DirectHit(enemyCombatCards[i]);
         }
+
         timerToNextTurn = resetTimerTo;
         startPlayerTurn = true;
     }
@@ -197,7 +207,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         BenchMovement();
         
-        if (gamePhase == 1)
+        if (gamePhase == 2)
         {
             deck.DiscardHand();
             deck.energy = 3;
@@ -338,15 +348,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         //Debug.Log("skirmish");
 
-        // Generate inaccurate battle data
-        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
-        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
+
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
        
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
+
+        // Generate inaccurate battle data
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 
         playerCard.card.ActivateOnTakeDamageEffects(playerCard);
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);

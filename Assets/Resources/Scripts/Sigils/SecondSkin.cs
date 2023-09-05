@@ -5,100 +5,60 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/SecondSkin")]
 public class SecondSkin : Sigil
 {
-    //bool hasASkin = true;
-    //public Card Skin;
+    bool hasASkin = true;
+    public Card cardToSpawn;
 
-    //public override void OnDeadEffects(CardInCombat card) 
-    //{
-    //    hasASkin = true;
-    //}
+    public override void OnDeadEffects(CardInCombat card) 
+    {
+        hasASkin = true;
+    }
 
-    //public override void OnTakeDamageEffect(CardInCombat card)
-    //{
-    //    if (!hasASkin) return;
+    public override void OnBattleStartEffects(CardInCombat card)
+    {
+        if (!hasASkin) return;
+        if (    card.playerCard
+            && (card.deck.combatManager.enemyCombatCards[card.slot] == null
+            ||  card.deck.combatManager.enemyCombatCards[card.slot].card.attack <= 0)) return;
+        else if (!card.playerCard
+            && (card.deck.combatManager.playerCombatCards[card.slot] == null
+            || card.deck.combatManager.playerCombatCards[card.slot].card.attack <= 0)) return;
+        
+        hasASkin = false;
 
-    //    int startingSlot = card.slot;
-    //    CardInCombat[] cardColectionToLookAt;
-    //    CardInCombat[] enemyCardColection;
-    //    GameObject[] slotColection;
-    //    int direction = card.direction;
+        
+        if (card.playerCard && card.deck.combatManager.playerBenchCards[card.slot] == null)
+        {
+            Debug.Log("Pl b: " + card.benched.ToString());
+            card.BenchOrUnbench();
+            Debug.Log("Player sheep benched: " + card.benched.ToString());
+            SpawnSkin(card);
+        }
+        else if (!card.playerCard && card.deck.combatManager.enemyBenchCards[card.slot] == null)
+        {
+            Debug.Log("En b: " + card.benched.ToString());
+            card.BenchOrUnbenchEnemy();
+            Debug.Log("Enemy sheep benched: " + card.benched.ToString());
+            card.deck.combatManager.enemy.PlayCard(cardToSpawn, card.slot, false);
+        }
 
-    //    if (card.playerCard)
-    //    {
-    //        slotColection = card.deck.combatManager.playerCombatSlots;
-    //        cardColectionToLookAt = card.deck.combatManager.playerCards;
-    //        enemyCardColection = card.deck.combatManager.enemyCards;
-    //    }
-    //    else 
-    //    {
-    //        cardColectionToLookAt = card.deck.combatManager.enemyCards;
-    //        slotColection = card.deck.combatManager.enemyCombatSlots;
-    //        enemyCardColection = card.deck.combatManager.playerCards;
-    //    }
+    }
 
-    //    if ((startingSlot + direction < cardColectionToLookAt.Length && startingSlot + direction >= 0) && cardColectionToLookAt[startingSlot + 1] == null) 
-    //    {
-    //        cardColectionToLookAt[startingSlot + direction] = card;
-    //        card.slot += direction;
-    //        card.transform.position = slotColection[card.slot].transform.position;
+    void SpawnSkin(CardInCombat card) 
+    {
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
+        GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, card.deck.combatManager.playerCombatSlots[card.slot].transform.position, Quaternion.identity);
+        cardToCreate.transform.SetParent(card.deck.CardsInCombatParent);
+        cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
-    //        card.benched = true;
+        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
+        cardInCombat.card = Instantiate(cardToSpawn).ResetCard();
+        cardInCombat.deck = card.deck;
+        cardInCombat.slot = card.slot;
+        cardInCombat.benched = false;
 
-    //        if (card.playerCard) card.PutOnOrOffTheBench();
-    //        else card.PutOnOrOffTheBenchEnemyCards();
+        card.deck.combatManager.playerCombatCards[card.slot] = cardInCombat;
 
-    //        card.moved = true;
-
-    //        SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot], cardColectionToLookAt);
-    //        card.card.health = card.card.lastBattle.thisCardOldHp;
-    //        enemyCardColection[startingSlot].card.health += card.card.attack;
-
-    //        card.deck.combatManager.Skirmish(cardColectionToLookAt[startingSlot], enemyCardColection[startingSlot]);
-
-    //        card.PerformeAtackAnimation = false;
-    //        hasASkin = false;
-    //    }
-    //    else if((startingSlot - direction < cardColectionToLookAt.Length && startingSlot - direction >= 0) && cardColectionToLookAt[startingSlot - 1] == null)
-    //    {
-
-    //        cardColectionToLookAt[card.slot - direction] = card;
-    //        card.slot -= direction;
-    //        card.transform.position = slotColection[card.slot].transform.position;
-
-    //        card.benched = true;
-
-    //        if (card.playerCard) card.PutOnOrOffTheBench();
-    //        else card.PutOnOrOffTheBenchEnemyCards();
-
-    //        card.moved = true;
-
-    //        SpawnSkin(slotColection, startingSlot, card, enemyCardColection[startingSlot], cardColectionToLookAt);
-    //        card.card.health = card.card.lastBattle.thisCardOldHp;
-    //        enemyCardColection[startingSlot].card.health += card.card.attack;
-
-    //        card.deck.combatManager.Skirmish(cardColectionToLookAt[startingSlot], enemyCardColection[startingSlot]);
-
-    //        card.PerformeAtackAnimation = false;
-    //        hasASkin = false;
-    //    }
-    //}
-
-    //void SpawnSkin(GameObject[] slotColection, int slot, CardInCombat card, CardInCombat enemyCard, CardInCombat[] cardColection) 
-    //{
-    //    card.deck.PlaySigilAnimation(card.transform, card.card, this);
-    //    GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, slotColection[slot].transform.position, Quaternion.identity);
-    //    cardToCreate.transform.SetParent(card.deck.CardsInCombatParent);
-    //    cardToCreate.transform.localScale = Vector3.one * 0.75f;
-
-    //    CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-    //    cardInCombat.card = Instantiate(Skin);
-    //    cardInCombat.card.ResetCard();
-    //    cardInCombat.deck = card.deck;
-    //    cardInCombat.slot = slot;
-    //    cardInCombat.benched = false;
-
-    //    cardColection[slot] = cardInCombat;
-
-    //    cardInCombat.playerCard = card.playerCard;
-    //}
+        cardInCombat.card.health -= card.card.maxHealth - card.card.health;
+        card.card.ResetHP();
+    }
 }

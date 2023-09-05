@@ -16,13 +16,11 @@ public class AnimateSigil : MonoBehaviour
             if (t > 0) scale += 2 * Time.deltaTime;
             else scale -= 2 * Time.deltaTime;
             transform.localScale = Vector3.one * scale;
-            //Debug.Log("Scale: " + scale);
         }
     }
 
     public void StartAnimation()
     {
-        //Debug.Log("Animating sigil");
         t = maxTime / 2;
     }
 }

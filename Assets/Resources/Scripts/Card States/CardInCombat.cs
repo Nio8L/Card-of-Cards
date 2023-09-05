@@ -78,7 +78,7 @@ public class CardInCombat : MonoBehaviour
     {
         SoundManager.soundManager.Play("CardSlide");
 
-        if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 1) return;
+        if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 2) return;
         benched = !benched;
 
         if (benched)
@@ -187,12 +187,12 @@ public class CardInCombat : MonoBehaviour
             if (playerCard)
             {
                 RemoveCardFromCardCollections();
-                deck.discardPile.Add(card);
+                if (card.canRevive) deck.discardPile.Add(card);
             }
             else
             {
                 RemoveCardFromCardCollections();
-                deck.combatManager.enemyDeck.discardPile.Add(card);
+                if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
             }
 
             Sprite markSprite;

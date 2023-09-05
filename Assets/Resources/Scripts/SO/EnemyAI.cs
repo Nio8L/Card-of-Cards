@@ -209,7 +209,7 @@ public class EnemyAI : ScriptableObject
         {
             if (card != null && combatManager.enemyBenchCards[targetIndex] == null)
             {
-                PlayCard(card, targetIndex);
+                PlayCard(card, targetIndex, true);
                 Debug.Log("Enemy played card using " + currentStrategy.ToString() + " strategy");
                 if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Savior) Bench(targetIndex);
                 cardsPlayedThisTurn++;
@@ -340,20 +340,30 @@ public class EnemyAI : ScriptableObject
             }
         }
     }
-    void PlayCard(Card card, int slotNumber)
+    public void PlayCard(Card card, int slotNumber, bool benched)
     {
-        GameObject cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyBenchSlots[slotNumber].transform.position, Quaternion.identity);
+        GameObject cardToCreate;
+        if (benched) cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyBenchSlots[slotNumber].transform.position, Quaternion.identity);
+        else         cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyCombatSlots[slotNumber].transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(combatManager.deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
-
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = card.ResetCard();
+        cardInCombat.card = Instantiate(card).ResetCard();
         cardInCombat.deck = combatManager.enemyDeck;
         cardInCombat.slot = slotNumber;
         cardInCombat.playerCard = false;
-        cardInCombat.benched = true;
 
-        combatManager.enemyBenchCards[slotNumber] = cardInCombat;
+        if (benched)
+        {
+            cardInCombat.benched = true;
+            combatManager.enemyBenchCards[slotNumber] = cardInCombat;
+        }
+        else
+        {
+            cardInCombat.benched = false;
+            combatManager.enemyCombatCards[slotNumber] = cardInCombat;
+        }
+
         combatManager.enemyDeck.energy -= card.cost;
         combatManager.enemyDeck.cardsInHandAsCards.Remove(card);
     }
