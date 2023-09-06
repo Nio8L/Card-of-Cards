@@ -76,8 +76,6 @@ public class CardInCombat : MonoBehaviour
 
     public void BenchOrUnbench() 
     {
-        SoundManager.soundManager.Play("CardSlide");
-
         if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 2) return;
         benched = !benched;
 
@@ -90,6 +88,7 @@ public class CardInCombat : MonoBehaviour
                 deck.combatManager.playerCombatCards[slot].benched = !benched;
                 deck.combatManager.playerCombatCards[slot].PutOnOrOffTheBench();
             }
+            SoundManager.soundManager.Play("CardSlide");
         }
         else
         {
@@ -100,6 +99,7 @@ public class CardInCombat : MonoBehaviour
                 deck.combatManager.playerBenchCards[slot].benched = !benched;
                 deck.combatManager.playerBenchCards[slot].PutOnOrOffTheBench();
             }
+            SoundManager.soundManager.Play("CardSlide");
         }
 
         PutOnOrOffTheBench();
