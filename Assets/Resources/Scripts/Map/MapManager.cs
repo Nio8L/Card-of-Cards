@@ -19,12 +19,14 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public int depth = 0;
 
-    public int nodeNumber = 0   ;
+    public int nodeNumber = 0;
 
     public bool isGenerating = true;
 
     // Enemy Ai list
     EnemyAI[] tier1EnemyAIs;
+
+    MapDeck mapDeck;
 
     private void Awake() {
         mapManager = this;
@@ -35,7 +37,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     void Start()
     {
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
-
+        mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
         if (currentNode != null){
             currentNode.GetComponent<SpriteRenderer>().color = Color.red;
@@ -64,14 +66,22 @@ public class MapManager : MonoBehaviour, IDataPersistence
             currentNode.spriteRenderer.color = Color.white;
             currentNode = newNode;
             currentNode.spriteRenderer.color = Color.red;
-            if (currentNode.roomType == MapNode.RoomType.Combat)
+            if(currentNode.roomType == MapNode.RoomType.Combat)
             {
                 EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
+            }else if(currentNode.roomType == MapNode.RoomType.RestSite){
+                if(mapDeck.playerHp < 15){
+                    mapDeck.playerHp += 5;
+                }else{
+                    mapDeck.playerHp = 20;
+                }
+                mapDeck.playerHpText.text = "HP: " + mapDeck.playerHp;
             }
         }
     }
+    
 
     public bool LinesInterescting(LineRenderer lineRenderer1, LineRenderer lineRenderer2){
         bool isIntersecting = false;
