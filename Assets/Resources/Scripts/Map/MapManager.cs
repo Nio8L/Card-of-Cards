@@ -147,6 +147,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 newMapNode.roomType = (MapNode.RoomType) Enum.Parse(typeof(MapNode.RoomType), data.map.mapNodes[i].roomType);
                 newMapNode.nodeId = data.map.mapNodes[i].id;
                 newMapNode.nodeDepth = data.map.mapNodes[i].nodeDepth;
+                newMapNode.used = data.map.mapNodes[i].used;
     
                 mapNodes.Add(newMapNode);
             }
@@ -194,6 +195,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
             data.map.mapNodes[^1].id = mapNodes[i].nodeId;
 
             data.map.mapNodes[^1].nodeDepth = mapNodes[i].nodeDepth;
+
+            data.map.mapNodes[^1].used = mapNodes[i].used;
 
             for(int j = 0; j < mapNodes[i].connections.Count; j++){
                 data.map.mapNodes[^1].connectionIds.Add(mapNodes[i].connections[j].nodeId);
