@@ -135,16 +135,21 @@ public class Card : ScriptableObject
         foreach (Sigil sigil in sigils) { sigil.OnDeadEffects(card); break; }
     }
 
-    public void ActivateActiveSigilStartEffects(CardInCombat card) 
+    public Sigil ActivateActiveSigilStartEffects(CardInCombat card)
     {
-        foreach (Sigil sigil in sigils) sigil.ActiveSigilStart(card);
+        foreach (Sigil sigil in sigils) 
+        {
+            bool secondStage = sigil.ActiveSigilStart(card);
+            if (secondStage) return sigil;
+        }
+        return null;
     }
 
-    public void TryToEndSigils(CardInCombat card, CardSlot slotClicked) 
+    public void ActivateOnBattleStartEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.TryToEndActiveSigil(card, slotClicked);
+        foreach (Sigil sigil in sigils) sigil.OnBattleStartEffects(card);
     }
-	
+
     public void ResetHP() 
     {
         health = maxHealth;

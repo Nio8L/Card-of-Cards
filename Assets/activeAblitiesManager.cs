@@ -4,47 +4,83 @@ using UnityEngine;
 
 public class activeAblitiesManager : MonoBehaviour
 {
-    List<Sigil> activatedActiveSigils = new List<Sigil>();
+    Sigil activatedActivePlayerSigil;
+    Sigil activatedActiveEnemySigil;
 
-    CombatManager combatManager;
+    public bool holding = false;
+
+    public CombatManager combatManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) 
+        Debug.Log(activatedActivePlayerSigil);
+        if (Input.GetMouseButtonDown(1))
         {
-            int guess = TryToFindSlot();
-            if (guess == -1) return;
+            if (holding) return;
+            holding = true;
 
-            bool playerCard;
-            bool benched;
-            playerCard = guess >= 8 ? true : false;
-            guess %= 8;
-            benched = guess >=4 ? true : false;
-            guess %= 4;
+            CardSlot slot = TryToFindSlot();
+            if (slot == null || !slot.playerSlot) return;
+
+            SimulateClick(slot);
         }
+        else holding = false;
     }
 
-    int TryToFindSlot()
+    CardSlot TryToFindSlot()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 100);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.forward, 100);
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.tag == "BenchSlot")
             {
-                return hit.transform.GetComponent<BenchSlot>().slot + 4 + (hit.transform.GetComponent<BenchSlot>().playerSlot  ? 8 : 0);
+                return hit.transform.GetComponent<CardSlot>();
             }
             else if (hit.collider.tag == "CardSlot")
             {
-                return hit.transform.GetComponent<CardSlot>().slot + (hit.transform.GetComponent<CardSlot>().playerSlot ? 8 : 0);
+                return hit.transform.GetComponent<CardSlot>();
             }
         }
-        return -1;
+        return null;
+    }
+
+    public void SimulateClick(CardSlot slot)
+    {
+        CardInCombat cardClicked;
+
+        if (slot.playerSlot) cardClicked = slot.bench ? combatManager.playerBenchCards[slot.slot] : combatManager.playerCombatCards[slot.slot];
+        else cardClicked = slot.bench ? combatManager.enemyBenchCards[slot.slot] : combatManager.enemyCombatCards[slot.slot];
+
+        if (cardClicked != null)
+        {
+            Sigil secondStage = cardClicked.card.ActivateActiveSigilStartEffects(cardClicked);
+            if (secondStage != null)
+            {
+                if (cardClicked.playerCard) activatedActivePlayerSigil = secondStage;
+                else activatedActiveEnemySigil = secondStage;
+            }
+        }
+
+        TryToEndActiveSigils(slot);
+    }
+
+    public void TryToEndActiveSigils(CardSlot slot) 
+    {
+        if (slot.playerSlot && activatedActivePlayerSigil != null)
+        {
+            bool hasToEnd = activatedActivePlayerSigil.TryToEndActiveSigil(slot,combatManager);
+            if (hasToEnd) activatedActivePlayerSigil = null;
+        }
+        else if (!slot.playerSlot && activatedActiveEnemySigil != null)
+        {
+            bool hasToEnd = activatedActiveEnemySigil.TryToEndActiveSigil(slot,combatManager);
+            if (hasToEnd) activatedActiveEnemySigil = null;
+        }
     }
 }

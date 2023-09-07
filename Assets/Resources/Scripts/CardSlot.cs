@@ -6,5 +6,5 @@ public class CardSlot : MonoBehaviour
 {
     public int slot = 0;
     public bool playerSlot = true;
-
+    public bool bench;
 }
