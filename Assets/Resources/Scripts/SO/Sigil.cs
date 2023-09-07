@@ -34,4 +34,14 @@ public class Sigil : ScriptableObject
     {
         //pisna mi da addvam random effect types
     }
+
+    public virtual void ActiveSigilStart(CardInCombat card) 
+    {
+        //ako sigil mu trqbva prodyljenie na efecta moje da izpolzva ActiveSigilEnd, ako ne da go pusne vednaga
+    }
+
+    public virtual void TryToEndActiveSigil(CardInCombat card, CardSlot slotClicked)
+    {
+        //kys
+    }
 }

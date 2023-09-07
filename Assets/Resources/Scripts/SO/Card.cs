@@ -130,6 +130,16 @@ public class Card : ScriptableObject
         foreach (Sigil sigil in sigils) sigil.OnDeadEffects(card);
     }
 
+    public void ActivateActiveSigilStartEffects(CardInCombat card) 
+    {
+        foreach (Sigil sigil in sigils) sigil.ActiveSigilStart(card);
+    }
+
+    public void TryToEndSigils(CardInCombat card, CardSlot slotClicked) 
+    {
+        foreach (Sigil sigil in sigils) sigil.TryToEndActiveSigil(card, slotClicked);
+    }
+
     public void ResetHP() 
     {
         health = maxHealth;
