@@ -2310,19 +2310,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8920dcbd911f9c40bf5e52f6872d33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: c0b4578bb79812347aa92926bc122d34, type: 2}
+  enemy: {fileID: 11400000, guid: 86fb60a307a9ef04a863a4dcfd7ef770, type: 2}
   gamePhase: 0
   playerHealth: 20
   enemyHealth: 20
-  playerCards:
+  playerCombatCards:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerCardsAtStartOfTurn:
+  playerBenchCards:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  enemyCards:
+  playerCombatCardsAtStartOfTurn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerBenchCardsAtStartOfTurn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyCombatCards:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyBenchCards:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -6857,7 +6869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -957, y: 303}
+  m_AnchoredPosition: {x: -300, y: 300}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1797514665
@@ -6873,7 +6885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDisplay: {fileID: 1531777437509808466, guid: a3bbf4b13ad4ac34297a55974ca3d9c6, type: 3}
-  deck: {fileID: 769775200}
+  cards: []
   deckDisplay: {fileID: 552172264}
 --- !u!1 &1834219926
 GameObject:

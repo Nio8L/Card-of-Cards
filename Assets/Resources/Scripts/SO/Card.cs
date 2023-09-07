@@ -76,7 +76,7 @@ public class Card : ScriptableObject
 
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
-        Sigil bleed = Resources.Load<Sigil>("Sigils/WeakBleed");
+        Sigil bleed = Resources.Load<Sigil>("Sigils/Weak Bleed");
         negativeSigil = Instantiate(bleed);
         negativeSigil.name = bleed.name;
 
@@ -105,6 +105,7 @@ public class Card : ScriptableObject
         if(sigils.Count != 3)sigils.Add(negativeSigil);
     }
 
+    // Effects v
     public void ActivateOnHitEffects(CardInCombat card) 
     {
         foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect(card);
@@ -128,6 +129,10 @@ public class Card : ScriptableObject
     public void ActivateOnDeadEffects(CardInCombat card) 
     {
         foreach (Sigil sigil in sigils) sigil.OnDeadEffects(card);
+    }  
+    public void ActivateActiveEffects(CardInCombat card)
+    {
+        foreach (Sigil sigil in sigils) { sigil.OnDeadEffects(card); break; }
     }
 
     public void ActivateActiveSigilStartEffects(CardInCombat card) 
@@ -139,7 +144,7 @@ public class Card : ScriptableObject
     {
         foreach (Sigil sigil in sigils) sigil.TryToEndActiveSigil(card, slotClicked);
     }
-
+	
     public void ResetHP() 
     {
         health = maxHealth;
@@ -151,7 +156,6 @@ public class Card : ScriptableObject
         for (int i = 0; i < sigils.Count; i++)
         {
             string oldSigilName = sigils[i].name;
-            //Debug.Log("Card name: " + name + "Sigil name: " + sigils[i].name);
             sigils[i] = Instantiate(sigils[i]);
             sigils[i].name = oldSigilName;
         }

@@ -12,7 +12,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public EnemyAI enemy;
 
-    public int gamePhase = 0; // 0 - player turn, 1 - enemy turn -> combat phase
+    public int gamePhase = 0; // 0 - player turn, 1 - enemy turn, 2 - combat phase
 
     public int playerHealth = 20;
     public int enemyHealth = 20;
@@ -96,12 +96,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         else if (startPlayerTurn)
         {
             //if (HasInAnimationCard()) return;
-            foreach (CardInCombat card in playerBenchCards) if(card != null) card.PutOnOrOffTheBench();
-            foreach (CardInCombat card in playerCombatCards) if (card != null) card.PutOnOrOffTheBench();
-
-            foreach (CardInCombat card in enemyCombatCards) if (card != null) card.PutOnOrOffTheBenchEnemyCards();
-            foreach (CardInCombat card in enemyBenchCards) if (card != null) card.PutOnOrOffTheBenchEnemyCards();
-
             StartPlayerTurn();
             startPlayerTurn = false;
         }
@@ -111,7 +105,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     //--------------------------------//
     public void StartEnemyTurn()
     {
-        if (gamePhase == 1) return;
+        if (gamePhase > 0) return;
         gamePhase = 1;
 
         enemyDeck.DiscardHand();
@@ -131,8 +125,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         ResetMovedCards();
     }
-
-    void FindCardsToSwap(CardInCombat[] colection) 
+    // Bench left of right movement
+    /*void FindCardsToSwap(CardInCombat[] colection) 
     {
         foreach (CardInCombat card in colection)
         {
@@ -155,6 +149,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 continue;
             }
         }
+    
     }
 
     void SwapCards(int card1, int card2, CardInCombat[] collection) 
@@ -176,7 +171,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             collection[card1].moved = true;
         }
     }
-
+    */
     void ResetMovedCards() 
     {
         foreach (CardInCombat card in playerBenchCards) if (card != null)card.moved = false;
@@ -188,13 +183,23 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void StartCombatPhase()
     {
         //Debug.Log("Start combat");
+        for (int i = 0; i < 3; i++)
+        {
+            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleStartEffects(playerCombatCards[i]);
+            if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleStartEffects(playerBenchCards[i]);
+            if (enemyCombatCards[i] != null) enemyCombatCards[i].card.ActivateOnBattleStartEffects(enemyCombatCards[i]);
+            if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleStartEffects(enemyBenchCards[i]);
+        }
+
+        gamePhase = 2;
 
         for (int i = 0; i < 3; i++)
         {
             if (playerCombatCards[i] != null && enemyCombatCards[i] != null) Skirmish(playerCombatCards[i], enemyCombatCards[i]);
             else if (playerCombatCards[i] != null) DirectHit(playerCombatCards[i]);
-            else if (playerCombatCards[i] != null) DirectHit(enemyCombatCards[i]);
+            else if (enemyCombatCards[i] != null) DirectHit(enemyCombatCards[i]);
         }
+
         timerToNextTurn = resetTimerTo;
         startPlayerTurn = true;
     }
@@ -202,7 +207,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         BenchMovement();
         
-        if (gamePhase == 1)
+        if (gamePhase == 2)
         {
             deck.DiscardHand();
             deck.energy = 3;
@@ -268,24 +273,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     //--------------------------------//
     #endregion
-    public void EnemyPlayCard(Card card, int slotNumber)
-    {
-        GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, enemyCombatSlots[slotNumber].transform.position, Quaternion.identity);
-        cardToCreate.transform.SetParent(deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one * 0.75f;
-
-        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = card.ResetCard();
-        cardInCombat.deck = deck;
-        cardInCombat.slot = slotNumber;
-        cardInCombat.playerCard = false;
-        cardInCombat.benched = false;
-
-        enemyCombatCards[slotNumber] = cardInCombat;
-        enemyDeck.energy -= card.cost;
-        if (enemyDeck.cardsInHandAsCards.Contains(card)) enemyDeck.cardsInHandAsCards.Remove(card);
-    }
-
     #region Attacks
     //--------------------------------//
     public void DirectHit(CardInCombat card)
@@ -365,15 +352,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         //Debug.Log("skirmish");
 
-        // Generate inaccurate battle data
-        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
-        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
+
 
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
        
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
+
+        // Generate inaccurate battle data
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 
         playerCard.card.ActivateOnTakeDamageEffects(playerCard);
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);

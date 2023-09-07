@@ -38,7 +38,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnStopDrag()
     {
-        BenchSlot benchSlot = CheckForSlot();
+        CardSlot benchSlot = CheckForSlot();
         
             if (benchSlot != null && benchSlot.playerSlot && deck.energy >= card.cost)
             {
@@ -112,7 +112,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                 //               ^
 
                 deck.cards.Remove(card);
-                GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>().cards.Remove(card);
+                //GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>().cards.Remove(card);
 
                 if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
                 if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
@@ -142,20 +142,20 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     }
     //that is for deck.TidyHand()
 
-    BenchSlot CheckForSlot()
+    CardSlot CheckForSlot()
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 100);
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.tag == "BenchSlot")
             {
-                return hit.transform.GetComponent<BenchSlot>();
+                return hit.transform.GetComponent<CardSlot>();
             }
         }
         return null;
     }
 
-    public void PlayCard(BenchSlot slot)
+    public void PlayCard(CardSlot slot)
     {
         if (deck.combatManager.gamePhase == 1) return;
 

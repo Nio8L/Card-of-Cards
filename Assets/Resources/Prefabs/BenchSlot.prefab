@@ -121,8 +121,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8353563794156794256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59018e14669e90b4194dccabead98f0c, type: 3}
+  m_Script: {fileID: 11500000, guid: dae63126da4e05b41ad47a3d9b1c2480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSlot: 1
   slot: 0
+  playerSlot: 1

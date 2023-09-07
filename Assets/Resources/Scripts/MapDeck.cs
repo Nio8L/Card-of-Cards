@@ -1,11 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MapDeck : MonoBehaviour, IDataPersistence
 {
     public List<Card> cards;
+
+    public int playerHp;
+
+    public TextMeshProUGUI playerHpText;
 
     public void LoadData(GameData data){
         cards.Clear();
@@ -34,6 +39,9 @@ public class MapDeck : MonoBehaviour, IDataPersistence
                 cards[^1].injuries.Add((Card.TypeOfDamage) Enum.Parse(typeof(Card.TypeOfDamage), data.cardInjuries[i].list[j]));
             }
         }
+
+        playerHp = data.playerHealth;
+        playerHpText.text = "HP: " + playerHp;
     }
 
     public void SaveData(ref GameData data){
@@ -73,6 +81,8 @@ public class MapDeck : MonoBehaviour, IDataPersistence
                 data.cardSigils[i].list.Add(sigilName);
             }
         }
+
+        data.playerHealth = playerHp;
     }
 
     public void AddCard(Card card){

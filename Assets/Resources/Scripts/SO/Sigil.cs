@@ -10,6 +10,10 @@ public class Sigil : ScriptableObject
     public Sprite image;
     public string description;
 
+    [HideInInspector]
+    public bool canUseAbility = false;
+    CardSlot selectedSlot;
+
     public virtual void PasiveEffect(CardInCombat card) 
     {
         //effect should be here
@@ -42,6 +46,10 @@ public class Sigil : ScriptableObject
 
     public virtual void TryToEndActiveSigil(CardInCombat card, CardSlot slotClicked)
     {
-        //kys
+	//kys
+	}
+    public virtual void OnBattleStartEffects(CardInCombat card)
+    {
+        //I da trqbvat ni 200 shibani vida effecta
     }
 }

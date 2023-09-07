@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wool
   m_EditorClassIdentifier: 
   maxHealth: 3
-  health: -2
+  health: 3
   attack: 0
   cost: 0
   image: {fileID: 21300000, guid: 688a4d9c9d766c246aeedd0dacfa722a, type: 3}

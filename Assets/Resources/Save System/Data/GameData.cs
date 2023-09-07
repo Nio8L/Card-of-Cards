@@ -25,6 +25,8 @@ public class MapNodeClass
 
     public int nodeDepth;
 
+    public bool used = false;
+
     public MapNodeClass(){
         coordinates = new();
         connectionIds = new();

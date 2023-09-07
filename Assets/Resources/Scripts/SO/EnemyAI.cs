@@ -14,19 +14,21 @@ public class EnemyAI : ScriptableObject
     public int maxCardsPerTurn = 3; // Can't more than 3 or less than 1
     public int startPlayingDefensivelyAt;
     public int startPlayingAggressivelyAt;
-    //public bool canBench;
-    //public bool tryToPredictBench;
     public bool canUseLostSoul = true;
     public bool useKillerStrategyInstead;
     public bool canSeePlayerCardsPlacedThisTurn = false;
+    public bool canHideCardsThatAreAboutToDie = false;
     // Settings ^
+
     bool useTypeOfDamageToDecideCard = true;
 
     int bias = 0;
     int thinkLimit;
     int cardsPlayedThisTurn = 0;
 
+    bool[] savedLastRound;
     CardInCombat[] playerCards;
+    CardInCombat[] playerBenchedCards;
 
     Strategy currentStrategy;
     enum Strategy
@@ -34,6 +36,7 @@ public class EnemyAI : ScriptableObject
         Aggressive,
         Killer,
         Defensive,
+        Savior,
         Random
     }
 
@@ -50,14 +53,23 @@ public class EnemyAI : ScriptableObject
             combatManager.enemyDeck.AddCard(cardToAdd);
             combatManager.enemyDeck.Shuffle();
         }
+        savedLastRound = new bool[3];
     }
     public void StartTurn()
     {
         useTypeOfDamageToDecideCard = true;
         thinkLimit = 5;
         cardsPlayedThisTurn = 0;
-        if (canSeePlayerCardsPlacedThisTurn) playerCards = combatManager.playerCombatCards;
-        else playerCards = combatManager.playerCombatCardsAtStartOfTurn;
+        if (canSeePlayerCardsPlacedThisTurn)
+        {
+            playerCards = combatManager.playerCombatCards;
+            playerBenchedCards = combatManager.playerBenchCards;
+        }
+        else 
+        { 
+            playerCards = combatManager.playerCombatCardsAtStartOfTurn;
+            playerBenchedCards = combatManager.playerBenchCardsAtStartOfTurn; 
+        }
         Think();
     }
     void Think()
@@ -92,6 +104,30 @@ public class EnemyAI : ScriptableObject
             }
 
         }
+        if (currentStrategy == Strategy.Savior)
+        {
+            int targetValue = 0;
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (playerCards[i] != null && combatManager.enemyBenchCards[i] == null)
+                {
+                    hasPlay = true;
+                    if (combatManager.enemyCombatCards[i].card.cost > targetValue)
+                    {
+                        targetValue = combatManager.enemyCombatCards[i].card.cost;
+                        targetIndex = i;
+                    }
+                }
+            }
+
+            if (!hasPlay)
+            {
+                bias += 10;
+                currentStrategy = Strategy.Random;
+            }
+
+        }
         if (currentStrategy == Strategy.Killer)
         {
 
@@ -118,10 +154,18 @@ public class EnemyAI : ScriptableObject
         }
         if (currentStrategy == Strategy.Aggressive)
         {
-
             for (int i = 0; i < 3; i++)
             {
                 if (playerCards[i] == null && combatManager.enemyCombatCards[i] == null)
+                {
+                    hasPlay = true;
+                    targetIndex = i;
+                }
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                if (hasPlay) break;
+                if (playerBenchedCards[i] == null && combatManager.enemyBenchCards[i] == null)
                 {
                     hasPlay = true;
                     targetIndex = i;
@@ -140,7 +184,7 @@ public class EnemyAI : ScriptableObject
             {
                 failEscape++;
                 targetIndex = Random.Range(0, 3);
-            } while (combatManager.enemyCombatCards[targetIndex] != null && failEscape < 20);
+            } while (combatManager.enemyBenchCards[targetIndex] != null && failEscape < 20);
 
             if (failEscape < 20)
             {
@@ -163,9 +207,11 @@ public class EnemyAI : ScriptableObject
         // Play card
         if (hasPlay)
         {
-            if (card != null && combatManager.enemyCombatCards[targetIndex] == null)
+            if (card != null && combatManager.enemyBenchCards[targetIndex] == null)
             {
-                combatManager.EnemyPlayCard(card, targetIndex);
+                PlayCard(card, targetIndex, true);
+                Debug.Log("Enemy played card using " + currentStrategy.ToString() + " strategy");
+                if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Savior) Bench(targetIndex);
                 cardsPlayedThisTurn++;
             }
         }
@@ -186,6 +232,11 @@ public class EnemyAI : ScriptableObject
             thinkLimit--;
             Think();
         }
+        else
+        {
+            if (canHideCardsThatAreAboutToDie) TryToSaveCards();
+            MoveCardsForward();
+        }
     }
     Strategy PickStrategy()
     {
@@ -193,7 +244,14 @@ public class EnemyAI : ScriptableObject
         if (combatManager.enemyHealth + bias <= startPlayingDefensivelyAt)
         {
             bias = 0;
-            return Strategy.Defensive;
+            for (int i = 0; i < 3; i++)
+            {
+                if (combatManager.enemyCombatCards[i] == null)
+                {
+                    return Strategy.Defensive;
+                }
+            }
+            return Strategy.Savior;
         }
         else if (combatManager.enemyHealth - bias <= startPlayingAggressivelyAt || combatManager.playerHealth - bias < combatManager.enemyHealth)
         {
@@ -207,7 +265,7 @@ public class EnemyAI : ScriptableObject
     Card PickCard(Card.TypeOfDamage enemyType)
     {
         Card cardToPick = null;
-        if (currentStrategy == Strategy.Defensive)
+        if (currentStrategy == Strategy.Defensive || currentStrategy == Strategy.Savior)
         {
             foreach (Card card in combatManager.enemyDeck.cardsInHandAsCards)
             {
@@ -279,6 +337,82 @@ public class EnemyAI : ScriptableObject
                 soulHeart.primaryHeart = false;
 
                 return;
+            }
+        }
+    }
+    public void PlayCard(Card card, int slotNumber, bool benched)
+    {
+        GameObject cardToCreate;
+        if (benched) cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyBenchSlots[slotNumber].transform.position, Quaternion.identity);
+        else         cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyCombatSlots[slotNumber].transform.position, Quaternion.identity);
+        cardToCreate.transform.SetParent(combatManager.deck.CardsInCombatParent);
+        cardToCreate.transform.localScale = Vector3.one * 0.75f;
+        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
+        cardInCombat.card = Instantiate(card).ResetCard();
+        cardInCombat.deck = combatManager.enemyDeck;
+        cardInCombat.slot = slotNumber;
+        cardInCombat.playerCard = false;
+
+        if (benched)
+        {
+            cardInCombat.benched = true;
+            combatManager.enemyBenchCards[slotNumber] = cardInCombat;
+        }
+        else
+        {
+            cardInCombat.benched = false;
+            combatManager.enemyCombatCards[slotNumber] = cardInCombat;
+        }
+
+        combatManager.enemyDeck.energy -= card.cost;
+        combatManager.enemyDeck.cardsInHandAsCards.Remove(card);
+    }
+    void Bench(int slot)
+    {
+        if (combatManager.enemyBenchCards[slot] != null)
+        {
+            combatManager.enemyBenchCards[slot].BenchOrUnbenchEnemy();
+        }
+        else if (combatManager.enemyCombatCards[slot] != null)
+        {
+            combatManager.enemyCombatCards[slot].BenchOrUnbenchEnemy();
+        }
+    } 
+    void MoveCardsForward()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (combatManager.enemyBenchCards[i] != null && combatManager.enemyCombatCards[i] == null)
+            {
+                Bench(i);
+            }
+        }
+    }
+    void TryToSaveCards()
+    {
+        if (combatManager.enemyHealth/(float)maxHealth >= 0.25f)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (savedLastRound[i] == true)
+                {
+                    savedLastRound[i] = false;
+                    continue;
+                }
+
+                if (combatManager.playerCombatCards[i] == null || combatManager.enemyCombatCards[i] == null) continue;
+
+                if (combatManager.enemyCombatCards[i].card.health - combatManager.playerCombatCards[i].card.attack <= 0)
+                {
+                    foreach (Card.TypeOfDamage injury in combatManager.enemyCombatCards[i].card.injuries)
+                    {
+                        if (injury == combatManager.playerCombatCards[i].card.typeOfDamage)
+                        {
+                            Bench(i);
+                            savedLastRound[i] = true;
+                        }
+                    }
+                }
             }
         }
     }
