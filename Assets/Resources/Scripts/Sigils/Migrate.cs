@@ -17,6 +17,7 @@ public class Migrate : Sigil
 
     public override bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager) 
     {
+        if (!canMove) return false;
         CardInCombat[] firstCardCollection;//collection of cardToMove
         CardInCombat[] secondCardCollection;//collection of clicked card
 
@@ -37,6 +38,9 @@ public class Migrate : Sigil
             secondCardCollection[slot.slot] = cardToMove;
             cardToMove.slot = slot.slot;
             cardToMove.transform.position = slot.transform.position;
+
+            canMove = false;
+
             return true;
         }
 
