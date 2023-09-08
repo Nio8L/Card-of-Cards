@@ -19,7 +19,7 @@ public class activeAblitiesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(activatedActivePlayerSigil);
+        //Debug.Log(activatedActivePlayerSigil);
         if (Input.GetMouseButtonDown(1))
         {
             if (holding) return;

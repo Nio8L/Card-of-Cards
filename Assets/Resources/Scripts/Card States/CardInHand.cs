@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.Mathematics;
 
 
 public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
@@ -15,12 +16,17 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     private PointerEventData m_PointerEventData;
     private EventSystem m_EventSystem;
 
+    [HideInInspector]
+    public float tiltAngle;
+
     void Start()
     {
         deck.UpdateCardAppearance(transform, card);
 
         m_Raycaster = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
         m_EventSystem = GetComponent<EventSystem>();
+
+        transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
     }
 
     private void Update() {
@@ -128,6 +134,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         {
             deck.hoveredCard = card;
             deck.TidyHand();
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -138,6 +145,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
             deck.hoveredCard.localScale = new Vector2(1,1);
             deck.hoveredCard = null;
             deck.TidyHand();
+            transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
         }
     }
     //that is for deck.TidyHand()
