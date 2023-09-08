@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class activeAblitiesManager : MonoBehaviour
 {
-    Sigil activatedActivePlayerSigil;
-    Sigil activatedActiveEnemySigil;
+    List<Sigil> activatedActivePlayerSigil = new ();
+    List<Sigil> activatedActiveEnemySigil = new ();
 
     public bool holding = false;
 
@@ -19,7 +19,7 @@ public class activeAblitiesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(activatedActivePlayerSigil);
+        //Debug.Log(activatedActivePlayerSigil.Count);
         if (Input.GetMouseButtonDown(1))
         {
             if (holding) return;
@@ -59,11 +59,17 @@ public class activeAblitiesManager : MonoBehaviour
 
         if (cardClicked != null)
         {
-            Sigil secondStage = cardClicked.card.ActivateActiveSigilStartEffects(cardClicked);
-            if (secondStage != null)
+            List<Sigil> secondStage = cardClicked.card.ActivateActiveSigilStartEffects(cardClicked);
+
+            if (cardClicked.playerCard)
             {
-                if (cardClicked.playerCard) activatedActivePlayerSigil = secondStage;
-                else activatedActiveEnemySigil = secondStage;
+                activatedActivePlayerSigil.Clear();
+                activatedActivePlayerSigil.AddRange(secondStage);
+            }
+            else
+            {
+                activatedActiveEnemySigil.Clear();
+                activatedActiveEnemySigil.AddRange(secondStage);
             }
         }
 
@@ -72,15 +78,21 @@ public class activeAblitiesManager : MonoBehaviour
 
     public void TryToEndActiveSigils(CardSlot slot) 
     {
-        if (slot.playerSlot && activatedActivePlayerSigil != null)
+        if (slot.playerSlot)
         {
-            bool hasToEnd = activatedActivePlayerSigil.TryToEndActiveSigil(slot,combatManager);
-            if (hasToEnd) activatedActivePlayerSigil = null;
+            for (int i = 0; i < activatedActivePlayerSigil.Count; i++)
+            {
+                 bool hasToEnd = activatedActivePlayerSigil[i].TryToEndActiveSigil(slot,combatManager);
+                 if (hasToEnd) activatedActivePlayerSigil.RemoveAt(i);
+            }
         }
-        else if (!slot.playerSlot && activatedActiveEnemySigil != null)
+        else
         {
-            bool hasToEnd = activatedActiveEnemySigil.TryToEndActiveSigil(slot,combatManager);
-            if (hasToEnd) activatedActiveEnemySigil = null;
+            for (int i = 0; i < activatedActiveEnemySigil.Count; i++)
+            {
+                 bool hasToEnd = activatedActiveEnemySigil[i].TryToEndActiveSigil(slot,combatManager);
+                 if (hasToEnd) activatedActiveEnemySigil.RemoveAt(i);
+            }
         }
     }
 }

@@ -250,7 +250,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                 cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
 
                 cardsInHand[i].GetComponent<CardInHand>().tiltAngle = (cardsInHand.Count / 2 - i) * 10;
-                
+                cardsInHand[i].GetComponent<CardInHand>().UpdateTilt();
             }
         }
 

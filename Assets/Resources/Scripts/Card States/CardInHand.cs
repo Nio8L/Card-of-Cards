@@ -190,4 +190,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         SoundManager.soundManager.Play("CardPickUp");
     }
 
+    public void UpdateTilt(){
+        transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
+    }
+
 }
