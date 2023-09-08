@@ -259,12 +259,17 @@ public class Deck : MonoBehaviour, IDataPersistence
            if(card != hoveredCard) card.transform.SetAsLastSibling();
         }
 
+        for(int i = cardsInHand.Count - 1; i > cardsInHand.Count / 2; i--){
+            cardsInHand[i].transform.SetSiblingIndex(cardsInHand[i].transform.GetSiblingIndex() - i);
+        }
+        
         if (hoveredCard != null) 
         {
             hoveredCard.SetAsLastSibling();
             hoveredCard.localScale = new Vector2(1.3f,1.3f);
             hoveredCard.position = new Vector2(hoveredCard.position.x, hoveredCard.position.y+spaceForHoveredCard);
         }
+        
     }
 
 
