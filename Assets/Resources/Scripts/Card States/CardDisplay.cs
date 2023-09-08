@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CardDisplay : MonoBehaviour
 {
@@ -33,7 +34,6 @@ public class CardDisplay : MonoBehaviour
     public Sprite biteDamageIcon;
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
-
 
     private void Update() {
         UpdateCardAppearance();
@@ -95,4 +95,12 @@ public class CardDisplay : MonoBehaviour
         transform.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         transform.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
     }
+    
+    public void HealCard(){
+        if(SceneManager.GetActiveScene().name == "Map" && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used){
+            card.AcceptLostSoul();
+            MapManager.mapManager.currentNode.used = true;
+        }
+    }
+
 }

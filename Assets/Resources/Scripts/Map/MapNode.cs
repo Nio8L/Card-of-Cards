@@ -33,6 +33,8 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
 
     public int nodeId;
 
+    public bool used = false;
+
     [Header("Generation settings")]
     [SerializeField] public int depth;
     [SerializeField] public int minBranches;

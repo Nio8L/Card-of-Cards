@@ -5,59 +5,41 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Migrate")]
 public class Migrate : Sigil
 {
-    /*
-    public int direction = 1;
+    CardInCombat cardToMove;
+    bool canMove = true;
 
-    public override void PasiveEffect(CardInCombat card)
+    public override bool ActiveSigilStart(CardInCombat card) 
     {
-        canUseAbility = true;
-
-        if (card.slot == 0 && direction == -1)
-        {
-            direction = 1;
-        }
-        else if (card.slot == 2 && direction == 1)
-        {
-            direction = -1;
-        }
-
-
-        if (card.playerCard && card.deck.combatManager.playerCards[card.slot + direction] != null)
-        {
-            direction *= -1;
-        }
-        else if (!card.playerCard && card.deck.combatManager.enemyCards[card.slot + direction] != null)
-        {
-            direction *= -1;
-        }
-        Move(card);
-
+        if (!canMove) return false;
+        cardToMove = card;
+        return true;
     }
 
-    void Move(CardInCombat card)
+    public override bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager) 
     {
-        if (card.slot + direction < 0 || card.slot + direction >= card.deck.combatManager.playerCombatSlots.Length) return;
+        CardInCombat[] firstCardCollection;//collection of cardToMove
+        CardInCombat[] secondCardCollection;//collection of clicked card
 
-        if (!card.benched)
+        if (slot.playerSlot)
         {
-            if (card.playerCard && card.deck.combatManager.playerCards[card.slot + direction] == null)
-            {
-                card.deck.combatManager.playerCards[card.slot] = null;
-                card.deck.combatManager.playerCards[card.slot + direction] = card;
-                card.slot += direction;
-                card.MoveAnimationStarter(0.5f, card.deck.combatManager.playerCombatSlots[card.slot].transform.position);
-                card.deck.PlaySigilAnimation(card.transform, card.card, this);
-            }
-            else if (!card.playerCard && card.deck.combatManager.enemyCards[card.slot + direction] == null)
-            {
-                card.deck.combatManager.enemyCards[card.slot] = null;
-                card.deck.combatManager.enemyCards[card.slot + direction] = card;
-                card.slot += direction;
-                card.MoveAnimationStarter(0.5f, card.deck.combatManager.enemyCombatSlots[card.slot].transform.position);
-                card.deck.PlaySigilAnimation(card.transform, card.card, this);
-            }
+            firstCardCollection = cardToMove.benched ? combatManager.playerBenchCards : combatManager.playerCombatCards;
+            secondCardCollection = slot.bench ? combatManager.playerBenchCards : combatManager.playerCombatCards;
+        }
+        else
+        {
+            firstCardCollection = cardToMove.benched ? combatManager.enemyBenchCards : combatManager.enemyCombatCards;
+            secondCardCollection = slot.bench ? combatManager.enemyBenchCards : combatManager.enemyCombatCards;
         }
 
+        if (secondCardCollection[slot.slot] == null) 
+        {
+            firstCardCollection[cardToMove.slot] = null;
+            secondCardCollection[slot.slot] = cardToMove;
+            cardToMove.slot = slot.slot;
+            cardToMove.transform.position = slot.transform.position;
+            return true;
+        }
+
+        return false;
     }
-    */
 }

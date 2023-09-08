@@ -134,11 +134,22 @@ public class Card : ScriptableObject
     {
         foreach (Sigil sigil in sigils) { sigil.OnDeadEffects(card); break; }
     }
-    public void ActivateOnBattleStartEffects(CardInCombat card)
+
+    public Sigil ActivateActiveSigilStartEffects(CardInCombat card)
+    {
+        foreach (Sigil sigil in sigils) 
+        {
+            bool secondStage = sigil.ActiveSigilStart(card);
+            if (secondStage) return sigil;
+        }
+        return null;
+    }
+
+    public void ActivateOnBattleStartEffects(CardInCombat card) 
     {
         foreach (Sigil sigil in sigils) sigil.OnBattleStartEffects(card);
     }
-    // Effects ^  
+
     public void ResetHP() 
     {
         health = maxHealth;

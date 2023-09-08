@@ -39,11 +39,16 @@ public class Sigil : ScriptableObject
         //pisna mi da addvam random effect types
     }
 
-    public virtual void ActiveEffects(CardInCombat card)
+    public virtual bool ActiveSigilStart(CardInCombat card) 
     {
-        //Ami tyjno marti
+        return false;//returns true if it hs a second stage
     }
-    
+
+    public virtual bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager)
+    {
+        return true;//returns true if the second stage ends
+	}
+
     public virtual void OnBattleStartEffects(CardInCombat card)
     {
         //I da trqbvat ni 200 shibani vida effecta

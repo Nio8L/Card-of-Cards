@@ -238,6 +238,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 {
                     enemyBenchCards[i].passivesTurnedOnThisTurn = false;
                 }
+                if (enemyCombatCards[i] != null)
+                {
+                    enemyCombatCards[i].passivesTurnedOnThisTurn = false;
+                }
             }
 
             for (int i = 0; i < 3; i++)

@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 1531777437509808479}
   - component: {fileID: 1531777437509808464}
   - component: {fileID: 5632300664335945178}
+  - component: {fileID: 3310143477785212519}
   m_Layer: 5
   m_Name: CardDisplay
   m_TagString: Untagged
@@ -599,6 +600,35 @@ MonoBehaviour:
   biteDamageIcon: {fileID: 21300000, guid: 09f8275ec0a08f24ab938ac80488dc3f, type: 3}
   scrachDamageIcon: {fileID: 21300000, guid: ea3a24fb371f8a04b97ff0f4d8a51e02, type: 3}
   poisonDamageIcon: {fileID: 21300000, guid: e687f1344b8491248adfb5d1ba6552c7, type: 3}
+--- !u!114 &3310143477785212519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531777437509808466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5632300664335945178}
+          m_TargetAssemblyTypeName: CardDisplay, Assembly-CSharp
+          m_MethodName: HealCard
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1692993161850814855
 GameObject:
   m_ObjectHideFlags: 0

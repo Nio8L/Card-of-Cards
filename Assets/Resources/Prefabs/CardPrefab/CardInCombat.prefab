@@ -1187,6 +1187,7 @@ MonoBehaviour:
   deck: {fileID: 0}
   lastTypeOfDamage: 0
   passivesTurnedOnThisTurn: 0
+  PerformeAtackAnimation: 1
   canBeBenched: 1
   playerCard: 1
   slot: 0
