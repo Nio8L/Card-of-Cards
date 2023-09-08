@@ -318,7 +318,6 @@ public class EnemyAI : ScriptableObject
                 }
 
                 combatManager.enemyDeck.cards.Remove(lostSoulCard);
-
                 combatManager.enemyDeck.cardsInHandAsCards.Remove(lostSoulCard);
 
                 Instantiate(combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity);

@@ -49,9 +49,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public TextMeshProUGUI endCombatText;
 
     GameObject playerHealthRect;
-    GameObject playerHealthDash;   
+    GameObject playerHealthDash;
+    TextMeshProUGUI playerHealthText;   
     GameObject enemyHealthRect;
     GameObject enemyHealthDash;
+    TextMeshProUGUI enemyHealthText;
+    TextMeshProUGUI graveText;
+    TextMeshProUGUI roundText;
+    TextMeshProUGUI enemyCardPileText;
+
+    public int playerCardsLost = 0;
+    int round = 1;
     private void Start()
     {
         Time.timeScale = 0;
@@ -65,6 +73,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerHealthDash = GameObject.Find("PlayerHealthDash");
         enemyHealthRect = GameObject.Find("EnemyHealth");
         enemyHealthDash = GameObject.Find("EnemyHealthDash");
+        playerHealthText = GameObject.Find("PlayerHealthText").GetComponent<TextMeshProUGUI>();
+        enemyHealthText = GameObject.Find("EnemyHealthText").GetComponent<TextMeshProUGUI>();
+        graveText = GameObject.Find("GraveText").GetComponent<TextMeshProUGUI>();
+        roundText = GameObject.Find("RoundText").GetComponent<TextMeshProUGUI>();
+        enemyCardPileText = GameObject.Find("EnemyCardPileText").GetComponent<TextMeshProUGUI>();
     }
 
     public void StartGame() 
@@ -107,6 +120,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             StartPlayerTurn();
             startPlayerTurn = false;
         }
+        graveText.text = playerCardsLost.ToString();
+        roundText.text = "Round " + round;
+        enemyCardPileText.text = enemyDeck.cards.Count.ToString();
     }
 
     #region Game Phases
@@ -213,6 +229,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartPlayerTurn()
     {
+        round++;
         BenchMovement();
         
         if (gamePhase == 2)
@@ -357,6 +374,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
         enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
         enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
+
+        playerHealthText.text = playerHealth + "/" + 20;
+        enemyHealthText.text = enemyHealth + "/" + enemy.maxHealth;
         //enemyHPText.text = "Enemy HP: " + enemyHealth;
     }
 

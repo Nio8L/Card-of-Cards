@@ -87,6 +87,8 @@ public class Card : ScriptableObject
                 Card lostSoul = Resources.Load<Card>("Cards/LostSoul");
                 CopyFrom(lostSoul);
                 ResetCard();
+                GameObject.Find("Deck").GetComponent<CombatManager>().playerCardsLost++;
+
                 return;
             }
         }
