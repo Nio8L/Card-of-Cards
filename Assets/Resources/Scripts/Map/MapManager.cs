@@ -25,6 +25,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     // Enemy Ai list
     EnemyAI[] tier1EnemyAIs;
+    EnemyAI[] huntEnemyAIs;
 
     MapDeck mapDeck;
 
@@ -37,6 +38,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     void Start()
     {
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
+        huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
         if (currentNode != null){
@@ -66,18 +68,27 @@ public class MapManager : MonoBehaviour, IDataPersistence
             currentNode.spriteRenderer.color = Color.white;
             currentNode = newNode;
             currentNode.spriteRenderer.color = Color.red;
-            if(currentNode.roomType == MapNode.RoomType.Combat)
+
+            if (currentNode.roomType == MapNode.RoomType.Combat)
             {
                 EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
-            }else if(currentNode.roomType == MapNode.RoomType.RestSite){
+            }
+            else if(currentNode.roomType == MapNode.RoomType.RestSite)
+            {
                 if(mapDeck.playerHp < 15){
                     mapDeck.playerHp += 5;
                 }else{
                     mapDeck.playerHp = 20;
                 }
                 mapDeck.playerHpText.text = "HP: " + mapDeck.playerHp;
+            }
+            else if (currentNode.roomType == MapNode.RoomType.Hunt)
+            {
+                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * huntEnemyAIs.Length)];
+                DataPersistenceManager.DataManager.currentCombatAI = ai;
+                SceneManager.LoadSceneAsync("SampleScene");
             }
         }
     }

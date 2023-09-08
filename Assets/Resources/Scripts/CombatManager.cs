@@ -32,6 +32,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public GameObject[] playerCombatSlots = new GameObject[3];
     public GameObject[] playerBenchSlots = new GameObject[3];
 
+    public List<Card> battleReward = new List<Card>();
+
     float timerToNextTurn = 0f;
     float timerAfterEnemyTurn = 0f;
     float resetTimerTo = 2f;
@@ -49,9 +51,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public TextMeshProUGUI endCombatText;
 
     GameObject playerHealthRect;
-    GameObject playerHealthDash;   
+    GameObject playerHealthDash;
+    TextMeshProUGUI playerHealthText;   
     GameObject enemyHealthRect;
     GameObject enemyHealthDash;
+    TextMeshProUGUI enemyHealthText;
+    TextMeshProUGUI graveText;
+    TextMeshProUGUI roundText;
+    TextMeshProUGUI enemyCardPileText;
+
+    public int playerCardsLost = 0;
+    int round = 1;
     private void Start()
     {
         Time.timeScale = 0;
@@ -65,6 +75,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerHealthDash = GameObject.Find("PlayerHealthDash");
         enemyHealthRect = GameObject.Find("EnemyHealth");
         enemyHealthDash = GameObject.Find("EnemyHealthDash");
+        playerHealthText = GameObject.Find("PlayerHealthText").GetComponent<TextMeshProUGUI>();
+        enemyHealthText = GameObject.Find("EnemyHealthText").GetComponent<TextMeshProUGUI>();
+        graveText = GameObject.Find("GraveText").GetComponent<TextMeshProUGUI>();
+        roundText = GameObject.Find("RoundText").GetComponent<TextMeshProUGUI>();
+        enemyCardPileText = GameObject.Find("EnemyCardPileText").GetComponent<TextMeshProUGUI>();
     }
 
     public void StartGame() 
@@ -107,8 +122,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             StartPlayerTurn();
             startPlayerTurn = false;
         }
+        graveText.text = playerCardsLost.ToString();
+        enemyCardPileText.text = enemyDeck.cards.Count.ToString();
     }
-
     #region Game Phases
     //--------------------------------//
     public void StartEnemyTurn()
@@ -116,8 +132,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         if (gamePhase > 0) return;
         gamePhase = 1;
 
+        deck.DiscardHand();
+
         enemyDeck.DiscardHand();
-        enemyDeck.energy = 3;
+        enemyDeck.energy = enemy.maxEnergy;
         enemyDeck.DrawCard(5);
 
         enemy.StartTurn();
@@ -213,11 +231,20 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartPlayerTurn()
     {
+        round++;
+
+        if (enemy.huntAI) roundText.text = "Round " + round + "/" + enemy.huntRounds;
+        else roundText.text = "Round " + round;
+
+        if (enemy.huntAI && round == enemy.huntRounds + 1)
+        {
+            WinGame();
+        }
+
         BenchMovement();
         
         if (gamePhase == 2)
         {
-            deck.DiscardHand();
             deck.energy = 3;
             deck.DrawCard(5);
 
@@ -312,7 +339,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
         }
         updateHPText();
-        //to do
     }
     public void DirectHit(CardInCombat card, int damage)
     {
@@ -324,9 +350,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             enemyHealth -= damage;
             if (enemyHealth <= 0)
             {
-                TooltipSystem.QuickHide();
-                endCombatMenu.SetActive(true);
-                endCombatText.text = "you won";
+                WinGame();
             }
         }
         else
@@ -334,9 +358,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             playerHealth -= damage;
             if (playerHealth <= 0)
             {
-                TooltipSystem.QuickHide();
-                endCombatMenu.SetActive(true);
-                endCombatText.text = "you lost";
+                LoseGame();
             }
         }
         updateHPText();
@@ -345,8 +367,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public void updateHPText() 
     {
-        Debug.Log("Update health");
-
         float playerVal = playerHealth / 20f;
         float enemyVal = enemyHealth / (float)enemy.maxHealth;
 
@@ -357,6 +377,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
         enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
         enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
+
+        playerHealthText.text = playerHealth + "/" + 20;
+        enemyHealthText.text = enemyHealth + "/" + enemy.maxHealth;
         //enemyHPText.text = "Enemy HP: " + enemyHealth;
     }
 
@@ -412,4 +435,20 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     //--------------------------------//
 
     #endregion
+
+    void WinGame()
+    {
+        TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
+        endCombatMenu.SetActive(true);
+        Time.timeScale = 0;
+        endCombatText.text = "you won";
+        deck.cards.AddRange(battleReward);
+    }
+
+    void LoseGame()
+    {
+        TooltipSystem.QuickHide();
+        endCombatMenu.SetActive(true);
+        endCombatText.text = "you lost";
+    }
 }

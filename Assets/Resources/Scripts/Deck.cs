@@ -206,7 +206,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public void AddCard(){
         //AddCard(randomCardSelection[UnityEngine.Random.Range(0, randomCardSelection.Count)]);
         if (randomCardSelection.Count == 0) return;
-        AddCard(Instantiate(randomCardSelection[0]).ResetCard());
+        AddCard(randomCardSelection[0]);
         randomCardSelection.RemoveAt(0);
     }
 

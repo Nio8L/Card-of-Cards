@@ -51,6 +51,6 @@ public class Sigil : ScriptableObject
 
     public virtual void OnBattleStartEffects(CardInCombat card)
     {
-        //I da trqbvat ni 200 shibani vida effecta
+        //Tyjno marti trqbvat ni
     }
 }

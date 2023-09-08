@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CardInCombat : MonoBehaviour
 {
@@ -28,8 +29,12 @@ public class CardInCombat : MonoBehaviour
     float curentAnimationTime = -0.5f;
     float maxAnimationTime;
 
+    float delayAfterRightClick = 0f;
+    float maxDelay = 0.2f;
+
     bool updatedAfterReturnAnimation;
 
+    bool rightClicked;
     bool returnMovement;
 
     GameObject bloodSplat;
@@ -44,6 +49,21 @@ public class CardInCombat : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButton(1))
+        {
+            delayAfterRightClick = maxDelay;
+            rightClicked = true;
+        }
+        else if(delayAfterRightClick > 0)
+        {
+            delayAfterRightClick -= Time.deltaTime;
+        }
+        else if (rightClicked)
+        {
+            rightClicked = false;
+        }
+
+
         if (returnMovement && curentAnimationTime > -0.5f)
         {
             curentAnimationTime -= Time.deltaTime;
@@ -76,7 +96,7 @@ public class CardInCombat : MonoBehaviour
 
     public void BenchOrUnbench() 
     {
-        if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 2) return;
+        if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 2||rightClicked|| Input.GetMouseButtonDown(1)) return;
         benched = !benched;
 
         if (benched)
@@ -192,7 +212,15 @@ public class CardInCombat : MonoBehaviour
             else
             {
                 RemoveCardFromCardCollections();
-                if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
+                if (!deck.combatManager.enemy.huntAI)
+                {
+                    if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
+                }
+                else
+                {
+                    if (card.canRevive) deck.combatManager.battleReward.Add(card);
+                }
+
             }
 
             Sprite markSprite;

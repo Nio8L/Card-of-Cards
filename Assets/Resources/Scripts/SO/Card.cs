@@ -87,6 +87,8 @@ public class Card : ScriptableObject
                 Card lostSoul = Resources.Load<Card>("Cards/LostSoul");
                 CopyFrom(lostSoul);
                 ResetCard();
+                GameObject.Find("Deck").GetComponent<CombatManager>().playerCardsLost++;
+
                 return;
             }
         }
@@ -135,14 +137,15 @@ public class Card : ScriptableObject
         foreach (Sigil sigil in sigils) { sigil.OnDeadEffects(card); break; }
     }
 
-    public Sigil ActivateActiveSigilStartEffects(CardInCombat card)
+    public List<Sigil> ActivateActiveSigilStartEffects(CardInCombat card)
     {
+        List<Sigil> returnList = new List<Sigil>();
         foreach (Sigil sigil in sigils) 
         {
             bool secondStage = sigil.ActiveSigilStart(card);
-            if (secondStage) return sigil;
+            if (secondStage) returnList.Add(sigil);
         }
-        return null;
+        return returnList;
     }
 
     public void ActivateOnBattleStartEffects(CardInCombat card) 

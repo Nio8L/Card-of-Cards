@@ -14,11 +14,16 @@ public class Overwhelm : Sigil
         {
             if (card.playerCard && card.deck.combatManager.enemyBenchCards[card.slot] != null)
             {
-                card.deck.combatManager.enemyBenchCards[card.slot].card.health -= damage;
+                CardInCombat cardToHit = card.deck.combatManager.enemyBenchCards[card.slot];
+                cardToHit.card.health -= damage;
+                cardToHit.lastTypeOfDamage = card.card.typeOfDamage;
+                
             }
             else if (!card.playerCard && card.deck.combatManager.playerBenchCards[card.slot] != null)
             {
-                card.deck.combatManager.playerBenchCards[card.slot].card.health -= damage;
+                CardInCombat cardToHit = card.deck.combatManager.playerBenchCards[card.slot];
+                cardToHit.card.health -= damage;
+                cardToHit.lastTypeOfDamage = card.card.typeOfDamage;
             }
             else
             {

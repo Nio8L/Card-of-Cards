@@ -35,7 +35,7 @@ public class CardDisplay : MonoBehaviour
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
 
-    private void Update() {
+    private void Start() {
         UpdateCardAppearance();
     }
 
@@ -101,6 +101,7 @@ public class CardDisplay : MonoBehaviour
             card.AcceptLostSoul();
             MapManager.mapManager.currentNode.used = true;
         }
+        UpdateCardAppearance();
     }
 
 }
