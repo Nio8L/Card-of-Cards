@@ -7,6 +7,7 @@ public class SecondSkin : Sigil
 {
     bool hasASkin = true;
     public Card cardToSpawn;
+    Card secondSkin;
 
     public override void OnDeadEffects(CardInCombat card) 
     {
@@ -22,23 +23,21 @@ public class SecondSkin : Sigil
         else if (!card.playerCard
             && (card.deck.combatManager.playerCombatCards[card.slot] == null
             || card.deck.combatManager.playerCombatCards[card.slot].card.attack <= 0)) return;
-        
+
+        secondSkin = Instantiate(cardToSpawn).ResetCard();
+        card.name = cardToSpawn.name;
+
         hasASkin = false;
 
-        
         if (card.playerCard && card.deck.combatManager.playerBenchCards[card.slot] == null)
         {
-            Debug.Log("Pl b: " + card.benched.ToString());
             card.BenchOrUnbench();
-            Debug.Log("Player sheep benched: " + card.benched.ToString());
             SpawnSkin(card);
         }
         else if (!card.playerCard && card.deck.combatManager.enemyBenchCards[card.slot] == null)
         {
-            Debug.Log("En b: " + card.benched.ToString());
             card.BenchOrUnbenchEnemy();
-            Debug.Log("Enemy sheep benched: " + card.benched.ToString());
-            card.deck.combatManager.enemy.PlayCard(cardToSpawn, card.slot, false);
+            card.deck.combatManager.enemy.PlayCard(secondSkin, card.slot, false);
         }
 
     }
@@ -51,7 +50,7 @@ public class SecondSkin : Sigil
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
 
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = Instantiate(cardToSpawn).ResetCard();
+        cardInCombat.card = secondSkin;
         cardInCombat.deck = card.deck;
         cardInCombat.slot = card.slot;
         cardInCombat.benched = false;
