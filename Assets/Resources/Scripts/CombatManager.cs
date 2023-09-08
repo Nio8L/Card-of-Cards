@@ -48,6 +48,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public GameObject endCombatMenu;
     public TextMeshProUGUI endCombatText;
 
+    GameObject playerHealthRect;
+    GameObject playerHealthDash;   
+    GameObject enemyHealthRect;
+    GameObject enemyHealthDash;
     private void Start()
     {
         Time.timeScale = 0;
@@ -57,6 +61,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         deck = GetComponent<Deck>();
         enemyDeck = GameObject.Find("EnemyDeck").GetComponent<Deck>();
+        playerHealthRect = GameObject.Find("PlayerHealth");
+        playerHealthDash = GameObject.Find("PlayerHealthDash");
+        enemyHealthRect = GameObject.Find("EnemyHealth");
+        enemyHealthDash = GameObject.Find("EnemyHealthDash");
     }
 
     public void StartGame() 
@@ -333,8 +341,19 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public void updateHPText() 
     {
-        playerHPText.text = "Player HP: " + playerHealth;
-        enemyHPText.text = "Enemy HP: " + enemyHealth;
+        Debug.Log("Update health");
+
+        float playerVal = playerHealth / 20f;
+        float enemyVal = enemyHealth / (float)enemy.maxHealth;
+
+        if (playerVal <= 0) playerVal = 0;
+        if (enemyVal <= 0) enemyVal = 0;
+
+        playerHealthRect.transform.localScale =    new Vector3(playerVal, 1, 1);
+        playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
+        enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
+        enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
+        //enemyHPText.text = "Enemy HP: " + enemyHealth;
     }
 
     public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)

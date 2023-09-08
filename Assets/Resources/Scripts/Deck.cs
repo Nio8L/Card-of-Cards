@@ -150,7 +150,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         if (playerDeck) combatManager = GetComponent<CombatManager>();
         else combatManager = GameObject.Find("Deck").GetComponent<CombatManager>(); 
 
-        energyText = GameObject.Find("Energy").GetComponent<TextMeshProUGUI>();
+        energyText = GameObject.Find("EnergyText").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
 
         if(cards.Count == 0 && playerDeck){
