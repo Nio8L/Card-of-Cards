@@ -80,6 +80,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         graveText = GameObject.Find("GraveText").GetComponent<TextMeshProUGUI>();
         roundText = GameObject.Find("RoundText").GetComponent<TextMeshProUGUI>();
         enemyCardPileText = GameObject.Find("EnemyCardPileText").GetComponent<TextMeshProUGUI>();
+
+        if (enemy.huntAI) roundText.text = "Round " + round + "/" + enemy.huntRounds;
+        else roundText.text = "Round " + round;
     }
 
     public void StartGame() 

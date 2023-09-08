@@ -216,7 +216,7 @@ public class CardInCombat : MonoBehaviour
                 {
                     if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
                 }
-                else
+                else if (deck.combatManager.battleReward.Count < 3)
                 {
                     if (card.canRevive) deck.combatManager.battleReward.Add(card);
                 }

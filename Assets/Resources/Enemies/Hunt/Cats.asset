@@ -26,8 +26,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   maxHealth: 20
-  maxCardsPerTurn: 3
-  startPlayingDefensivelyAt: 20
+  maxCardsPerTurn: 6
+  maxEnergy: 50
+  startPlayingDefensivelyAt: 0
   startPlayingAggressivelyAt: 0
   canUseLostSoul: 0
   useKillerStrategyInstead: 0

@@ -107,7 +107,9 @@ MonoBehaviour:
   canGenerate: 0
   spriteRenderer: {fileID: 0}
   nodeDepth: 0
-  depth: 5
+  nodeId: 0
+  used: 0
+  depth: 15
   minBranches: 2
   maxBranches: 3
 --- !u!58 &488886376593276411
