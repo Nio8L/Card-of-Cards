@@ -78,7 +78,6 @@ public class EnemyAI : ScriptableObject
     }
     void Think()
     {
-        Debug.Log("think + " + cardsPlayedThisTurn + "/" + maxCardsPerTurn);
         currentStrategy = PickStrategy();
 
         bool hasPlay = false;
@@ -215,18 +214,9 @@ public class EnemyAI : ScriptableObject
             if (card != null && combatManager.enemyBenchCards[targetIndex] == null)
             {
                 PlayCard(card, targetIndex, true);
-                Debug.Log("Enemy played card using " + currentStrategy.ToString() + " strategy");
                 if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Savior) Bench(targetIndex);
                 cardsPlayedThisTurn++;
             }
-            else
-            {
-                Debug.Log("Failed card: " + card + " slot: " + targetIndex);
-            }
-        }
-        else
-        {
-            Debug.Log("Failed card: " + card + " slot: " + targetIndex);
         }
 
         // Use lost soul
