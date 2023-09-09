@@ -268,6 +268,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             hoveredCard.SetAsLastSibling();
             hoveredCard.localScale = new Vector2(1.3f,1.3f);
             hoveredCard.position = new Vector2(hoveredCard.position.x, hoveredCard.position.y+spaceForHoveredCard);
+            hoveredCard.rotation = Quaternion.Euler(0, 0, 0);
         }
         
     }
