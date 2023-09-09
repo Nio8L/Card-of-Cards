@@ -11,13 +11,18 @@ public class EnemyAI : ScriptableObject
 
     [Header("Settings")]
     public int maxHealth;
-    public int maxCardsPerTurn = 3; // Can't more than 3 or less than 1
+    public int maxCardsPerTurn = 3; // Can't be more than 3 or less than 1
+    public int maxEnergy = 3;
     public int startPlayingDefensivelyAt;
     public int startPlayingAggressivelyAt;
     public bool canUseLostSoul = true;
     public bool useKillerStrategyInstead;
     public bool canSeePlayerCardsPlacedThisTurn = false;
     public bool canHideCardsThatAreAboutToDie = false;
+
+    [Header("Hunt settings")]
+    public bool huntAI;
+    public int huntRounds;
     // Settings ^
 
     bool useTypeOfDamageToDecideCard = true;
@@ -39,7 +44,6 @@ public class EnemyAI : ScriptableObject
         Savior,
         Random
     }
-
     CombatManager combatManager;
     public void Initialize()
     {
@@ -74,6 +78,7 @@ public class EnemyAI : ScriptableObject
     }
     void Think()
     {
+        Debug.Log("think + " + cardsPlayedThisTurn + "/" + maxCardsPerTurn);
         currentStrategy = PickStrategy();
 
         bool hasPlay = false;
@@ -214,6 +219,14 @@ public class EnemyAI : ScriptableObject
                 if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Savior) Bench(targetIndex);
                 cardsPlayedThisTurn++;
             }
+            else
+            {
+                Debug.Log("Failed card: " + card + " slot: " + targetIndex);
+            }
+        }
+        else
+        {
+            Debug.Log("Failed card: " + card + " slot: " + targetIndex);
         }
 
         // Use lost soul
@@ -286,6 +299,7 @@ public class EnemyAI : ScriptableObject
                 if (cardToPick == null && card.cost <= combatManager.enemyDeck.energy) cardToPick = card;
             }
         }
+
         if (cardToPick != null)
         {
             if (cardToPick.name == "LostSoul") return null;
@@ -347,7 +361,7 @@ public class EnemyAI : ScriptableObject
         cardToCreate.transform.SetParent(combatManager.deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = Instantiate(card).ResetCard();
+        cardInCombat.card = card;
         cardInCombat.deck = combatManager.enemyDeck;
         cardInCombat.slot = slotNumber;
         cardInCombat.playerCard = false;

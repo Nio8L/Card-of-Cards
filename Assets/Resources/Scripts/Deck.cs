@@ -166,7 +166,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             combatManager.updateHPText();
         }
         Shuffle();
-        DrawCard(5);
+        DrawCard(6);
     }
 
     private void Update()
@@ -206,7 +206,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public void AddCard(){
         //AddCard(randomCardSelection[UnityEngine.Random.Range(0, randomCardSelection.Count)]);
         if (randomCardSelection.Count == 0) return;
-        AddCard(Instantiate(randomCardSelection[0]).ResetCard());
+        AddCard(randomCardSelection[0]);
         randomCardSelection.RemoveAt(0);
     }
 
@@ -246,7 +246,12 @@ public class Deck : MonoBehaviour, IDataPersistence
     {
         for (int i = 0; i < cardsInHand.Count; i++)
         {
-            if (cardsInHand[i] != null)cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
+            if (cardsInHand[i] != null){
+                cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
+
+                cardsInHand[i].GetComponent<CardInHand>().tiltAngle = (cardsInHand.Count / 2 - i) * 10;
+                cardsInHand[i].GetComponent<CardInHand>().UpdateTilt();
+            }
         }
 
         foreach (GameObject card in cardsInHand)
@@ -254,12 +259,17 @@ public class Deck : MonoBehaviour, IDataPersistence
            if(card != hoveredCard) card.transform.SetAsLastSibling();
         }
 
+        for(int i = cardsInHand.Count - 1; i > cardsInHand.Count / 2; i--){
+            cardsInHand[i].transform.SetSiblingIndex(cardsInHand[i].transform.GetSiblingIndex() - i);
+        }
+        
         if (hoveredCard != null) 
         {
             hoveredCard.SetAsLastSibling();
             hoveredCard.localScale = new Vector2(1.3f,1.3f);
             hoveredCard.position = new Vector2(hoveredCard.position.x, hoveredCard.position.y+spaceForHoveredCard);
         }
+        
     }
 
 
@@ -287,6 +297,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             cardInHand.card = drawPile[0];
             cardInHand.deck = this;
             cardsInHand.Add(card);
+            cardInHand.tiltAngle = 20;
         }
 
         cardsInHandAsCards.Add(drawPile[0]);

@@ -212,7 +212,15 @@ public class CardInCombat : MonoBehaviour
             else
             {
                 RemoveCardFromCardCollections();
-                if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
+                if (!deck.combatManager.enemy.huntAI)
+                {
+                    if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
+                }
+                else if (deck.combatManager.battleReward.Count < 3)
+                {
+                    if (card.canRevive) deck.combatManager.battleReward.Add(card);
+                }
+
             }
 
             Sprite markSprite;
