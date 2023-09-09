@@ -111,7 +111,7 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
     
    public void OnPointerDown(PointerEventData eventData)
     {
-        MapManager.mapManager.UpdateCurrentNode(eventData.pointerCurrentRaycast.gameObject.GetComponent<MapNode>());
+        MapManager.mapManager.UpdateCurrentNode(this);
         //Debug.Log("Clicked " + eventData.pointerCurrentRaycast.gameObject.GetComponent<MapNode>().roomType + " room");
     } 
 

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour, IDataPersistence
 {
+    public int dayCycle;//0-sutrin 1-sledsutrin 2-obqd 3-sledobqd 4-vecher 5-nosht 
+
     public GameObject nodeObject;
     public GameObject lineObject;
     
@@ -60,7 +62,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void UpdateCurrentNode(MapNode newNode){
+    public void UpdateCurrentNode(MapNode newNode)
+    {
         if(newNode.nodeDepth > currentNode.nodeDepth && currentNode.connections.Contains(newNode) && newNode != currentNode){
         
             currentNode.spriteRenderer.color = Color.white;
