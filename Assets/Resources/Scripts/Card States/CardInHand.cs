@@ -134,7 +134,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         {
             deck.hoveredCard = card;
             deck.TidyHand();
-            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -145,7 +144,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
             deck.hoveredCard.localScale = new Vector2(1,1);
             deck.hoveredCard = null;
             deck.TidyHand();
-            transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
         }
     }
     //that is for deck.TidyHand()
