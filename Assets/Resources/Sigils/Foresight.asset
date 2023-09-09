@@ -16,4 +16,6 @@ MonoBehaviour:
   negative: 0
   image: {fileID: 21300000, guid: 7dda844f998fa8248b0c0f8f73b72264, type: 3}
   description: Draw 1 more card each turn.
+  canUseAbility: 0
   numberOfCardsToDraw: 1
+  visualEffect: {fileID: 1221629258474259665, guid: a0321996683215e499b729df6eefa075, type: 3}

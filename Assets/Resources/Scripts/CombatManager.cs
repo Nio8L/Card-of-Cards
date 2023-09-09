@@ -80,13 +80,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         graveText = GameObject.Find("GraveText").GetComponent<TextMeshProUGUI>();
         roundText = GameObject.Find("RoundText").GetComponent<TextMeshProUGUI>();
         enemyCardPileText = GameObject.Find("EnemyCardPileText").GetComponent<TextMeshProUGUI>();
-
-        if (enemy.huntAI) roundText.text = "Round " + round + "/" + enemy.huntRounds;
-        else roundText.text = "Round " + round;
     }
 
     public void StartGame() 
     {
+        if (enemy.huntAI) roundText.text = "Round " + round + "/" + enemy.huntRounds;
+        else roundText.text = "Round " + round;
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = true;
         Time.timeScale = 1;
@@ -276,13 +275,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
             for (int i = 0; i < 3; i++)
             {
-                if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false) 
+                if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false && playerBenchCards[i].card.health > 0f) 
                 {
                     playerBenchCards[i].passivesTurnedOnThisTurn = true;
                     playerBenchCards[i].card.ActivatePasiveEffects(playerBenchCards[i]);
                     deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
                 }
-                if(playerCombatCards[i] != null && playerCombatCards[i].passivesTurnedOnThisTurn == false)
+                if(playerCombatCards[i] != null && playerCombatCards[i].passivesTurnedOnThisTurn == false && playerCombatCards[i].card.health > 0f)
                 {
                     playerCombatCards[i].passivesTurnedOnThisTurn = true;
                     playerCombatCards[i].card.ActivatePasiveEffects(playerCombatCards[i]);
@@ -291,13 +290,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
             for (int i = 0; i < 3; i++)
             {
-                if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false)
+                if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false && enemyBenchCards[i].card.health > 0f)
                 {
                     enemyBenchCards[i].passivesTurnedOnThisTurn = true;
                     enemyBenchCards[i].card.ActivatePasiveEffects(enemyBenchCards[i]);
                     deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
                 }
-                if (enemyCombatCards[i] != null && enemyCombatCards[i].passivesTurnedOnThisTurn == false)
+                if (enemyCombatCards[i] != null && enemyCombatCards[i].passivesTurnedOnThisTurn == false && enemyCombatCards[i].card.health > 0f)
                 {
                     enemyCombatCards[i].passivesTurnedOnThisTurn = true;
                     enemyCombatCards[i].card.ActivatePasiveEffects(enemyCombatCards[i]);

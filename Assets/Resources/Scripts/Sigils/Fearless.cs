@@ -6,6 +6,7 @@ using UnityEngine;
 public class Fearless : Sigil
 {
     bool canRevive = true;
+    public GameObject visualEffect;
 
     public override void OnTakeDamageEffect(CardInCombat card) 
     {
@@ -13,6 +14,8 @@ public class Fearless : Sigil
         {
             card.card.ResetHP();
             canRevive = false;
+            GameObject effect = Instantiate(visualEffect, card.transform.position, Quaternion.identity);
+            effect.transform.SetParent(card.transform);
         }
     }
 

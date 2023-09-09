@@ -17,7 +17,9 @@ MonoBehaviour:
   attack: 2
   cost: 2
   image: {fileID: 21300000, guid: b26af8335ad4d0f4ea019e49513a18e3, type: 3}
+  canRevive: 1
   typeOfDamage: 2
   sigils:
   - {fileID: 11400000, guid: 49e498f4ff76a824da4cf16f328d668e, type: 2}
+  - {fileID: 11400000, guid: 3a5255f6c7969d145918cdb7eacb8539, type: 2}
   injuries: 

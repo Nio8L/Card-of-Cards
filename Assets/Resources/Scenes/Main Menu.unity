@@ -1170,6 +1170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1929760794}
+  gameMenu: {fileID: 0}
   audioSlider: {fileID: 2115466278}
   audioText: {fileID: 2134041448}
   autoSaveSwitch: {fileID: 41005907}

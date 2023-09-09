@@ -16,3 +16,5 @@ MonoBehaviour:
   negative: 0
   image: {fileID: 21300000, guid: bb32c229d5d3c564097babb070d4921e, type: 3}
   description: Grants a single revive.
+  canUseAbility: 0
+  visualEffect: {fileID: 5302634548882618060, guid: 29a3f8d6390305644b6d2563360fe731, type: 3}
