@@ -25,13 +25,18 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public bool isGenerating = true;
 
+    public static bool foundTheFinalPoint = false;
+    public static MapNode finalNode;
+    public static float[] yLayers;
+
     // Enemy Ai list
     EnemyAI[] tier1EnemyAIs;
     EnemyAI[] huntEnemyAIs;
 
     MapDeck mapDeck;
 
-    private void Awake() {
+    private void Awake()
+    {
         mapManager = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -39,6 +44,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
+        yLayers = new float[currentNode.depth+1];
+        for (int i = 0; i < yLayers.Length; i++) yLayers[i] = -1;
+
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();

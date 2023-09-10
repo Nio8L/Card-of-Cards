@@ -109,8 +109,8 @@ MonoBehaviour:
   nodeDepth: 0
   nodeId: 0
   used: 0
-  depth: 15
-  minBranches: 2
+  depth: 7
+  minBranches: 1
   maxBranches: 3
 --- !u!58 &488886376593276411
 CircleCollider2D:
