@@ -18,6 +18,12 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     [HideInInspector]
     public float tiltAngle;
+    [HideInInspector]
+    public bool dontTidy = true;
+    public Vector3 targetLocation;
+    public float targetAngle;
+    public Vector3 startPos;
+    float travelTime = 0.5f;
 
     void Start()
     {
@@ -25,13 +31,27 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
         m_Raycaster = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
         m_EventSystem = GetComponent<EventSystem>();
-
+        tiltAngle = 0;
         transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Escape)){
             OnStopDrag();
+        }
+        if (dontTidy)
+        {
+            transform.localPosition = Vector3.Lerp(startPos, targetLocation, 1 - travelTime / 0.5f);
+            float scale = Mathf.Lerp(0.5f, 1, 1 - travelTime / 0.5f);
+            tiltAngle = Mathf.Lerp(0, targetAngle, 1 - travelTime / 0.5f);
+            transform.localScale = Vector3.one * scale;
+            travelTime -= Time.deltaTime;
+            UpdateTilt();
+            if (travelTime <= 0)
+            {
+                dontTidy = false;
+                deck.TidyHand();
+            }
         }
     }
 

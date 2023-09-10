@@ -247,10 +247,18 @@ public class Deck : MonoBehaviour, IDataPersistence
         for (int i = 0; i < cardsInHand.Count; i++)
         {
             if (cardsInHand[i] != null){
-                cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
+                CardInHand targetCard = cardsInHand[i].GetComponent<CardInHand>();
+                if (targetCard.dontTidy)
+                {
+                    targetCard.targetLocation = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
+                    targetCard.targetAngle = (cardsInHand.Count / 2 - i) * 10;
+                    continue;
+                }
+                
 
-                cardsInHand[i].GetComponent<CardInHand>().tiltAngle = (cardsInHand.Count / 2 - i) * 10;
-                cardsInHand[i].GetComponent<CardInHand>().UpdateTilt();
+                cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
+                targetCard.tiltAngle = (cardsInHand.Count / 2 - i) * 10;
+                targetCard.UpdateTilt();
             }
         }
 
@@ -290,15 +298,17 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (playerDeck)
         {
-            var card = Instantiate(cardInHandPrefab, new Vector3(cardsInHand.Count * 2, -3.5f, 0), Quaternion.identity);
+            var card = Instantiate(cardInHandPrefab, drawPileText.transform.position, Quaternion.identity);
             card.transform.SetParent(CardsInHandParent);
-            card.transform.localScale = Vector3.one;
+            card.transform.localScale = Vector3.zero;
+            card.transform.position = drawPileText.transform.position;
 
             CardInHand cardInHand = card.GetComponent<CardInHand>();
             cardInHand.card = drawPile[0];
             cardInHand.deck = this;
             cardsInHand.Add(card);
             cardInHand.tiltAngle = 20;
+            cardInHand.startPos = drawPileText.transform.parent.localPosition;
         }
 
         cardsInHandAsCards.Add(drawPile[0]);
