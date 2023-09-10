@@ -38,6 +38,7 @@ public class Migrate : Sigil
             secondCardCollection[slot.slot] = cardToMove;
             cardToMove.slot = slot.slot;
             cardToMove.transform.position = slot.transform.position;
+            cardToMove.benched = slot.bench;
 
             canMove = false;
 
