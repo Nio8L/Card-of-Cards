@@ -27,4 +27,8 @@ public class Bleed : Sigil
             card.deck.UpdateCardAppearance(card.transform, card.card);
         }
     }
+    public override void OnDeadEffects(CardInCombat card)
+    {
+        count = 0;
+    }
 }
