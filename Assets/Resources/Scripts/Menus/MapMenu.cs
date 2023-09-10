@@ -7,6 +7,7 @@ public class MapMenu : MonoBehaviour
 {
     public GameObject menuButtons;
     public GameObject stuffToDisable;
+    public SettingsMenu settingsMenu;
 
     // Update is called once per frame
     void Update()
@@ -30,10 +31,11 @@ public class MapMenu : MonoBehaviour
         stuffToDisable.SetActive(!stuffToDisable.activeSelf);
     }
 
-    public void OnClickBackToGame(){
+    public void OnClickSettings(){
         SoundManager.soundManager.Play("ButtonClick");
+        DataPersistenceManager.DataManager.LoadSettings();
         menuButtons.SetActive(!menuButtons.activeSelf);
-        SceneManager.LoadSceneAsync("SampleScene");
+        settingsMenu.ActivateMenu();
     }
 
     public void SaveGame(){

@@ -39,6 +39,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnSettingsClick(){
         SoundManager.soundManager.Play("ButtonClick");
+        DataPersistenceManager.DataManager.LoadSettings();
         settingsMenu.ActivateMenu();
         DeactivateMenu();
     }

@@ -10,6 +10,7 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [Header("Menu Navigation")]
     [SerializeField] private MainMenu mainMenu;
     [SerializeField] private GameMenu gameMenu;
+    [SerializeField] private MapMenu mapMenu;
 
     [Header("Menu Operational Stuff")]
     [SerializeField] private Slider audioSlider;
@@ -33,8 +34,10 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         DataPersistenceManager.DataManager.SaveSettings();
         if(mainMenu != null){
             mainMenu.ActivateMenu();
-        }else{
+        }else if(gameMenu != null){
             gameMenu.menuButtons.SetActive(!gameMenu.menuButtons.activeSelf);
+        }else{
+            mapMenu.menuButtons.SetActive(!mapMenu.menuButtons.activeSelf);
         }
         DeactivateMenu();
     }
