@@ -81,19 +81,21 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
                 
                 if(MapManager.mapManager.depth < depth){
                     newMapNode.canGenerate = true;
+                    newMapNode.roomType = (RoomType)Random.Range(0, 4);
                 }
                 else
                 {
                     newMapNode.canGenerate = false;
                     newMapNode.transform.position = new Vector2(0, transform.position.y + 5);
                     MapManager.foundTheFinalPoint = true;
+                    newMapNode.roomType = RoomType.Hunter;
+                    newMapNode.transform.localScale = Vector3.one * 5;
                     MapManager.finalNode = newMapNode;
                     //Debug.Log(MapManager.finalNode.transform.position + " " + MapManager.finalNode.transform.name);
                 }
                 
                 newMapNode.parentNode = this;
                 newMapNode.nodeDepth = nodeDepth + 1;
-                newMapNode.roomType = (RoomType)Random.Range(0, 4);
                 connections.Add(newMapNode);
                 newMapNode.connections.Add(this);
 

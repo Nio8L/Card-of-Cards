@@ -32,6 +32,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     // Enemy Ai list
     EnemyAI[] tier1EnemyAIs;
     EnemyAI[] huntEnemyAIs;
+    EnemyAI[] hunterEnemyAIs;
 
     MapDeck mapDeck;
 
@@ -49,6 +50,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
+        hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
         if (currentNode != null){
@@ -101,6 +103,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
+            else if (currentNode.roomType == MapNode.RoomType.Hunter)
+                {
+                    EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * hunterEnemyAIs.Length)];
+                    DataPersistenceManager.DataManager.currentCombatAI = ai;
+                    SceneManager.LoadSceneAsync("SampleScene");
+                }
         }
     }
     
