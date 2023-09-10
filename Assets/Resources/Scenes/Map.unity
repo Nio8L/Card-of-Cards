@@ -1582,6 +1582,7 @@ MonoBehaviour:
   depth: 0
   nodeNumber: 0
   isGenerating: 1
+  deckDisplay: {fileID: 1549967009}
 --- !u!4 &1377556452
 Transform:
   m_ObjectHideFlags: 0

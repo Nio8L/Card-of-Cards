@@ -36,6 +36,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     MapDeck mapDeck;
 
+    public DeckDisplay deckDisplay;
+
     private void Awake()
     {
         mapManager = this;
@@ -77,38 +79,44 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public void UpdateCurrentNode(MapNode newNode)
     {
         if(newNode.nodeDepth > currentNode.nodeDepth && currentNode.connections.Contains(newNode) && newNode != currentNode){
-        
-            currentNode.spriteRenderer.color = Color.white;
-            currentNode = newNode;
-            currentNode.spriteRenderer.color = Color.red;
+            //check if you have healed a card so you can't skip a graveyard
+            if(deckDisplay.canClose){
+                currentNode.spriteRenderer.color = Color.white;
+                currentNode = newNode;
+                currentNode.spriteRenderer.color = Color.red;
 
-            if (currentNode.roomType == MapNode.RoomType.Combat)
-            {
-                EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
-                DataPersistenceManager.DataManager.currentCombatAI = ai;
-                SceneManager.LoadSceneAsync("SampleScene");
-            }
-            else if(currentNode.roomType == MapNode.RoomType.RestSite)
-            {
-                if(mapDeck.playerHp < 15){
-                    mapDeck.playerHp += 5;
-                }else{
-                    mapDeck.playerHp = 20;
+                if (currentNode.roomType == MapNode.RoomType.Combat)
+                {
+                    EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
+                    DataPersistenceManager.DataManager.currentCombatAI = ai;
+                    SceneManager.LoadSceneAsync("SampleScene");
                 }
-                mapDeck.playerHpText.text = "HP: " + mapDeck.playerHp;
-            }
-            else if (currentNode.roomType == MapNode.RoomType.Hunt)
-            {
-                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * huntEnemyAIs.Length)];
-                DataPersistenceManager.DataManager.currentCombatAI = ai;
-                SceneManager.LoadSceneAsync("SampleScene");
-            }
-            else if (currentNode.roomType == MapNode.RoomType.Hunter)
+                else if(currentNode.roomType == MapNode.RoomType.RestSite)
+                {
+                    if(mapDeck.playerHp < 15){
+                        mapDeck.playerHp += 5;
+                    }else{
+                        mapDeck.playerHp = 20;
+                    }
+                    mapDeck.playerHpText.text = "HP: " + mapDeck.playerHp;
+                }else if(currentNode.roomType == MapNode.RoomType.Graveyard)
+                {
+                    deckDisplay.ShowDeck();
+                    deckDisplay.canClose = false;
+                }
+                else if (currentNode.roomType == MapNode.RoomType.Hunt)
+                {
+                    EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * huntEnemyAIs.Length)];
+                    DataPersistenceManager.DataManager.currentCombatAI = ai;
+                    SceneManager.LoadSceneAsync("SampleScene");
+                }
+                else if (currentNode.roomType == MapNode.RoomType.Hunter)
                 {
                     EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * hunterEnemyAIs.Length)];
                     DataPersistenceManager.DataManager.currentCombatAI = ai;
                     SceneManager.LoadSceneAsync("SampleScene");
-                }
+                }  
+            }
         }
     }
     
