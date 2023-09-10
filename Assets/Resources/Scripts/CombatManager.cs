@@ -240,7 +240,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         if (enemy.huntAI && round == enemy.huntRounds + 1)
         {
-            WinGame();
+            Invoke("WinGame", 2f);
         }
 
         BenchMovement();
@@ -323,10 +323,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             enemyHealth -= card.card.attack;
             if(enemyHealth <= 0) 
             {
-                TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-                endCombatMenu.SetActive(true);
-                Time.timeScale = 0;
-                endCombatText.text = "you won";
+                Invoke("WinGame", 2f);
             }
         }
         else
@@ -334,10 +331,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             playerHealth -= card.card.attack;
             if (playerHealth <= 0)
             {
-                TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-                endCombatMenu.SetActive(true);
-                Time.timeScale = 0;
-                endCombatText.text = "you lost";
+                Invoke("LoseGame", 2f);
             }
         }
         updateHPText();
@@ -451,6 +445,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         TooltipSystem.QuickHide();
         endCombatMenu.SetActive(true);
+        Time.timeScale = 0;
         endCombatText.text = "you lost";
     }
 }
