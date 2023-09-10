@@ -55,24 +55,40 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
 
         AddPhysics2DRaycaster();
 
-        GenerateNodes(canGenerate);
+        GenerateNodes();
     }
 
-    public void GenerateNodes(bool canGenerate){
+    public void GenerateNodes(){
         if(nodeDepth != MapManager.mapManager.depth){
             MapManager.mapManager.depth++;
         }
         if(canGenerate){
             int numberOfNewNodes = Random.Range(minBranches, maxBranches);
-
+            if (MapManager.foundTheFinalPoint) 
+            {
+                MapManager.finalNode.connections.Add(this);
+                //if (transform.position.y >= MapManager.finalNode.transform.position.y - 2) transform.position = new Vector2(transform.position.x, transform.position.y-5);
+                AddLine(MapManager.finalNode);
+                return;
+            }
             for(int i = 0; i < numberOfNewNodes; i++){
-                GameObject newNode = Instantiate(nodeObject, new Vector3(Mathf.Clamp(transform.position.x + Random.Range(-5, 5), -10, 10), transform.position.y + Random.Range(2, 6), transform.position.z), Quaternion.identity);
+                if (MapManager.yLayers[nodeDepth] == -1) MapManager.yLayers[nodeDepth] = transform.position.y + Random.Range(3, 5);
+
+                //Debug.Log(nodeDepth + " " + MapManager.yLayers[nodeDepth]);
+
+                GameObject newNode = Instantiate(nodeObject, new Vector3(Mathf.Clamp(transform.position.x + Random.Range(-5, 5), -10, 10), MapManager.yLayers[nodeDepth] + Random.Range(-1, 1), transform.position.z), Quaternion.identity);
                 MapNode newMapNode = newNode.GetComponent<MapNode>();
                 
                 if(MapManager.mapManager.depth < depth){
                     newMapNode.canGenerate = true;
-                }else{
+                }
+                else
+                {
                     newMapNode.canGenerate = false;
+                    newMapNode.transform.position = new Vector2(0, transform.position.y + 5);
+                    MapManager.foundTheFinalPoint = true;
+                    MapManager.finalNode = newMapNode;
+                    //Debug.Log(MapManager.finalNode.transform.position + " " + MapManager.finalNode.transform.name);
                 }
                 
                 newMapNode.parentNode = this;
@@ -80,35 +96,43 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
                 newMapNode.roomType = (RoomType)Random.Range(0, 4);
                 connections.Add(newMapNode);
                 newMapNode.connections.Add(this);
+
+                AddLine(newMapNode);
                 
-
-                GameObject newLine = Instantiate(lineObject, transform.position, Quaternion.identity);
-                LineRenderer lineRenderer = newLine.GetComponent<LineRenderer>();
-
-                newLine.transform.SetParent(gameObject.transform);
-
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, newNode.transform.position);
-                lines.Add(lineRenderer);
-                newMapNode.lines.Add(lineRenderer);
-                MapManager.mapManager.lines.Add(lineRenderer);
-
-                for(int j = 0; j < MapManager.mapManager.lines.Count; j++){
-                    if(MapManager.mapManager.LinesInterescting(lineRenderer, MapManager.mapManager.lines[j]) && !lines.Contains(MapManager.mapManager.lines[j]) && !newMapNode.lines.Contains(MapManager.mapManager.lines[j])){
-                        MapManager.mapManager.mapNodes.Remove(newMapNode);
-                        connections.Remove(newMapNode);
-                        Destroy(newNode);
-
-                        MapManager.mapManager.lines.Remove(lineRenderer);
-                        lines.Remove(lineRenderer);
-                        Destroy(newLine);
-                        //Debug.Log("intersecting");
-                    }
-                }
+                if (MapManager.foundTheFinalPoint) break;
             }
         }
     }
-    
+
+    void AddLine(MapNode newMapNode) 
+    {
+        GameObject newLine = Instantiate(lineObject, transform.position, Quaternion.identity);
+        LineRenderer lineRenderer = newLine.GetComponent<LineRenderer>();
+
+        newLine.transform.SetParent(transform);
+
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, newMapNode.transform.position);
+        lines.Add(lineRenderer);
+        newMapNode.lines.Add(lineRenderer);
+        MapManager.mapManager.lines.Add(lineRenderer);
+
+        for (int j = 0; j < MapManager.mapManager.lines.Count; j++)
+        {
+            if (MapManager.mapManager.LinesInterescting(lineRenderer, MapManager.mapManager.lines[j]) && !lines.Contains(MapManager.mapManager.lines[j]) && !newMapNode.lines.Contains(MapManager.mapManager.lines[j]) && MapManager.finalNode != newMapNode)
+            {
+                MapManager.mapManager.mapNodes.Remove(newMapNode);
+                connections.Remove(newMapNode);
+                Destroy(newMapNode.gameObject);
+
+                MapManager.mapManager.lines.Remove(lineRenderer);
+                lines.Remove(lineRenderer);
+                Destroy(newLine);
+                //Debug.Log("intersecting");
+            }
+        }
+    }
+
    public void OnPointerDown(PointerEventData eventData)
     {
         MapManager.mapManager.UpdateCurrentNode(this);
