@@ -8,6 +8,8 @@ public class DeckDisplay : MonoBehaviour
     public GameObject cardDisplay;
     public GameObject deckDisplay;
 
+    public bool canClose = true;
+
     private List<GameObject> cardDisplays;
 
     private Deck deck;
@@ -25,11 +27,13 @@ public class DeckDisplay : MonoBehaviour
 
     private void Update() {
         if(Input.GetKeyUp(KeyCode.D)){
-            ShowDeck();
-        }    
+            if(canClose){
+                ShowDeck();
+            }    
+        }
     }
 
-    private void ShowDeck(){
+    public void ShowDeck(){
         if(cardDisplays.Count > 0){
             foreach(GameObject cardDisplay in cardDisplays){
                 Destroy(cardDisplay);
