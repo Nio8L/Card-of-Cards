@@ -67,6 +67,7 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
             if (MapManager.foundTheFinalPoint) 
             {
                 MapManager.finalNode.connections.Add(this);
+                connections.Add(MapManager.finalNode);
                 //if (transform.position.y >= MapManager.finalNode.transform.position.y - 2) transform.position = new Vector2(transform.position.x, transform.position.y-5);
                 AddLine(MapManager.finalNode);
                 return;
