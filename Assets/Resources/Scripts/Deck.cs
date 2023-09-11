@@ -53,6 +53,10 @@ public class Deck : MonoBehaviour, IDataPersistence
     public Sprite deathMarkBite;
     public Sprite deathMarkPoison;
 
+    int drawLeft = 0;
+    float drawTime = 0.1f;
+    float drawT = 0.1f;
+
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
@@ -179,6 +183,16 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (playerDeck) energyText.text = energy + "/3";
 
+        if (drawLeft > 0)
+        {
+            drawT -= Time.deltaTime;
+            if (drawT <= 0f)
+            {
+                drawT = drawTime;
+                drawLeft--;
+                DrawCard(); 
+            }
+        }
     }
 
     #region Deck Functions
@@ -320,9 +334,16 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public void DrawCard(int numOfCards)
     {
-        for (int i = 0; i < numOfCards; i++)
+        if (playerDeck)
         {
-            DrawCard();
+            drawLeft += numOfCards;
+        }
+        else
+        {
+            for (int i = 0; i < numOfCards; i++)
+            {
+                DrawCard();
+            }
         }
     }
 
