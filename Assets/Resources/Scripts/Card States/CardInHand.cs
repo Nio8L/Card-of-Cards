@@ -73,13 +73,19 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                         PlayCard(benchSlot);
                         SoundManager.soundManager.Play("CardPlaced");
                     }else{
-                        SoundManager.soundManager.Play("CardRetract");
+                        if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
+                            SoundManager.soundManager.Play("CardRetract");
+                        }
                     }
                 }else{
-                    SoundManager.soundManager.Play("CardRetract");
+                    if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
+                            SoundManager.soundManager.Play("CardRetract");
+                        }
                 }
             }else{
-                SoundManager.soundManager.Play("CardRetract");
+                if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
+                            SoundManager.soundManager.Play("CardRetract");
+                        }
             }
 
         //Check if the card to which this script is attachd is a "Lost Soul"
