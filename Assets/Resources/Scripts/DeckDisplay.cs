@@ -7,8 +7,11 @@ public class DeckDisplay : MonoBehaviour
 {
     public GameObject cardDisplay;
     public GameObject deckDisplay;
+    
+    public CanvasGroup canvasGroup; 
 
     public bool canClose = true;
+
 
     private List<GameObject> cardDisplays;
 
@@ -34,35 +37,49 @@ public class DeckDisplay : MonoBehaviour
     }
 
     public void ShowDeck(){
-        if(cardDisplays.Count > 0){
-            foreach(GameObject cardDisplay in cardDisplays){
-                Destroy(cardDisplay);
-            }
-        }
-        cardDisplays.Clear();
-        
-        deckDisplay.SetActive(!deckDisplay.activeSelf);
+        if(deckDisplay.activeSelf){
+            LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
 
-        if(deck != null){
-            foreach (Card card in deck.cards)
-            {   
-                GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
-                newCardDisplay.GetComponent<CardDisplay>().card = card;
-                newCardDisplay.transform.SetParent(deckDisplay.transform);
-                newCardDisplay.transform.localScale = Vector3.one;
-                newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
-                cardDisplays.Add(newCardDisplay);
+            LeanTween.delayedCall(0.3f, () => {
+                deckDisplay.SetActive(false);
+            if(cardDisplays.Count > 0){
+                foreach(GameObject cardDisplay in cardDisplays){
+                    Destroy(cardDisplay);
+                }
             }
+            cardDisplays.Clear();
+            });
+
         }else{
-            foreach (Card card in mapDeck.cards)
-            {   
-                GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
-                newCardDisplay.GetComponent<CardDisplay>().card = card;
-                newCardDisplay.transform.SetParent(deckDisplay.transform);
-                newCardDisplay.transform.localScale = Vector3.one;
-                newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
-                cardDisplays.Add(newCardDisplay);
+            if(deck != null){
+                
+                foreach (Card card in deck.cards)
+                {   
+                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
+                    newCardDisplay.GetComponent<CardDisplay>().card = card;
+                    newCardDisplay.transform.SetParent(deckDisplay.transform);
+                    newCardDisplay.transform.localScale = Vector3.one;
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    cardDisplays.Add(newCardDisplay);
+                }
+            }else{
+                foreach (Card card in mapDeck.cards)
+                {   
+                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
+                    newCardDisplay.GetComponent<CardDisplay>().card = card;
+                    newCardDisplay.transform.SetParent(deckDisplay.transform);
+                    newCardDisplay.transform.localScale = Vector3.one;
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    cardDisplays.Add(newCardDisplay);
+                }
             }
+
+            deckDisplay.SetActive(true);
+            LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
         }
+        
+        
+
+        
     }
 }
