@@ -25,7 +25,7 @@ public class SecondSkin : Sigil
             || card.deck.combatManager.playerCombatCards[card.slot].card.attack <= 0)) return;
 
         secondSkin = Instantiate(cardToSpawn).ResetCard();
-        card.name = cardToSpawn.name;
+        secondSkin.name = cardToSpawn.name;
 
         hasASkin = false;
 
