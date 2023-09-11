@@ -134,6 +134,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         if (gamePhase > 0) return;
         gamePhase = 1;
 
+        deck.ForceDraw();
         deck.DiscardHand();
 
         enemyDeck.DiscardHand();

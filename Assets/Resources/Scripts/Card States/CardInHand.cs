@@ -19,10 +19,11 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     [HideInInspector]
     public float tiltAngle;
     public bool dontTidy = true;
+    public bool discarding = false;
     public Vector3 targetLocation;
     public float targetAngle;
     public Vector3 startPos;
-    float travelTime = 0.5f;
+    public float travelTime = 0.5f;
 
     void Start()
     {
@@ -40,16 +41,32 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         }
         if (dontTidy)
         {
-            transform.localPosition = Vector3.Lerp(startPos, targetLocation, 1 - travelTime / 0.5f);
-            float scale = Mathf.Lerp(0.5f, 1, 1 - travelTime / 0.5f);
-            tiltAngle = Mathf.Lerp(0, targetAngle, 1 - travelTime / 0.5f);
-            transform.localScale = Vector3.one * scale;
-            travelTime -= Time.deltaTime;
-            UpdateTilt();
-            if (travelTime <= 0)
+            if (!discarding)
             {
-                dontTidy = false;
-                deck.TidyHand();
+                transform.localPosition = Vector3.Lerp(startPos, targetLocation, 1 - travelTime / 0.5f);
+                float scale = Mathf.Lerp(0.5f, 1, 1 - travelTime / 0.5f);
+                tiltAngle = Mathf.Lerp(0, targetAngle, 1 - travelTime / 0.5f);
+                transform.localScale = Vector3.one * scale;
+                travelTime -= Time.deltaTime;
+                UpdateTilt();
+                if (travelTime <= 0)
+                {
+                    dontTidy = false;
+                    deck.TidyHand();
+                }
+            }
+            else
+            {
+                transform.localPosition = Vector3.Lerp(startPos, targetLocation, 1 - travelTime / 0.5f);
+                float scale = Mathf.Lerp(1f, 0.5f, 1 - travelTime / 0.5f);
+                tiltAngle = Mathf.Lerp(targetAngle, 0, 1 - travelTime / 0.5f);
+                transform.localScale = Vector3.one * scale;
+                travelTime -= Time.deltaTime;
+                UpdateTilt();
+                if (travelTime <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
