@@ -356,6 +356,15 @@ public class Deck : MonoBehaviour, IDataPersistence
         }
     }
 
+    public void ForceDraw()
+    {
+        for (int i = 0; i < drawLeft; i++)
+        {
+            DrawCard();
+        }
+        drawLeft = 0;
+        drawT = drawTime;
+    }
     public void DiscardHand() 
     {
         for (int i = 0; i < cardsInHandAsCards.Count; i++)
@@ -364,8 +373,12 @@ public class Deck : MonoBehaviour, IDataPersistence
 
             if (playerDeck)
             {
-                GameObject cardObject = cardsInHand[i];
-                Destroy(cardObject);
+                CardInHand cardObject = cardsInHand[i].GetComponent<CardInHand>();
+                cardObject.dontTidy = true;
+                cardObject.discarding = true;
+                cardObject.travelTime = 0.5f;
+                cardObject.startPos = cardObject.transform.localPosition;
+                cardObject.targetLocation = DiscardPileText.transform.parent.localPosition;
             }
         }
         cardsInHand.Clear();
