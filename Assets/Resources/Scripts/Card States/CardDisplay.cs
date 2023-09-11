@@ -101,6 +101,7 @@ public class CardDisplay : MonoBehaviour
             card.AcceptLostSoul();
             MapManager.mapManager.currentNode.used = true;
             MapManager.mapManager.deckDisplay.canClose = true;
+            MapManager.mapManager.deckDisplay.ShowDeck();
         }
         UpdateCardAppearance();
     }

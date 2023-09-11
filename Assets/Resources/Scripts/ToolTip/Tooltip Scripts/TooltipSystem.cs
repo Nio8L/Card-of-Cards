@@ -46,8 +46,6 @@ public class TooltipSystem : MonoBehaviour
         LeanTween.delayedCall(0.1f, () => {
             tooltipSystem.tooltip.gameObject.SetActive(false);
         });
-        
-        
     }
 
     private void OnSceneChange(Scene current, Scene next)
