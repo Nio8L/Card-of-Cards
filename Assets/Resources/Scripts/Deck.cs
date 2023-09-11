@@ -269,10 +269,18 @@ public class Deck : MonoBehaviour, IDataPersistence
                     continue;
                 }
                 
-
+                //Tilt cards so they form //|\\
                 cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
                 targetCard.tiltAngle = (cardsInHand.Count / 2 - i) * 10;
                 targetCard.UpdateTilt();
+            }
+        }
+
+        //Update tilt so there are 2 center cards if there is an even amount of cards in hand
+        if(cardsInHand.Count % 2 == 0){
+            for(int i = 0; i < cardsInHand.Count / 2; i++){
+                cardsInHand[i].GetComponent<CardInHand>().tiltAngle -= 10;
+                cardsInHand[i].GetComponent<CardInHand>().UpdateTilt();
             }
         }
 
@@ -281,6 +289,7 @@ public class Deck : MonoBehaviour, IDataPersistence
            if(card != hoveredCard) card.transform.SetAsLastSibling();
         }
 
+        //Take the cards on the right of the center card and order them so they form a "staircase" 
         for(int i = cardsInHand.Count - 1; i > cardsInHand.Count / 2; i--){
             cardsInHand[i].transform.SetSiblingIndex(cardsInHand[i].transform.GetSiblingIndex() - i);
         }

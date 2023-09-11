@@ -19,8 +19,15 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject bench;
     [SerializeField] private GameObject pilesAndHp;
 
+    public bool aboutToOpenMenu = false;
+
     private void Update() {
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            aboutToOpenMenu = true;           
+        }
+
         if(Input.GetKeyUp(KeyCode.Escape)){
+           aboutToOpenMenu = false;
            ChangeButtonsState();
            TooltipSystem.QuickHide();
         }
