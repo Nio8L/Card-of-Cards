@@ -11,6 +11,8 @@ public class activeAblitiesManager : MonoBehaviour
 
     public CombatManager combatManager;
 
+    bool abilityHasEnded = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,10 @@ public class activeAblitiesManager : MonoBehaviour
 
     public void SimulateClick(CardSlot slot)
     {
+        TryToEndActiveSigils(slot);
+
+        if (abilityHasEnded) return;
+
         CardInCombat cardClicked;
 
         if (slot.playerSlot) cardClicked = slot.bench ? combatManager.playerBenchCards[slot.slot] : combatManager.playerCombatCards[slot.slot];
@@ -60,6 +66,8 @@ public class activeAblitiesManager : MonoBehaviour
         if (cardClicked != null)
         {
             List<Sigil> secondStage = cardClicked.card.ActivateActiveSigilStartEffects(cardClicked);
+
+            if (secondStage.Count == 0) return;
 
             if (cardClicked.playerCard)
             {
@@ -73,7 +81,7 @@ public class activeAblitiesManager : MonoBehaviour
             }
         }
 
-        TryToEndActiveSigils(slot);
+        abilityHasEnded = false;
     }
 
     public void TryToEndActiveSigils(CardSlot slot) 

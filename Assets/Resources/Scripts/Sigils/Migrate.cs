@@ -15,6 +15,11 @@ public class Migrate : Sigil
         return true;
     }
 
+    public override void OnDeadEffects(CardInCombat card)
+    {
+        canMove = true;
+    }
+
     public override bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager) 
     {
         if (!canMove) return false;
@@ -32,10 +37,18 @@ public class Migrate : Sigil
             secondCardCollection = slot.bench ? combatManager.enemyBenchCards : combatManager.enemyCombatCards;
         }
 
-        if (secondCardCollection[slot.slot] == null) 
+        if (secondCardCollection[slot.slot] != cardToMove) 
         {
-            firstCardCollection[cardToMove.slot] = null;
+            firstCardCollection[cardToMove.slot] = secondCardCollection[slot.slot];
             secondCardCollection[slot.slot] = cardToMove;
+
+            if (firstCardCollection[cardToMove.slot] != null)
+            {
+                firstCardCollection[cardToMove.slot].slot = cardToMove.slot;
+                firstCardCollection[cardToMove.slot].transform.position = cardToMove.transform.position;
+                firstCardCollection[cardToMove.slot].benched = cardToMove.benched;
+            }
+
             cardToMove.slot = slot.slot;
             cardToMove.transform.position = slot.transform.position;
             cardToMove.benched = slot.bench;
