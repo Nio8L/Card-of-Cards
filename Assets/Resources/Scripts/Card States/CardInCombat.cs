@@ -178,6 +178,7 @@ public class CardInCombat : MonoBehaviour
 
     public void PerformShortAttackAnimation()
     {
+        if (card.attack == 0) return;
         maxAnimationTime = 0.5f;
         curentAnimationTime = maxAnimationTime + 0.25f * slot;
         endPosition = new Vector3(transform.position.x, 1f, 0f);
