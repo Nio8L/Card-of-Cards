@@ -18,7 +18,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     [HideInInspector]
     public float tiltAngle;
-    [HideInInspector]
     public bool dontTidy = true;
     public Vector3 targetLocation;
     public float targetAngle;
