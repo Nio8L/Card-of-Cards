@@ -1785,6 +1785,7 @@ MonoBehaviour:
   depth: 0
   nodeNumber: 0
   isGenerating: 1
+  chaceForRooms: 28000000140000001400000014000000
   deckDisplay: {fileID: 211458796}
 --- !u!4 &1377556452
 Transform:

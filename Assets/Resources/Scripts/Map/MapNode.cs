@@ -5,14 +5,13 @@ using UnityEngine.EventSystems;
 
 public class MapNode : MonoBehaviour, IPointerDownHandler
 {
-    
-
     public enum RoomType{
         Combat,
         Hunt,
         RestSite,
         Graveyard,
-        Hunter
+        Hunter,
+        emptyRoom
     };
 
     public MapNode parentNode;
@@ -35,6 +34,9 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
 
     public bool used = false;
 
+    bool[] directionsLeft = new bool[3];//left center right
+    public int RoomsInARow = 0;
+
     [Header("Generation settings")]
     [SerializeField] public int depth;
     [SerializeField] public int minBranches;
@@ -50,6 +52,8 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
         if(MapManager.mapManager.isGenerating){
             MapManager.mapManager.mapNodes.Add(this);
         }
+
+        for (int i = 0; i < directionsLeft.Length; i++) directionsLeft[i] = false;
 
         gameObject.transform.SetParent(MapManager.mapManager.transform);
 
@@ -68,21 +72,20 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
             {
                 MapManager.finalNode.connections.Add(this);
                 connections.Add(MapManager.finalNode);
-                //if (transform.position.y >= MapManager.finalNode.transform.position.y - 2) transform.position = new Vector2(transform.position.x, transform.position.y-5);
                 AddLine(MapManager.finalNode);
                 return;
             }
             for(int i = 0; i < numberOfNewNodes; i++){
                 if (MapManager.yLayers[nodeDepth] == -1) MapManager.yLayers[nodeDepth] = transform.position.y + Random.Range(3, 5);
 
-                //Debug.Log(nodeDepth + " " + MapManager.yLayers[nodeDepth]);
-
-                GameObject newNode = Instantiate(nodeObject, new Vector3(Mathf.Clamp(transform.position.x + Random.Range(-5, 5), -10, 10), MapManager.yLayers[nodeDepth] + Random.Range(-1, 1), transform.position.z), Quaternion.identity);
+                float x = GetRandomX();
+                GameObject newNode = Instantiate(nodeObject, new Vector3(Mathf.Clamp(x, -10, 10), MapManager.yLayers[nodeDepth] + Random.Range(-1, 1), transform.position.z), Quaternion.identity);
                 MapNode newMapNode = newNode.GetComponent<MapNode>();
                 
                 if(MapManager.mapManager.depth < depth){
                     newMapNode.canGenerate = true;
-                    newMapNode.roomType = (RoomType)Random.Range(0, 4);
+                    newMapNode.roomType = GetARoom(roomType,RoomsInARow);
+                    if (newMapNode.roomType == roomType) newMapNode.RoomsInARow = RoomsInARow + 1;
                 }
                 else
                 {
@@ -92,7 +95,6 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
                     newMapNode.roomType = RoomType.Hunter;
                     newMapNode.transform.localScale = Vector3.one * 5;
                     MapManager.finalNode = newMapNode;
-                    //Debug.Log(MapManager.finalNode.transform.position + " " + MapManager.finalNode.transform.name);
                 }
                 
                 newMapNode.parentNode = this;
@@ -149,5 +151,60 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
         {
             Camera.main.gameObject.AddComponent<Physics2DRaycaster>();
         }
+    }
+
+
+    float GetRandomX()
+    {
+        int direction;
+        List<int> directions = new List<int>();
+
+        for (int i = 0; i < directionsLeft.Length; i++)
+        {
+            if (!directionsLeft[i])
+            {
+                directions.Add(i);
+            }
+        }
+        direction = Random.Range(0, directions.Count);
+        direction = directions[direction];
+        directionsLeft[direction] = true;
+        direction--;
+        return transform.position.x + Random.Range(1, 3)*direction;
+    }
+
+    RoomType GetARoom(RoomType lastRoom, int timesInARoll) 
+    {
+        bool retryed = false;
+
+    retry:;
+
+        RoomType room = RoomType.emptyRoom;
+        int randomValue = Random.Range(1, 101);
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (randomValue < MapManager.mapManager.chaceForRooms[i]) 
+            {
+                if (retryed && lastRoom == (RoomType)i) 
+                {
+                    if (i == 3) i = -1;
+                    randomValue = Random.Range(1, 101);
+                    Debug.Log("retrying");
+                    continue;
+                }
+                room = (RoomType)i;
+                break;
+            }
+            randomValue -= MapManager.mapManager.chaceForRooms[i];
+        }
+
+        if (room == lastRoom && Random.Range(0, 2 + RoomsInARow) > 1 && !retryed)
+        {
+            retryed = true;
+            goto retry;
+        }
+
+        return room;
     }
 }
