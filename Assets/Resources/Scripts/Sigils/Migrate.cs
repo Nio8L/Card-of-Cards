@@ -6,23 +6,23 @@ using UnityEngine;
 public class Migrate : Sigil
 {
     CardInCombat cardToMove;
-    bool canMove = true;
+
+    public override void PasiveEffect(CardInCombat card)
+    {
+        canUseAbility = true;
+        card.deck.ShowSigilStar(card, this);
+    }
 
     public override bool ActiveSigilStart(CardInCombat card) 
     {
-        if (!canMove) return false;
+        if (!canUseAbility) return false;
         cardToMove = card;
         return true;
     }
 
-    public override void OnDeadEffects(CardInCombat card)
-    {
-        canMove = true;
-    }
-
     public override bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager) 
     {
-        if (!canMove) return false;
+        if (!canUseAbility) return false;
         CardInCombat[] firstCardCollection;//collection of cardToMove
         CardInCombat[] secondCardCollection;//collection of clicked card
 
@@ -53,8 +53,9 @@ public class Migrate : Sigil
             cardToMove.transform.position = slot.transform.position;
             cardToMove.benched = slot.bench;
 
-            canMove = false;
+            canUseAbility = false;
 
+            combatManager.deck.ShowSigilStar(cardToMove, this);
             return true;
         }
 

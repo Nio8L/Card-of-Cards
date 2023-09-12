@@ -17,7 +17,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject cardsInHand;
     [SerializeField] private GameObject cardsInCombat;
     [SerializeField] private GameObject bench;
-    [SerializeField] private GameObject pilesAndHp;
+    //[SerializeField] private GameObject pilesAndHp;
 
     public bool aboutToOpenMenu = false;
 
@@ -65,7 +65,7 @@ public class GameMenu : MonoBehaviour
         cardsInHand.SetActive(!cardsInHand.activeSelf);
         cardsInCombat.SetActive(!cardsInCombat.activeSelf);
         bench.SetActive(!bench.activeSelf);
-        pilesAndHp.SetActive(!pilesAndHp.activeSelf);
+        //pilesAndHp.SetActive(!pilesAndHp.activeSelf);
     }
 
     public void OnClickMap(){

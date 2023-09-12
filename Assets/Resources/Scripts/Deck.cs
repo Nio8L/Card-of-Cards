@@ -466,10 +466,35 @@ public class Deck : MonoBehaviour, IDataPersistence
                 break;
             }
         }
+        if (card.sigils.Count == 2) index++;
+
         cardGameObject.GetChild(7 + index).GetComponent<AnimateSigil>().StartAnimation();
     }
 
-    public void UpdatePileNumbers() 
+    public void ShowSigilStar(CardInCombat card, Sigil sigil)
+    {
+        int alpha = 0;
+        if (sigil.canUseAbility) alpha = 1;
+        int index = 0;
+        if (card.card.sigils.Count == 2) index++;
+
+        {
+            if (card.card.sigils[0] == sigil)
+            {
+                card.transform.GetChild(13 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            }
+            else if (card.card.sigils[1] == sigil)
+            {
+                card.transform.GetChild(14 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            }
+            else
+            {
+                card.transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            }
+        }
+    }
+
+    public void UpdatePileNumbers()
     {
         if (!playerDeck) return;
         drawPileText.text = drawPile.Count + "";
