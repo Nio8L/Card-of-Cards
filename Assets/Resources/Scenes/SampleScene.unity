@@ -1538,7 +1538,6 @@ MonoBehaviour:
   cardsInHand: {fileID: 1729705259}
   cardsInCombat: {fileID: 743951258}
   bench: {fileID: 291470461}
-  pilesAndHp: {fileID: 0}
   aboutToOpenMenu: 0
 --- !u!4 &573670494
 Transform:
@@ -6367,8 +6366,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180, y: -32}
-  m_SizeDelta: {x: 346.28, y: 57.44}
+  m_AnchoredPosition: {x: 180, y: -127.7}
+  m_SizeDelta: {x: 346.28, y: 248.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896396471
 MonoBehaviour:
@@ -6425,7 +6424,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 5
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
