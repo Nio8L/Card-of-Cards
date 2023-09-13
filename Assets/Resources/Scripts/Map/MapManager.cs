@@ -29,6 +29,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public static MapNode finalNode;
     public static float[] yLayers;
     public int[] chaceForRooms;
+    [SerializeField] 
+    public List<float>[] xByLayers;
 
     // Enemy Ai list
     EnemyAI[] tier1EnemyAIs;
@@ -50,6 +52,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         yLayers = new float[currentNode.depth+1];
         for (int i = 0; i < yLayers.Length; i++) yLayers[i] = -1;
+        xByLayers = new List<float>[currentNode.depth + 2];
+        for (int i = 0; i < xByLayers.Length; i++) xByLayers[i] = new List<float>();
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");

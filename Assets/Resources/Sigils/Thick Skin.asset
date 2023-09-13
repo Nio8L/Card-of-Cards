@@ -15,5 +15,6 @@ MonoBehaviour:
   sigilName: Thick Skin
   negative: 0
   image: {fileID: 21300000, guid: f569053ecf818dd4fa2ebed4097312d9, type: 3}
-  description: Lose 1 less health when hit.
+  description: Reduces damage taken by 1 if the creature is about to take more than
+    1 damage..
   canUseAbility: 0

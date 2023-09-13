@@ -79,6 +79,18 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
                 if (MapManager.yLayers[nodeDepth] == -1) MapManager.yLayers[nodeDepth] = transform.position.y + Random.Range(3, 5);
 
                 float x = GetRandomX();
+                if (x == -100f) continue;
+
+                for (int j = 0; j < MapManager.mapManager.xByLayers[nodeDepth].Count; j++)
+                {
+                    if (Mathf.Abs(MapManager.mapManager.xByLayers[nodeDepth][j] - x) < 3f) 
+                    {
+                        continue;
+                    }
+                }
+
+                Debug.Log("survived " + nodeDepth + " " + x);
+                MapManager.mapManager.xByLayers[nodeDepth+1].Add(x);
                 GameObject newNode = Instantiate(nodeObject, new Vector3(Mathf.Clamp(x, -10, 10), MapManager.yLayers[nodeDepth] + Random.Range(-1, 1), transform.position.z), Quaternion.identity);
                 MapNode newMapNode = newNode.GetComponent<MapNode>();
                 
@@ -170,16 +182,20 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
         direction = directions[direction];
         directionsLeft[direction] = true;
         direction--;
-        return transform.position.x + Random.Range(1, 3)*direction;
+        float final = transform.position.x + Random.Range(1, 3) * direction;
+
+        if (final > 10f || final < -10f) return -100f;
+
+        return final;
     }
 
     RoomType GetARoom(RoomType lastRoom, int timesInARoll) 
     {
         bool retryed = false;
+        RoomType room = RoomType.emptyRoom;
 
     retry:;
 
-        RoomType room = RoomType.emptyRoom;
         int randomValue = Random.Range(1, 101);
 
         for (int i = 0; i < 4; i++)
@@ -188,11 +204,9 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
             {
                 if (retryed && lastRoom == (RoomType)i) 
                 {
-                    if (i == 3) i = -1;
-                    randomValue = Random.Range(1, 101);
-                    Debug.Log("retrying");
-                    continue;
+                    goto retry;
                 }
+
                 room = (RoomType)i;
                 break;
             }
@@ -204,6 +218,10 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
             retryed = true;
             goto retry;
         }
+
+        if (room == lastRoom && room == RoomType.Graveyard) goto retry;
+
+        if (room == RoomType.emptyRoom) goto retry;
 
         return room;
     }

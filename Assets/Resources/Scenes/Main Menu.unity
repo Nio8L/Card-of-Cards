@@ -1959,7 +1959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: AutoSaveData
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
