@@ -1747,6 +1747,7 @@ MonoBehaviour:
   mapCamera: {fileID: 1049541314}
   sensitivity: 20
   mapManagerManager: {fileID: 2097871020}
+  maxVelocity: 10
 --- !u!1 &1377556450
 GameObject:
   m_ObjectHideFlags: 0
