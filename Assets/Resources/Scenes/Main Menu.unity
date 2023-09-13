@@ -1171,6 +1171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1929760794}
   gameMenu: {fileID: 0}
+  mapMenu: {fileID: 0}
   audioSlider: {fileID: 2115466278}
   audioText: {fileID: 2134041448}
   autoSaveSwitch: {fileID: 41005907}
@@ -1621,41 +1622,49 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3498114da77c36345863335c1d8d768b, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 1
     source: {fileID: 0}
   - name: CardPlaced
     clip: {fileID: 8300000, guid: 95bdb078fa1b11c48a81715e892af753, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 0
     source: {fileID: 0}
   - name: CardPickUp
     clip: {fileID: 8300000, guid: d510f3fbb36bd2344821eb5f1bfcdb08, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 0
     source: {fileID: 0}
   - name: CardSlide
     clip: {fileID: 8300000, guid: 597d7e0760f0a314795e97ea0303bd64, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 0
     source: {fileID: 0}
   - name: CardDeath
     clip: {fileID: 8300000, guid: dca9f71fcd9517645976d365015ea4a3, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 0
     source: {fileID: 0}
   - name: CardRetract
     clip: {fileID: 8300000, guid: 870d6c289de452b43baa19e09beef54c, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 0
     source: {fileID: 0}
   - name: LostSoul
     clip: {fileID: 8300000, guid: c42180db62cbdcd4eab6e0dcfacaa142, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 0
     source: {fileID: 0}
   - name: CardHit
     clip: {fileID: 8300000, guid: 7b49f78b8b62ce44d94217961040e964, type: 3}
     volume: 1
     pitch: 1
+    playBetweenScenes: 0
     source: {fileID: 0}
 --- !u!4 &1107156820
 Transform:
