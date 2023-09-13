@@ -49,9 +49,16 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public TextMeshProUGUI drawPileText;
     public TextMeshProUGUI DiscardPileText;
+    [HideInInspector]
     public Sprite deathMarkScratch;
+    [HideInInspector]
     public Sprite deathMarkBite;
+    [HideInInspector]
     public Sprite deathMarkPoison;
+    [HideInInspector]
+    public Sprite activeStar;
+    [HideInInspector]
+    public Sprite selectedActiveStar;
 
     int drawLeft = 0;
     float drawTime = 0.1f;
@@ -143,7 +150,10 @@ public class Deck : MonoBehaviour, IDataPersistence
         poisonDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypePoison");
 
         deathMarkScratch = Resources.Load<Sprite>("Sprites/DeathMarkScratch");
-        deathMarkBite = Resources.Load<Sprite>("Sprites/DeathMarkBite");
+        activeStar = Resources.Load<Sprite>("Sprites/ActiveStar");
+        selectedActiveStar = Resources.Load<Sprite>("Sprites/SelectedActiveStar");
+
+        deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
         deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
 
         soulHeart = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
@@ -469,29 +479,6 @@ public class Deck : MonoBehaviour, IDataPersistence
         if (card.sigils.Count == 2) index++;
 
         cardGameObject.GetChild(7 + index).GetComponent<AnimateSigil>().StartAnimation();
-    }
-
-    public void ShowSigilStar(CardInCombat card, Sigil sigil)
-    {
-        int alpha = 0;
-        if (sigil.canUseAbility) alpha = 1;
-        int index = 0;
-        if (card.card.sigils.Count == 2) index++;
-
-        {
-            if (card.card.sigils[0] == sigil)
-            {
-                card.transform.GetChild(13 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-            }
-            else if (card.card.sigils[1] == sigil)
-            {
-                card.transform.GetChild(14 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-            }
-            else
-            {
-                card.transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-            }
-        }
     }
 
     public void UpdatePileNumbers()

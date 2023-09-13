@@ -13,12 +13,6 @@ public class activeAblitiesManager : MonoBehaviour
 
     bool abilityHasEnded = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
         //Debug.Log(activatedActivePlayerSigil.Count);
@@ -73,6 +67,7 @@ public class activeAblitiesManager : MonoBehaviour
             {
                 activatedActivePlayerSigil.Clear();
                 activatedActivePlayerSigil.AddRange(secondStage);
+                cardClicked.SetActiveSigilStar(activatedActivePlayerSigil[0]);
             }
             else
             {
@@ -86,12 +81,22 @@ public class activeAblitiesManager : MonoBehaviour
 
     public void TryToEndActiveSigils(CardSlot slot) 
     {
+        CardInCombat cardClicked;
+
         if (slot.playerSlot)
         {
             for (int i = 0; i < activatedActivePlayerSigil.Count; i++)
             {
-                 bool hasToEnd = activatedActivePlayerSigil[i].TryToEndActiveSigil(slot,combatManager);
-                 if (hasToEnd) activatedActivePlayerSigil.RemoveAt(i);
+                
+                bool hasToEnd = activatedActivePlayerSigil[i].TryToEndActiveSigil(slot,combatManager);
+                if (hasToEnd)
+                {
+                    if (slot.playerSlot) cardClicked = slot.bench ? combatManager.playerBenchCards[slot.slot] : combatManager.playerCombatCards[slot.slot];
+                    else cardClicked = slot.bench ? combatManager.enemyBenchCards[slot.slot] : combatManager.enemyCombatCards[slot.slot];
+
+                    cardClicked.SetActiveSigilStar(activatedActivePlayerSigil[i]);
+                    activatedActivePlayerSigil.RemoveAt(i);
+                }
             }
         }
         else
