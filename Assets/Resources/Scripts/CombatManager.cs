@@ -103,7 +103,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         inCombat = false;
         endCombatMenu.SetActive(false);
         Time.timeScale = 1;
-        SceneManager.LoadSceneAsync("Map");
+        if(endCombatText.text == "you won") SceneManager.LoadSceneAsync("Map");
+        else SceneManager.LoadSceneAsync("Main Menu");
         //END THE GAME HERE
     }
 
