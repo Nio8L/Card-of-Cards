@@ -1,6 +1,7 @@
 using UnityEngine.Audio;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -26,16 +27,29 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Start() {
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
     public void Play(string name){
         SoundClass sound = Array.Find(sounds, sound => sound.name == name);
         if(sound.source != null){
-            sound.source.Play();
+            sound.source.PlayOneShot(sound.source.clip, sound.source.volume);
         }
     }
 
     public void UpdateVolume(float volume){
         foreach(SoundClass sound in sounds){
             sound.source.volume = volume;
+        }
+    }
+
+    public void OnSceneUnloaded(Scene scene){
+        foreach (SoundClass sound in sounds)
+        {   
+            if(!sound.playBetweenScenes){
+                sound.source.Stop();
+            }
         }
     }
 }

@@ -12,6 +12,8 @@ public class SoundClass
     [Range(0.1f, 3f)]
     public float pitch;
 
+    public bool playBetweenScenes = false;
+
     [HideInInspector]
     public AudioSource source;
 }
