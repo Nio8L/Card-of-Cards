@@ -150,11 +150,11 @@ public class Deck : MonoBehaviour, IDataPersistence
         poisonDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypePoison");
 
         deathMarkScratch = Resources.Load<Sprite>("Sprites/DeathMarkScratch");
+        deathMarkBite = Resources.Load<Sprite>("Sprites/DeathMarkBite");
+        deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
+
         activeStar = Resources.Load<Sprite>("Sprites/ActiveStar");
         selectedActiveStar = Resources.Load<Sprite>("Sprites/SelectedActiveStar");
-
-        deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
-        deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
 
         soulHeart = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
 
