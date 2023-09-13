@@ -44,6 +44,7 @@ public class EnemyAI : ScriptableObject
         Savior,
         Random
     }
+
     CombatManager combatManager;
     public void Initialize()
     {

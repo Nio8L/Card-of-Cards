@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Rabbit
+  m_Name: Buffalo
   m_EditorClassIdentifier: 
   maxHealth: 3
   health: 0
   attack: 1
-  cost: 1
-  image: {fileID: 21300000, guid: ad6ca0824be941c469ac5c389220df4e, type: 3}
+  cost: 3
+  image: {fileID: 21300000, guid: 82c052f3ae6256b46bfd84231641290c, type: 3}
   canRevive: 1
-  typeOfDamage: 1
+  typeOfDamage: 2
   sigils:
   - {fileID: 11400000, guid: 2a721355cfddf614f9925ecc2f2d3b46, type: 2}
+  - {fileID: 11400000, guid: 49e498f4ff76a824da4cf16f328d668e, type: 2}
   injuries: 

@@ -10,7 +10,7 @@ public class Migrate : Sigil
     public override void PasiveEffect(CardInCombat card)
     {
         canUseAbility = true;
-        card.deck.ShowSigilStar(card, this);
+        card.ShowSigilStar(this);
     }
 
     public override bool ActiveSigilStart(CardInCombat card) 
@@ -55,7 +55,8 @@ public class Migrate : Sigil
 
             canUseAbility = false;
 
-            combatManager.deck.ShowSigilStar(cardToMove, this);
+
+            cardToMove.ShowSigilStar(this);
             return true;
         }
 

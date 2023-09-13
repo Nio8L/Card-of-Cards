@@ -92,8 +92,6 @@ public class CardInCombat : MonoBehaviour
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
-
-
     public void BenchOrUnbench() 
     {
         if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 2||rightClicked|| Input.GetMouseButtonDown(1)) return;
@@ -174,8 +172,6 @@ public class CardInCombat : MonoBehaviour
         }
         MoveAnimationStarter(0.5f, deck.combatManager.enemyCombatSlots[slot].transform.position);
     }
-
-
     public void PerformShortAttackAnimation()
     {
         if (card.attack == 0) return;
@@ -185,7 +181,6 @@ public class CardInCombat : MonoBehaviour
         startPosition = transform.position;
         returnMovement = true; 
     }
-
     public void MoveAnimationStarter(float time, Vector3 end)
     {
         maxAnimationTime = time;
@@ -194,7 +189,6 @@ public class CardInCombat : MonoBehaviour
         startPosition = transform.position;
         returnMovement = false;
     }
-
     void OnDeath()
     {
         if (GetComponent<DestroyTimer>().enabled == false)
@@ -235,11 +229,50 @@ public class CardInCombat : MonoBehaviour
             GetComponent<DestroyTimer>().enabled = true;
         }
     }
-
     private void OnDestroy() {
         SoundManager.soundManager.Play("CardDeath");
     }
+    public void ShowSigilStar(Sigil sigil)
+    {
+        int alpha = 0;
+        if (sigil.canUseAbility) alpha = 1;
+        int index = 0;
+        if (card.sigils.Count == 2) index++;
 
+        if (card.sigils[0] == sigil)
+        {
+            transform.GetChild(13 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+        }
+        else if (card.sigils[1] == sigil)
+        {
+            transform.GetChild(14 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+        }
+        else
+        {
+            transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+        }
+    }
+    public void SetActiveSigilStar(Sigil sigil)
+    {
+        Sprite spriteToUse;
+        if (sigil.canUseAbility) spriteToUse = deck.selectedActiveStar;
+        else                     spriteToUse = deck.activeStar;
+        int index = 0;
+        if (card.sigils.Count == 2) index++;
+
+        if (card.sigils[0] == sigil)
+        {
+            transform.GetChild(13 + index).GetComponent<Image>().sprite = spriteToUse;
+        }
+        else if (card.sigils[1] == sigil)
+        {
+            transform.GetChild(14 + index).GetComponent<Image>().sprite = spriteToUse;
+        }
+        else
+        {
+            transform.GetChild(15).GetComponent<Image>().sprite = spriteToUse;
+        }
+    }
     public void RemoveCardFromCardCollections() 
     {
         if (benched)

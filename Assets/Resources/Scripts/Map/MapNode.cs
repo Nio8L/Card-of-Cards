@@ -90,7 +90,7 @@ public class MapNode : MonoBehaviour, IPointerDownHandler
                     newMapNode.transform.position = new Vector2(0, transform.position.y + 5);
                     MapManager.foundTheFinalPoint = true;
                     newMapNode.roomType = RoomType.Hunter;
-                    newMapNode.transform.localScale = Vector3.one * 5;
+                    newMapNode.transform.localScale = Vector3.one;
                     MapManager.finalNode = newMapNode;
                     //Debug.Log(MapManager.finalNode.transform.position + " " + MapManager.finalNode.transform.name);
                 }
