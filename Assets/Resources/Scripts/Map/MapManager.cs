@@ -100,7 +100,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
                         mapDeck.playerHp = 20;
                     }
                     mapDeck.playerHpText.text = "HP: " + mapDeck.playerHp;
-                }else if(currentNode.roomType == MapNode.RoomType.Graveyard)
+                }
+                else if(currentNode.roomType == MapNode.RoomType.Graveyard)
                 {
                     if(!deckDisplay.deckDisplay.activeSelf){
                         deckDisplay.ShowDeck();

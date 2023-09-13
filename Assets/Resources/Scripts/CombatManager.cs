@@ -84,8 +84,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public void StartGame() 
     {
-        if (enemy.huntAI) roundText.text = "Round " + round + "/" + enemy.huntRounds;
+        if (enemy.huntAI)
+        {
+            roundText.text = "Round " + round + "/" + enemy.huntRounds;
+            for (int i = 0; i < battleReward.Count; i++) roundText.text += battleReward[i] + "\n";
+        }
         else roundText.text = "Round " + round;
+
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = true;
         Time.timeScale = 1;
@@ -236,7 +241,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         round++;
 
-        if (enemy.huntAI) roundText.text = "Round " + round + "/" + enemy.huntRounds;
+        if (enemy.huntAI)
+        {
+            roundText.text = "Round " + round + "/" + enemy.huntRounds;
+            for (int i = 0; i < battleReward.Count; i++) roundText.text += "\n" + battleReward[i].name;
+        }
         else roundText.text = "Round " + round;
 
         if (enemy.huntAI && round == enemy.huntRounds + 1)
