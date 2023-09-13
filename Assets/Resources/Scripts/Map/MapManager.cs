@@ -28,6 +28,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public static bool foundTheFinalPoint = false;
     public static MapNode finalNode;
     public static float[] yLayers;
+    public int[] chaceForRooms;
 
     // Enemy Ai list
     EnemyAI[] tier1EnemyAIs;
