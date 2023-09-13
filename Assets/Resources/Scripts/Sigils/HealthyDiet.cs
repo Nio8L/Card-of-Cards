@@ -11,6 +11,8 @@ public class HealthyDiet : Sigil
     public int heal;
     public override void PasiveEffect(CardInCombat card)
     {
+        if (!card.benched) return;
+
         count++;
         if (count >= turnToHeal && card.card.health < card.card.maxHealth)
         {
