@@ -1680,6 +1680,15 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 7129aa36fd2f85b4290b0e0ba0eb5278, type: 3}
     - {fileID: 8300000, guid: 2d82d1dbd3e57d143ab9c9c0c09f7071, type: 3}
     - {fileID: 8300000, guid: fe13db8f224c20546bee15f04f012428, type: 3}
+    - {fileID: 8300000, guid: 24e70cd60f152d64db408dfb8eca00a7, type: 3}
+    - {fileID: 8300000, guid: c30165602d4f218449b70de0d380bc95, type: 3}
+    - {fileID: 8300000, guid: 434995efa0a46d94087859c0e654eb03, type: 3}
+    - {fileID: 8300000, guid: d074b83bfd9334a4bba273e36fc11ad0, type: 3}
+    - {fileID: 8300000, guid: ed28dce4886178741b7f48f044f270b0, type: 3}
+    - {fileID: 8300000, guid: 5eec7d213a62dab4998f5e1b737dcf69, type: 3}
+    - {fileID: 8300000, guid: 4dbe065760b8fa3438e658bf7d9af001, type: 3}
+    - {fileID: 8300000, guid: aa5de183f7e3e684f94ab7e0e252e8a5, type: 3}
+    - {fileID: 8300000, guid: de38738b8f18ae64f9d9871ff0ba21b6, type: 3}
     volume: 1
     pitch: 1
     playBetweenScenes: 0
