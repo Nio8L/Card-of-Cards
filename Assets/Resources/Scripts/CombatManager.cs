@@ -325,30 +325,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     //--------------------------------//
     public void DirectHit(CardInCombat card)
     {
-        SoundManager.soundManager.Play("CardHit");
-        if (card.benched) return;
-        card.PerformShortAttackAnimation();
-
-        if (card.playerCard)
-        {
-            enemyHealth -= card.card.attack;
-            if(enemyHealth <= 0) 
-            {
-                Invoke("WinGame", 2f);
-            }
-        }
-        else
-        {
-            playerHealth -= card.card.attack;
-            if (playerHealth <= 0)
-            {
-                Invoke("LoseGame", 2f);
-            }
-        }
-        updateHPText();
+        DirectHit(card, card.card.attack);
     }
     public void DirectHit(CardInCombat card, int damage)
     {
+        SoundManager.soundManager.Play("CardHit");
         if (card.benched) return;
         card.PerformShortAttackAnimation();
 
@@ -357,7 +338,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             enemyHealth -= damage;
             if (enemyHealth <= 0)
             {
-                WinGame();
+                Invoke("WinGame", 2f);
             }
         }
         else
@@ -365,11 +346,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             playerHealth -= damage;
             if (playerHealth <= 0)
             {
-                LoseGame();
+                Invoke("LoseGame", 2f);
             }
         }
         updateHPText();
-        //to do
     }
 
     public void updateHPText() 

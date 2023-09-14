@@ -463,6 +463,16 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(7).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         cardGameObject.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         cardGameObject.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
+
+        CardInCombat combatCard = cardGameObject.GetComponent<CardInCombat>();
+
+        if (combatCard != null)
+        {
+            for (int i = 0; i < card.sigils.Count; i++)
+            {
+                combatCard.ShowSigilStar(card.sigils[i]);
+            }
+        }
     }
 
     public void PlaySigilAnimation(Transform cardGameObject, Card card, Sigil sigilToAnimate)

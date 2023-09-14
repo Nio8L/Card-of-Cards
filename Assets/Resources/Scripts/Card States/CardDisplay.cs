@@ -97,9 +97,9 @@ public class CardDisplay : MonoBehaviour
     }
     
     public void HealCard(){
-        if(SceneManager.GetActiveScene().name == "Map" && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used){
+        if(SceneManager.GetActiveScene().name == "Map" && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used){
             card.AcceptLostSoul();
-            MapManager.mapManager.currentNode.used = true;
+            MapManager.currentNode.used = true;
             MapManager.mapManager.deckDisplay.canClose = true;
             MapManager.mapManager.deckDisplay.ShowDeck();
         }

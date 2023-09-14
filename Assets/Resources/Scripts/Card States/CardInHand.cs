@@ -80,29 +80,62 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnStopDrag()
     {
-        CardSlot benchSlot = CheckForSlot();
+        CardSlot cardSlot = CheckForSlot();
         
-            if (benchSlot != null && benchSlot.playerSlot && deck.energy >= card.cost)
+            if (cardSlot != null && cardSlot.playerSlot && deck.energy >= card.cost)
             {
                 if(card.name != "LostSoul"){
-                    if(deck.combatManager.playerBenchCards[benchSlot.slot] == null)
+                    // Trying to play a card in a bench slot
+                    if(cardSlot.bench)
                     {
-                        PlayCard(benchSlot);
-                        SoundManager.soundManager.Play("CardPlaced");
-                    }else{
+                        if (deck.combatManager.playerBenchCards[cardSlot.slot] == null)
+                        {
+                            PlayCard(cardSlot);
+                            SoundManager.soundManager.Play("CardPlaced");
+                        }
+                        else if (deck.combatManager.playerCombatCards[cardSlot.slot] == null)
+                        {
+                            deck.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench();
+                            PlayCard(cardSlot);
+                            SoundManager.soundManager.Play("CardPlaced");
+                        }
+
+                    }
+                    // Trying to play a card in a combat slot
+                    else if (!cardSlot.bench)
+                    {
+                        if (deck.combatManager.playerCombatCards[cardSlot.slot] == null)
+                        {
+                            PlayCard(cardSlot);
+                            SoundManager.soundManager.Play("CardPlaced");
+                        }
+                        else if (deck.combatManager.playerBenchCards[cardSlot.slot] == null)
+                        {
+                            deck.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench();
+                            PlayCard(cardSlot);
+                            SoundManager.soundManager.Play("CardPlaced");
+                        }
+                    }
+                    // Trying to play a card in a bench slot
+                    else
+                    {
                         if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
                             SoundManager.soundManager.Play("CardRetract");
                         }
                     }
-                }else{
-                    if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
-                            SoundManager.soundManager.Play("CardRetract");
-                        }
                 }
-            }else{
+                else
+                {
+                    if (!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
+                        SoundManager.soundManager.Play("CardRetract");
+                    }
+                }
+            }
+            else
+            {
                 if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
-                            SoundManager.soundManager.Play("CardRetract");
-                        }
+                    SoundManager.soundManager.Play("CardRetract");
+                }
             }
 
         //Check if the card to which this script is attachd is a "Lost Soul"
@@ -217,11 +250,22 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         cardInCombat.slot = slot.slot;
 
         deck.energy -= card.cost;
-        deck.combatManager.playerBenchCards[slot.slot] = cardInCombat;
+        if (slot.bench)
+        {
+            deck.combatManager.playerBenchCards[slot.slot] = cardInCombat;
+            cardInCombat.benched = true;
+        }
+        else
+        {
+            deck.combatManager.playerCombatCards[slot.slot] = cardInCombat;
+            cardInCombat.benched = false;
+        }
+
+        
 
         //maha go ot deck.cardsInHand
-        if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
-        if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
+        deck.cardsInHand.Remove(gameObject);
+        deck.cardsInHandAsCards.Remove(card);
         Destroy(gameObject);
     }
 

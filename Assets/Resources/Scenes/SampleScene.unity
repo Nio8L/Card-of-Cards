@@ -1107,6 +1107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardSlot (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1815,6 +1819,8 @@ MonoBehaviour:
   deathMarkScratch: {fileID: 0}
   deathMarkBite: {fileID: 0}
   deathMarkPoison: {fileID: 0}
+  activeStar: {fileID: 0}
+  selectedActiveStar: {fileID: 0}
   randomCardSelection:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
@@ -2038,6 +2044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2237,8 +2247,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3/3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+  m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2262,7 +2272,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.6
+  m_fontSize: 55.8
   m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2372,8 +2382,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 14
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+  m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2397,7 +2407,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 43.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2788,6 +2798,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardSlot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3024,8 +3038,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 14
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+  m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3049,7 +3063,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 43.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3499,6 +3513,10 @@ PrefabInstance:
     - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_Name
       value: CardSlot (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
       objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
@@ -4661,6 +4679,8 @@ MonoBehaviour:
   deathMarkScratch: {fileID: 0}
   deathMarkBite: {fileID: 0}
   deathMarkPoison: {fileID: 0}
+  activeStar: {fileID: 0}
+  selectedActiveStar: {fileID: 0}
   randomCardSelection:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
@@ -5078,15 +5098,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: End turn
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+  m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5383,8 +5403,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 14
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+  m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5408,7 +5428,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 43.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5891,6 +5911,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyHealthbar
       objectReference: {fileID: 0}
+    - target: {fileID: 8260118117197788209, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+    - target: {fileID: 8260118117197788209, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260118117197788209, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
     - target: {fileID: 8804884694735524584, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
       propertyPath: m_Name
       value: EnemyHealthText
@@ -6391,8 +6423,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Round: 5'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+  m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6877,6 +6909,10 @@ PrefabInstance:
     - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_Name
       value: CardSlot (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
       objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
@@ -7546,8 +7582,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 14
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+  m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7571,7 +7607,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 43.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7816,6 +7852,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8260118117197788209, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
+    - target: {fileID: 8260118117197788209, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260118117197788209, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
 --- !u!1001 &8086878480675311020
@@ -7828,6 +7876,10 @@ PrefabInstance:
     - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_Name
       value: CardSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
       objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
