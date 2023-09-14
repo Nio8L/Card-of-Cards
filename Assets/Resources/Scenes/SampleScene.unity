@@ -1107,6 +1107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardSlot (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2040,6 +2044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2790,6 +2798,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardSlot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3501,6 +3513,10 @@ PrefabInstance:
     - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_Name
       value: CardSlot (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
       objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
@@ -6894,6 +6910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardSlot (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -7856,6 +7876,10 @@ PrefabInstance:
     - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_Name
       value: CardSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890501820107519674, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
+      propertyPath: m_TagString
+      value: BenchSlot
       objectReference: {fileID: 0}
     - target: {fileID: 4609249357094798792, guid: 429a564b3ff335a409821cdb1ea1c85f, type: 3}
       propertyPath: m_RootOrder
