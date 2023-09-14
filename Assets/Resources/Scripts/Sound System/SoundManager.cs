@@ -38,6 +38,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlayHalfVolume(string name){
+        SoundClass sound = Array.Find(sounds, sound => sound.name == name);
+        if(sound.source != null){
+            sound.source.PlayOneShot(sound.source.clip, sound.source.volume / 2);
+        }
+    }
+
     public void Play(string name, int index){
         SoundClass sound = Array.Find(sounds, sound => sound.name == name);
         if(sound.clip[index] != null){

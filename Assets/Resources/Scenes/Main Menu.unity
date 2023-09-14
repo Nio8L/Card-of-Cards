@@ -1693,6 +1693,13 @@ MonoBehaviour:
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
+  - name: CardCombat
+    clip:
+    - {fileID: 8300000, guid: 55ccbb07a03752b4aa3404e184cefbfb, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 0
+    source: {fileID: 0}
 --- !u!4 &1107156820
 Transform:
   m_ObjectHideFlags: 0
