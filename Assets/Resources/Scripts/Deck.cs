@@ -61,7 +61,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public Sprite selectedActiveStar;
 
     int drawLeft = 0;
-    float drawTime = 0.1f;
+    float drawTime = 0.2f;
     float drawT = 0.1f;
 
     #region Saving
@@ -331,6 +331,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (playerDeck)
         {
+            SoundManager.soundManager.Play("CardDraw", UnityEngine.Random.Range(0, 13));
             var card = Instantiate(cardInHandPrefab, drawPileText.transform.position, Quaternion.identity);
             card.transform.SetParent(CardsInHandParent);
             card.transform.localScale = Vector3.zero;
@@ -340,7 +341,6 @@ public class Deck : MonoBehaviour, IDataPersistence
             cardInHand.card = drawPile[0];
             cardInHand.deck = this;
             cardsInHand.Add(card);
-            cardInHand.tiltAngle = 20;
             cardInHand.startPos = drawPileText.transform.parent.localPosition;
         }
 

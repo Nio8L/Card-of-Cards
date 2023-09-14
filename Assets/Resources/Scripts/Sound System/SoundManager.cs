@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
 
         foreach(SoundClass sound in sounds){
             sound.source = gameObject.AddComponent<AudioSource>();
-            sound.source.clip = sound.clip;
+            sound.source.clip = sound.clip[0];
             sound.source.volume = sound.volume;
             sound.source.pitch = sound.pitch;
         }
@@ -34,6 +34,14 @@ public class SoundManager : MonoBehaviour
     public void Play(string name){
         SoundClass sound = Array.Find(sounds, sound => sound.name == name);
         if(sound.source != null){
+            sound.source.PlayOneShot(sound.source.clip, sound.source.volume);
+        }
+    }
+
+    public void Play(string name, int index){
+        SoundClass sound = Array.Find(sounds, sound => sound.name == name);
+        if(sound.clip[index] != null){
+            sound.source.clip = sound.clip[index];
             sound.source.PlayOneShot(sound.source.clip, sound.source.volume);
         }
     }

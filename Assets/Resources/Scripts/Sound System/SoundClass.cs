@@ -1,11 +1,12 @@
 using UnityEngine.Audio;
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class SoundClass
 {
     public string name;
-    public AudioClip clip;
+    public List<AudioClip> clip;
 
     [Range(0f, 1f)]
     public float volume;
