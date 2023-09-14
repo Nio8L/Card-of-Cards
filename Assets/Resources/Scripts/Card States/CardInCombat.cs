@@ -73,6 +73,13 @@ public class CardInCombat : MonoBehaviour
             {
                 deck.UpdateCardAppearance(transform, card);
                 updatedAfterReturnAnimation = true;
+
+                if (playerCard)
+                {
+                    if(deck.combatManager.enemyCombatCards[slot] == null){
+                        SoundManager.soundManager.Play("CardHit");
+                    }
+                }
             }
         }
         else if (returnMovement && curentAnimationTime <= -0.5 && updatedAfterReturnAnimation) 
@@ -180,6 +187,19 @@ public class CardInCombat : MonoBehaviour
         endPosition = new Vector3(transform.position.x, 1f, 0f);
         startPosition = transform.position;
         returnMovement = true; 
+        if(playerCard){
+            if(deck.combatManager.enemyCombatCards[slot] != null){
+                SoundManager.soundManager.PlayHalfVolume("CardCombat");
+            }else{
+                SoundManager.soundManager.Play("CardCombat");
+            }
+        }else{
+            if(deck.combatManager.playerCombatCards[slot] != null){
+                SoundManager.soundManager.PlayHalfVolume("CardCombat");
+            }else{
+                SoundManager.soundManager.Play("CardCombat");
+            }
+        }
     }
     public void MoveAnimationStarter(float time, Vector3 end)
     {
