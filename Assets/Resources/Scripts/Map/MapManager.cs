@@ -42,6 +42,7 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
 
         GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
@@ -187,7 +188,7 @@ public class MapManager : MonoBehaviour
 
     public static void NodeClicked(MapNode node) 
     {
-        if (nodesAvaliable.Contains(node))
+        if (nodesAvaliable.Contains(node) && deckDisplay.canClose)
         {
             if(currentNode != null)currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             currentNode = node;
