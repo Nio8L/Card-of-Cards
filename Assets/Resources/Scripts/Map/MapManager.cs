@@ -25,13 +25,13 @@ public class MapManager : MonoBehaviour
     Layer lastLayer = null;
 
     // Enemy Ai list
-    EnemyAI[] tier1EnemyAIs;
-    EnemyAI[] huntEnemyAIs;
-    EnemyAI[] hunterEnemyAIs;
+    static EnemyAI[] tier1EnemyAIs;
+    static EnemyAI[] huntEnemyAIs;
+    static EnemyAI[] hunterEnemyAIs;
 
-    MapDeck mapDeck;
+    static MapDeck mapDeck;
 
-    public DeckDisplay deckDisplay;
+    public static DeckDisplay deckDisplay;
 
     private void Awake()
     {
@@ -47,7 +47,9 @@ public class MapManager : MonoBehaviour
         GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
         for (int i = 0; i < loadedLayers.Length; i++)
         {
-            allLayers[(int)loadedLayers[i].GetComponent<Layer>().enterConectionType].Add(loadedLayers[i]);
+            Layer newLayer = loadedLayers[i].GetComponent<Layer>();
+            allLayers[(int)newLayer.enterConectionType].Add(loadedLayers[i]);
+            newLayer.placeInTheArray = allLayers[(int)newLayer.enterConectionType].Count - 1;
         }
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
@@ -81,6 +83,7 @@ public class MapManager : MonoBehaviour
             int randomRoom = 3;
             newLayer = Instantiate(allLayers[randomRoom][Random.Range(0, allLayers[randomRoom].Count)]);
             newLayerScript = newLayerScript = newLayer.GetComponent<Layer>();
+
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < newLayerScript.enterNodes[i].NodesOnConections.Length; j++)
@@ -99,32 +102,74 @@ public class MapManager : MonoBehaviour
 
         if (typeWanted != Layer.ConectionType.None)
         {
-            newLayer.transform.position = lastLayer.transform.position + Vector3.up * 6;
-
-            for (int i = 0; i < 3; i++)
-            {
-                if (newLayerScript.enterNodes[i].NodesOnConections == null) continue;
-
-                //getting a conection point left/middle/right
-                for (int j = 0; j < newLayerScript.enterNodes[i].NodesOnConections.Length; j++)
-                {
-                    newLayerScript.enterNodes[i].NodesOnConections[j].parents.AddRange(lastLayer.exitNodes[i].NodesOnConections);//adding old nodes to the parent
-
-                    for(int l = 0; l< lastLayer.exitNodes[i].NodesOnConections.Length; l++) AddLine(newLayerScript.enterNodes[i].NodesOnConections[j], newLayerScript.enterNodes[i].NodesOnConections[j].transform, lastLayer.exitNodes[i].NodesOnConections[l].transform);
-                }
-
-                for (int j = 0; j < lastLayer.exitNodes[i].NodesOnConections.Length; j++)
-                {
-                    lastLayer.exitNodes[i].NodesOnConections[j].children.AddRange(newLayerScript.enterNodes[i].NodesOnConections);//adding old points to the children
-                }
-            }
-
+            ConectLayers(newLayerScript, lastLayer);
         }
 
         lastLayer = newLayerScript;
         layers.Add(newLayerScript);
         newLayer.transform.SetParent(transform);
         if (curentDepth != numOfLayers) Generate(curentDepth + 1, newLayerScript.exitConectionType);
+        else AddBossRoom();
+    }
+
+    public void Generate(List<Layer> layersToRecreate) 
+    {
+        lastLayer = null;
+        for (int i = 0; i < layersToRecreate.Count; i++)
+        {
+            Layer newLayer = Instantiate(allLayers[(int)layersToRecreate[i].enterConectionType][layersToRecreate[i].placeInTheArray]).GetComponent<Layer>();
+
+            if (lastLayer != null)
+            {
+                ConectLayers(newLayer, lastLayer);
+            }
+
+            lastLayer = newLayer;
+            layers.Add(newLayer);
+            newLayer.transform.SetParent(transform);
+        }
+    }
+
+    void ConectLayers(Layer newLayerScript, Layer oldLayer) 
+    {
+        newLayerScript.transform.position = oldLayer.transform.position + Vector3.up * 6;
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (newLayerScript.enterNodes[i].NodesOnConections == null) continue;
+
+            //getting a conection point left/middle/right
+            for (int j = 0; j < newLayerScript.enterNodes[i].NodesOnConections.Length; j++)
+            {
+                newLayerScript.enterNodes[i].NodesOnConections[j].parents.AddRange(oldLayer.exitNodes[i].NodesOnConections);//adding old nodes to the parent
+
+                for (int l = 0; l < oldLayer.exitNodes[i].NodesOnConections.Length; l++) AddLine(newLayerScript.enterNodes[i].NodesOnConections[j], newLayerScript.enterNodes[i].NodesOnConections[j].transform, oldLayer.exitNodes[i].NodesOnConections[l].transform);
+            }
+
+            for (int j = 0; j < oldLayer.exitNodes[i].NodesOnConections.Length; j++)
+            {
+                oldLayer.exitNodes[i].NodesOnConections[j].children.AddRange(newLayerScript.enterNodes[i].NodesOnConections);//adding old points to the children
+            }
+        }
+    }
+
+    void AddBossRoom() 
+    {
+        MapNode bossNode = Instantiate(nodeObject).GetComponent<MapNode>();
+        bossNode.transform.position = new Vector3(0, lastLayer.transform.position.y + 6, 0);
+
+        bossNode.parents.AddRange(lastLayer.GetAllExitNodes());
+
+        bossNode.roomType = MapNode.RoomType.Hunter;
+        PutSprite(bossNode);
+
+        bossNode.transform.localScale *= 2;
+
+        for (int i = 0; i < bossNode.parents.Count; i++)
+        {
+            bossNode.parents[i].children.Add(bossNode);
+            AddLine(bossNode, bossNode.transform, bossNode.parents[i].transform);
+        }
     }
 
     void AddLine(MapNode parenNode, Transform pos1, Transform pos2)
@@ -144,16 +189,57 @@ public class MapManager : MonoBehaviour
     {
         if (nodesAvaliable.Contains(node))
         {
-            currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            if(currentNode != null)currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             currentNode = node;
             nodesAvaliable = node.children;
             currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+
+            if (currentNode.roomType == MapNode.RoomType.Combat)
+            {
+                EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
+                DataPersistenceManager.DataManager.currentCombatAI = ai;
+                SceneManager.LoadSceneAsync("SampleScene");
+            }
+            else if (currentNode.roomType == MapNode.RoomType.RestSite)
+            {
+                if (mapDeck.playerHp < 15)
+                {
+                    mapDeck.playerHp += 5;
+                }
+                else
+                {
+                    mapDeck.playerHp = 20;
+                }
+                mapDeck.playerHpText.text = "HP: " + mapDeck.playerHp;
+            }
+            else if (currentNode.roomType == MapNode.RoomType.Graveyard)
+            {
+                if (!deckDisplay.deckDisplay.activeSelf)
+                {
+                    deckDisplay.ShowDeck();
+                }
+                deckDisplay.canClose = false;
+            }
+            else if (currentNode.roomType == MapNode.RoomType.Hunt)
+            {
+                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * huntEnemyAIs.Length)];
+                DataPersistenceManager.DataManager.currentCombatAI = ai;
+                SceneManager.LoadSceneAsync("SampleScene");
+            }
+            else if (currentNode.roomType == MapNode.RoomType.Hunter)
+            {
+                EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * hunterEnemyAIs.Length)];
+                DataPersistenceManager.DataManager.currentCombatAI = ai;
+                SceneManager.LoadSceneAsync("SampleScene");
+            }
             //new curent node
         }
     }
 
     List<MapNode> GenerateRoom(MapNode node) 
     {
+        if(node.roomType != MapNode.RoomType.emptyRoom)return node.children;
+
         int randomValue = Random.Range(0, 101);
         MapNode.RoomType room = MapNode.RoomType.emptyRoom;
         bool retryed = false;
@@ -178,9 +264,14 @@ public class MapManager : MonoBehaviour
 
         node.roomType = room;
 
-       SpriteRenderer spriteRenderer = node.gameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/RoomSprites/" + node.roomType.ToString());
+        PutSprite(node);
         return node.children;
+    }
+
+    void PutSprite(MapNode node) 
+    {
+        SpriteRenderer spriteRenderer = node.gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/RoomSprites/" + node.roomType.ToString());
     }
 
     public bool LinesInterescting(LineRenderer lineRenderer1, LineRenderer lineRenderer2){

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8456520580759990402}
   - component: {fileID: 488886376593276411}
   - component: {fileID: 2830257588851506358}
-  - component: {fileID: 460454943085019048}
+  - component: {fileID: -2930835977681632172}
   m_Layer: 0
   m_Name: MapNode
   m_TagString: Untagged
@@ -117,10 +117,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parents: []
   children: []
-  roomType: 0
+  roomType: 5
   lines: []
   used: 0
---- !u!114 &460454943085019048
+--- !u!114 &-2930835977681632172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,13 +133,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 4
+  - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2830257588851506358}
           m_TargetAssemblyTypeName: MapNode, Assembly-CSharp
-          m_MethodName: Clicked
+          m_MethodName: OnPointerDown
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

@@ -16,11 +16,11 @@ public class MapNode : MonoBehaviour
 
     public List<MapNode> parents;
     public List<MapNode> children;
-    public RoomType roomType;
+    public RoomType roomType = RoomType.emptyRoom;
     public List<LineRenderer> lines;
     public bool used = false;
 
-    public void Clicked() 
+    public void OnPointerDown()
     {
         MapManager.NodeClicked(this);
     }

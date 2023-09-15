@@ -100,8 +100,8 @@ public class CardDisplay : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "Map" && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used){
             card.AcceptLostSoul();
             MapManager.currentNode.used = true;
-            MapManager.mapManager.deckDisplay.canClose = true;
-            MapManager.mapManager.deckDisplay.ShowDeck();
+            MapManager.deckDisplay.canClose = true;
+            MapManager.deckDisplay.ShowDeck();
         }
         UpdateCardAppearance();
     }

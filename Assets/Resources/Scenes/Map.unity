@@ -1659,6 +1659,7 @@ GameObject:
   - component: {fileID: 1049541314}
   - component: {fileID: 1049541313}
   - component: {fileID: 1049541316}
+  - component: {fileID: 1049541317}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1747,6 +1748,22 @@ MonoBehaviour:
   mapCamera: {fileID: 1049541314}
   sensitivity: 20
   mapManagerManager: {fileID: 2097871020}
+--- !u!114 &1049541317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049541312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1377556450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,10 +1795,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeObject: {fileID: 8456520580759990429, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
-  numOfLayers: 5
+  numOfLayers: 10
   isGenerating: 1
   chaceForRooms: 28000000140000001400000014000000
-  deckDisplay: {fileID: 211458796}
 --- !u!4 &1377556452
 Transform:
   m_ObjectHideFlags: 0

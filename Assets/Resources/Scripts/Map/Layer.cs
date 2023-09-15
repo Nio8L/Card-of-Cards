@@ -16,6 +16,8 @@ public class Layer : MonoBehaviour
     public Nodes[] enterNodes;
     public Nodes[] exitNodes;
 
+    public int placeInTheArray;
+
     public enum ConectionType
     {
         Right,
@@ -27,4 +29,17 @@ public class Layer : MonoBehaviour
         Left,
         None
     };
+
+    public List<MapNode> GetAllExitNodes() 
+    {
+        List<MapNode> returnList = new List<MapNode>();
+        for (int i = 0; i < 3; i++)
+        {
+            foreach (MapNode node in exitNodes[i].NodesOnConections)
+            {
+                returnList.Add(node);
+            }
+        }
+        return returnList;
+    }
 }
