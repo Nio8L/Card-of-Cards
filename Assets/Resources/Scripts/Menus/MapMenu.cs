@@ -14,8 +14,13 @@ public class MapMenu : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.Escape)){
             SoundManager.soundManager.Play("ButtonClick");
-            menuButtons.SetActive(!menuButtons.activeSelf);
-            stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+            if(!settingsMenu.gameObject.activeSelf){
+                menuButtons.SetActive(!menuButtons.activeSelf);
+                stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+            }else{
+                settingsMenu.DeactivateMenu();
+                stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+            }
         }
     }
 

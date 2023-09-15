@@ -28,8 +28,14 @@ public class GameMenu : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.Escape)){
            aboutToOpenMenu = false;
-           ChangeButtonsState();
-           TooltipSystem.QuickHide();
+            if(!settingsMenu.activeSelf){
+                ChangeButtonsState();
+                TooltipSystem.QuickHide();
+            }else{
+                SoundManager.soundManager.Play("ButtonClick");
+                settingsMenu.SetActive(!settingsMenu.activeSelf);
+                ChangeUIState();
+            }
         }
     }
 
