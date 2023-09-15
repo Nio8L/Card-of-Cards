@@ -72,6 +72,8 @@ public class MapManager : MonoBehaviour
             nodesWithoutRoom.AddRange(GenerateRoom(curNode));
             nodesWithoutRoom.Remove(curNode);
         }
+
+        MakeAvvNodesDifferent();
     }
 
     public void Generate(int curentDepth, Layer.ConectionType typeWanted) 
@@ -190,9 +192,14 @@ public class MapManager : MonoBehaviour
     {
         if (nodesAvaliable.Contains(node) && deckDisplay.canClose)
         {
-            if(currentNode != null)currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            if (currentNode != null)
+            {
+                currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
             currentNode = node;
+            ReverseMakeAvvNodesDifferent();
             nodesAvaliable = node.children;
+            MakeAvvNodesDifferent();
             currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
             if (currentNode.roomType == MapNode.RoomType.Combat)
@@ -273,6 +280,22 @@ public class MapManager : MonoBehaviour
     {
         SpriteRenderer spriteRenderer = node.gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/RoomSprites/" + node.roomType.ToString());
+    }
+
+    public static void MakeAvvNodesDifferent() 
+    {
+        for (int i = 0; i < nodesAvaliable.Count; i++)
+        {
+            nodesAvaliable[i].indicator.SetActive(true);
+        }
+    }
+
+    public static void ReverseMakeAvvNodesDifferent()
+    {
+        for (int i = 0; i < nodesAvaliable.Count; i++)
+        {
+            nodesAvaliable[i].indicator.SetActive(false);
+        }
     }
 
     public bool LinesInterescting(LineRenderer lineRenderer1, LineRenderer lineRenderer2){

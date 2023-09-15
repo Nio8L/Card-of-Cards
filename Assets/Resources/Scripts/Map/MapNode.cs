@@ -19,6 +19,7 @@ public class MapNode : MonoBehaviour
     public RoomType roomType = RoomType.emptyRoom;
     public List<LineRenderer> lines;
     public bool used = false;
+    public GameObject indicator;
 
     public void OnPointerDown()
     {

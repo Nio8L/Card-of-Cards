@@ -46,6 +46,13 @@ public class MapClass
 }
 
 [System.Serializable]
+public class LayerClass
+{
+    public int placeInTheArray;
+    public Layer.ConectionType enterConectionType;
+}
+
+[System.Serializable]
 public class GameData
 {
   
