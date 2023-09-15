@@ -61,8 +61,6 @@ public class MapManager : MonoBehaviour
             currentNode.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
-        Invoke("AssignId", 1);
-
         Generate(0, Layer.ConectionType.None);
 
         while (nodesWithoutRoom.Count != 0) 

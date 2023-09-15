@@ -227,7 +227,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         gamePhase = 2;
-
+        SoundManager.soundManager.Play("CardCombat");
         for (int i = 0; i < 3; i++)
         {
             if (playerCombatCards[i] != null && enemyCombatCards[i] != null) Skirmish(playerCombatCards[i], enemyCombatCards[i]);
@@ -329,7 +329,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     public void DirectHit(CardInCombat card, int damage)
     {
-        SoundManager.soundManager.Play("CardHit");
         if (card.benched) return;
         card.PerformShortAttackAnimation();
 
