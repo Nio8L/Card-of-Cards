@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MapManager : MonoBehaviour
+public class MapManager : MonoBehaviour, IDataPersistence
 {
     public GameObject nodeObject;
     public GameObject lineObject;
@@ -33,6 +33,8 @@ public class MapManager : MonoBehaviour
 
     public static DeckDisplay deckDisplay;
 
+    private bool shouldGenerate = true;
+
     private void Awake()
     {
         mapManager = this;
@@ -42,6 +44,7 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
 
         GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
@@ -61,15 +64,17 @@ public class MapManager : MonoBehaviour
             currentNode.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
-        Invoke("AssignId", 1);
+        if(shouldGenerate){
+            Generate(0, Layer.ConectionType.None);
+        
+            while (nodesWithoutRoom.Count != 0) 
+            {
+                MapNode curNode = nodesWithoutRoom[nodesWithoutRoom.Count - 1];
+                nodesWithoutRoom.AddRange(GenerateRoom(curNode));
+                nodesWithoutRoom.Remove(curNode);
+            }
 
-        Generate(0, Layer.ConectionType.None);
-
-        while (nodesWithoutRoom.Count != 0) 
-        {
-            MapNode curNode = nodesWithoutRoom[nodesWithoutRoom.Count - 1];
-            nodesWithoutRoom.AddRange(GenerateRoom(curNode));
-            nodesWithoutRoom.Remove(curNode);
+            MakeAvvNodesDifferent();
         }
     }
 
@@ -112,12 +117,26 @@ public class MapManager : MonoBehaviour
         else AddBossRoom();
     }
 
-    public void Generate(List<Layer> layersToRecreate) 
+    public void Generate(List<LayerClass> layersToRecreate) 
     {
         lastLayer = null;
         for (int i = 0; i < layersToRecreate.Count; i++)
         {
-            Layer newLayer = Instantiate(allLayers[(int)layersToRecreate[i].enterConectionType][layersToRecreate[i].placeInTheArray]).GetComponent<Layer>();
+            Layer newLayer = Instantiate(allLayers[layersToRecreate[i].enterConectionType][layersToRecreate[i].placeInTheArray]).GetComponent<Layer>();
+
+            for(int j = 0; j < newLayer.mapNodes.Count; j++){
+                newLayer.mapNodes[j].roomType = layersToRecreate[i].mapNodeClasses[j].roomType;
+                newLayer.mapNodes[j].used = layersToRecreate[i].mapNodeClasses[j].used;
+                newLayer.mapNodes[j].isCurrentNode = layersToRecreate[i].mapNodeClasses[j].isCurrentNode;
+                if(newLayer.mapNodes[j].isCurrentNode){
+                    currentNode = newLayer.mapNodes[j];
+                    ReverseMakeAvvNodesDifferent();
+                    nodesAvaliable = currentNode.children;
+                    MakeAvvNodesDifferent();
+                    currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                PutSprite(newLayer.mapNodes[j]);
+            }
 
             if (lastLayer != null)
             {
@@ -187,11 +206,18 @@ public class MapManager : MonoBehaviour
 
     public static void NodeClicked(MapNode node) 
     {
-        if (nodesAvaliable.Contains(node))
+        if (nodesAvaliable.Contains(node) && deckDisplay.canClose)
         {
-            if(currentNode != null)currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            if (currentNode != null)
+            {
+                currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                currentNode.isCurrentNode = false;
+            }
             currentNode = node;
+            node.isCurrentNode = true;
+            ReverseMakeAvvNodesDifferent();
             nodesAvaliable = node.children;
+            MakeAvvNodesDifferent();
             currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
             if (currentNode.roomType == MapNode.RoomType.Combat)
@@ -274,6 +300,22 @@ public class MapManager : MonoBehaviour
         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/RoomSprites/" + node.roomType.ToString());
     }
 
+    public static void MakeAvvNodesDifferent() 
+    {
+        for (int i = 0; i < nodesAvaliable.Count; i++)
+        {
+            nodesAvaliable[i].indicator.SetActive(true);
+        }
+    }
+
+    public static void ReverseMakeAvvNodesDifferent()
+    {
+        for (int i = 0; i < nodesAvaliable.Count; i++)
+        {
+            nodesAvaliable[i].indicator.SetActive(false);
+        }
+    }
+
     public bool LinesInterescting(LineRenderer lineRenderer1, LineRenderer lineRenderer2){
         bool isIntersecting = false;
 
@@ -304,5 +346,42 @@ public class MapManager : MonoBehaviour
         }
 
         return isIntersecting;
+    }
+
+    public void LoadData(GameData data)
+    {
+        layers.Clear();
+
+        if(data.mapLayers.Count > 0){
+            shouldGenerate = false;
+        }
+        Generate(data.mapLayers);  
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.mapLayers = new();
+
+        foreach (Layer layer in layers)
+        {
+            LayerClass layerToSave = new();
+            
+            foreach (MapNode mapNode in layer.mapNodes)
+            {
+                MapNodeClass mapNodeToSave = new()
+                {
+                    roomType = mapNode.roomType,
+                    used = mapNode.used,
+                    isCurrentNode = mapNode.isCurrentNode 
+                };
+                layerToSave.mapNodeClasses.Add(mapNodeToSave);
+            }
+
+            layerToSave.placeInTheArray = layer.placeInTheArray;
+
+            layerToSave.enterConectionType = (int)layer.enterConectionType;
+
+            data.mapLayers.Add(layerToSave);
+        }
     }
 }

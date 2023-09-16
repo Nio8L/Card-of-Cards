@@ -15,33 +15,32 @@ public class ListWrapper
 [System.Serializable]
 public class MapNodeClass
 {
-    public List<float> coordinates;
-
-    public string roomType;
-
-    public List<int> connectionIds;
-
-    public int id;
-
-    public int nodeDepth;
+    public MapNode.RoomType roomType;
 
     public bool used = false;
 
-    public MapNodeClass(){
-        coordinates = new();
-        connectionIds = new();
-    }
+    public bool isCurrentNode = false;
 }
 
 [System.Serializable]
 public class MapClass
 {
-    public List<MapNodeClass> mapNodes;
-
-    public int currentNodeId;
+    public List<LayerClass> mapLayers;
 
     public MapClass(){
-        mapNodes = new();
+        mapLayers = new();
+    }
+}
+
+[System.Serializable]
+public class LayerClass
+{
+    public List<MapNodeClass> mapNodeClasses;
+    public int placeInTheArray;
+    public int enterConectionType;
+
+    public LayerClass(){
+        mapNodeClasses = new();
     }
 }
 
@@ -66,7 +65,7 @@ public class GameData
 
     public List<string> cardDamageType;
 
-    public MapClass map;
+    public List<LayerClass> mapLayers;
 
     public GameData(){
         playerHealth = 20;
@@ -84,7 +83,7 @@ public class GameData
 
         cardDamageType = new();
 
-        map = new();
+        mapLayers = new();
         //Debug.Log(map);
     }
     

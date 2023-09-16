@@ -860,6 +860,7 @@ GameObject:
   - component: {fileID: 303242280}
   - component: {fileID: 303242279}
   - component: {fileID: 303242281}
+  - component: {fileID: 303242282}
   m_Layer: 5
   m_Name: DrawPile
   m_TagString: Untagged
@@ -940,6 +941,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: Draw pile
   content: You draw your cards from here.
+--- !u!114 &303242282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303242277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1797514665}
+          m_TargetAssemblyTypeName: DeckDisplay, Assembly-CSharp
+          m_MethodName: ShowDrawPile
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &313896877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8353563794156794256, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
@@ -20254,6 +20284,7 @@ GameObject:
   - component: {fileID: 1775769234}
   - component: {fileID: 1775769233}
   - component: {fileID: 1775769235}
+  - component: {fileID: 1775769236}
   m_Layer: 5
   m_Name: DiscardPile
   m_TagString: Untagged
@@ -20334,6 +20365,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: Discard pile
   content: Played and discarded cards go here.
+--- !u!114 &1775769236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775769231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1797514665}
+          m_TargetAssemblyTypeName: DeckDisplay, Assembly-CSharp
+          m_MethodName: ShowDiscardPile
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1789513364
 GameObject:
   m_ObjectHideFlags: 0

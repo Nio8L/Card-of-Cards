@@ -1700,6 +1700,13 @@ MonoBehaviour:
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
+  - name: DeckDisplaySlide
+    clip:
+    - {fileID: 8300000, guid: 6e22eb961ee03a84387d0e941e998e23, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 0
+    source: {fileID: 0}
 --- !u!4 &1107156820
 Transform:
   m_ObjectHideFlags: 0

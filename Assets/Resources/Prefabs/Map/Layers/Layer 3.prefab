@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d73fa104ffaf7c45a2ffa275a72400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapNodes:
+  - {fileID: 4271321791109745487}
+  - {fileID: 313681963874047324}
   enterConectionType: 3
   exitConectionType: 2
   enterNodes:
@@ -61,6 +64,7 @@ MonoBehaviour:
   - NodesOnConections: []
   - NodesOnConections:
     - {fileID: 313681963874047324}
+  placeInTheArray: 0
 --- !u!1001 &2018123639649712121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8456520580759990403, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 8456520580759990403, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
       propertyPath: m_LocalPosition.y
