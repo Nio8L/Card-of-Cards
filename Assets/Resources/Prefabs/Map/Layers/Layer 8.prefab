@@ -50,6 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d73fa104ffaf7c45a2ffa275a72400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapNodes:
+  - {fileID: 6730319815165087957}
+  - {fileID: 5167396804559079889}
+  - {fileID: 7122140038480932481}
+  - {fileID: 4030531499296610797}
   enterConectionType: 3
   exitConectionType: 5
   enterNodes:

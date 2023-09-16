@@ -20,6 +20,7 @@ public class MapNode : MonoBehaviour
     public List<LineRenderer> lines;
     public bool used = false;
     public GameObject indicator;
+    public bool isCurrentNode = false;
 
     public void OnPointerDown()
     {

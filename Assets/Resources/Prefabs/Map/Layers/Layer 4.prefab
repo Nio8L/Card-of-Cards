@@ -49,6 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d73fa104ffaf7c45a2ffa275a72400a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapNodes:
+  - {fileID: 5834807735802899538}
+  - {fileID: 8063064171314950721}
+  - {fileID: 9046881931842829183}
   enterConectionType: 2
   exitConectionType: 4
   enterNodes:
@@ -62,6 +66,7 @@ MonoBehaviour:
   - NodesOnConections:
     - {fileID: 9046881931842829183}
   - NodesOnConections: []
+  placeInTheArray: 0
 --- !u!1001 &4899621002380290978
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class Layer : MonoBehaviour
         [SerializeField] public MapNode[] NodesOnConections;
     }
 
+    public List<MapNode> mapNodes; 
+
     public ConectionType enterConectionType;
     public ConectionType exitConectionType;
 
