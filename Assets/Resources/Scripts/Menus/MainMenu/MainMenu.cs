@@ -51,4 +51,10 @@ public class MainMenu : MonoBehaviour
     public void DeactivateMenu(){
         gameObject.SetActive(false);
     } 
+
+    public void StartTutorial(EnemyBase enemy)
+    {
+        DataPersistenceManager.DataManager.currentCombatAI = enemy;
+        SceneManager.LoadSceneAsync("SampleScene");
+    }
 }

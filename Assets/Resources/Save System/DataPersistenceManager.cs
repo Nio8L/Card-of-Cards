@@ -14,7 +14,7 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] public bool AutoSaveData = false;
     [SerializeField] public float audioLevel = 0;
 
-    public EnemyAI currentCombatAI;
+    public EnemyBase currentCombatAI;
 
     private GameData gameData;
     private SettingsData settingsData;

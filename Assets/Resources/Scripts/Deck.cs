@@ -191,7 +191,9 @@ public class Deck : MonoBehaviour, IDataPersistence
             selectedCard.position = new Vector3(mousePosition.x, mousePosition.y, 0);
         }
 
-        if (playerDeck) energyText.text = energy + "/3";
+        if (playerDeck){
+            energyText.text = energy + "/3";
+        }
 
         if (drawLeft > 0)
         {
