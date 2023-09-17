@@ -12,7 +12,7 @@ public class Tutorial1 : MonoBehaviour
     bool boolCounter;
     CardInCombat mark;
     Button endTurnButton;
-
+    public List<Card> cardsToAdd = new();
     void Start()
     {
         combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
@@ -29,6 +29,7 @@ public class Tutorial1 : MonoBehaviour
         if (useMouse && Input.GetMouseButtonDown(0))
         {
             dialogue.NextLine();
+            dialogue.NextLineAtStartOfTurn = false;
             UpdateRules();
         }
 
@@ -43,7 +44,7 @@ public class Tutorial1 : MonoBehaviour
                     dialogue.NextLine();
                     UpdateRules();
                 }
-                else if (combatManager.playerCombatCards[i] != null)
+                if (combatManager.playerCombatCards[i] != null)
                 {
                     mark = combatManager.playerCombatCards[i];
                     boolCounter = mark.benched;
@@ -71,7 +72,6 @@ public class Tutorial1 : MonoBehaviour
                     dialogue.NextLine(2);
                     UpdateRules();
                 }
-                counter = combatManager.round;
             }
         }
         else if (dialogue.line == 7)
@@ -84,7 +84,13 @@ public class Tutorial1 : MonoBehaviour
         }
         else if (dialogue.line == 8)
         {
-            if (counter != combatManager.round)
+            if (mark.benched)
+            {
+                endTurnButton.interactable = false;
+                dialogue.GoBack();
+                UpdateRules();
+            }
+            if (combatManager.round == 2)
             {
                 dialogue.NextLine();
                 UpdateRules();
@@ -99,7 +105,7 @@ public class Tutorial1 : MonoBehaviour
                 {
                     counter++;
                 }
-                else if (combatManager.playerCombatCards[i] != null)
+                if (combatManager.playerCombatCards[i] != null)
                 {
                     counter++;
                 }
@@ -118,11 +124,21 @@ public class Tutorial1 : MonoBehaviour
                 UpdateRules();
             }
         }
+        else if (dialogue.line == 22)
+        {
+            for (int i = 0; i < combatManager.deck.cards.Count; i++)
+            {
+                if (combatManager.deck.cards[i].name == "LostSoul")
+                {
+                    dialogue.NextLine();
+                    UpdateRules();
+                }
+            }
+        }
     }
 
     void UpdateRules()
     {
-        Debug.Log("line " + dialogue.line);
         if (dialogue.line == 2)
         {
             useMouse = false;
@@ -158,6 +174,28 @@ public class Tutorial1 : MonoBehaviour
         {
             endTurnButton.interactable = false;
             useMouse = true;
+        }
+        else if (dialogue.line == 22)
+        {
+            endTurnButton.interactable = true;
+            useMouse = false;
+        }
+        else if (dialogue.line == 23)
+        {
+            endTurnButton.interactable = false;
+            useMouse = true;
+        }
+        else if (dialogue.line == 25)
+        {
+            combatManager.deck.cardsToBeAdded.AddRange(cardsToAdd);
+            combatManager.deck.AddCard(cardsToAdd.Count);
+            combatManager.deck.DrawCard(cardsToAdd.Count);
+        }
+        else if (dialogue.line == 33)
+        {
+            endTurnButton.interactable = true;
+            useMouse = true;
+            dialogue.NextLineAtStartOfTurn = true;
         }
     }
 }

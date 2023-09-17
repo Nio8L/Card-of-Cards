@@ -41,12 +41,22 @@ public class Dialogue : ScriptableObject
         }
         else textBox.text = dialogueLines[line];
     }
-
     public void NextLine(int lines)
     {
         for (int i = 0; i < lines; i++)
         {
             NextLine();
         }
+    }
+
+    public void GoBack()
+    {
+        line--;
+        if (line >= dialogueLines.Count || dialogueLines[line] == "")
+        {
+            textBox.text = "";
+            EndDialogue();
+        }
+        else textBox.text = dialogueLines[line];
     }
 }

@@ -103,7 +103,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         inCombat = false;
         endCombatMenu.SetActive(false);
         Time.timeScale = 1;
-        if(endCombatText.text == "you won") SceneManager.LoadSceneAsync("Map");
+        if(endCombatText.text == "You won!") SceneManager.LoadSceneAsync("Map");
         else SceneManager.LoadSceneAsync("Main Menu");
         //END THE GAME HERE
     }
@@ -159,53 +159,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         ResetMovedCards();
     }
-    // Bench left of right movement
-    /*void FindCardsToSwap(CardInCombat[] colection) 
-    {
-        foreach (CardInCombat card in colection)
-        {
-            if (card == null || card.moved || !card.benched) continue;
-
-            int slot = card.slot;
-            int direction = card.direction;
-
-            if (slot+direction < colection.Length && slot + direction>=0 && (colection[slot + direction] == null || !colection[slot + direction].benched))
-            {
-                SwapCards(slot, slot + direction,colection);
-                continue;
-            }
-
-            direction *= -1;
-            if ((slot + direction < colection.Length && slot + direction >= 0) && (colection[slot + direction] == null || !colection[slot + direction].benched))
-            {
-                card.direction = direction;
-                SwapCards(slot, slot + direction, colection);
-                continue;
-            }
-        }
-    
-    }
-
-    void SwapCards(int card1, int card2, CardInCombat[] collection) 
-    {
-        CardInCombat temp = collection[card1];
-        collection[card1] = collection[card2];
-        collection[card2] = temp;
-
-        if (collection[card2].playerCard) collection[card2].MoveAnimationStarter(0.5f, playerBenchSlots[card2].transform.position);
-        else collection[card2].MoveAnimationStarter(0.5f, enemyBenchSlots[card2].transform.position);
-        collection[card2].slot = card2;
-        collection[card2].moved = true;
-
-        if (collection[card1] != null)
-        {
-            if(collection[card1].playerCard) collection[card1].MoveAnimationStarter(0.5f, playerCombatSlots[card1].transform.position);
-            else collection[card1].MoveAnimationStarter(0.5f, enemyCombatSlots[card1].transform.position);
-            collection[card1].slot = card1;
-            collection[card1].moved = true;
-        }
-    }
-    */
     void ResetMovedCards() 
     {
         foreach (CardInCombat card in playerBenchCards) if (card != null)card.moved = false;
@@ -423,10 +376,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void WinGame()
     {
+        if (enemy.isTutorialEnemy) { TutorialWin(); return; }
+
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         endCombatMenu.SetActive(true);
         Time.timeScale = 0;
-        endCombatText.text = "you won";
+        endCombatText.text = "You won!";
         deck.cards.AddRange(battleReward);
     }
 
@@ -435,6 +390,15 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         TooltipSystem.QuickHide();
         endCombatMenu.SetActive(true);
         Time.timeScale = 0;
-        endCombatText.text = "you lost";
+        endCombatText.text = "You lost...";
+    }
+
+    void TutorialWin()
+    {
+        TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
+        endCombatMenu.SetActive(true);
+        Time.timeScale = 0;
+        endCombatText.text = "You beat the tutorial";
+        deck.cards.AddRange(battleReward);
     }
 }

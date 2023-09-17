@@ -22,7 +22,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     List<MapNode> nodesWithoutRoom = new List<MapNode>();
 
-    Layer lastLayer = null;
+    public Layer lastLayer = null;
 
     // Enemy Ai list
     static EnemyAI[] tier1EnemyAIs;
@@ -176,6 +176,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     void AddBossRoom() 
     {
         MapNode bossNode = Instantiate(nodeObject).GetComponent<MapNode>();
+        if (lastLayer == null) return;
         bossNode.transform.position = new Vector3(0, lastLayer.transform.position.y + 6, 0);
 
         bossNode.parents.AddRange(lastLayer.GetAllExitNodes());

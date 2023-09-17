@@ -17,6 +17,7 @@ MonoBehaviour:
   huntAI: 0
   huntRounds: 0
   pacingObject: {fileID: 5893156020464886862, guid: a04a0cb3b15c84a49b13494ad53e6558, type: 3}
+  isTutorialEnemy: 1
   turns:
   - combatCards:
     - {fileID: 0}
@@ -28,9 +29,9 @@ MonoBehaviour:
     - {fileID: 0}
     forcePlace: 0
   - combatCards:
-    - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-    - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-    - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+    - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+    - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+    - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
     benchCards:
     - {fileID: 0}
     - {fileID: 0}
@@ -46,11 +47,155 @@ MonoBehaviour:
     - {fileID: 0}
     forcePlace: 0
   - combatCards:
-    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
     benchCards:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+    - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+    - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
     forcePlace: 1

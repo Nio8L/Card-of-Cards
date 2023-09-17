@@ -18,8 +18,11 @@ public class SaveSlotsMenu : MonoBehaviour
     public List<Card> startCards = new List<Card>();
     private bool isLoadingGame = false;
 
+    EnemyBase defaultFight;
+
     private void Awake() {
         saveSlots = GetComponentsInChildren<SaveSlot>();
+        defaultFight = Resources.Load<EnemyBase>("Enemies/Sheep");
     }
 
     public void OnSaveSlotClick(SaveSlot saveSlot){
@@ -31,6 +34,7 @@ public class SaveSlotsMenu : MonoBehaviour
 
         if(!isLoadingGame){
             DataPersistenceManager.DataManager.playerDeck.AddRange(startCards);
+            DataPersistenceManager.DataManager.currentCombatAI = defaultFight;
             DataPersistenceManager.DataManager.NewGame();
         }
 

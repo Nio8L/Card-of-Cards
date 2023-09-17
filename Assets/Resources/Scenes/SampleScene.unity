@@ -11588,6 +11588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeck: 1
   energy: 3
+  cardsToBeAdded: []
   cards: []
   drawPile: []
   discardPile: []
@@ -11614,17 +11615,6 @@ MonoBehaviour:
   deathMarkPoison: {fileID: 0}
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
-  randomCardSelection:
-  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
-  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
 --- !u!4 &769775201
 Transform:
   m_ObjectHideFlags: 0
@@ -12174,7 +12164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 14
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
@@ -12361,8 +12351,6 @@ RectTransform:
   - {fileID: 370943286}
   - {fileID: 1483795289}
   - {fileID: 1280919784}
-  - {fileID: 283688305}
-  - {fileID: 1125958667}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12832,7 +12820,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 14
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
@@ -17747,19 +17735,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125958666}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 446892906}
-  m_Father: {fileID: 929683084}
+  m_Father: {fileID: 1550067302}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -100}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 64, y: -64}
+  m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125958668
 MonoBehaviour:
@@ -19255,6 +19243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeck: 0
   energy: 3
+  cardsToBeAdded: []
   cards: []
   drawPile: []
   discardPile: []
@@ -19281,14 +19270,6 @@ MonoBehaviour:
   deathMarkPoison: {fileID: 0}
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
-  randomCardSelection:
-  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
 --- !u!4 &1537027588
 Transform:
   m_ObjectHideFlags: 0
@@ -19343,6 +19324,8 @@ RectTransform:
   - {fileID: 1775769232}
   - {fileID: 700763870}
   - {fileID: 1896396470}
+  - {fileID: 1125958667}
+  - {fileID: 283688305}
   m_Father: {fileID: 929683084}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20001,7 +19984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 14
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
@@ -20948,7 +20931,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 358, y: -132.5}
+  m_AnchoredPosition: {x: 293.82, y: -132.5}
   m_SizeDelta: {x: 346.28, y: 248.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896396471
@@ -20971,7 +20954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Round: 5'
+  m_text: 'Round: 1'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
@@ -21643,7 +21626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: tuka izlizash ot bitka ili nesh takova
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -21670,7 +21653,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.35
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -22053,7 +22036,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 14
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
@@ -22344,7 +22327,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 929683084}
+    m_TransformParent: {fileID: 1550067302}
     m_Modifications:
     - target: {fileID: 7831457397236220918, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_Name
@@ -22360,7 +22343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -22404,23 +22387,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 487
+      value: 420.68
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -159
+      value: -156.92
       objectReference: {fileID: 0}
     - target: {fileID: 7831457397236220919, guid: 72ada29a461be2248a819bcf4fb7f05e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

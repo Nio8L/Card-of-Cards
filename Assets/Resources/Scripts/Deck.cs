@@ -11,7 +11,8 @@ public class Deck : MonoBehaviour, IDataPersistence
     public bool playerDeck = false;
 
     public int energy = 3;
-     
+
+    public List<Card> cardsToBeAdded = new();
     public List<Card> cards = new();
     public List<Card> drawPile;
     public List<Card> discardPile;
@@ -74,7 +75,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         for(int i = 0; i < data.cardNames.Count; i++){
             Card newCard = new();
 
-            AddCard(newCard, true);
+            AddCard(newCard);
             cards[^1].name = data.cardNames[i];
             cards[^1].attack = data.cardAttacks[i];
             //cards[^1].health = data.cardHealths[i];
@@ -171,9 +172,10 @@ public class Deck : MonoBehaviour, IDataPersistence
         {
             if (DataPersistenceManager.DataManager.playerDeck.Count > 0)
             {
-                cards = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
+                cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
                 DataPersistenceManager.DataManager.playerDeck.Clear();
-                AddCard(cards.Count);
+                AddCard(cardsToBeAdded.Count);
+                Debug.Log("Added deck");
             }
            
         }
@@ -223,15 +225,12 @@ public class Deck : MonoBehaviour, IDataPersistence
         return returnList;
     }
 
-    public void AddCard(Card card, bool addToCards){
+    public void AddCard(Card card){
         Card newCard = Instantiate(card).ResetCard();
         newCard.name = card.name;
         
         drawPile.Add(newCard);
-        if (addToCards)
-        {
-            cards.Add(newCard);
-        }
+        cards.Add(newCard);
 
         PrintDeck();
         UpdatePileNumbers();
@@ -239,7 +238,11 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public void AddCard(int numOfCards)
     {
-        for (int i = 0; i < numOfCards; i++) AddCard(cards[i], false);
+        for (int i = 0; i < numOfCards; i++) 
+        {
+            AddCard(cardsToBeAdded[0]);
+            cardsToBeAdded.RemoveAt(0);
+        }
     }
     public void RemoveCard(Card card){
         drawPile.Remove(card);
