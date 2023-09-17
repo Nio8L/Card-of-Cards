@@ -49,7 +49,7 @@ public class EnemyAI : EnemyBase
         {
             Card cardToAdd = Instantiate(card).ResetCard();
             cardToAdd.name = card.name;
-            combatManager.enemyDeck.AddCard(cardToAdd);
+            combatManager.enemyDeck.AddCard(cardToAdd, true);
             combatManager.enemyDeck.Shuffle();
         }
         savedLastRound = new bool[3];

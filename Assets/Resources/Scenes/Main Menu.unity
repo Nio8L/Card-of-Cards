@@ -2623,6 +2623,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1929760794}
   backButton: {fileID: 81527803}
+  startCards:
+  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
+  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
+  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
 --- !u!1 &1798329752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,6 +2961,10 @@ MonoBehaviour:
   settingsMenu: {fileID: 497959944}
   continueButton: {fileID: 1379767598}
   loadButton: {fileID: 1584879426}
+  tutorialCards:
+  - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+  - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
 --- !u!1001 &1966567322
 PrefabInstance:
   m_ObjectHideFlags: 0

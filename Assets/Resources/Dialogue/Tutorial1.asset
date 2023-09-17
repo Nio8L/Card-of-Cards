@@ -21,8 +21,29 @@ MonoBehaviour:
   - And your bottom row is a mostly safe place where creatures go to hide.
   - If you click on a card it switches betwen the two.
   - Try moving your cards around by clicking it a few times.
-  - Now place it in the combat row and click the end turn button.
-  - Now click the end turn button.
-  - As you can see your card attacked the enemy directly.
-  line: 7
+  - Now move your card to the combat row.
+  - Now click the end turn button to start the combat phase.
+  - As you can see in the top right corner your card damaged the enemy.
+  - If you look in the bottom left corner you can see your energy bar.
+  - All cards have a certain energy cost that you can see at the top right of every
+    cards.
+  - Try playing another card. You can play it in the same column if you want.
+  - End your turn.
+  - Well that was bound to happen.
+  - Now that your enemy has played some cards its time to explain how death works
+    in this world.
+  - "When a card \"dies\" it gets injured. The type of injury depends on the damage
+    type of the card that killed it. \nThat injury can be seen on the bottom right
+    of the card."
+  - You can see the damage type in the bottom left corner of a card under the damage
+    number.
+  - If a card "dies" of the same damage type twice it is repleced by a "Lost Soul"
+    permanently.
+  - And you might be asking yourself what a "lOsT sOuL" is and since its my job to
+    explain such things i quess you will have to read even more text.
+  - Lost soul is a single use card that is played on top of other cards to remove
+    all of their injuries.
+  - Well that was simple wasn't it?
+  - Now try to kill off one of your cards.
+  line: 21
   NextLineAtStartOfTurn: 0

@@ -57,6 +57,7 @@ public class Tutorial1 : MonoBehaviour
             if (mark.benched != boolCounter)
             {
                 counter++;
+                boolCounter = !boolCounter;
             }
             if (counter >= 3)
             {
@@ -75,9 +76,10 @@ public class Tutorial1 : MonoBehaviour
         }
         else if (dialogue.line == 7)
         {
-            if (counter != combatManager.round)
+            if (!mark.benched)
             {
-                dialogue.NextLine(2);
+                dialogue.NextLine();
+                UpdateRules();
             }
         }
         else if (dialogue.line == 8)
@@ -85,12 +87,42 @@ public class Tutorial1 : MonoBehaviour
             if (counter != combatManager.round)
             {
                 dialogue.NextLine();
+                UpdateRules();
             }
         }
+        else if (dialogue.line == 12)
+        {
+            counter = 0;
+            for (int i = 0; i < 3; i++)
+            {
+                if (combatManager.playerBenchCards[i] != null)
+                {
+                    counter++;
+                }
+                else if (combatManager.playerCombatCards[i] != null)
+                {
+                    counter++;
+                }
+            }
+            if (counter == 2)
+            {
+                dialogue.NextLine();
+                UpdateRules();
+            }
         }
+        else if (dialogue.line == 13)
+        {
+            if (counter != combatManager.round)
+            {
+                dialogue.NextLine();
+                UpdateRules();
+            }
+        }
+    }
 
     void UpdateRules()
     {
+        Debug.Log("line " + dialogue.line);
         if (dialogue.line == 2)
         {
             useMouse = false;
@@ -101,16 +133,32 @@ public class Tutorial1 : MonoBehaviour
         }
         else if (dialogue.line == 6)
         {
+            counter = 0;
             useMouse = false;
         } 
-        else if (dialogue.line == 7 || dialogue.line == 8)
+        else if (dialogue.line == 8)
         {
-            endTurnButton.interactable = true;
+            endTurnButton.interactable = true;  
         }
         else if (dialogue.line == 9)
         {
             endTurnButton.interactable = false;
             useMouse = true;
         }
+        else if (dialogue.line == 12)
+        {
+            useMouse = false;
+        }
+        else if (dialogue.line == 13)
+        {
+            endTurnButton.interactable = true;
+            counter = combatManager.round;
+        }
+        else if (dialogue.line == 14)
+        {
+            endTurnButton.interactable = false;
+            useMouse = true;
+        }
     }
 }
+

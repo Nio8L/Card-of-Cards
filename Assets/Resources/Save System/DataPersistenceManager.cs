@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
 
@@ -15,6 +16,8 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] public float audioLevel = 0;
 
     public EnemyBase currentCombatAI;
+    public List<Card> playerDeck;
+    public bool inTutorial;
 
     private GameData gameData;
     private SettingsData settingsData;
@@ -77,12 +80,13 @@ public class DataPersistenceManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         MapManagerHandler();
-        LoadGame();
+
+        if (!inTutorial) LoadGame();
     }
 
     public void OnSceneUnloaded(Scene scene){
         if(AutoSaveData){
-            SaveGame();
+            if (!inTutorial) SaveGame();
             SaveSettings();
         }
     }
@@ -158,7 +162,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnApplicationQuit() {
         if(AutoSaveData){
-            SaveGame();
+            if (!inTutorial) SaveGame();
             SaveSettings();
         }
     }

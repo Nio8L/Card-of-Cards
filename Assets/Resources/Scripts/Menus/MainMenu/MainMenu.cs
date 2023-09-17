@@ -13,8 +13,11 @@ public class MainMenu : MonoBehaviour
     [Header("Main Menu Buttons")]
     [SerializeField] private Button continueButton;
     [SerializeField] private Button loadButton;
+
+    public List<Card> tutorialCards = new List<Card>();
     private void Start() {
-        if(!DataPersistenceManager.DataManager.HasGameData()){
+        DataPersistenceManager.DataManager.inTutorial = false;
+        if (!DataPersistenceManager.DataManager.HasGameData()){
             continueButton.interactable = false;
             loadButton.interactable = false;
         }
@@ -58,7 +61,9 @@ public class MainMenu : MonoBehaviour
 
     public void StartTutorial(EnemyBase enemy)
     {
+        DataPersistenceManager.DataManager.inTutorial = true;
         DataPersistenceManager.DataManager.currentCombatAI = enemy;
+        DataPersistenceManager.DataManager.playerDeck.AddRange(tutorialCards);
         SceneManager.LoadSceneAsync("SampleScene");
     }
 }

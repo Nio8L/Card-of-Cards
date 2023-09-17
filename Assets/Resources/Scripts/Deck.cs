@@ -74,7 +74,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         for(int i = 0; i < data.cardNames.Count; i++){
             Card newCard = new();
 
-            AddCard(newCard);
+            AddCard(newCard, true);
             cards[^1].name = data.cardNames[i];
             cards[^1].attack = data.cardAttacks[i];
             //cards[^1].health = data.cardHealths[i];
@@ -167,8 +167,15 @@ public class Deck : MonoBehaviour, IDataPersistence
         energyText = GameObject.Find("EnergyText").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
 
-        if(cards.Count == 0 && playerDeck){
-            AddCard(10);
+        if (playerDeck)
+        {
+            if (DataPersistenceManager.DataManager.playerDeck.Count > 0)
+            {
+                cards = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
+                DataPersistenceManager.DataManager.playerDeck.Clear();
+                AddCard(cards.Count);
+            }
+           
         }
         else if (!playerDeck)
         {
@@ -180,7 +187,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             combatManager.updateHPText();
         }
         Shuffle();
-        DrawCard(6);
+        DrawCard(5);
     }
 
     private void Update()
@@ -216,29 +223,23 @@ public class Deck : MonoBehaviour, IDataPersistence
         return returnList;
     }
 
-    public void AddCard(Card card){
+    public void AddCard(Card card, bool addToCards){
         Card newCard = Instantiate(card).ResetCard();
         newCard.name = card.name;
         
         drawPile.Add(newCard);
-        cards.Add(newCard);
+        if (addToCards)
+        {
+            cards.Add(newCard);
+        }
+
         PrintDeck();
         UpdatePileNumbers();
     }
 
-
-    //FOR TESTING
-    public List<Card> randomCardSelection = new();
-    public void AddCard(){
-        //AddCard(randomCardSelection[UnityEngine.Random.Range(0, randomCardSelection.Count)]);
-        if (randomCardSelection.Count == 0) return;
-        AddCard(randomCardSelection[0]);
-        randomCardSelection.RemoveAt(0);
-    }
-
     public void AddCard(int numOfCards)
     {
-        for (int i = 0; i < numOfCards; i++) AddCard();
+        for (int i = 0; i < numOfCards; i++) AddCard(cards[i], false);
     }
     public void RemoveCard(Card card){
         drawPile.Remove(card);

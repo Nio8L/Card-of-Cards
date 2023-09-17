@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ff113ad069921409b5f58b6b80e2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCards:
+  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
+  - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}

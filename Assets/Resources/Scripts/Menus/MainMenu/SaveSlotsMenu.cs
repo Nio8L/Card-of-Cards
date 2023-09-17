@@ -14,6 +14,8 @@ public class SaveSlotsMenu : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button backButton;
 
+    [Header("Decks")]
+    public List<Card> startCards = new List<Card>();
     private bool isLoadingGame = false;
 
     private void Awake() {
@@ -28,9 +30,11 @@ public class SaveSlotsMenu : MonoBehaviour
         DataPersistenceManager.DataManager.ChangeSelectedProfileId(saveSlot.GetProfileId());
 
         if(!isLoadingGame){
+            DataPersistenceManager.DataManager.playerDeck.AddRange(startCards);
             DataPersistenceManager.DataManager.NewGame();
         }
-    
+
+
         SceneManager.LoadSceneAsync("SampleScene");
     }
 
