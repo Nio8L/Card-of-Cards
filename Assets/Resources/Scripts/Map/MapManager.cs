@@ -147,6 +147,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             layers.Add(newLayer);
             newLayer.transform.SetParent(transform);
         }
+        AddBossRoom();
     }
 
     void ConectLayers(Layer newLayerScript, Layer oldLayer) 
