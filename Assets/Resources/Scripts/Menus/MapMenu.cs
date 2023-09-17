@@ -24,6 +24,17 @@ public class MapMenu : MonoBehaviour
         }
     }
 
+    public void OpenMenu(){
+        SoundManager.soundManager.Play("ButtonClick");
+        if(!settingsMenu.gameObject.activeSelf){
+            menuButtons.SetActive(!menuButtons.activeSelf);
+            stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+        }else{
+            settingsMenu.DeactivateMenu();
+            stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+        }
+    }
+
     public void OnClickMainMenu(){
         SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);

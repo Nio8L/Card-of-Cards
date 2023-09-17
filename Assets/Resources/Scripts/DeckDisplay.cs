@@ -37,17 +37,28 @@ public class DeckDisplay : MonoBehaviour
     }
 
     public void ShowDeck(){
+        SoundManager.soundManager.Play("DeckDisplaySlide");
         if(deckDisplay.activeSelf){
+           if (SceneManager.GetActiveScene().name == "SampleScene"){
+             if(cardDisplays.Count != deck.cards.Count){
+                 LeanTween.delayedCall(0.4f, () => {
+                     ShowDeck();
+                 });
+             }
+           }
+            
             LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
 
             LeanTween.delayedCall(0.3f, () => {
                 deckDisplay.SetActive(false);
-            if(cardDisplays.Count > 0){
-                foreach(GameObject cardDisplay in cardDisplays){
-                    Destroy(cardDisplay);
+
+                if(cardDisplays.Count > 0){
+                    foreach(GameObject cardDisplay in cardDisplays){
+                        Destroy(cardDisplay);
+                    }
                 }
-            }
-            cardDisplays.Clear();
+                
+                cardDisplays.Clear();
             });
 
         }else{
@@ -76,10 +87,84 @@ public class DeckDisplay : MonoBehaviour
 
             deckDisplay.SetActive(true);
             LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
-        }
-        
-        
+        } 
+    }
 
-        
+    public void ShowDrawPile(){
+        if(deck.drawPile.Count > 0){
+            SoundManager.soundManager.Play("DeckDisplaySlide");
+            if(deckDisplay.activeSelf){
+                
+                if(cardDisplays.Count != deck.drawPile.Count){
+                    LeanTween.delayedCall(0.4f, () => {
+                        ShowDrawPile();
+                    });
+                }
+
+                LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
+
+                LeanTween.delayedCall(0.3f, () => {
+                    deckDisplay.SetActive(false);
+                    
+                    if(cardDisplays.Count > 0){
+                        foreach(GameObject cardDisplay in cardDisplays){
+                            Destroy(cardDisplay);
+                        }
+                    }   
+                    cardDisplays.Clear();
+                });
+            }else{
+                foreach (Card card in deck.drawPile)
+                {   
+                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
+                    newCardDisplay.GetComponent<CardDisplay>().card = card;
+                    newCardDisplay.transform.SetParent(deckDisplay.transform);
+                    newCardDisplay.transform.localScale = Vector3.one;
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    cardDisplays.Add(newCardDisplay);
+                }
+            deckDisplay.SetActive(true);
+            LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
+            }
+        }
+    }
+
+    public void ShowDiscardPile(){
+        if(deck.discardPile.Count > 0){
+            SoundManager.soundManager.Play("DeckDisplaySlide");
+            if(deckDisplay.activeSelf){
+                
+                if(cardDisplays.Count != deck.discardPile.Count){
+                    LeanTween.delayedCall(0.4f, () => {
+                        ShowDiscardPile();
+                    });
+                }
+
+                LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
+
+                LeanTween.delayedCall(0.3f, () => {
+                    deckDisplay.SetActive(false);
+                    
+                    if(cardDisplays.Count > 0){
+                        foreach(GameObject cardDisplay in cardDisplays){
+                            Destroy(cardDisplay);
+                        }
+                    }   
+                    cardDisplays.Clear();
+                });
+            }else{
+                foreach (Card card in deck.discardPile)
+                {   
+                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
+                    newCardDisplay.GetComponent<CardDisplay>().card = card;
+                    newCardDisplay.transform.SetParent(deckDisplay.transform);
+                    newCardDisplay.transform.localScale = Vector3.one;
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    cardDisplays.Add(newCardDisplay);
+                }
+            deckDisplay.SetActive(true);
+            LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
+            }
+        }
     }
 }

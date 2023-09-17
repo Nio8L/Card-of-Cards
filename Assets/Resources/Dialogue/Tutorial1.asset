@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40519d95c0cd8d444b8d8086c41eb7b7, type: 3}
+  m_Name: Tutorial1
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 0}
+  dialogueLines:
+  - So you want to learn how to play?
+  - I think I can help with that.
+  - For starters place a card anywhere on the board.
+  - Your top row is where cards can attack and be attacked.
+  - And your bottom row is a mostly safe place where creatures go to hide.
+  - If you click on a card it switches betwen the two.
+  - Try moving your cards around by clicking it a few times.
+  - Now place it in the combat row and click the end turn button.
+  - Now click the end turn button.
+  - As you can see your card attacked the enemy directly.
+  line: 7
+  NextLineAtStartOfTurn: 0

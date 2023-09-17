@@ -189,7 +189,7 @@ public class CardInCombat : MonoBehaviour
         startPosition = transform.position;
         returnMovement = false;
     }
-    void OnDeath()
+    public void OnDeath()
     {
         if (GetComponent<DestroyTimer>().enabled == false)
         {
@@ -277,13 +277,50 @@ public class CardInCombat : MonoBehaviour
     {
         if (benched)
         {
-            if(playerCard)deck.combatManager.playerBenchCards[slot] = null;
-            else deck.combatManager.enemyBenchCards[slot] = null;
+            if(playerCard && deck.combatManager.playerBenchCards[slot] == this) deck.combatManager.playerBenchCards[slot] = null;
+            else if (deck.combatManager.enemyBenchCards[slot] == this) deck.combatManager.enemyBenchCards[slot] = null;
         }
         else
         {
-            if (playerCard) deck.combatManager.playerCombatCards[slot] = null;
-            else deck.combatManager.enemyCombatCards[slot] = null;
+            if (playerCard && deck.combatManager.playerCombatCards[slot] == this) deck.combatManager.playerCombatCards[slot] = null;
+            else if (deck.combatManager.enemyCombatCards[slot] == this) deck.combatManager.enemyCombatCards[slot] = null;
+        }
+    }
+
+    public void ForceKill()
+    {
+        
+        if (GetComponent<DestroyTimer>().enabled == false)
+        {
+            RemoveCardFromCardCollections();
+            card.CreateCard(lastTypeOfDamage);
+
+            if (playerCard)
+            {
+                if (card.canRevive) deck.discardPile.Add(card);
+            }
+            else
+            {
+                if (!deck.combatManager.enemy.huntAI)
+                {
+                    if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
+                }
+                else if (deck.combatManager.battleReward.Count < 3)
+                {
+                    if (card.canRevive) deck.combatManager.battleReward.Add(card);
+                }
+
+            }
+
+            Sprite markSprite;
+            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deck.deathMarkScratch;
+            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deck.deathMarkBite;
+            else markSprite = deck.deathMarkPoison;
+
+            Instantiate(bloodSplat, transform.position, Quaternion.identity);
+            GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
+            deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
+            GetComponent<DestroyTimer>().enabled = true;
         }
     }
 }

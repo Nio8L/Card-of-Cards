@@ -10,7 +10,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 {
     public static bool inCombat;
 
-    public EnemyAI enemy;
+    public EnemyBase enemy;
 
     public int gamePhase = 0; // 0 - player turn, 1 - enemy turn, 2 - combat phase
 
@@ -61,7 +61,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     TextMeshProUGUI enemyCardPileText;
 
     public int playerCardsLost = 0;
-    int round = 1;
+    public int round = 1;
     private void Start()
     {
         Time.timeScale = 0;
@@ -144,7 +144,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         deck.DiscardHand();
 
         enemyDeck.DiscardHand();
-        enemyDeck.energy = enemy.maxEnergy;
         enemyDeck.DrawCard(5);
 
         enemy.StartTurn();

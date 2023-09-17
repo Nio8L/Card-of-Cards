@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "EnemyAI")]
-public class EnemyAI : ScriptableObject
+[CreateAssetMenu(menuName = "Enemy/AI")]
+public class EnemyAI : EnemyBase
 {
+    [Header("AI settings")]
 
     [Header("Deck")]
     public List<Card> cards = new();
 
     [Header("Settings")]
-    public int maxHealth;
     public int maxCardsPerTurn = 3; // Can't be more than 3 or less than 1
     public int maxEnergy = 3;
     public int startPlayingDefensivelyAt;
@@ -20,9 +20,6 @@ public class EnemyAI : ScriptableObject
     public bool canSeePlayerCardsPlacedThisTurn = false;
     public bool canHideCardsThatAreAboutToDie = false;
 
-    [Header("Hunt settings")]
-    public bool huntAI;
-    public int huntRounds;
     // Settings ^
 
     bool useTypeOfDamageToDecideCard = true;
@@ -44,13 +41,10 @@ public class EnemyAI : ScriptableObject
         Savior,
         Random
     }
-
-    CombatManager combatManager;
-    public void Initialize()
+    public override void Initialize()
     {
-        //Debug.Log("Initializing enemy ai");
-        combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
-        combatManager.enemyHealth = maxHealth;
+        base.Initialize();
+        useDeck = true;
         foreach (Card card in cards)
         {
             Card cardToAdd = Instantiate(card).ResetCard();
@@ -60,8 +54,12 @@ public class EnemyAI : ScriptableObject
         }
         savedLastRound = new bool[3];
     }
-    public void StartTurn()
+    public override void StartTurn()
     {
+        base.StartTurn();
+
+        combatManager.enemyDeck.energy = maxEnergy;
+
         useTypeOfDamageToDecideCard = true;
         thinkLimit = 5;
         cardsPlayedThisTurn = 0;
@@ -343,33 +341,6 @@ public class EnemyAI : ScriptableObject
                 return;
             }
         }
-    }
-    public void PlayCard(Card card, int slotNumber, bool benched)
-    {
-        GameObject cardToCreate;
-        if (benched) cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyBenchSlots[slotNumber].transform.position, Quaternion.identity);
-        else         cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyCombatSlots[slotNumber].transform.position, Quaternion.identity);
-        cardToCreate.transform.SetParent(combatManager.deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one * 0.75f;
-        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = card;
-        cardInCombat.deck = combatManager.enemyDeck;
-        cardInCombat.slot = slotNumber;
-        cardInCombat.playerCard = false;
-
-        if (benched)
-        {
-            cardInCombat.benched = true;
-            combatManager.enemyBenchCards[slotNumber] = cardInCombat;
-        }
-        else
-        {
-            cardInCombat.benched = false;
-            combatManager.enemyCombatCards[slotNumber] = cardInCombat;
-        }
-
-        combatManager.enemyDeck.energy -= card.cost;
-        combatManager.enemyDeck.cardsInHandAsCards.Remove(card);
     }
     void Bench(int slot)
     {
