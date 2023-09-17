@@ -379,6 +379,10 @@ public class Deck : MonoBehaviour, IDataPersistence
     }
     public void DiscardHand() 
     {
+        if(playerDeck){
+            SoundManager.soundManager.Play("DiscardHand");
+        }
+
         for (int i = 0; i < cardsInHandAsCards.Count; i++)
         {
             discardPile.Add(cardsInHandAsCards[i]);

@@ -228,15 +228,15 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.RestSite)
             {
-                if (mapDeck.playerHp < 15)
+                if (mapDeck.playerHealth < 15)
                 {
-                    mapDeck.playerHp += 5;
+                    mapDeck.playerHealth += 5;
                 }
                 else
                 {
-                    mapDeck.playerHp = 20;
+                    mapDeck.playerHealth = 20;
                 }
-                mapDeck.playerHpText.text = "HP: " + mapDeck.playerHp;
+                mapDeck.UpdateHPText();
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {

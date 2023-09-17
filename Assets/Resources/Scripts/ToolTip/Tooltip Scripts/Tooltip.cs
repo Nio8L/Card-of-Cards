@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Numerics;
 
-using Vector2 = UnityEngine.Vector2;
 
 [ExecuteInEditMode()]
 public class Tooltip : MonoBehaviour
@@ -52,17 +50,12 @@ public class Tooltip : MonoBehaviour
     }
 
     private void Update() {
-
-        if(TooltipSystem.tooltipSystem.hoveredIsSigil){
-            position = new(Input.mousePosition.x + 75, Input.mousePosition.y);
-        }else{
-            position = Input.mousePosition;
-        }
+        position = Input.mousePosition;
+        
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             parentCanvas.transform as RectTransform,
             position, parentCanvas.worldCamera,
             out Vector2 movePos);
-
 
         float pivotX = Input.mousePosition.x / Screen.width;
         float pivotY = Input.mousePosition.y / Screen.height;

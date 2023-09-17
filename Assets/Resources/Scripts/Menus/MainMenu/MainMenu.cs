@@ -44,6 +44,10 @@ public class MainMenu : MonoBehaviour
         DeactivateMenu();
     }
 
+    public void OnQuitClick(){
+        Application.Quit();
+    }
+
     public void ActivateMenu(){
         gameObject.SetActive(true);
     }

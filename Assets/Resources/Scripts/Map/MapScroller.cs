@@ -26,7 +26,9 @@ public class MapScroller : MonoBehaviour
 
     public void SetUpCameraPosition()
     {
-        mapCamera.transform.position = new Vector3(0, 3, -10);
+        if(MapManager.currentNode != null){
+            mapCamera.transform.position = new Vector3(0, MapManager.currentNode.transform.position.y, -10);
+        }
     }
 
 }
