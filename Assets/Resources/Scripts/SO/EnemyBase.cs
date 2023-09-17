@@ -13,6 +13,9 @@ public class EnemyBase : ScriptableObject
     public bool huntAI;
     public int huntRounds;
 
+    [Header("Tutorial and pacing object")]
+    public GameObject pacingObject;
+
     [HideInInspector]
     protected CombatManager combatManager;
     protected bool useDeck;
@@ -23,10 +26,14 @@ public class EnemyBase : ScriptableObject
         combatManager.enemyHealth = maxHealth;
         if (dialogue != null) dialogue.Initialize();
         GameObject.Find("DialogueBox").SetActive(false);
+        if (pacingObject != null)
+        {
+            Instantiate(pacingObject, Vector3.zero, Quaternion.identity);
+        }
     }   
     public virtual void StartTurn()
     {
-        if (dialogue != null) dialogue.StartDialogue();
+        if (dialogue != null && dialogue.NextLineAtStartOfTurn) dialogue.StartDialogue();
     }
     public void PlayCard(Card card, int slotNumber, bool benched)
     {

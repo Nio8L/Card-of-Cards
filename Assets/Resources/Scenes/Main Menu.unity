@@ -3441,7 +3441,7 @@ MonoBehaviour:
         m_MethodName: StartTutorial
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: b01b191f461a5904ea5cc1effb3cb91e, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: c3564adf09d713e4fa656210cbfba50f, type: 2}
           m_ObjectArgumentAssemblyTypeName: EnemyBase, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0

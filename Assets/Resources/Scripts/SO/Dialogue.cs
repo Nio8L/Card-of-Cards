@@ -8,10 +8,11 @@ public class Dialogue : ScriptableObject
 {
     [HideInInspector]
     public TextMeshProUGUI textBox;
-
+    [TextArea()]
     public List<string> dialogueLines = new List<string>();
     [HideInInspector]
     public int line = -1;
+    public bool NextLineAtStartOfTurn;
 
     public void Initialize()
     {
@@ -39,5 +40,13 @@ public class Dialogue : ScriptableObject
             EndDialogue();
         }
         else textBox.text = dialogueLines[line];
+    }
+
+    public void NextLine(int lines)
+    {
+        for (int i = 0; i < lines; i++)
+        {
+            NextLine();
+        }
     }
 }

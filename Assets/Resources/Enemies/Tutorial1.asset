@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
+  m_Name: Tutorial1
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  dialogue: {fileID: 11400000, guid: 620fc7be75f70a844b032c755fac6664, type: 2}
+  huntAI: 0
+  huntRounds: 0
+  pacingObject: {fileID: 5893156020464886862, guid: a04a0cb3b15c84a49b13494ad53e6558, type: 3}
+  turns:
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+    - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+    - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    forcePlace: 1
