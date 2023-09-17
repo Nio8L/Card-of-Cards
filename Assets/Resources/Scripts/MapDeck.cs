@@ -8,9 +8,11 @@ public class MapDeck : MonoBehaviour, IDataPersistence
 {
     public List<Card> cards;
 
-    public int playerHp;
+    public int playerHealth;
 
-    public TextMeshProUGUI playerHpText;
+    public GameObject playerHealthRect;
+    public GameObject playerHealthDash;
+    public TextMeshProUGUI playerHealthText;
 
     public void LoadData(GameData data){
         cards.Clear();
@@ -40,8 +42,8 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             }
         }
 
-        playerHp = data.playerHealth;
-        playerHpText.text = "HP: " + playerHp;
+        playerHealth = data.playerHealth;
+        UpdateHPText();
     }
 
     public void SaveData(ref GameData data){
@@ -82,7 +84,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             }
         }
 
-        data.playerHealth = playerHp;
+        data.playerHealth = playerHealth;
     }
 
     public void AddCard(Card card){
@@ -98,5 +100,16 @@ public class MapDeck : MonoBehaviour, IDataPersistence
         List<Card> returnList = new List<Card>();
         foreach (Card card in listToCopy) returnList.Add(card);
         return returnList;
+    }
+
+    public void UpdateHPText(){
+        float playerVal = playerHealth / 20f;
+
+        if (playerVal <= 0) playerVal = 0;
+
+        playerHealthRect.transform.localScale =    new Vector3(playerVal, 1, 1);
+        playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
+
+        playerHealthText.text = playerHealth + "/" + 20;
     }
 }

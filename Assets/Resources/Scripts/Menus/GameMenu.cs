@@ -27,7 +27,7 @@ public class GameMenu : MonoBehaviour
         }
 
         if(Input.GetKeyUp(KeyCode.Escape)){
-           aboutToOpenMenu = false;
+            aboutToOpenMenu = false;
             if(!settingsMenu.activeSelf){
                 ChangeButtonsState();
                 TooltipSystem.QuickHide();
@@ -36,6 +36,17 @@ public class GameMenu : MonoBehaviour
                 settingsMenu.SetActive(!settingsMenu.activeSelf);
                 ChangeUIState();
             }
+        }
+    }
+
+    public void OpenMenu(){
+        if(!settingsMenu.activeSelf){
+            ChangeButtonsState();
+            TooltipSystem.QuickHide();
+        }else{
+            SoundManager.soundManager.Play("ButtonClick");
+            settingsMenu.SetActive(!settingsMenu.activeSelf);
+            ChangeUIState();
         }
     }
 
