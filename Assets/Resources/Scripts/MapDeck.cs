@@ -27,7 +27,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             cards[^1].maxHealth = data.cardMaxHealths[i];
             cards[^1].health = cards[^1].maxHealth;
             cards[^1].cost = data.cardCosts[i];
-            cards[^1].image = Resources.Load<Sprite>("Sprites/" + data.cardImages[i]);
+            cards[^1].image = Resources.Load<Sprite>("Sprites/Creatures/" + data.cardImages[i]);
 
             for(int j = 0; j < data.cardSigils[i].list.Count; j++){
                 Sigil originalSigil = Resources.Load<Sigil>("Sigils/" + data.cardSigils[i].list[j]);

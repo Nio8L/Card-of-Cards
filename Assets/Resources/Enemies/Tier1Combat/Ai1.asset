@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
   m_Name: Ai1
   m_EditorClassIdentifier: 
+  maxHealth: 15
+  dialogue: {fileID: 0}
+  huntAI: 0
+  huntRounds: 0
+  pacingObject: {fileID: 0}
+  isTutorialEnemy: 0
   cards:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  maxHealth: 15
   maxCardsPerTurn: 1
+  maxEnergy: 3
   startPlayingDefensivelyAt: 10
   startPlayingAggressivelyAt: 10
   canUseLostSoul: 1
