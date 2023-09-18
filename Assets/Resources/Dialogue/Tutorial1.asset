@@ -19,7 +19,7 @@ MonoBehaviour:
   - For starters place a card anywhere on the board.
   - Your top row is where cards can attack and be attacked.
   - And your bottom row is a mostly safe place where creatures go to hide.
-  - If you click on a card it switches betwen the two.
+  - If you click on a card it switches between the two.
   - Try moving your cards around by clicking it a few times.
   - Now move your card to the combat row.
   - Now click the end turn button to start the combat phase.
@@ -46,7 +46,7 @@ MonoBehaviour:
   - Well that was simple wasn't it?
   - Now try to kill off one of your cards.
   - Congratulations! You just got your first lost soul!
-  - Lost soul are really useful but they are pretty risky to get.
+  - Lost souls are really useful but they are pretty risky to get.
   - You still have to win the fight so i am going to give you some powerful cards
     that have sigils.
   - Sigils are useful abilities that change how a card plays.
@@ -60,5 +60,6 @@ MonoBehaviour:
     the sigil icon.
   - Now that you know everything about how to fight you can go ahead and finish the
     fight!
-  line: 166
-  NextLineAtStartOfTurn: 0
+  line: 37
+  NextLineAtStartOfTurn: 1
+  NextLineAtClick: 1
