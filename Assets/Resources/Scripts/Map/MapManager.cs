@@ -18,7 +18,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     static List<Layer> layers = new List<Layer>();
     static List<GameObject>[] allLayers = new List<GameObject>[7];
     static List<LineRenderer> lines = new List<LineRenderer>();
-    static List<MapNode> nodesAvaliable = new List<MapNode>();
+    public List<MapNode> nodesAvaliable = new List<MapNode>();
 
     List<MapNode> nodesWithoutRoom = new List<MapNode>();
 
@@ -38,7 +38,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     private void Awake()
     {
         mapManager = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -208,7 +208,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static void NodeClicked(MapNode node) 
     {
-        if (nodesAvaliable.Contains(node) && deckDisplay.canClose)
+        if (mapManager.nodesAvaliable.Contains(node) && deckDisplay.canClose)
         {
             if (currentNode != null)
             {
@@ -218,7 +218,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             currentNode = node;
             node.isCurrentNode = true;
             ReverseMakeAvvNodesDifferent();
-            nodesAvaliable = node.children;
+            mapManager.nodesAvaliable = node.children;
             MakeAvvNodesDifferent();
             currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
@@ -304,17 +304,17 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static void MakeAvvNodesDifferent() 
     {
-        for (int i = 0; i < nodesAvaliable.Count; i++)
+        for (int i = 0; i < mapManager.nodesAvaliable.Count; i++)
         {
-            nodesAvaliable[i].indicator.SetActive(true);
+            mapManager.nodesAvaliable[i].indicator.SetActive(true);
         }
     }
 
     public static void ReverseMakeAvvNodesDifferent()
     {
-        for (int i = 0; i < nodesAvaliable.Count; i++)
+        for (int i = 0; i < mapManager.nodesAvaliable.Count; i++)
         {
-            nodesAvaliable[i].indicator.SetActive(false);
+            mapManager.nodesAvaliable[i].indicator.SetActive(false);
         }
     }
 

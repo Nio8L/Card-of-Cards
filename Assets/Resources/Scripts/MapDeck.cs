@@ -14,6 +14,18 @@ public class MapDeck : MonoBehaviour, IDataPersistence
     public GameObject playerHealthDash;
     public TextMeshProUGUI playerHealthText;
 
+    private List<Card> cardsToBeAdded;
+
+    private void Start() {
+        if (DataPersistenceManager.DataManager.playerDeck.Count > 0)
+            {
+                cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
+                DataPersistenceManager.DataManager.playerDeck.Clear();
+                AddCard(cardsToBeAdded.Count);
+                Debug.Log("Added deck");
+            }
+    }
+
     public void LoadData(GameData data){
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
@@ -93,6 +105,15 @@ public class MapDeck : MonoBehaviour, IDataPersistence
         
         cards.Add(newCard);
 
+    }
+
+    public void AddCard(int numOfCards)
+    {
+        for (int i = 0; i < numOfCards; i++) 
+        {
+            AddCard(cardsToBeAdded[0]);
+            cardsToBeAdded.RemoveAt(0);
+        }
     }
 
     public List<Card> CopyCardList(List<Card> listToCopy) 

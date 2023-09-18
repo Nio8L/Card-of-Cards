@@ -170,7 +170,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (playerDeck)
         {
-            if (DataPersistenceManager.DataManager.playerDeck.Count > 0)
+            if (DataPersistenceManager.DataManager.playerDeck.Count > 0 && DataPersistenceManager.DataManager.inTutorial)
             {
                 cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
                 DataPersistenceManager.DataManager.playerDeck.Clear();

@@ -3125,6 +3125,7 @@ MonoBehaviour:
   numOfLayers: 10
   isGenerating: 1
   chaceForRooms: 28000000140000001400000014000000
+  nodesAvaliable: []
   lastLayer: {fileID: 0}
 --- !u!4 &1377556452
 Transform:
@@ -4977,7 +4978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2097871020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4985,7 +4986,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097871019}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed509accd54e6654cadfb3fe43849432, type: 3}
   m_Name: 
