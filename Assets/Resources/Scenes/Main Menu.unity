@@ -1693,6 +1693,14 @@ MonoBehaviour:
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
+  musics:
+  - name: Theme
+    clip:
+    - {fileID: 8300000, guid: 3ba5418aa7b7aa941b1c32b6f7d29bfd, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 1
+    source: {fileID: 0}
 --- !u!4 &1107156820
 Transform:
   m_ObjectHideFlags: 0
