@@ -8,15 +8,18 @@ public class Dialogue : ScriptableObject
 {
     [HideInInspector]
     public TextMeshProUGUI textBox;
+    GameObject clickIcon;
     [TextArea()]
     public List<string> dialogueLines = new List<string>();
     [HideInInspector]
     public int line = -1;
     public bool NextLineAtStartOfTurn;
+    public bool NextLineAtClick;
 
     public void Initialize()
     {
         textBox = GameObject.Find("DialogueTextBox").GetComponent<TextMeshProUGUI>();
+        clickIcon = textBox.transform.parent.GetChild(0).gameObject;
         line = -1;
     }
 
@@ -58,5 +61,11 @@ public class Dialogue : ScriptableObject
             EndDialogue();
         }
         else textBox.text = dialogueLines[line];
+    }
+
+    public void UpdateClickRule(bool onClick)
+    {
+        NextLineAtClick = onClick;
+        clickIcon.SetActive(onClick);
     }
 }

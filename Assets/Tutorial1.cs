@@ -7,9 +7,9 @@ public class Tutorial1 : MonoBehaviour
 {
     Dialogue dialogue;
     CombatManager combatManager;
-    bool useMouse = true;
     int counter;
     bool boolCounter;
+    bool addedCards = false;
     CardInCombat mark;
     Button endTurnButton;
     public List<Card> cardsToAdd = new();
@@ -17,22 +17,16 @@ public class Tutorial1 : MonoBehaviour
     {
         combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
         endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
-
         endTurnButton.interactable = false;
         dialogue = combatManager.enemy.dialogue;
+        dialogue.NextLineAtStartOfTurn = false;
+        dialogue.UpdateClickRule(true);
         dialogue.StartDialogue();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (useMouse && Input.GetMouseButtonDown(0))
-        {
-            dialogue.NextLine();
-            dialogue.NextLineAtStartOfTurn = false;
-            UpdateRules();
-        }
-
         if (dialogue.line == 2)
         {
             for (int i = 0; i < 3; i++)
@@ -42,14 +36,12 @@ public class Tutorial1 : MonoBehaviour
                     mark = combatManager.playerBenchCards[i];
                     boolCounter = mark.benched;
                     dialogue.NextLine();
-                    UpdateRules();
                 }
                 if (combatManager.playerCombatCards[i] != null)
                 {
                     mark = combatManager.playerCombatCards[i];
                     boolCounter = mark.benched;
                     dialogue.NextLine();
-                    UpdateRules();
                 }
             }
         }
@@ -65,12 +57,10 @@ public class Tutorial1 : MonoBehaviour
                 if (mark.benched)
                 {
                     dialogue.NextLine();
-                    UpdateRules();
                 }
                 else
                 {
                     dialogue.NextLine(2);
-                    UpdateRules();
                 }
             }
         }
@@ -79,7 +69,6 @@ public class Tutorial1 : MonoBehaviour
             if (!mark.benched)
             {
                 dialogue.NextLine();
-                UpdateRules();
             }
         }
         else if (dialogue.line == 8)
@@ -88,12 +77,10 @@ public class Tutorial1 : MonoBehaviour
             {
                 endTurnButton.interactable = false;
                 dialogue.GoBack();
-                UpdateRules();
             }
             if (combatManager.round == 2)
             {
                 dialogue.NextLine();
-                UpdateRules();
             }
         }
         else if (dialogue.line == 12)
@@ -113,7 +100,6 @@ public class Tutorial1 : MonoBehaviour
             if (counter == 2)
             {
                 dialogue.NextLine();
-                UpdateRules();
             }
         }
         else if (dialogue.line == 13)
@@ -121,7 +107,6 @@ public class Tutorial1 : MonoBehaviour
             if (counter != combatManager.round)
             {
                 dialogue.NextLine();
-                UpdateRules();
             }
         }
         else if (dialogue.line == 22)
@@ -131,26 +116,28 @@ public class Tutorial1 : MonoBehaviour
                 if (combatManager.deck.cards[i].name == "LostSoul")
                 {
                     dialogue.NextLine();
-                    UpdateRules();
                 }
             }
         }
+
+        UpdateRules();
+
+
     }
 
     void UpdateRules()
     {
         if (dialogue.line == 2)
         {
-            useMouse = false;
+            dialogue.UpdateClickRule(false);
         }
         else if (dialogue.line == 3)
         {
-            useMouse = true;
+            dialogue.UpdateClickRule(true);
         }
         else if (dialogue.line == 6)
         {
-            counter = 0;
-            useMouse = false;
+            dialogue.UpdateClickRule(false);
         } 
         else if (dialogue.line == 8)
         {
@@ -159,11 +146,11 @@ public class Tutorial1 : MonoBehaviour
         else if (dialogue.line == 9)
         {
             endTurnButton.interactable = false;
-            useMouse = true;
+            dialogue.UpdateClickRule(true);
         }
         else if (dialogue.line == 12)
         {
-            useMouse = false;
+            dialogue.UpdateClickRule(false);
         }
         else if (dialogue.line == 13)
         {
@@ -173,20 +160,22 @@ public class Tutorial1 : MonoBehaviour
         else if (dialogue.line == 14)
         {
             endTurnButton.interactable = false;
-            useMouse = true;
+            dialogue.UpdateClickRule(true);
         }
         else if (dialogue.line == 22)
         {
             endTurnButton.interactable = true;
-            useMouse = false;
+            dialogue.UpdateClickRule(false);
         }
         else if (dialogue.line == 23)
         {
             endTurnButton.interactable = false;
-            useMouse = true;
+            dialogue.UpdateClickRule(true);
         }
         else if (dialogue.line == 25)
         {
+            if (addedCards) return;
+            addedCards = true;
             combatManager.deck.cardsToBeAdded.AddRange(cardsToAdd);
             combatManager.deck.AddCard(cardsToAdd.Count);
             combatManager.deck.DrawCard(cardsToAdd.Count);
@@ -194,7 +183,7 @@ public class Tutorial1 : MonoBehaviour
         else if (dialogue.line == 33)
         {
             endTurnButton.interactable = true;
-            useMouse = true;
+            dialogue.UpdateClickRule(true);
             dialogue.NextLineAtStartOfTurn = true;
         }
     }

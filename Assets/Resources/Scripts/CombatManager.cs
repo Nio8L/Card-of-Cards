@@ -401,4 +401,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         endCombatText.text = "You beat the tutorial";
         deck.cards.AddRange(battleReward);
     }
+
+    public void ClickOnDialogueBox()
+    {
+        if (enemy.dialogue != null && enemy.dialogue.NextLineAtClick) enemy.dialogue.NextLine(); 
+    }
 }
