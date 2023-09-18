@@ -356,8 +356,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         if(data.mapLayers.Count > 0){
             shouldGenerate = false;
+            Generate(data.mapLayers);  
         }
-        Generate(data.mapLayers);  
     }
 
     public void SaveData(ref GameData data)
