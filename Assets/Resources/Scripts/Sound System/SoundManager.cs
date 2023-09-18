@@ -33,6 +33,7 @@ public class SoundManager : MonoBehaviour
             music.source.clip = music.clip[0];
             music.source.volume = music.volume;
             music.source.pitch = music.pitch;
+            music.source.loop = true;
         }
     }
 
@@ -74,6 +75,12 @@ public class SoundManager : MonoBehaviour
     public void UpdateVolume(float volume){
         foreach(SoundClass sound in sounds){
             sound.source.volume = volume;
+        }
+    }
+
+    public void UpdateMusicVolume(float volume){
+        foreach(SoundClass music in musics){
+            music.source.volume = volume;
         }
     }
 
