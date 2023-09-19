@@ -178,6 +178,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         bossNode.transform.position = new Vector3(0, lastLayer.transform.position.y + 6, 0);
 
         bossNode.parents.AddRange(lastLayer.GetAllExitNodes());
+        bossNode.transform.SetParent(transform);
 
         bossNode.roomType = MapNode.RoomType.Hunter;
         PutSprite(bossNode);
