@@ -10,8 +10,8 @@ public class SettingsData
     public bool autoSave;
 
     public SettingsData(){
-        audioLevel = 0;
-        musicLevel = 0;
-        autoSave = false;
+        audioLevel = 100;
+        musicLevel = 100;
+        autoSave = true;
     }
 }
