@@ -9,6 +9,8 @@ public class EnemyBase : ScriptableObject
 
     public Dialogue dialogue;
 
+    public string path = "";
+
     [Header("Hunt settings")]
     public bool huntAI;
     public int huntRounds;
@@ -65,5 +67,9 @@ public class EnemyBase : ScriptableObject
             combatManager.enemyDeck.energy -= card.cost;
             combatManager.enemyDeck.cardsInHandAsCards.Remove(card);
         }
+    }
+
+    public string ReturnPath(){
+        return path + "/" + name;
     }
 }

@@ -68,8 +68,10 @@ public class Deck : MonoBehaviour, IDataPersistence
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
-
-        if (!playerDeck) return;
+        if (!playerDeck) {
+           // DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
+            return;
+        }
 
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
@@ -100,7 +102,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data){
         if (!playerDeck) return;
-
+        
         data.cardNames.Clear();
         data.cardAttacks.Clear();
         //data.cardHealths.Clear();

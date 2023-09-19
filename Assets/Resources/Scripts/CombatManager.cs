@@ -103,6 +103,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         inCombat = false;
         endCombatMenu.SetActive(false);
         Time.timeScale = 1;
+        
+        DataPersistenceManager.DataManager.currentCombatAI = null;
+        enemy = null;
+        
+        Debug.Log("ending game, " + DataPersistenceManager.DataManager.currentCombatAI);
         if(endCombatText.text == "You won!") SceneManager.LoadSceneAsync("Map");
         else SceneManager.LoadSceneAsync("Main Menu");
         //END THE GAME HERE
@@ -364,11 +369,20 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         playerHealth = data.playerHealth;
+
+        enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
 
     public void SaveData(ref GameData data)
     {
         data.playerHealth = playerHealth;
+
+        if(enemy != null){
+            data.enemyAI = enemy.ReturnPath();
+        }else{
+            data.enemyAI = "";
+        }
+        Debug.Log("saving from combat manager: " + data.enemyAI);
     }
     //--------------------------------//
 

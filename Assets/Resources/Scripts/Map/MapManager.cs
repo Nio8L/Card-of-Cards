@@ -74,6 +74,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             MakeAvvNodesDifferent();
         }
+
+        if(DataPersistenceManager.DataManager.currentCombatAI != null){
+            SceneManager.LoadScene("SampleScene");
+        }
     }
 
     public void Generate(int curentDepth, Layer.ConectionType typeWanted) 
@@ -223,7 +227,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             if (currentNode.roomType == MapNode.RoomType.Combat)
             {
-                EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
+                EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(Random.value * tier1EnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
@@ -238,6 +242,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                     mapDeck.playerHealth = 20;
                 }
                 mapDeck.UpdateHPText();
+                DataPersistenceManager.DataManager.currentCombatAI = null;
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {
@@ -246,16 +251,17 @@ public class MapManager : MonoBehaviour, IDataPersistence
                     deckDisplay.ShowDeck();
                 }
                 deckDisplay.canClose = false;
+                DataPersistenceManager.DataManager.currentCombatAI = null;
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunt)
             {
-                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * huntEnemyAIs.Length)];
+                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunter)
             {
-                EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * hunterEnemyAIs.Length)];
+                EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(Random.value * hunterEnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
@@ -367,6 +373,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
             shouldGenerate = false;
             Generate(data.mapLayers);  
         }
+        Debug.Log("loading from map: " + data.enemyAI);
+        DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
 
     public void SaveData(ref GameData data)
@@ -393,6 +401,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
             layerToSave.enterConectionType = (int)layer.enterConectionType;
 
             data.mapLayers.Add(layerToSave);
+        }
+
+        if(DataPersistenceManager.DataManager.currentCombatAI != null){
+            data.enemyAI = DataPersistenceManager.DataManager.currentCombatAI.ReturnPath();
+        }else{
+            data.enemyAI = "";
         }
     }
 }

@@ -23,16 +23,6 @@ public class MapNodeClass
 }
 
 [System.Serializable]
-public class MapClass
-{
-    public List<LayerClass> mapLayers;
-
-    public MapClass(){
-        mapLayers = new();
-    }
-}
-
-[System.Serializable]
 public class LayerClass
 {
     public List<MapNodeClass> mapNodeClasses;
@@ -65,6 +55,8 @@ public class GameData
 
     public List<string> cardDamageType;
 
+    public string enemyAI;
+
     public List<LayerClass> mapLayers;
 
     public GameData(){
@@ -82,8 +74,11 @@ public class GameData
         cardInjuries = new();
 
         cardDamageType = new();
+        
+        enemyAI = "";
 
         mapLayers = new();
+
         //Debug.Log(map);
     }
     
