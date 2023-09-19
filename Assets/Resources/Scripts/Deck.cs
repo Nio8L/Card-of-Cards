@@ -170,7 +170,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (playerDeck)
         {
-            if (DataPersistenceManager.DataManager.playerDeck.Count > 0)
+            if (DataPersistenceManager.DataManager.playerDeck.Count > 0 && DataPersistenceManager.DataManager.inTutorial)
             {
                 cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
                 DataPersistenceManager.DataManager.playerDeck.Clear();
@@ -478,6 +478,9 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (combatCard != null)
         {
+            cardGameObject.GetChild(13).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            cardGameObject.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            cardGameObject.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, 0);
             for (int i = 0; i < card.sigils.Count; i++)
             {
                 combatCard.ShowSigilStar(card.sigils[i]);

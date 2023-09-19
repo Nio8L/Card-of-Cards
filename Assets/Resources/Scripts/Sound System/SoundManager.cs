@@ -7,6 +7,8 @@ public class SoundManager : MonoBehaviour
 {
     public SoundClass[] sounds;
 
+    public SoundClass[] musics;
+
     public static SoundManager soundManager;
 
     private void Awake() {
@@ -25,10 +27,27 @@ public class SoundManager : MonoBehaviour
             sound.source.volume = sound.volume;
             sound.source.pitch = sound.pitch;
         }
+
+        foreach(SoundClass music in musics){
+            music.source = gameObject.AddComponent<AudioSource>();
+            music.source.clip = music.clip[0];
+            music.source.volume = music.volume;
+            music.source.pitch = music.pitch;
+            music.source.loop = true;
+        }
     }
 
     private void Start() {
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+        PlayMusic("Theme");
+    }
+
+    public void PlayMusic(string name){
+       SoundClass music = Array.Find(musics, music => music.name == name);
+        if(music.source != null){
+            music.source.Play();
+        }
     }
 
     public void Play(string name){
@@ -56,6 +75,12 @@ public class SoundManager : MonoBehaviour
     public void UpdateVolume(float volume){
         foreach(SoundClass sound in sounds){
             sound.source.volume = volume;
+        }
+    }
+
+    public void UpdateMusicVolume(float volume){
+        foreach(SoundClass music in musics){
+            music.source.volume = volume;
         }
     }
 
