@@ -46,9 +46,7 @@ public class DataPersistenceManager : MonoBehaviour
         dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         settingsHandler = new FileDataHandler(Application.persistentDataPath, "settings.json");
 
-        selectedProfileId = dataHandler.GetMostRecentProfileId();
-
-        
+        InitializeProfileId();     
     }
 
     private void Start() {
@@ -98,6 +96,26 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
+    public void DeleteProfileData(string profileId){
+        dataHandler.Delete(profileId);
+
+        InitializeProfileId();
+
+        LoadGame();
+    }
+
+    public void DeleteMostRecentProfileData(){
+        dataHandler.Delete(dataHandler.GetMostRecentProfileId());
+
+        InitializeProfileId();
+
+        LoadGame(); 
+    }
+
+    private void InitializeProfileId(){
+        selectedProfileId = dataHandler.GetMostRecentProfileId();
+    }
+
     public void NewSettings(){
         settingsData = new SettingsData();
     }
@@ -109,7 +127,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveSettings(){
         foreach(ISettingsPersistence settingsPersistenceObject in settingsPersistenceObjects){
-            settingsPersistenceObject.SaveData(ref settingsData);
+            settingsPersistenceObject.SaveData(settingsData);
         }
 
         settingsHandler.SaveSettings(settingsData);
@@ -122,7 +140,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         
         foreach(IDataPersistence dataPersistenceObject in dataPersistenceObjects){
-            dataPersistenceObject.SaveData(ref gameData);
+            dataPersistenceObject.SaveData(gameData);
         }
         //Debug.Log("saved, first and second card are " + gameData.Deck[0].name + ", " + gameData.Deck[1].name);
 

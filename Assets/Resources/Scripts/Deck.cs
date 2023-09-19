@@ -69,7 +69,6 @@ public class Deck : MonoBehaviour, IDataPersistence
     //--------------------------------//
     public void LoadData(GameData data){
         if (!playerDeck) {
-           // DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
             return;
         }
 
@@ -100,7 +99,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void SaveData(ref GameData data){
+    public void SaveData(GameData data){
         if (!playerDeck) return;
         
         data.cardNames.Clear();
@@ -177,7 +176,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                 cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
                 DataPersistenceManager.DataManager.playerDeck.Clear();
                 AddCard(cardsToBeAdded.Count);
-                Debug.Log("Added deck");
+                //Debug.Log("Added deck");
             }
            
         }

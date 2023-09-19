@@ -58,7 +58,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
         UpdateHPText();
     }
 
-    public void SaveData(ref GameData data){
+    public void SaveData(GameData data){
         data.cardNames.Clear();
         data.cardAttacks.Clear();
         //data.cardHealths.Clear();

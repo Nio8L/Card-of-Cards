@@ -19,7 +19,7 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [SerializeField] private Slider musicSlider;
     [SerializeField] private TextMeshProUGUI musicSliderText;
 
-    public void SaveData(ref SettingsData data){
+    public void SaveData(SettingsData data){
         if(audioSlider != null){
             data.audioLevel = (int)audioSlider.value;
             data.musicLevel = (int)musicSlider.value;

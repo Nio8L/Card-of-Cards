@@ -373,11 +373,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
             shouldGenerate = false;
             Generate(data.mapLayers);  
         }
-        Debug.Log("loading from map: " + data.enemyAI);
         DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data)
     {
         data.mapLayers = new();
 

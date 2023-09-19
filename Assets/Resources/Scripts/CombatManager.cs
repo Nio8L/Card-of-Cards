@@ -106,10 +106,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         
         DataPersistenceManager.DataManager.currentCombatAI = null;
         enemy = null;
-        
-        Debug.Log("ending game, " + DataPersistenceManager.DataManager.currentCombatAI);
-        if(endCombatText.text == "You won!") SceneManager.LoadSceneAsync("Map");
-        else SceneManager.LoadSceneAsync("Main Menu");
+    
+        if(endCombatText.text == "You won!") {
+            SceneManager.LoadSceneAsync("Map");
+        }else{
+            DataPersistenceManager.DataManager.DeleteMostRecentProfileData();
+            SceneManager.LoadSceneAsync("Main Menu");
+        }
         //END THE GAME HERE
     }
 
@@ -373,7 +376,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data)
     {
         data.playerHealth = playerHealth;
 
@@ -382,7 +385,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }else{
             data.enemyAI = "";
         }
-        Debug.Log("saving from combat manager: " + data.enemyAI);
     }
     //--------------------------------//
 
