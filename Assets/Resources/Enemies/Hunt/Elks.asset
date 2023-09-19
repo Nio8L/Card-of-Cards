@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
   m_Name: Elks
   m_EditorClassIdentifier: 
+  maxHealth: 20
+  dialogue: {fileID: 0}
+  path: Hunt
+  huntAI: 1
+  huntRounds: 5
+  pacingObject: {fileID: 0}
+  isTutorialEnemy: 0
   cards:
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
@@ -25,7 +32,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  maxHealth: 20
   maxCardsPerTurn: 6
   maxEnergy: 50
   startPlayingDefensivelyAt: 0
@@ -34,5 +40,3 @@ MonoBehaviour:
   useKillerStrategyInstead: 0
   canSeePlayerCardsPlacedThisTurn: 1
   canHideCardsThatAreAboutToDie: 0
-  huntAI: 1
-  huntRounds: 5
