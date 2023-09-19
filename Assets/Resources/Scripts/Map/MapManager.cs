@@ -45,24 +45,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
     void Start()
     {
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
-        for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
-
-        GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
-        for (int i = 0; i < loadedLayers.Length; i++)
-        {
-            Layer newLayer = loadedLayers[i].GetComponent<Layer>();
-            allLayers[(int)newLayer.enterConectionType].Add(loadedLayers[i]);
-            newLayer.placeInTheArray = allLayers[(int)newLayer.enterConectionType].Count - 1;
-        }
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
         hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
-        if (currentNode != null){
-            currentNode.GetComponent<SpriteRenderer>().color = Color.red;
-        }
 
         if(shouldGenerate){
             Generate(0, Layer.ConectionType.None);
@@ -74,6 +62,16 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 nodesWithoutRoom.Remove(curNode);
             }
 
+            MakeAvvNodesDifferent();
+        }
+
+        if (currentNode != null){
+            currentNode.GetComponent<SpriteRenderer>().color = Color.red;
+        }else{
+            foreach(Layer.Nodes nodes in layers[0].enterNodes)
+            {
+                nodesAvaliable.AddRange(nodes.NodesOnConections);
+            }
             MakeAvvNodesDifferent();
         }
     }
@@ -352,6 +350,16 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
+        for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
+
+        GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
+        for (int i = 0; i < loadedLayers.Length; i++)
+        {
+            Layer newLayer = loadedLayers[i].GetComponent<Layer>();
+            allLayers[(int)newLayer.enterConectionType].Add(loadedLayers[i]);
+            newLayer.placeInTheArray = allLayers[(int)newLayer.enterConectionType].Count - 1;
+        }
+
         layers.Clear();
 
         if(data.mapLayers.Count > 0){
