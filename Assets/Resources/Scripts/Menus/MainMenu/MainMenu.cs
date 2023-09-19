@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnContinueClick(){
         SoundManager.soundManager.Play("ButtonClick");
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadSceneAsync("Map");
     }  
 
     public void OnSettingsClick(){

@@ -16,14 +16,19 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [SerializeField] private Slider audioSlider;
     [SerializeField] private TextMeshProUGUI audioText;
 
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private TextMeshProUGUI musicSliderText;
+
     public void SaveData(ref SettingsData data){
         if(audioSlider != null){
             data.audioLevel = (int)audioSlider.value;
+            data.musicLevel = (int)musicSlider.value;
         }
     }
 
     public void LoadData(SettingsData data){
         audioSlider.value = data.audioLevel;
+        musicSlider.value = data.musicLevel;
     }
 
     public void OnBackClick(){
@@ -52,5 +57,11 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         audioText.text = "SOUND LEVEL: " + audioSlider.value.ToString() + "%";
         DataPersistenceManager.DataManager.audioLevel = audioSlider.value;
         SoundManager.soundManager.UpdateVolume(audioSlider.value / 100);
+    }
+
+    public void MusicSliderChange(){
+        musicSliderText.text = "MUSIC LEVEL: " + musicSlider.value.ToString() + "%";
+        DataPersistenceManager.DataManager.musicLevel = musicSlider.value;
+        SoundManager.soundManager.UpdateMusicVolume(musicSlider.value / 100);
     }
 }

@@ -6,10 +6,12 @@ using UnityEngine;
 public class SettingsData
 {
     public int audioLevel;
+    public int musicLevel;
     public bool autoSave;
 
     public SettingsData(){
-        audioLevel = 0;
-        autoSave = false;
+        audioLevel = 100;
+        musicLevel = 100;
+        autoSave = true;
     }
 }

@@ -18,7 +18,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     static List<Layer> layers = new List<Layer>();
     static List<GameObject>[] allLayers = new List<GameObject>[7];
     static List<LineRenderer> lines = new List<LineRenderer>();
-    static List<MapNode> nodesAvaliable = new List<MapNode>();
+    public List<MapNode> nodesAvaliable = new List<MapNode>();
 
     List<MapNode> nodesWithoutRoom = new List<MapNode>();
 
@@ -38,31 +38,19 @@ public class MapManager : MonoBehaviour, IDataPersistence
     private void Awake()
     {
         mapManager = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
-        for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
-
-        GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
-        for (int i = 0; i < loadedLayers.Length; i++)
-        {
-            Layer newLayer = loadedLayers[i].GetComponent<Layer>();
-            allLayers[(int)newLayer.enterConectionType].Add(loadedLayers[i]);
-            newLayer.placeInTheArray = allLayers[(int)newLayer.enterConectionType].Count - 1;
-        }
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
         hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
-        if (currentNode != null){
-            currentNode.GetComponent<SpriteRenderer>().color = Color.red;
-        }
 
         if(shouldGenerate){
             Generate(0, Layer.ConectionType.None);
@@ -74,6 +62,16 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 nodesWithoutRoom.Remove(curNode);
             }
 
+            MakeAvvNodesDifferent();
+        }
+
+        if (currentNode != null){
+            currentNode.GetComponent<SpriteRenderer>().color = Color.red;
+        }else{
+            foreach(Layer.Nodes nodes in layers[0].enterNodes)
+            {
+                nodesAvaliable.AddRange(nodes.NodesOnConections);
+            }
             MakeAvvNodesDifferent();
         }
     }
@@ -180,6 +178,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         bossNode.transform.position = new Vector3(0, lastLayer.transform.position.y + 6, 0);
 
         bossNode.parents.AddRange(lastLayer.GetAllExitNodes());
+        bossNode.transform.SetParent(transform);
 
         bossNode.roomType = MapNode.RoomType.Hunter;
         PutSprite(bossNode);
@@ -208,7 +207,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static void NodeClicked(MapNode node) 
     {
-        if (nodesAvaliable.Contains(node) && deckDisplay.canClose)
+        if (mapManager.nodesAvaliable.Contains(node) && deckDisplay.canClose)
         {
             if (currentNode != null)
             {
@@ -218,7 +217,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             currentNode = node;
             node.isCurrentNode = true;
             ReverseMakeAvvNodesDifferent();
-            nodesAvaliable = node.children;
+            mapManager.nodesAvaliable = node.children;
             MakeAvvNodesDifferent();
             currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
@@ -304,17 +303,17 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static void MakeAvvNodesDifferent() 
     {
-        for (int i = 0; i < nodesAvaliable.Count; i++)
+        for (int i = 0; i < mapManager.nodesAvaliable.Count; i++)
         {
-            nodesAvaliable[i].indicator.SetActive(true);
+            mapManager.nodesAvaliable[i].indicator.SetActive(true);
         }
     }
 
     public static void ReverseMakeAvvNodesDifferent()
     {
-        for (int i = 0; i < nodesAvaliable.Count; i++)
+        for (int i = 0; i < mapManager.nodesAvaliable.Count; i++)
         {
-            nodesAvaliable[i].indicator.SetActive(false);
+            mapManager.nodesAvaliable[i].indicator.SetActive(false);
         }
     }
 
@@ -352,6 +351,16 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
+        for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
+
+        GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
+        for (int i = 0; i < loadedLayers.Length; i++)
+        {
+            Layer newLayer = loadedLayers[i].GetComponent<Layer>();
+            allLayers[(int)newLayer.enterConectionType].Add(loadedLayers[i]);
+            newLayer.placeInTheArray = allLayers[(int)newLayer.enterConectionType].Count - 1;
+        }
+
         layers.Clear();
 
         if(data.mapLayers.Count > 0){
