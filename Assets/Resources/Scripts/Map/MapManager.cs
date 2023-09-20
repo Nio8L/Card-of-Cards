@@ -61,8 +61,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 nodesWithoutRoom.AddRange(GenerateRoom(curNode));
                 nodesWithoutRoom.Remove(curNode);
             }
-
-            MakeAvvNodesDifferent();
         }
 
         if (currentNode != null){
@@ -79,6 +77,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
         if(DataPersistenceManager.DataManager.currentCombatAI != null){
             SceneManager.LoadScene("SampleScene");
         }
+
+        if (currentNode != null)nodesAvaliable = currentNode.children;
+        MakeAvvNodesDifferent();
     }
 
     public void Generate(int curentDepth, Layer.ConectionType typeWanted) 
@@ -131,11 +132,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 newLayer.mapNodes[j].roomType = layersToRecreate[i].mapNodeClasses[j].roomType;
                 newLayer.mapNodes[j].used = layersToRecreate[i].mapNodeClasses[j].used;
                 newLayer.mapNodes[j].isCurrentNode = layersToRecreate[i].mapNodeClasses[j].isCurrentNode;
+
                 if(newLayer.mapNodes[j].isCurrentNode){
                     currentNode = newLayer.mapNodes[j];
                     ReverseMakeAvvNodesDifferent();
-                    nodesAvaliable = currentNode.children;
-                    MakeAvvNodesDifferent();
                     currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 }
                 PutSprite(newLayer.mapNodes[j]);
