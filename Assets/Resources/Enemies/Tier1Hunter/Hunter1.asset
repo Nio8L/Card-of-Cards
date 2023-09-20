@@ -19,6 +19,7 @@ MonoBehaviour:
   huntRounds: 0
   pacingObject: {fileID: 0}
   isTutorialEnemy: 0
+  isHunter: 1
   cards:
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
