@@ -18,6 +18,7 @@ public class EnemyBase : ScriptableObject
     [Header("Tutorial and pacing object")]
     public GameObject pacingObject;
     public bool isTutorialEnemy;
+    public bool isHunter;
 
     [HideInInspector]
     protected CombatManager combatManager;

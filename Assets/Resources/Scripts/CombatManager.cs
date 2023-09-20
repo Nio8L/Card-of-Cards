@@ -105,14 +105,16 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         Time.timeScale = 1;
         
         DataPersistenceManager.DataManager.currentCombatAI = null;
-        enemy = null;
-    
+            
         if(endCombatText.text == "You won!") {
-            SceneManager.LoadSceneAsync("Map");
+            if (enemy.isHunter) SceneManager.LoadSceneAsync("End Screen");
+            else                SceneManager.LoadSceneAsync("Map");
         }else{
             DataPersistenceManager.DataManager.DeleteMostRecentProfileData();
             SceneManager.LoadSceneAsync("Main Menu");
         }
+
+        enemy = null;
         //END THE GAME HERE
     }
 
@@ -392,6 +394,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void WinGame()
     {
+        timerToNextTurn = 1000f;
         if (enemy.isTutorialEnemy) { TutorialWin(); return; }
 
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
@@ -403,6 +406,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void LoseGame()
     {
+        timerToNextTurn = 1000f;
         TooltipSystem.QuickHide();
         endCombatMenu.SetActive(true);
         Time.timeScale = 0;

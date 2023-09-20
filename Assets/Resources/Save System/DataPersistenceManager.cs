@@ -79,7 +79,6 @@ public class DataPersistenceManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         MapManagerHandler();
-
         if (!inTutorial) LoadGame();
     }
 

@@ -67,14 +67,15 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         if (currentNode != null){
             currentNode.GetComponent<SpriteRenderer>().color = Color.red;
-        }else{
+        }
+        else{
             foreach(Layer.Nodes nodes in layers[0].enterNodes)
             {
                 nodesAvaliable.AddRange(nodes.NodesOnConections);
             }
             MakeAvvNodesDifferent();
         }
-
+        
         if(DataPersistenceManager.DataManager.currentCombatAI != null){
             SceneManager.LoadScene("SampleScene");
         }
