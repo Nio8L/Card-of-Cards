@@ -106,4 +106,12 @@ public class CardDisplay : MonoBehaviour
         UpdateCardAppearance();
     }
 
+    private void OnDestroy() {
+        LeanTween.delayedCall(0.2f, () => {
+            if(TooltipSystem.tooltipSystem.hoveredIsSigil){
+                TooltipSystem.Hide();
+            }
+        });
+    }
+
 }

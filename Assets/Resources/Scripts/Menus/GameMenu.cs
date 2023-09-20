@@ -8,8 +8,6 @@ public class GameMenu : MonoBehaviour
 {
     [Header("Menu Buttons")]
     [SerializeField] public GameObject menuButtons;
-    [SerializeField] private Button mapButton;
-
     [SerializeField] private GameObject settingsMenu;
 
     [Header("Stuff to Disable")]
@@ -73,7 +71,6 @@ public class GameMenu : MonoBehaviour
     private void ChangeButtonsState(){
         SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);
-        mapButton.interactable = !CombatManager.inCombat;
         ChangeUIState();
     }
 
@@ -82,7 +79,6 @@ public class GameMenu : MonoBehaviour
         cardsInHand.SetActive(!cardsInHand.activeSelf);
         cardsInCombat.SetActive(!cardsInCombat.activeSelf);
         bench.SetActive(!bench.activeSelf);
-        //pilesAndHp.SetActive(!pilesAndHp.activeSelf);
     }
 
     public void OnClickMap(){
