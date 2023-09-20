@@ -15,7 +15,7 @@ public class MenuEyeAnimation : MonoBehaviour
     public void Blink(float beginAfter){
 
         LeanTween.delayedCall(beginAfter, () => {
-            float animateAfter = Random.Range(2, 7);
+            float animateAfter = Random.Range(3, 8);
 
             //Debug.Log(animateAfter);
             animator.Play("Base Layer.MenuEyeBlink", 0, 0f);

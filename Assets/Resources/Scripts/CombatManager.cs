@@ -91,6 +91,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
         else roundText.text = "Round " + round;
 
+        enemyCardPileText.text = enemyDeck.cards.Count.ToString();
+
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = true;
         Time.timeScale = 1;
@@ -141,7 +143,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             startPlayerTurn = false;
         }
         graveText.text = playerCardsLost.ToString();
-        enemyCardPileText.text = enemyDeck.cards.Count.ToString();
     }
     #region Game Phases
     //--------------------------------//
@@ -276,6 +277,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
                 }
             }
+
+            int enemyNonSoulCards = 0;
+            for (int i = 0; i < enemyDeck.cards.Count; i++)
+            {
+                if (enemyDeck.cards[i].name != "LostSoul")
+                {
+                    enemyNonSoulCards++;
+                }
+            }
+            enemyCardPileText.text = enemyNonSoulCards.ToString();
+
             playerCombatCards.CopyTo(playerCombatCardsAtStartOfTurn, 0);
             playerBenchCards.CopyTo(playerBenchCardsAtStartOfTurn, 0);
             gamePhase = 0;
