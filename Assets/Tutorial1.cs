@@ -13,6 +13,7 @@ public class Tutorial1 : MonoBehaviour
     CardInCombat mark;
     Button endTurnButton;
     public List<Card> cardsToAdd = new();
+    bool started = false;
     void Start()
     {
         combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
@@ -21,12 +22,16 @@ public class Tutorial1 : MonoBehaviour
         dialogue = combatManager.enemy.dialogue;
         dialogue.NextLineAtStartOfTurn = false;
         dialogue.UpdateClickRule(true);
-        dialogue.StartDialogue();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!started && combatManager.inCombat)
+        {
+            dialogue.StartDialogue();
+            started = true;
+        }
         if (dialogue.line == 2)
         {
             for (int i = 0; i < 3; i++)

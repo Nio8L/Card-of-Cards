@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hunter1
   m_EditorClassIdentifier: 
   maxHealth: 25
-  dialogue: {fileID: 0}
+  dialogue: {fileID: 11400000, guid: 1119286b40281574b85eaebd527bf4e6, type: 2}
   path: Tier1Hunter
   huntAI: 0
   huntRounds: 0

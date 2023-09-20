@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour, IDataPersistence
 {
-    public static bool inCombat;
+    public bool inCombat;
 
     public EnemyBase enemy;
 
@@ -339,9 +339,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard); return;}
         else if (enemyCard.benched)  { DirectHit(playerCard); return;}
-
-        //Debug.Log("skirmish");
-
 
 
         playerCard.card.health -= enemyCard.card.attack;

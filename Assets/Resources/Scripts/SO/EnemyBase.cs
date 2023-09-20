@@ -15,7 +15,7 @@ public class EnemyBase : ScriptableObject
     public bool huntAI;
     public int huntRounds;
 
-    [Header("Tutorial and pacing object")]
+    [Header("Tutorial and pacing objects")]
     public GameObject pacingObject;
     public bool isTutorialEnemy;
     public bool isHunter;
@@ -29,7 +29,10 @@ public class EnemyBase : ScriptableObject
         combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
         combatManager.enemyHealth = maxHealth;
         if (dialogue != null) dialogue.Initialize();
-        GameObject.Find("DialogueBox").SetActive(false);
+
+        if (dialogue != null && dialogue.StartOnLoad) dialogue.StartDialogue();
+        else GameObject.Find("DialogueBox").SetActive(false);
+
         if (pacingObject != null)
         {
             Instantiate(pacingObject, Vector3.zero, Quaternion.identity);

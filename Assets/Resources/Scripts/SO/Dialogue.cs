@@ -15,6 +15,7 @@ public class Dialogue : ScriptableObject
     public int line = -1;
     public bool NextLineAtStartOfTurn;
     public bool NextLineAtClick;
+    public bool StartOnLoad;
 
     public void Initialize()
     {

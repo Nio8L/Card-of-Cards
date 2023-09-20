@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40519d95c0cd8d444b8d8086c41eb7b7, type: 3}
-  m_Name: Test
+  m_Name: Borke
   m_EditorClassIdentifier: 
+  textBox: {fileID: 0}
   dialogueLines:
-  - This is a test text that has a lot of words.
-  - You can clearly see that the text just changed.
-  - And it happend again.
-  - You get the point...
-  showText: 0
+  - Bad luck kiddo!
+  - You will NOT mess with the borke clan!
+  line: 3
+  NextLineAtStartOfTurn: 1
+  NextLineAtClick: 1
+  StartOnLoad: 1

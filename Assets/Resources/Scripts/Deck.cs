@@ -279,6 +279,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         {
             if (cardsInHand[i] != null){
                 CardInHand targetCard = cardsInHand[i].GetComponent<CardInHand>();
+                targetCard.UpdateCostText();
                 if (targetCard.dontTidy)
                 {
                     targetCard.targetLocation = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
@@ -476,6 +477,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
 
         CardInCombat combatCard = cardGameObject.GetComponent<CardInCombat>();
+        CardInHand handCard = cardGameObject.GetComponent<CardInHand>();
 
         if (combatCard != null)
         {
@@ -486,6 +488,10 @@ public class Deck : MonoBehaviour, IDataPersistence
             {
                 combatCard.ShowSigilStar(card.sigils[i]);
             }
+        }
+        else if (handCard)
+        {
+            handCard.UpdateCostText();
         }
     }
 

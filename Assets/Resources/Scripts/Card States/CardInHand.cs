@@ -278,4 +278,16 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
     }
 
+    public void UpdateCostText()
+    {
+        if (deck.energy < card.cost)
+        {
+            transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color(0.75f, 0, 0, 1);
+        }
+        else
+        {
+            transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color(0, 0, 0, 1);
+        }
+    }
+
 }

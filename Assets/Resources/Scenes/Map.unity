@@ -3121,7 +3121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeObject: {fileID: 8456520580759990429, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
-  numOfLayers: 2
+  numOfLayers: 1
   isGenerating: 1
   chaceForRooms: 28000000140000001400000014000000
   nodesAvaliable: []

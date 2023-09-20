@@ -16,9 +16,10 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   path: Hunt
   huntAI: 1
-  huntRounds: 5
+  huntRounds: 4
   pacingObject: {fileID: 0}
   isTutorialEnemy: 0
+  isHunter: 0
   cards:
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}

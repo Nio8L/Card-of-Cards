@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Borke
   m_EditorClassIdentifier: 
   maxHealth: 20
-  dialogue: {fileID: 0}
+  dialogue: {fileID: 11400000, guid: 68f0e382c6615f342a747dd164557bf9, type: 2}
   path: Hunt
   huntAI: 1
   huntRounds: 4
   pacingObject: {fileID: 0}
   isTutorialEnemy: 0
+  isHunter: 0
   cards:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}

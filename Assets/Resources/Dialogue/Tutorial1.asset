@@ -60,6 +60,7 @@ MonoBehaviour:
     the sigil icon.
   - Now that you know everything about how to fight you can go ahead and finish the
     fight!
-  line: 37
-  NextLineAtStartOfTurn: 1
+  line: 0
+  NextLineAtStartOfTurn: 0
   NextLineAtClick: 1
+  StartOnLoad: 0
