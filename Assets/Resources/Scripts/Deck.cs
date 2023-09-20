@@ -68,8 +68,9 @@ public class Deck : MonoBehaviour, IDataPersistence
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
-
-        if (!playerDeck) return;
+        if (!playerDeck) {
+            return;
+        }
 
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
@@ -98,9 +99,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void SaveData(ref GameData data){
+    public void SaveData(GameData data){
         if (!playerDeck) return;
-
+        
         data.cardNames.Clear();
         data.cardAttacks.Clear();
         //data.cardHealths.Clear();
@@ -175,7 +176,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                 cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
                 DataPersistenceManager.DataManager.playerDeck.Clear();
                 AddCard(cardsToBeAdded.Count);
-                Debug.Log("Added deck");
+                //Debug.Log("Added deck");
             }
            
         }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 25
   dialogue: {fileID: 0}
+  path: Tier1Hunter
   huntAI: 0
   huntRounds: 0
   pacingObject: {fileID: 0}
@@ -23,8 +24,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
   - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
   - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
   maxCardsPerTurn: 3

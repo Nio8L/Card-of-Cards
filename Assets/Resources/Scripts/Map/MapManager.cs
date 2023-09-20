@@ -45,24 +45,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
     void Start()
     {
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
-        for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
-
-        GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
-        for (int i = 0; i < loadedLayers.Length; i++)
-        {
-            Layer newLayer = loadedLayers[i].GetComponent<Layer>();
-            allLayers[(int)newLayer.enterConectionType].Add(loadedLayers[i]);
-            newLayer.placeInTheArray = allLayers[(int)newLayer.enterConectionType].Count - 1;
-        }
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
         hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
-        if (currentNode != null){
-            currentNode.GetComponent<SpriteRenderer>().color = Color.red;
-        }
 
         if(shouldGenerate){
             Generate(0, Layer.ConectionType.None);
@@ -73,6 +61,21 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 nodesWithoutRoom.AddRange(GenerateRoom(curNode));
                 nodesWithoutRoom.Remove(curNode);
             }
+        }
+
+        if (currentNode != null){
+            currentNode.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else{
+            foreach(Layer.Nodes nodes in layers[0].enterNodes)
+            {
+                nodesAvaliable.AddRange(nodes.NodesOnConections);
+            }
+            MakeAvvNodesDifferent();
+        }
+        
+        if(DataPersistenceManager.DataManager.currentCombatAI != null){
+            SceneManager.LoadScene("SampleScene");
         }
 
         if (currentNode != null)nodesAvaliable = currentNode.children;
@@ -225,7 +228,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             if (currentNode.roomType == MapNode.RoomType.Combat)
             {
-                EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * tier1EnemyAIs.Length)];
+                EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(Random.value * tier1EnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
@@ -240,6 +243,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                     mapDeck.playerHealth = 20;
                 }
                 mapDeck.UpdateHPText();
+                DataPersistenceManager.DataManager.currentCombatAI = null;
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {
@@ -248,16 +252,17 @@ public class MapManager : MonoBehaviour, IDataPersistence
                     deckDisplay.ShowDeck();
                 }
                 deckDisplay.canClose = false;
+                DataPersistenceManager.DataManager.currentCombatAI = null;
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunt)
             {
-                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * huntEnemyAIs.Length)];
+                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunter)
             {
-                EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(UnityEngine.Random.value * hunterEnemyAIs.Length)];
+                EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(Random.value * hunterEnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
@@ -353,15 +358,26 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
+        for (int i = 0; i < allLayers.Length; i++) allLayers[i] = new List<GameObject>();
+
+        GameObject[] loadedLayers = Resources.LoadAll<GameObject>("Prefabs/Map/Layers");
+        for (int i = 0; i < loadedLayers.Length; i++)
+        {
+            Layer newLayer = loadedLayers[i].GetComponent<Layer>();
+            allLayers[(int)newLayer.enterConectionType].Add(loadedLayers[i]);
+            newLayer.placeInTheArray = allLayers[(int)newLayer.enterConectionType].Count - 1;
+        }
+
         layers.Clear();
 
         if(data.mapLayers.Count > 0){
             shouldGenerate = false;
             Generate(data.mapLayers);  
         }
+        DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data)
     {
         data.mapLayers = new();
 
@@ -385,6 +401,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
             layerToSave.enterConectionType = (int)layer.enterConectionType;
 
             data.mapLayers.Add(layerToSave);
+        }
+
+        if(DataPersistenceManager.DataManager.currentCombatAI != null){
+            data.enemyAI = DataPersistenceManager.DataManager.currentCombatAI.ReturnPath();
+        }else{
+            data.enemyAI = "";
         }
     }
 }
