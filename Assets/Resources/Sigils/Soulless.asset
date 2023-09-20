@@ -15,4 +15,5 @@ MonoBehaviour:
   sigilName: Soulless
   negative: 1
   image: {fileID: 21300000, guid: 179c52bae7b6f5e40b97270d11548da0, type: 3}
-  description: This card can't be revived
+  description: This card can't be revived.
+  canUseAbility: 0
