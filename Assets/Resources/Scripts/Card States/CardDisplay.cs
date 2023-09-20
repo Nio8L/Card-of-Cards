@@ -108,7 +108,7 @@ public class CardDisplay : MonoBehaviour
 
     private void OnDestroy() {
         LeanTween.delayedCall(0.2f, () => {
-            if(TooltipSystem.tooltipSystem.hoveredIsSigil){
+            if(TooltipSystem.tooltipSystem.hoveredIsSigil || TooltipSystem.tooltipSystem.tooltip.headerField.text == "Damage type"){
                 TooltipSystem.Hide();
             }
         });

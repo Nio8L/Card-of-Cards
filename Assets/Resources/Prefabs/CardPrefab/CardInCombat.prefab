@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 2687317849801987197}
   - component: {fileID: 4154526349842325939}
   - component: {fileID: 1542079085773255343}
+  - component: {fileID: 5212269224927089080}
   m_Layer: 5
   m_Name: AttackType
   m_TagString: Untagged
@@ -330,7 +331,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 22, y: 18, z: 22, w: 18}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -345,6 +346,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5212269224927089080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317391008563183404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Damage Type
+  content: Unknown damage type
 --- !u!1 &4450993269691292763
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1320,6 +1335,7 @@ GameObject:
   - component: {fileID: -1797897018395449919}
   - component: {fileID: 8919155628295456012}
   - component: {fileID: -6247568919862796945}
+  - component: {fileID: 5099428027293768365}
   m_Layer: 5
   m_Name: CardInCombat
   m_TagString: Untagged
@@ -1467,6 +1483,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyAfter: 1
   spawnOnDeath: {fileID: 8753074680907212074, guid: 929b6f3b1a34d024f9132276d09bcd24, type: 3}
+--- !u!114 &5099428027293768365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519147778333559846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c9cd0066d0d1344bc25fa173311572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 0}
+  damageType: {fileID: 3317391008563183404}
 --- !u!1 &8553744118072331269
 GameObject:
   m_ObjectHideFlags: 0

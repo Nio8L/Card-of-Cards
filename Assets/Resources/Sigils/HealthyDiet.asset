@@ -15,7 +15,7 @@ MonoBehaviour:
   sigilName: Healthy Diet
   negative: 0
   image: {fileID: 21300000, guid: c275e3611089ab04eb616a4227bb1848, type: 3}
-  description: Regenerate 1 health every turn if the creature is benched..
+  description: Regenerate 1 health every turn if the creature is benched.
   canUseAbility: 0
   particles: {fileID: 2733686474300300302, guid: ceb1d19fbcdf68143bb8d7f2ca21d19e, type: 3}
   count: 0
