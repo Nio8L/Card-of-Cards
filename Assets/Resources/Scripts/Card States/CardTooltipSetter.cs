@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CardTooltipSetter : MonoBehaviour
+public class CardTooltipSetter : MonoBehaviour, IPointerEnterHandler
 {
     public Card card;
 
     public GameObject damageType;
+
+    public GameObject heart;
 
     private void Start() {
         if(gameObject.name == "CardDisplay(Clone)"){
@@ -18,6 +21,28 @@ public class CardTooltipSetter : MonoBehaviour
         }
 
         damageType.GetComponent<TooltipTrigger>().content = card.typeOfDamage.ToString();
+    }
 
+    public void UpdateHeartTooltip(){
+        if(card.name == "LostSoul"){
+            heart.GetComponent<TooltipTrigger>().content = "A soul can't be injured...";
+            return;
+        }
+        
+        if(card.injuries.Count > 0){
+            string tooltipText = "";
+            
+            foreach (Card.TypeOfDamage injury in card.injuries)
+            {
+                tooltipText += injury.ToString() + "\n";
+            }
+
+            heart.GetComponent<TooltipTrigger>().content = tooltipText;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UpdateHeartTooltip();
     }
 }

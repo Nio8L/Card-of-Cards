@@ -24,4 +24,8 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         TooltipSystem.Hide();
     }
 
+    private void OnDestroy() {
+        TooltipSystem.Hide();
+    }
+
 }

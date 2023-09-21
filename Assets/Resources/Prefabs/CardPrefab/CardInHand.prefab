@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 7325020680703281163}
   - component: {fileID: 4596513114336757003}
   - component: {fileID: 2383509288578964712}
+  - component: {fileID: 8646153088066989501}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -346,6 +347,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8646153088066989501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220016426760665553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7220ddba28566246850a7fe28778ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Injuries
+  content: This card has no injuries.
 --- !u!1 &1531777437509808466
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 0}
   damageType: {fileID: 5580625391676031576}
+  heart: {fileID: 1220016426760665553}
 --- !u!1 &1692993161850814855
 GameObject:
   m_ObjectHideFlags: 0
