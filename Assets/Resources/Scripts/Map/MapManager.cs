@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,6 +35,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public static DeckDisplay deckDisplay;
 
     private bool shouldGenerate = true;
+
+    private EnemyAI lastEnemyAI;
 
     private void Awake()
     {
@@ -260,8 +263,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunt)
             {
+                retry:;
                 EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
+                if(ai == mapManager.lastEnemyAI){
+                    goto retry;
+                }
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
+                mapManager.lastEnemyAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunter)
