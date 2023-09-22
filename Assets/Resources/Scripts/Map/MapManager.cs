@@ -298,8 +298,21 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         node.roomType = room;
 
+
+        //Make all starting nodes a hunt
         if(layers[0].mapNodes.Contains(node)){
             node.roomType = MapNode.RoomType.Hunt;
+        }
+
+
+        //Prevent connected rest sites and graveyards
+        foreach (MapNode parentNode in node.parents)
+        {
+            if(node.roomType == MapNode.RoomType.Graveyard || node.roomType == MapNode.RoomType.RestSite){
+                if (parentNode.roomType == MapNode.RoomType.Graveyard || parentNode.roomType == MapNode.RoomType.RestSite){
+                    goto retry;
+                }
+            }
         }
 
         PutSprite(node);
