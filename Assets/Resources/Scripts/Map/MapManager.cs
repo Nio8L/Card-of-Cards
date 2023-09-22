@@ -298,6 +298,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         node.roomType = room;
 
+        if(layers[0].mapNodes.Contains(node)){
+            node.roomType = MapNode.RoomType.Hunt;
+        }
+
         PutSprite(node);
         return node.children;
     }
