@@ -42,10 +42,12 @@ public class TooltipSystem : MonoBehaviour
     }
 
     public static void Hide(){
-        LeanTween.alphaCanvas(tooltipSystem.canvasGroup, 0f, 0.1f);
-        LeanTween.delayedCall(0.1f, () => {
-            tooltipSystem.tooltip.gameObject.SetActive(false);
-        });
+        if(tooltipSystem.canvasGroup != null){
+            LeanTween.alphaCanvas(tooltipSystem.canvasGroup, 0f, 0.1f);
+            LeanTween.delayedCall(0.1f, () => {
+                tooltipSystem.tooltip.gameObject.SetActive(false);
+            });
+        }
     }
 
     private void OnSceneChange(Scene current, Scene next)
