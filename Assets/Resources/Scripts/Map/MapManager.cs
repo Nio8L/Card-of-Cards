@@ -194,6 +194,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
         {
             bossNode.parents[i].children.Add(bossNode);
             AddLine(bossNode, bossNode.transform, bossNode.parents[i].transform);
+            
+            //Make all rooms before the Hunter be Rest sites
+            bossNode.parents[i].roomType = MapNode.RoomType.RestSite;
+            PutSprite(bossNode.parents[i]);
         }
     }
 
