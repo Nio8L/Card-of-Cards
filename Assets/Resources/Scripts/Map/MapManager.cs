@@ -286,11 +286,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         if(node.roomType != MapNode.RoomType.emptyRoom)return node.children;
 
-        int randomValue = Random.Range(0, 101);
         MapNode.RoomType room = MapNode.RoomType.emptyRoom;
         bool retryed = false;
 
     retry:;
+        int randomValue = Random.Range(0, 101);
 
         for (int i = 0; i < 4; i++)
         {
@@ -324,6 +324,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 if (parentNode.roomType == MapNode.RoomType.Graveyard || parentNode.roomType == MapNode.RoomType.RestSite){
                     goto retry;
                 }
+            }
+
+            if(node.roomType == MapNode.RoomType.Combat && parentNode.roomType == MapNode.RoomType.Combat){
+                goto retry;
             }
         }
 
