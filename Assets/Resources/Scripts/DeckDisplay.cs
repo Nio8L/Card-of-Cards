@@ -12,6 +12,7 @@ public class DeckDisplay : MonoBehaviour
 
     public bool canClose = true;
 
+    GameObject graveyardText;
 
     private List<GameObject> cardDisplays;
 
@@ -25,6 +26,8 @@ public class DeckDisplay : MonoBehaviour
             deck = GameObject.Find("Deck").GetComponent<Deck>();
         }else if(SceneManager.GetActiveScene().name == "Map"){
             mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
+            graveyardText = GameObject.Find("GraveyardText");
+            graveyardText.SetActive(false);
         }
     }
 
@@ -40,12 +43,16 @@ public class DeckDisplay : MonoBehaviour
         SoundManager.soundManager.Play("DeckDisplaySlide");
         if(deckDisplay.activeSelf){
            if (SceneManager.GetActiveScene().name == "SampleScene"){
-             if(cardDisplays.Count != deck.cards.Count){
-                 LeanTween.delayedCall(0.4f, () => {
-                     ShowDeck();
-                 });
-             }
-           }
+               if(cardDisplays.Count != deck.cards.Count){
+                   LeanTween.delayedCall(0.4f, () => {
+                       ShowDeck();
+                   });
+               }
+            }
+            else if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
+            {
+                graveyardText.SetActive(false);
+            }
             
             LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
 
@@ -74,6 +81,9 @@ public class DeckDisplay : MonoBehaviour
                     cardDisplays.Add(newCardDisplay);
                 }
             }else{
+
+                if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard) graveyardText.SetActive(true);
+
                 foreach (Card card in mapDeck.cards)
                 {   
                     GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);

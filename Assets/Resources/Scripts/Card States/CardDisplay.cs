@@ -100,7 +100,7 @@ public class CardDisplay : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "Map"){
             if (MapManager.currentNode != null){
                 if (MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used){
-                    if (card.name != "LostSoul" && card.injuries.Count > 0){
+                    if (card.name != "LostSoul"){
                         card.AcceptLostSoul();
                         MapManager.currentNode.used = true;
                         MapManager.deckDisplay.canClose = true;
