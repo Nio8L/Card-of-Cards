@@ -30,7 +30,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     static EnemyAI[] huntEnemyAIs;
     static EnemyAI[] hunterEnemyAIs;
 
-    static MapDeck mapDeck;
+    public static MapDeck mapDeck;
 
     public static DeckDisplay deckDisplay;
 

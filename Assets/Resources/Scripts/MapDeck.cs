@@ -26,6 +26,17 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             }
     }
 
+    public bool HasInjuredCards(){
+        foreach (Card card in cards)
+        {
+            if(card.injuries.Count > 0){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void LoadData(GameData data){
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
