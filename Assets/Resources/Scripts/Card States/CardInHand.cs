@@ -170,8 +170,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
         foreach (RaycastResult result in results)
         {
-            //Check if the card on which we play "Lost Soul" is in combat and if it's a player's card and not an enemy's card
-            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().playerCard){
+            //Check if the card on which we play "Lost Soul" is in combat and if it's a player's card and not an enemy's card and if the card has any injuries
+            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().playerCard && result.gameObject.GetComponent<CardInCombat>().card.injuries.Count > 0){
                 SoundManager.soundManager.Play("LostSoul");
                 Card healedCard = result.gameObject.GetComponent<CardInCombat>().card;
 
