@@ -1769,6 +1769,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 552172265}
+  - component: {fileID: 552172266}
   m_Layer: 5
   m_Name: DeckDisplay
   m_TagString: Untagged
@@ -1796,6 +1797,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &552172266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552172264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee0bf94ae25ca14e8203a31d83d91c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckDisplayObject: {fileID: 552172264}
+  deckDisplay: {fileID: 1797514665}
+  sensitivity: 20
 --- !u!1 &573670492
 GameObject:
   m_ObjectHideFlags: 0
@@ -6021,6 +6037,7 @@ MonoBehaviour:
   deckDisplay: {fileID: 552172264}
   canvasGroup: {fileID: 1641435452}
   canClose: 1
+  cardDisplays: []
 --- !u!1001 &1804887310
 PrefabInstance:
   m_ObjectHideFlags: 0

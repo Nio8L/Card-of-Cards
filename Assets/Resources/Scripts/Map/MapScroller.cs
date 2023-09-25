@@ -15,9 +15,12 @@ public class MapScroller : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        if (!MapManager.mapManager.deckDisplay.deckDisplay.activeSelf)
         {
-            LeanTween.moveY(gameObject, mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity, 0.5f);
+            if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+            {
+                LeanTween.moveY(gameObject, mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity, 0.5f);
+            }
         }
     }
 

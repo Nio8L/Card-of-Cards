@@ -32,7 +32,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static MapDeck mapDeck;
 
-    public static DeckDisplay deckDisplay;
+    public DeckDisplay deckDisplay;
 
     private bool shouldGenerate = true;
 
@@ -219,7 +219,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static void NodeClicked(MapNode node) 
     {
-        if (mapManager.nodesAvaliable.Contains(node) && deckDisplay.canClose)
+        if (mapManager.nodesAvaliable.Contains(node) && mapManager.deckDisplay.canClose)
         {
             if (currentNode != null)
             {
@@ -254,11 +254,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {
-                if (!deckDisplay.deckDisplay.activeSelf)
+                if (!mapManager.deckDisplay.deckDisplay.activeSelf)
                 {
-                    deckDisplay.ShowDeck();
+                    mapManager.deckDisplay.ShowDeck();
                 }
-                deckDisplay.canClose = false;
+                mapManager.deckDisplay.canClose = false;
                 DataPersistenceManager.DataManager.currentCombatAI = null;
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunt)

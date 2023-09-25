@@ -14,7 +14,7 @@ public class DeckDisplay : MonoBehaviour
 
     GameObject graveyardText;
 
-    private List<GameObject> cardDisplays;
+    public List<GameObject> cardDisplays;
 
     private Deck deck;
     private MapDeck mapDeck;
