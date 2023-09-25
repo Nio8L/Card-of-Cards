@@ -15,6 +15,7 @@ MonoBehaviour:
   sigilName: Second Skin
   negative: 0
   image: {fileID: 21300000, guid: 1914c4c1cf5da274ebd8bdbfb8b101da, type: 3}
-  description: Moves back and drops a skin after taking damage.
+  description: When attacked the card moves back if possible and plays a wool card
+    on its previous spot.
   canUseAbility: 0
   cardToSpawn: {fileID: 11400000, guid: a35eeef801715bc4eafa36e6c712d99b, type: 2}

@@ -7,7 +7,6 @@ public class Fearless : Sigil
 {
     bool canRevive = true;
     public GameObject visualEffect;
-
     public override void OnTakeDamageEffect(CardInCombat card) 
     {
         if (canRevive && card.card.health <= 0)

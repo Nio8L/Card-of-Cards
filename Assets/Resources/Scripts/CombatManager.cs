@@ -38,6 +38,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     float timerAfterEnemyTurn = 0f;
     float resetTimerTo = 2f;
     float resetTimerAfterEnemyTurnTo = 0.5f;
+    float cameraZoomTimer = 0.5f;
     bool startCombatPhase = false;
     bool startPlayerTurn = false;
 
@@ -143,6 +144,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             startPlayerTurn = false;
         }
         graveText.text = playerCardsLost.ToString();
+        if (inCombat && cameraZoomTimer > 0)
+        {
+            Camera.main.orthographicSize = Mathf.Lerp(8, 5, Mathf.SmoothStep(1f, 0f, cameraZoomTimer*2));
+            cameraZoomTimer -= Time.deltaTime;
+        }
+        else if (inCombat && cameraZoomTimer > -10)
+        {
+            Camera.main.orthographicSize = 5;
+            // This line is here to make it set the camera size to 5 only once 
+            cameraZoomTimer = -100;
+        }
     }
     #region Game Phases
     //--------------------------------//

@@ -286,7 +286,6 @@ public class CardInCombat : MonoBehaviour
             else if (deck.combatManager.enemyCombatCards[slot] == this) deck.combatManager.enemyCombatCards[slot] = null;
         }
     }
-
     public void ForceKill()
     {
         

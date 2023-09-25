@@ -9,6 +9,7 @@ public class Sigil : ScriptableObject
     public bool negative;
     public Sprite image;
     public string description;
+    
 
     [HideInInspector]
     public bool canUseAbility = false;
