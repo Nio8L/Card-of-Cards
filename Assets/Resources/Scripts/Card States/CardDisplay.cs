@@ -104,9 +104,28 @@ public class CardDisplay : MonoBehaviour
                         if (card.injuries.Count > 0 || !MapManager.mapDeck.HasInjuredCards())
                         {
                             card.AcceptLostSoul();
+                            SoundManager.soundManager.Play("LostSoul");
+
+                            GameObject soulHeartObject = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
+
+                            Instantiate(soulHeartObject, transform.position, Quaternion.identity);
+                
+                            LostSoulVisuals soulHeart;
+
+                            soulHeart = Instantiate(soulHeartObject, transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                            soulHeart.angle = 120f;
+                            soulHeart.primaryHeart = false;
+
+                            soulHeart = Instantiate(soulHeartObject, transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                            soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
+                            soulHeart.primaryHeart = false;
+
                             MapManager.currentNode.used = true;
                             MapManager.mapManager.deckDisplay.canClose = true;
-                            MapManager.mapManager.deckDisplay.ShowDeck();
+                            LeanTween.delayedCall(2, () => {
+
+                                MapManager.mapManager.deckDisplay.ShowDeck();
+                            });
                         }
                     }
                 }
