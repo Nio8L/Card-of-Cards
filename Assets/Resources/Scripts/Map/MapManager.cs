@@ -38,6 +38,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     private EnemyAI lastEnemyAI;
 
+    static GameObject threeChoice;
+    static Transform eventCanvas;
     private void Awake()
     {
         mapManager = this;
@@ -48,6 +50,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     void Start()
     {
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
+        eventCanvas = GameObject.Find("EventCanvas").transform;
+        threeChoice = Resources.Load<GameObject>("Prefabs/ThreeCardChoice");
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
@@ -251,6 +255,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 }
                 mapDeck.UpdateHPText();
                 DataPersistenceManager.DataManager.currentCombatAI = null;
+                GameObject eventUI = Instantiate(threeChoice, eventCanvas);
+                eventUI.name = threeChoice.name;
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {

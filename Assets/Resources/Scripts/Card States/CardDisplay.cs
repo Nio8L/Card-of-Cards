@@ -133,4 +133,19 @@ public class CardDisplay : MonoBehaviour
         }
         UpdateCardAppearance();
     }
+
+    public void PickCard()
+    {
+        if (SceneManager.GetActiveScene().name == "Map")
+        {
+            if (MapManager.currentNode != null)
+            {
+                if (MapManager.currentNode.roomType == MapNode.RoomType.RestSite && !MapManager.currentNode.used)
+                {
+                    MapManager.mapDeck.cards.Add(card);
+                    Destroy(GameObject.Find("ThreeCardChoice"));
+                }
+            }
+        }
+    }
 }

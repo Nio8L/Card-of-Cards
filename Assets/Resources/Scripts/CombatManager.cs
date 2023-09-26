@@ -38,7 +38,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     float timerAfterEnemyTurn = 0f;
     float resetTimerTo = 2f;
     float resetTimerAfterEnemyTurnTo = 0.5f;
-    float cameraZoomTimer = 0.5f;
+    float cameraZoomTimer = 1f;
     bool startCombatPhase = false;
     bool startPlayerTurn = false;
 
@@ -81,6 +81,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         graveText = GameObject.Find("GraveText").GetComponent<TextMeshProUGUI>();
         roundText = GameObject.Find("RoundText").GetComponent<TextMeshProUGUI>();
         enemyCardPileText = GameObject.Find("EnemyCardPileText").GetComponent<TextMeshProUGUI>();
+
+        StartGame();
     }
 
     public void StartGame() 
@@ -146,7 +148,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         graveText.text = playerCardsLost.ToString();
         if (inCombat && cameraZoomTimer > 0)
         {
-            Camera.main.orthographicSize = Mathf.Lerp(8, 5, Mathf.SmoothStep(1f, 0f, cameraZoomTimer*2));
+            Camera.main.orthographicSize = Mathf.Lerp(8, 5, Mathf.SmoothStep(1f, 0f, cameraZoomTimer));
             cameraZoomTimer -= Time.deltaTime;
         }
         else if (inCombat && cameraZoomTimer > -10)
