@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
-public class CardDisplay : MonoBehaviour
+public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Displayed Card")]
     public Card card;
@@ -147,5 +149,17 @@ public class CardDisplay : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        transform.SetAsLastSibling();
+        SoundManager.soundManager.Play("CardPickUp");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.localScale = Vector3.one;
     }
 }

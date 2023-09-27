@@ -82,7 +82,7 @@ public class DeckDisplay : MonoBehaviour
                 }
             }else{
 
-                if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard) graveyardText.SetActive(true);
+                if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used) graveyardText.SetActive(true);
 
                 foreach (Card card in mapDeck.cards)
                 {   
