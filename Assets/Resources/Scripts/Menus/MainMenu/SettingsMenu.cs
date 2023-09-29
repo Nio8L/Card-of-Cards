@@ -15,20 +15,28 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [Header("Menu Operational Stuff")]
     [SerializeField] private Slider audioSlider;
     [SerializeField] private TextMeshProUGUI audioText;
+    [SerializeField] private Toggle audioToggle;
+
 
     [SerializeField] private Slider musicSlider;
     [SerializeField] private TextMeshProUGUI musicSliderText;
+    [SerializeField] private Toggle musicToggle;
+
 
     public void SaveData(SettingsData data){
-        if(audioSlider != null){
-            data.audioLevel = (int)audioSlider.value;
-            data.musicLevel = (int)musicSlider.value;
-        }
+        data.audioLevel = (int)audioSlider.value;
+        data.musicLevel = (int)musicSlider.value;
+
+        data.disableAudio = audioToggle.isOn;
+        data.disableMusic = musicToggle.isOn;
     }
 
     public void LoadData(SettingsData data){
         audioSlider.value = data.audioLevel;
         musicSlider.value = data.musicLevel;
+
+        audioToggle.isOn = data.disableAudio;
+        musicToggle.isOn = data.disableMusic;
     }
 
     public void OnBackClick(){
@@ -63,5 +71,15 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         musicSliderText.text = "MUSIC LEVEL: " + musicSlider.value.ToString() + "%";
         DataPersistenceManager.DataManager.musicLevel = musicSlider.value;
         SoundManager.soundManager.UpdateMusicVolume(musicSlider.value / 100);
+    }
+
+    public void DisableAudio(){
+        SoundManager.soundManager.disableAudio = !audioToggle.isOn;
+    }
+
+    public void DisableMusic(){
+        SoundManager.soundManager.disableMusic = !musicToggle.isOn;
+        SoundManager.soundManager.StopCurrentMusic();
+        SoundManager.soundManager.PlayMusic(SoundManager.soundManager.currentMusic);
     }
 }

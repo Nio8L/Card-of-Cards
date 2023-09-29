@@ -11,6 +11,11 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager soundManager;
 
+    public bool disableAudio = false;
+    public bool disableMusic = false;
+
+    public string currentMusic;
+
     private void Awake() {
         if(soundManager == null){
             soundManager = this;
@@ -44,16 +49,36 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayMusic(string name){
-       SoundClass music = Array.Find(musics, music => music.name == name);
-        if(music.source != null){
-            music.source.Play();
+        SoundClass music = Array.Find(musics, music => music.name == name);
+        if (music != null)
+        {
+            if(music.source != null){
+                currentMusic = name;
+                if (!disableMusic)
+                {
+                    music.source.Play();
+                }
+            }
+        }
+    }
+
+    public void StopCurrentMusic(){
+        SoundClass music = Array.Find(musics, music => music.name == currentMusic);
+        if (music != null)
+        {
+            if(music.source != null){
+                music.source.Stop();
+            }
         }
     }
 
     public void Play(string name){
         SoundClass sound = Array.Find(sounds, sound => sound.name == name);
         if(sound.source != null){
-            sound.source.PlayOneShot(sound.source.clip, sound.source.volume);
+            if (!disableAudio)
+            {
+                sound.source.PlayOneShot(sound.source.clip, sound.source.volume);
+            }
         }
     }
 
@@ -68,7 +93,10 @@ public class SoundManager : MonoBehaviour
         SoundClass sound = Array.Find(sounds, sound => sound.name == name);
         if(sound.clip[index] != null){
             sound.source.clip = sound.clip[index];
-            sound.source.PlayOneShot(sound.source.clip, sound.source.volume);
+            if (!disableAudio)
+            {
+                sound.source.PlayOneShot(sound.source.clip, sound.source.volume);
+            }
         }
     }
 
