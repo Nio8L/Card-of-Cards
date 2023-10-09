@@ -240,6 +240,13 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         if (deck.combatManager.gamePhase == 1) return;
 
+        if (!deck.hasCaptain) 
+        {
+            card.captain = true;
+            deck.hasCaptain = true;
+        }
+        
+
         GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
         cardToCreate.transform.localScale = Vector3.one * 0.75f;

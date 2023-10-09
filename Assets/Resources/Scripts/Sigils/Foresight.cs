@@ -9,9 +9,11 @@ public class Foresight : Sigil
     public GameObject visualEffect;
     public override void PasiveEffect(CardInCombat card)
     {
+        int bonusDraw = 0;
+        if (card.card.captain) bonusDraw++;
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
         Instantiate(visualEffect, card.transform.position, Quaternion.identity);
-        if (card.playerCard)         card.deck.DrawCard(numberOfCardsToDraw);
-        else card.deck.combatManager.enemyDeck.DrawCard(numberOfCardsToDraw);
+        if (card.playerCard)         card.deck.DrawCard(numberOfCardsToDraw + bonusDraw);
+        else card.deck.combatManager.enemyDeck.DrawCard(numberOfCardsToDraw + bonusDraw);
     }
 }

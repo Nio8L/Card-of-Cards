@@ -328,7 +328,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         {
             if(node.roomType == MapNode.RoomType.Graveyard || node.roomType == MapNode.RoomType.RestSite){
                 if (parentNode.roomType == MapNode.RoomType.Graveyard || parentNode.roomType == MapNode.RoomType.RestSite){
-                    goto retry;
+                    //goto retry;
                 }
             }
 

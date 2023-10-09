@@ -6,11 +6,12 @@ using UnityEngine;
 public class Migrate : Sigil
 {
     CardInCombat cardToMove;
-
+    bool secondUse = false;
     public override void PasiveEffect(CardInCombat card)
     {
         canUseAbility = true;
         card.ShowSigilStar(this);
+        if (card.card.captain) secondUse = true;
     }
 
     public override bool ActiveSigilStart(CardInCombat card) 
@@ -53,7 +54,9 @@ public class Migrate : Sigil
             cardToMove.transform.position = slot.transform.position;
             cardToMove.benched = slot.bench;
 
-            canUseAbility = false;
+
+            if (!secondUse) canUseAbility = false;
+            else secondUse = false;
 
 
             cardToMove.ShowSigilStar(this);

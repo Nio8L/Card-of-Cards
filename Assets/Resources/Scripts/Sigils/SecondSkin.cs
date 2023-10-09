@@ -44,6 +44,7 @@ public class SecondSkin : Sigil
 
     void SpawnSkin(CardInCombat card) 
     {
+        if (card.card.captain) secondSkin.attack += 1;
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
         GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, card.deck.combatManager.playerCombatSlots[card.slot].transform.position, Quaternion.identity);
         cardToCreate.transform.SetParent(card.deck.CardsInCombatParent);

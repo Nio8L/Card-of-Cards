@@ -44,6 +44,12 @@ public class EnemyBase : ScriptableObject
     }
     public void PlayCard(Card card, int slotNumber, bool benched)
     {
+        if (!combatManager.enemyDeck.hasCaptain)
+        {
+            combatManager.enemyDeck.hasCaptain = true;
+            card.captain = true;
+        }
+
         GameObject cardToCreate;
         if (benched) cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyBenchSlots[slotNumber].transform.position, Quaternion.identity);
         else cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyCombatSlots[slotNumber].transform.position, Quaternion.identity);

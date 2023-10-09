@@ -11,6 +11,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public bool playerDeck = false;
 
     public int energy = 3;
+    public bool hasCaptain = false;
 
     public List<Card> cardsToBeAdded = new();
     public List<Card> cards = new();
@@ -476,14 +477,24 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         cardGameObject.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
 
+        if (card.captain)
+        {
+            cardGameObject.GetChild(13).gameObject.SetActive(true);
+        }
+        else
+        {
+            cardGameObject.GetChild(13).gameObject.SetActive(false);
+        }
+
         CardInCombat combatCard = cardGameObject.GetComponent<CardInCombat>();
         CardInHand handCard = cardGameObject.GetComponent<CardInHand>();
 
+
         if (combatCard != null)
         {
-            cardGameObject.GetChild(13).GetComponent<Image>().color = new Color(1, 1, 1, 0);
             cardGameObject.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, 0);
             cardGameObject.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            cardGameObject.GetChild(16).GetComponent<Image>().color = new Color(1, 1, 1, 0);
             for (int i = 0; i < card.sigils.Count; i++)
             {
                 combatCard.ShowSigilStar(card.sigils[i]);

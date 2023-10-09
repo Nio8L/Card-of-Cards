@@ -13,6 +13,8 @@ public class Card : ScriptableObject
     public Sprite image;
     [HideInInspector]
     public bool canRevive = true;
+    [HideInInspector]
+    public bool captain;
     public enum TypeOfDamage
     {
         Poison,
@@ -166,6 +168,7 @@ public class Card : ScriptableObject
             string oldSigilName = sigils[i].name;
             sigils[i] = Instantiate(sigils[i]);
             sigils[i].name = oldSigilName;
+            captain = false;
         }
         return this;
     }

@@ -7,8 +7,10 @@ public class Overwhelm : Sigil
 {
     public override void ApplyOnHitEffect(CardInCombat card)
     {
+        int bonusDamage = 0;
+        if (card.card.captain) bonusDamage = 1;
         BattleData battle = card.card.lastBattle;
-        int damage = Mathf.Abs(battle.enemyCard.health);
+        int damage = Mathf.Abs(battle.enemyCard.health) + bonusDamage;
         if (battle.enemyCardOldHp < card.card.attack)
         {
             card.deck.PlaySigilAnimation(card.transform, card.card, this);

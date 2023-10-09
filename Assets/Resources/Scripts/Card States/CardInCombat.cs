@@ -241,15 +241,15 @@ public class CardInCombat : MonoBehaviour
 
         if (card.sigils[0] == sigil)
         {
-            transform.GetChild(13 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            transform.GetChild(14 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
         }
         else if (card.sigils[1] == sigil)
         {
-            transform.GetChild(14 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            transform.GetChild(15 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
         }
         else
         {
-            transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            transform.GetChild(16).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
         }
     }
     public void SetActiveSigilStar(Sigil sigil)
@@ -262,15 +262,15 @@ public class CardInCombat : MonoBehaviour
 
         if (card.sigils[0] == sigil)
         {
-            transform.GetChild(13 + index).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(14 + index).GetComponent<Image>().sprite = spriteToUse;
         }
         else if (card.sigils[1] == sigil)
         {
-            transform.GetChild(14 + index).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(15 + index).GetComponent<Image>().sprite = spriteToUse;
         }
         else
         {
-            transform.GetChild(15).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(16).GetComponent<Image>().sprite = spriteToUse;
         }
     }
     public void RemoveCardFromCardCollections() 
