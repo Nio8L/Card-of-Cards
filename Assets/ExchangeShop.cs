@@ -12,13 +12,14 @@ public class ExchangeShop : MonoBehaviour
     {
         if (!MapManager.mapManager.deckDisplay.deckDisplay.activeSelf)
         {
+            MapManager.mapManager.deckDisplay.deckDisplay.GetComponent<RectTransform>().localPosition = new Vector3(450, 0, 0);
             MapManager.mapManager.deckDisplay.ShowDeck();
         }
 
         for (int i = 0; i < 3; i++)
         {
             Card card = PickCard(i);
-            CardDisplay cardDisplay = transform.GetChild(1 + i).GetComponent<CardDisplay>();
+            CardDisplay cardDisplay = transform.GetChild(1).GetChild(i).GetComponent<CardDisplay>();
             cardDisplay.card = card;
             cardDisplay.UpdateCardAppearance();
         }
