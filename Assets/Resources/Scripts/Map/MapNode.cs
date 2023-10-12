@@ -10,6 +10,7 @@ public class MapNode : MonoBehaviour
         Hunt,
         RestSite,
         Graveyard,
+        Event,
         Hunter,
         emptyRoom
     };

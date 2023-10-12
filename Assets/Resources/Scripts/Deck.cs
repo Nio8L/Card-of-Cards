@@ -11,7 +11,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public bool playerDeck = false;
 
     public int energy = 3;
-    public bool hasCaptain = false;
+    public bool hasCaptain = true;
 
     public List<Card> cardsToBeAdded = new();
     public List<Card> cards = new();

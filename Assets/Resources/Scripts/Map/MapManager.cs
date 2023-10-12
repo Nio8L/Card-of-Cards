@@ -38,8 +38,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     private EnemyAI lastEnemyAI;
 
-    static GameObject threeChoice;
+    public GameObject threeChoice;
     static Transform eventCanvas;
+
+    public GameObject[] events;
     private void Awake()
     {
         mapManager = this;
@@ -245,18 +247,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.RestSite)
             {
-                if (mapDeck.playerHealth < 15)
-                {
-                    mapDeck.playerHealth += 5;
-                }
-                else
-                {
-                    mapDeck.playerHealth = 20;
-                }
+                if (mapDeck.playerHealth < 15) mapDeck.playerHealth += 5;
+                else mapDeck.playerHealth = 20;
+
                 mapDeck.UpdateHPText();
                 DataPersistenceManager.DataManager.currentCombatAI = null;
-                GameObject eventUI = Instantiate(threeChoice, eventCanvas);
-                eventUI.name = threeChoice.name;
+                GameObject eventUI = Instantiate(mapManager.threeChoice, eventCanvas);
+                eventUI.name = mapManager.threeChoice.name;
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {
@@ -284,12 +281,20 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
+            else if (currentNode.roomType == MapNode.RoomType.Event)
+            {
+                GameObject eventObject = mapManager.events[Random.Range(0, mapManager.events.Length)];
+                GameObject eventUI = Instantiate(eventObject, eventCanvas);
+                eventUI.name = eventObject.name;
+                
+            }
             //new curent node
         }
     }
 
     List<MapNode> GenerateRoom(MapNode node) 
     {
+        Debug.Log(node.roomType.ToString());
         if(node.roomType != MapNode.RoomType.emptyRoom)return node.children;
 
         MapNode.RoomType room = MapNode.RoomType.emptyRoom;
@@ -297,8 +302,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     retry:;
         int randomValue = Random.Range(0, 101);
-
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (randomValue <= chaceForRooms[i]) 
             {
@@ -328,11 +332,16 @@ public class MapManager : MonoBehaviour, IDataPersistence
         {
             if(node.roomType == MapNode.RoomType.Graveyard || node.roomType == MapNode.RoomType.RestSite){
                 if (parentNode.roomType == MapNode.RoomType.Graveyard || parentNode.roomType == MapNode.RoomType.RestSite){
-                    //goto retry;
+                    goto retry;
                 }
             }
 
             if(node.roomType == MapNode.RoomType.Combat && parentNode.roomType == MapNode.RoomType.Combat){
+                goto retry;
+            }
+
+            if(node.roomType == MapNode.RoomType.Event && parentNode.roomType == MapNode.RoomType.Event)
+            {
                 goto retry;
             }
         }

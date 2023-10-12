@@ -202,10 +202,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parents: []
   children: []
-  roomType: 5
+  roomType: 6
   lines: []
   used: 0
   indicator: {fileID: 1464998205659586195}
+  isCurrentNode: 0
 --- !u!114 &-2930835977681632172
 MonoBehaviour:
   m_ObjectHideFlags: 0
