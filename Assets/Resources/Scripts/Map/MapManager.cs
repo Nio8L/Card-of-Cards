@@ -47,7 +47,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
         mapManager = this;
         //DontDestroyOnLoad(gameObject);
     }
-
     // Start is called before the first frame update
     void Start()
     {
