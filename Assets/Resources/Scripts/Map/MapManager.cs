@@ -52,13 +52,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         eventCanvas = GameObject.Find("EventCanvas").transform;
-        threeChoice = Resources.Load<GameObject>("Prefabs/ThreeCardChoice");
+        threeChoice = Resources.Load<GameObject>("Prefabs/Events/ThreeCardChoice");
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
         hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
-
 
         if(shouldGenerate){
             Generate(0, Layer.ConectionType.None);
