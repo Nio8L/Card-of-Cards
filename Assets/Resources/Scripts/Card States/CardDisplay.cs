@@ -158,8 +158,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 if (MapManager.currentNode.roomType == MapNode.RoomType.RestSite && !MapManager.currentNode.used)
                 {
-                    MapManager.mapDeck.cards.Add(card);
-                    Destroy(GameObject.Find("ThreeCardChoice"));
+                    GameObject.Find("RestSiteMenu").GetComponent<Restsite>().TryToPick(this);
                 }
             }
         }

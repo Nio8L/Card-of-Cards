@@ -42,6 +42,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
     static Transform eventCanvas;
 
     public GameObject[] events;
+
+    public static Restsite restSiteMenu;
+
     private void Awake()
     {
         mapManager = this;
@@ -58,8 +61,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
         hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
+        restSiteMenu = GameObject.Find("RestSiteMenu").GetComponent<Restsite>();
 
-        if(shouldGenerate){
+        if (shouldGenerate){
             Generate(0, Layer.ConectionType.None);
         
             while (nodesWithoutRoom.Count != 0) 
@@ -245,13 +249,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.RestSite)
             {
-                if (mapDeck.playerHealth < 15) mapDeck.playerHealth += 5;
-                else mapDeck.playerHealth = 20;
-
-                mapDeck.UpdateHPText();
-                DataPersistenceManager.DataManager.currentCombatAI = null;
-                GameObject eventUI = Instantiate(mapManager.threeChoice, eventCanvas);
-                eventUI.name = mapManager.threeChoice.name;
+                restSiteMenu.StartMenu();
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {
