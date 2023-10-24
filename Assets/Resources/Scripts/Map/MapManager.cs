@@ -63,7 +63,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
         restSiteMenu = GameObject.Find("RestSiteMenu").GetComponent<Restsite>();
 
-        if (shouldGenerate){
+        if(shouldGenerate)
+		{
             Generate(0, Layer.ConectionType.None);
         
             while (nodesWithoutRoom.Count != 0) 
