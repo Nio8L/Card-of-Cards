@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Restsite : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Restsite : MonoBehaviour
     public GameObject firstMenu;
     public GameObject huntMenu;
     public GameObject background;
+    EnemyAI chosenAI;
 
     DeckDisplay deckDisplay;
     CardDisplay[] cardsPicked = new CardDisplay[3];
@@ -23,8 +25,9 @@ public class Restsite : MonoBehaviour
         }
     }
 
-    public void StartMenu() 
+    public void StartMenu(EnemyAI ai) 
     {
+        chosenAI = ai;
         background.SetActive(true);
         firstMenu.SetActive(true);
     }
@@ -32,6 +35,9 @@ public class Restsite : MonoBehaviour
     public void StartHunt() 
     {
         //nz kvo trqbva da ima tuka
+        DataPersistenceManager.DataManager.currentCombatAI = chosenAI;
+        MapManager.mapManager.lastEnemyAI = chosenAI;
+        SceneManager.LoadSceneAsync("SampleScene");
     }
 
     public void Heal()

@@ -288,7 +288,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                     continue;
                 }
                 
-                //Tilt cards so they form //|\\
+                //Tilt cards so they form //|\\    .|.
                 cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
                 targetCard.tiltAngle = (cardsInHand.Count / 2 - i) * 10;
                 targetCard.UpdateTilt();

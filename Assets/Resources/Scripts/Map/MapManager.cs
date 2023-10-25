@@ -36,7 +36,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     private bool shouldGenerate = true;
 
-    private EnemyAI lastEnemyAI;
+    public EnemyAI lastEnemyAI;
 
     public GameObject threeChoice;
     static Transform eventCanvas;
@@ -250,7 +250,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.RestSite)
             {
-                restSiteMenu.StartMenu();
+                retry:;
+                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
+                if (ai == mapManager.lastEnemyAI)
+                {
+                    goto retry;
+                }
+                restSiteMenu.StartMenu(ai);
             }
             else if (currentNode.roomType == MapNode.RoomType.Graveyard)
             {
@@ -263,14 +269,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunt)
             {
-                retry:;
-                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
-                if(ai == mapManager.lastEnemyAI){
-                    goto retry;
-                }
-                DataPersistenceManager.DataManager.currentCombatAI = ai;
-                mapManager.lastEnemyAI = ai;
-                SceneManager.LoadSceneAsync("SampleScene");
             }
             else if (currentNode.roomType == MapNode.RoomType.Hunter)
             {
