@@ -42,10 +42,10 @@ public class Restsite : MonoBehaviour
 
     public void Heal()
     {
-        if (MapManager.mapDeck.playerHealth < 20 - healValue) MapManager.mapDeck.playerHealth += healValue;
-        else MapManager.mapDeck.playerHealth = 20;
+        if (MapManager.mapManager.mapDeck.playerHealth < 20 - healValue) MapManager.mapManager.mapDeck.playerHealth += healValue;
+        else MapManager.mapManager.mapDeck.playerHealth = 20;
 
-        MapManager.mapDeck.UpdateHPText();
+        MapManager.mapManager.mapDeck.UpdateHPText();
         DataPersistenceManager.DataManager.currentCombatAI = null;
         firstMenu.SetActive(false);
     }

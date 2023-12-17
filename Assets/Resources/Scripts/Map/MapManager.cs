@@ -36,7 +36,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     private bool shouldGenerate = true;
 
-    private EnemyAI lastEnemyAI;
+    public EnemyAI lastEnemyAI;
 
     public GameObject threeChoice;
     static Transform eventCanvas;
@@ -55,7 +55,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         eventCanvas = GameObject.Find("EventCanvas").transform;
-        threeChoice = Resources.Load<GameObject>("Prefabs/ThreeCardChoice");
+        threeChoice = Resources.Load<GameObject>("Prefabs/Events/ThreeCardChoice");
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");

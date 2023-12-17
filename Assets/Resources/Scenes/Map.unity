@@ -4420,13 +4420,16 @@ MonoBehaviour:
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
   numOfLayers: 7
   isGenerating: 1
-  chaceForRooms: 0000000000000000000000000000000064000000
+  chaceForRooms: 1400000014000000140000001400000014000000
   nodesAvaliable: []
   lastLayer: {fileID: 0}
+  mapDeck: {fileID: 0}
   deckDisplay: {fileID: 0}
+  lastEnemyAI: {fileID: 0}
   threeChoice: {fileID: 4567353456648998494, guid: 3c5dbf4914c8bd341beb8bd72c8d4869, type: 3}
   events:
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
+  currentEvent: {fileID: 0}
 --- !u!4 &1377556452
 Transform:
   m_ObjectHideFlags: 0
