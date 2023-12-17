@@ -117,7 +117,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if (MapManager.currentNode != null){
                 if (MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used){
                     if (card.name != "LostSoul"){
-                        if (card.injuries.Count > 0 || !MapManager.mapDeck.HasInjuredCards())
+                        if (card.injuries.Count > 0 || !MapManager.mapManager.mapDeck.HasInjuredCards())
                         {
                             card.AcceptLostSoul();
                             SoundManager.soundManager.Play("LostSoul");
@@ -158,8 +158,30 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 if (MapManager.currentNode.roomType == MapNode.RoomType.RestSite && !MapManager.currentNode.used)
                 {
-                    MapManager.mapDeck.cards.Add(card);
+                    MapManager.mapManager.mapDeck.cards.Add(card);
                     Destroy(GameObject.Find("ThreeCardChoice"));
+                }
+            }
+        }
+    }
+
+    public void SelectCardForSacrifice(){
+        if(SceneManager.GetActiveScene().name == "Map"){
+            if(MapManager.currentNode != null){
+                if(MapManager.currentNode.roomType == MapNode.RoomType.Event && MapManager.mapManager.currentEvent.name == "Exchange"){
+                    //Check if this card display is displaying an offered card    
+                    if(gameObject.GetComponent<CardOffered>() != null){
+                        //Add it to the deck
+                        MapManager.mapManager.mapDeck.AddCard(card);
+                        MapManager.mapManager.deckDisplay.UpdateDisplay();
+                        Destroy(gameObject);
+                    
+                    //Check if this card display is displaying a selected card
+                    }else if(gameObject.GetComponent<CardSelected>() == null){
+                        //Place the card on the first available sacrificial spot
+                        MapManager.mapManager.currentEvent.GetComponent<ExchangeShop>().cardSlotHandler.AddCardOnAvailableSlot(card);
+
+                    }
                 }
             }
         }
@@ -174,6 +196,10 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        transform.localScale = Vector3.one;
+    }
+
+    private void OnDisable() {
         transform.localScale = Vector3.one;
     }
 }

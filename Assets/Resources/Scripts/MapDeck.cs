@@ -22,7 +22,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
                 cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
                 DataPersistenceManager.DataManager.playerDeck.Clear();
                 AddCard(cardsToBeAdded.Count);
-                Debug.Log("Added deck");
+                //Debug.Log("Added deck");
             }
     }
 
@@ -111,11 +111,12 @@ public class MapDeck : MonoBehaviour, IDataPersistence
     }
 
     public void AddCard(Card card){
+        if(card == null) return;
+        
         Card newCard = Instantiate(card).ResetCard();
         newCard.name = card.name;
         
         cards.Add(newCard);
-
     }
 
     public void AddCard(int numOfCards)
@@ -125,6 +126,10 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             AddCard(cardsToBeAdded[0]);
             cardsToBeAdded.RemoveAt(0);
         }
+    }
+
+    public void RemoveCard(Card card){
+        cards.Remove(card);
     }
 
     public List<Card> CopyCardList(List<Card> listToCopy) 

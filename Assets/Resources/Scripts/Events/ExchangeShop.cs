@@ -5,9 +5,13 @@ using UnityEngine;
 public class ExchangeShop : MonoBehaviour
 {
     public int tokens;
+    
     public Card[] price1Choices;
     public Card[] price2Choices;
     public Card[] price3Choices;
+
+    public EventCardSlotHandler cardSlotHandler;
+
     void Start()
     {
         if (!MapManager.mapManager.deckDisplay.deckDisplay.activeSelf)

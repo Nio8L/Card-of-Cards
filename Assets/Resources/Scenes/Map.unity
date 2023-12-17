@@ -3859,7 +3859,7 @@ MonoBehaviour:
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
   numOfLayers: 7
   isGenerating: 1
-  chaceForRooms: 23000000140000000f0000000f0000000f000000
+  chaceForRooms: 0000000000000000000000000000000064000000
   nodesAvaliable: []
   lastLayer: {fileID: 0}
   deckDisplay: {fileID: 0}

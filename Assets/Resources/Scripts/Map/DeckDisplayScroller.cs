@@ -25,10 +25,10 @@ public class DeckDisplayScroller : MonoBehaviour
            }
         }
         if(rectTransform.localPosition.y > deckDisplay.cardDisplays.Count / 15 * 770){
-            rectTransform.localPosition = new Vector3(0, deckDisplay.cardDisplays.Count / 15 * 760, 0);
+            rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, deckDisplay.cardDisplays.Count / 15 * 760, 0);
         }
         if(rectTransform.localPosition.y < 0){
-            rectTransform.localPosition = Vector3.zero;
+            rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, 0, 0);
         }
     }
 

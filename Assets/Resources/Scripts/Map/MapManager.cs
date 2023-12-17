@@ -30,7 +30,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     static EnemyAI[] huntEnemyAIs;
     static EnemyAI[] hunterEnemyAIs;
 
-    public static MapDeck mapDeck;
+    public MapDeck mapDeck;
 
     public DeckDisplay deckDisplay;
 
@@ -42,6 +42,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     static Transform eventCanvas;
 
     public GameObject[] events;
+    public GameObject currentEvent;
+
     private void Awake()
     {
         mapManager = this;
@@ -247,10 +249,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (currentNode.roomType == MapNode.RoomType.RestSite)
             {
-                if (mapDeck.playerHealth < 15) mapDeck.playerHealth += 5;
-                else mapDeck.playerHealth = 20;
+                if (mapManager.mapDeck.playerHealth < 15) mapManager.mapDeck.playerHealth += 5;
+                else mapManager.mapDeck.playerHealth = 20;
 
-                mapDeck.UpdateHPText();
+                mapManager.mapDeck.UpdateHPText();
                 DataPersistenceManager.DataManager.currentCombatAI = null;
                 GameObject eventUI = Instantiate(mapManager.threeChoice, eventCanvas);
                 eventUI.name = mapManager.threeChoice.name;
@@ -287,6 +289,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 GameObject eventUI = Instantiate(eventObject, eventCanvas);
                 eventUI.name = eventObject.name;
                 
+                mapManager.currentEvent = eventUI;
+                
             }
             //new curent node
         }
@@ -294,7 +298,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     List<MapNode> GenerateRoom(MapNode node) 
     {
-        Debug.Log(node.roomType.ToString());
+        //Debug.Log(node.roomType.ToString());
         if(node.roomType != MapNode.RoomType.emptyRoom)return node.children;
 
         MapNode.RoomType room = MapNode.RoomType.emptyRoom;
