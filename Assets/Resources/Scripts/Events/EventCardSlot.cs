@@ -18,30 +18,41 @@ public class EventCardSlot : MonoBehaviour
         cardSelected.eventCardSlot = this;
     }
 
-    public void AddCard(Card cardToAdd){
-        card = Instantiate(cardToAdd).ResetCard();
-        card.name = cardToAdd.name;
+    //Adds a card to the slot without requiering a deck
+    public void PlaceCard(Card cardToPlace){
+        card = Instantiate(cardToPlace).ResetCard();
+        card.name = cardToPlace.name;
 
-        cardDisplay.card = card;
+        cardDisplay.card= card;
         cardDisplay.UpdateCardAppearance();
         cardDisplay.gameObject.SetActive(true);
 
         image.enabled = false;
+    }
+
+    //Takes a card from the deck and adds it to the slot
+    public void AddCard(Card cardToAdd){
+        PlaceCard(cardToAdd);
 
         MapManager.mapManager.mapDeck.RemoveCard(cardToAdd);
 
         MapManager.mapManager.deckDisplay.UpdateDisplay(); 
     }
 
-    public void RemoveCard(){
-
-        MapManager.mapManager.mapDeck.AddCard(card);
-        MapManager.mapManager.deckDisplay.UpdateDisplay(); 
-        
+    //Removes the card from the slot
+    public void DropCard(){
         card = null;
         image.enabled = true;
 
         cardDisplay.gameObject.SetActive(false);
+    }
+
+    //Removes the card from the slot and returns it to the deck
+    public void RemoveCard(){
+        MapManager.mapManager.mapDeck.AddCard(card);
+        MapManager.mapManager.deckDisplay.UpdateDisplay(); 
+        
+        DropCard();
     }
 
     public void UpdateCardAppearance(){
