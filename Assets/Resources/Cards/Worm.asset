@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Bat
+  m_Name: Worm
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  health: 1
+  maxHealth: 2
+  health: 0
   attack: 2
-  cost: 1
-  image: {fileID: 21300000, guid: 68d8ce4e4e6d8864cb138166e2a90e84, type: 3}
+  cost: 2
+  image: {fileID: 21300000, guid: 5e0a1400efae0be43a14ec7d503bc347, type: 3}
   canRevive: 1
   captain: 0
   typeOfDamage: 0
   sigils:
-  - {fileID: 11400000, guid: 5ea4fec66d7a4d3458a82d34a40b5a41, type: 2}
+  - {fileID: 11400000, guid: cecaae0f729509045869fd663fb95159, type: 2}
   injuries: 

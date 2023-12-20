@@ -32,17 +32,17 @@ public class Sigil : ScriptableObject
 
     public virtual void OnSummonEffects(CardInCombat card) 
     {
-        //maj efecto trebe da e tuka
+        //effect should be here
     }
 
     public virtual void OnDeadEffects(CardInCombat card) 
     {
-        //pisna mi da addvam random effect types
+        //effect should be here
     }
 
     public virtual bool ActiveSigilStart(CardInCombat card) 
     {
-        return false;//returns true if it hs a second stage
+        return false;//returns true if it has a second stage
     }
 
     public virtual bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager)
@@ -52,6 +52,6 @@ public class Sigil : ScriptableObject
 
     public virtual void OnBattleStartEffects(CardInCombat card)
     {
-        //Tyjno marti trqbvat ni
+        //effect should be here
     }
 }
