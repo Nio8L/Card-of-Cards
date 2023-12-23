@@ -93,13 +93,17 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
+                        else if(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
+                            deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>().AcceptCard(card);
+                            ConsumeCard();
+                            //Debug.Log(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on bench slot");
+                        }
                         else if (deck.combatManager.playerCombatCards[cardSlot.slot] == null)
                         {
                             deck.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench();
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
-
                     }
                     // Trying to play a card in a combat slot
                     else if (!cardSlot.bench)
@@ -109,6 +113,13 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
+                        
+                        else if(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
+                            deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>().AcceptCard(card);
+                            ConsumeCard();
+                            //Debug.Log(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on combat slot");
+                        }
+
                         else if (deck.combatManager.playerBenchCards[cardSlot.slot] == null)
                         {
                             deck.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench();
@@ -271,6 +282,14 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         
 
         //maha go ot deck.cardsInHand
+        deck.cardsInHand.Remove(gameObject);
+        deck.cardsInHandAsCards.Remove(card);
+        Destroy(gameObject);
+    }
+
+    public void ConsumeCard(){
+        deck.energy -= card.cost;
+
         deck.cardsInHand.Remove(gameObject);
         deck.cardsInHandAsCards.Remove(card);
         Destroy(gameObject);

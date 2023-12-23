@@ -991,6 +991,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
   cardSlotHandler: {fileID: 6622317417644036955}
   SelectedCardBorder: {fileID: 7784607284523609076}
   selectedCard: {fileID: 0}

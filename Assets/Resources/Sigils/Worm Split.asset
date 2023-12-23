@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a392eda180af4085aead6dc8699ba, type: 3}
+  m_Name: Worm Split
+  m_EditorClassIdentifier: 
+  sigilName: Split
+  negative: 0
+  image: {fileID: 21300000, guid: cd847440ee3b2fe40bb89eed37e9820d, type: 3}
+  description: Split into 2 weaker cards.
+  canUseAbility: 0
+  splittedCard: {fileID: 11400000, guid: fba7ad5eef31a4b438b28c126bbf023e, type: 2}
+  coppiesToAdd: 2

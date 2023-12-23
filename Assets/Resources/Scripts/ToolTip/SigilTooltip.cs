@@ -35,7 +35,7 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if(index < cardInHand.card.sigils.Count){
                 if(cardInHand.card.sigils.Count == 1){
                     tooltipTrigger.content = cardInHand.card.sigils[index].description;
-                    tooltipTrigger.header = cardInHand.card.sigils[index].name;
+                    tooltipTrigger.header = cardInHand.card.sigils[index].sigilName;
                 }else if(cardInHand.card.sigils.Count == 3){
                     tooltipTrigger.content = cardInHand.card.sigils[index].description;
                     tooltipTrigger.header = cardInHand.card.sigils[index].name;

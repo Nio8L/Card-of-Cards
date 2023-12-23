@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: WeakWorm
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
   health: 0
   attack: 1
   cost: 1
-  image: {fileID: 21300000, guid: 3c87739999038a14ebd3388978e7e528, type: 3}
+  image: {fileID: 21300000, guid: b45445ca5c3a82741b40eef366e287f2, type: 3}
   canRevive: 1
   captain: 0
   typeOfDamage: 0
   sigils:
   - {fileID: 11400000, guid: 7601caa93dc6b0e4f884d277ee6d2fd3, type: 2}
+  - {fileID: 11400000, guid: 49d55f6671ada0c45b97258356482ae4, type: 2}
   injuries: 

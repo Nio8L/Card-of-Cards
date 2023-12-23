@@ -18,7 +18,7 @@ public class Split : Sigil
             card.deck.drawPile.Add(cardToAdd);
         }
 
-        //card.deck.DrawCard(coppiesToAdd);
+        card.deck.DrawCard(coppiesToAdd);
     }
 
 }

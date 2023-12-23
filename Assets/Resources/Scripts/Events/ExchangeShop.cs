@@ -23,6 +23,7 @@ public class ExchangeShop : MonoBehaviour
         {
             MapManager.mapManager.deckDisplay.deckDisplay.GetComponent<RectTransform>().localPosition = new Vector3(450, 0, 0);
             MapManager.mapManager.deckDisplay.ShowDeck();
+            MapManager.mapManager.deckDisplay.canClose = false;
         }
 
         for (int i = 0; i < 3; i++)
@@ -113,8 +114,14 @@ public class ExchangeShop : MonoBehaviour
 
     //Should be moved to the MapManager so it can work for all events
     public void LeaveEvent(){
+        for(int i = 0; i < cardSlotHandler.allCardSlots.Length; i++){
+            cardSlotHandler.allCardSlots[i].RemoveCard();
+        }
+        
         MapManager.mapManager.currentEvent = null;
+        MapManager.mapManager.deckDisplay.canClose = true;
         MapManager.mapManager.deckDisplay.ShowDeck();
+        
         Destroy(gameObject);
     }
 }
