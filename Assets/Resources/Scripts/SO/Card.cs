@@ -134,6 +134,11 @@ public class Card : ScriptableObject
     {
         foreach (Sigil sigil in sigils) sigil.OnDeadEffects(card);
     }  
+
+    public void ActivateOnConsumeEffects(CardInCombat card, Card consumedCard){
+        foreach (Sigil sigil in sigils) sigil.OnConsumeEffects(card, consumedCard);
+    }
+
     public void ActivateActiveEffects(CardInCombat card)
     {
         foreach (Sigil sigil in sigils) { sigil.OnDeadEffects(card); break; }

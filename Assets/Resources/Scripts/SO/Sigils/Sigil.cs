@@ -40,6 +40,10 @@ public class Sigil : ScriptableObject
         //effect should be here
     }
 
+    public virtual void OnConsumeEffects(CardInCombat card, Card consumedCard){
+        //effect should be here
+    }
+
     public virtual bool ActiveSigilStart(CardInCombat card) 
     {
         return false;//returns true if it has a second stage

@@ -97,6 +97,7 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        UpdateSigilTooltip();
         TooltipSystem.tooltipSystem.hoveredIsSigil = true;
         TooltipSystem.tooltipSystem.hoveredSigil = this;
     }

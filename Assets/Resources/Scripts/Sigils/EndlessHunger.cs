@@ -3,24 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/Endless Hunger")]
-public class EndlessHunger : Sigil
+[CreateAssetMenu(menuName = "Sigil/Consuming Sigil/Endless Hunger")]
+public class EndlessHunger : ConsumingSigil
 {
-    CardInCombat cardInCombat;
-
     public int healthToHeal;
 
-    public override void OnSummonEffects(CardInCombat card)
+    public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
     {
-        CardAcceptor cardAcceptor = card.gameObject.AddComponent<CardAcceptor>();
-        cardAcceptor.sigil = this;
+        card.card.health += healthToHeal;
 
-        cardInCombat = card;
-    }
+        card.deck.UpdateCardAppearance(card.gameObject.transform, card.card);
 
-    public void Feed(Card card){ 
-        cardInCombat.card.health += healthToHeal;
-        
-        cardInCombat.deck.UpdateCardAppearance(cardInCombat.gameObject.transform, cardInCombat.card);
+        cardAcceptor.AcceptCard(consumedCard);
     }
 }

@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e609d3f34f43a54f896de3636b465d5, type: 3}
-  m_Name: Endless Hunger
+  m_Script: {fileID: 11500000, guid: 44a56dd0b3fce5a4c93fa1fd51be74ca, type: 3}
+  m_Name: Explode
   m_EditorClassIdentifier: 
-  sigilName: Endless Hunger
+  sigilName: Explode
   negative: 0
-  image: {fileID: 21300000, guid: f12e8f19df4fa4a41b0781969d083839, type: 3}
-  description: Feed this card other cards to regenerate 1 heath.
+  image: {fileID: 21300000, guid: 3c6778cd9ab194e488717fc9580b97fd, type: 3}
+  description: Upon death deal 0 damage. Increase this damage by feeding cards.
   canUseAbility: 0
   cardAcceptor: {fileID: 0}
-  healthToHeal: 1
+  damageIncrement: 1
+  damageToDeal: 0

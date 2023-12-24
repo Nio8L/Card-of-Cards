@@ -94,7 +94,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                             SoundManager.soundManager.Play("CardPlaced");
                         }
                         else if(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
-                            deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>().AcceptCard(card);
+                            CardInCombat consumingCard = deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>();
+                            consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
                             ConsumeCard();
                             //Debug.Log(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on bench slot");
                         }
@@ -115,7 +116,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                         }
                         
                         else if(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
-                            deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>().AcceptCard(card);
+                            CardInCombat consumingCard = deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>();
+                            consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
                             ConsumeCard();
                             //Debug.Log(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on combat slot");
                         }
