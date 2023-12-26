@@ -188,7 +188,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                 combatManager.enemy = DataPersistenceManager.DataManager.currentCombatAI;
             }
             combatManager.enemy.Initialize();
-            combatManager.updateHPText();
+            combatManager.UpdateHPText();
         }
         Shuffle();
         DrawCard(5);

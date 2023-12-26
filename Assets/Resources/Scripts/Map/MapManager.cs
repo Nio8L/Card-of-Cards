@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MapManager : MonoBehaviour, IDataPersistence
 {
@@ -65,7 +66,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         if(shouldGenerate){
             Generate(0, Layer.ConectionType.None);
-        
+            Camera.main.GetComponent<MapScroller>().FirstLoadAnimation();
+
             while (nodesWithoutRoom.Count != 0) 
             {
                 MapNode curNode = nodesWithoutRoom[nodesWithoutRoom.Count - 1];

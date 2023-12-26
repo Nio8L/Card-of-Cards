@@ -16,17 +16,16 @@ public class CardInCombat : MonoBehaviour
     [HideInInspector]
     public bool passivesTurnedOnThisTurn = false;
     [HideInInspector]
-    public bool PerformeAtackAnimation = true;
+    public bool PerformAtackAnimation = true;
 
     public bool canBeBenched = true;
     public bool playerCard = true;
     public int slot = 0;
-    public bool moved;
     public int direction = 1;
 
     Vector3 startPosition;
     Vector3 endPosition;
-    float curentAnimationTime = -0.5f;
+    float currentAnimationTime = -0.5f;
     float maxAnimationTime;
 
     float delayAfterRightClick = 0f;
@@ -64,25 +63,25 @@ public class CardInCombat : MonoBehaviour
         }
 
 
-        if (returnMovement && curentAnimationTime > -0.5f)
+        if (returnMovement && currentAnimationTime > -0.5f)
         {
-            curentAnimationTime -= Time.deltaTime;
-            transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(curentAnimationTime) * 2);
+            currentAnimationTime -= Time.deltaTime;
+            transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(currentAnimationTime) * 2);
 
-            if (curentAnimationTime < 0f && !updatedAfterReturnAnimation)
+            if (currentAnimationTime < 0f && !updatedAfterReturnAnimation)
             {
                 deck.UpdateCardAppearance(transform, card);
                 updatedAfterReturnAnimation = true;
             }
         }
-        else if (returnMovement && curentAnimationTime <= -0.5 && updatedAfterReturnAnimation) 
+        else if (returnMovement && currentAnimationTime <= -0.5 && updatedAfterReturnAnimation) 
         {
             updatedAfterReturnAnimation = false;
         }
-        else if (!returnMovement && curentAnimationTime > 0f)
+        else if (!returnMovement && currentAnimationTime > 0f)
         {
-            curentAnimationTime -= Time.deltaTime;
-            transform.position = Vector3.Lerp(endPosition, startPosition, curentAnimationTime * (1 / maxAnimationTime));
+            currentAnimationTime -= Time.deltaTime;
+            transform.position = Vector3.Lerp(endPosition, startPosition, currentAnimationTime * (1 / maxAnimationTime));
         }
         else if (card.health <= 0)
         {
@@ -158,36 +157,27 @@ public class CardInCombat : MonoBehaviour
     {
         if (benched) 
         {
-            MoveAnimationStarter(0.5f, deck.combatManager.playerBenchSlots[slot].transform.position);
+            MoveAnimationStarter(0.5f, deck.combatManager.playerBenchSlots[slot].transform.position, false);
             return;
         }
-        MoveAnimationStarter(0.5f, deck.combatManager.playerCombatSlots[slot].transform.position);
+        MoveAnimationStarter(0.5f, deck.combatManager.playerCombatSlots[slot].transform.position, false);
     }
     public void PutOnOrOffTheBenchEnemyCards()
     {
         if (benched)
         {
-            MoveAnimationStarter(0.5f, deck.combatManager.enemyBenchSlots[slot].transform.position);
+            MoveAnimationStarter(0.5f, deck.combatManager.enemyBenchSlots[slot].transform.position, false);
             return;
         }
-        MoveAnimationStarter(0.5f, deck.combatManager.enemyCombatSlots[slot].transform.position);
+        MoveAnimationStarter(0.5f, deck.combatManager.enemyCombatSlots[slot].transform.position, false);
     }
-    public void PerformShortAttackAnimation()
-    {
-        if (card.attack == 0) return;
-        maxAnimationTime = 0.5f;
-        curentAnimationTime = maxAnimationTime + 0.25f * slot;
-        endPosition = new Vector3(transform.position.x, 1f, 0f);
-        startPosition = transform.position;
-        returnMovement = true;
-    }
-    public void MoveAnimationStarter(float time, Vector3 end)
+    public void MoveAnimationStarter(float time, Vector3 end, bool returnMove)
     {
         maxAnimationTime = time;
-        curentAnimationTime = time;
+        currentAnimationTime = time;
         endPosition = end;
         startPosition = transform.position;
-        returnMovement = false;
+        returnMovement = returnMove;
     }
     public void OnDeath()
     {

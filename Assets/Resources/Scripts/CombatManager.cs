@@ -4,10 +4,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 
 public class CombatManager : MonoBehaviour, IDataPersistence
 {
+    public static CombatManager combatManager;
+
     public bool inCombat;
 
     public EnemyBase enemy;
@@ -63,6 +66,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public int playerCardsLost = 0;
     public int round = 1;
+
+    void Awake(){
+        combatManager = this;
+    }
     private void Start()
     {
         Time.timeScale = 0;
@@ -158,8 +165,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             cameraZoomTimer = -100;
         }
     }
+  
+  
     #region Game Phases
-    //--------------------------------//
     public void StartEnemyTurn()
     {
         if (gamePhase > 0) return;
@@ -176,22 +184,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         startCombatPhase = true;
         timerAfterEnemyTurn = resetTimerAfterEnemyTurnTo;
     }
-
-    void BenchMovement()
-    {
-        //FindCardsToSwap(playerCards);
-        //FindCardsToSwap(enemyCards);
-
-        ResetMovedCards();
-    }
-    void ResetMovedCards() 
-    {
-        foreach (CardInCombat card in playerBenchCards) if (card != null)card.moved = false;
-        foreach (CardInCombat card in playerCombatCards) if (card != null) card.moved = false;
-        foreach (CardInCombat card in enemyBenchCards) if (card != null) card.moved = false;
-        foreach (CardInCombat card in enemyCombatCards) if (card != null) card.moved = false;
-    }
-
     void StartCombatPhase()
     {
         //Debug.Log("Start combat");
@@ -207,7 +199,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         SoundManager.soundManager.Play("CardCombat");
         for (int i = 0; i < 3; i++)
         {
-            if (playerCombatCards[i] != null && enemyCombatCards[i] != null) Skirmish(playerCombatCards[i], enemyCombatCards[i]);
+            if (playerCombatCards[i] != null && enemyCombatCards[i] != null) CardCombat2Attackers(playerCombatCards[i], enemyCombatCards[i]);
             else if (playerCombatCards[i] != null) DirectHit(playerCombatCards[i]);
             else if (enemyCombatCards[i] != null) DirectHit(enemyCombatCards[i]);
         }
@@ -228,10 +220,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         if (enemy.huntAI && round == enemy.huntRounds + 1)
         {
+            GameObject.Find("EndTurnButton").SetActive(false);
             Invoke("WinGame", 2f);
         }
-
-        BenchMovement();
         
         if (gamePhase == 2)
         {
@@ -307,10 +298,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             gamePhase = 0;
         }
     }
-    //--------------------------------//
     #endregion
+
+
     #region Attacks
-    //--------------------------------//
     public void DirectHit(CardInCombat card)
     {
         DirectHit(card, card.card.attack);
@@ -318,13 +309,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public void DirectHit(CardInCombat card, int damage)
     {
         if (card.benched) return;
-        card.PerformShortAttackAnimation();
+        card.MoveAnimationStarter(0.5f, new Vector3(card.transform.position.x, 1f, 0f), true);
 
         if (card.playerCard)
         {
             enemyHealth -= damage;
             if (enemyHealth <= 0)
             {
+                GameObject.Find("EndTurnButton").SetActive(false);
                 Invoke("WinGame", 2f);
             }
         }
@@ -336,28 +328,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 Invoke("LoseGame", 2f);
             }
         }
-        updateHPText();
-    }
-
-    public void updateHPText() 
-    {
-        float playerVal = playerHealth / 20f;
-        float enemyVal = enemyHealth / (float)enemy.maxHealth;
-
-        if (playerVal <= 0) playerVal = 0;
-        if (enemyVal <= 0) enemyVal = 0;
-
-        playerHealthRect.transform.localScale =    new Vector3(playerVal, 1, 1);
-        playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
-        enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
-        enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
-
-        playerHealthText.text = playerHealth + "/" + 20;
-        enemyHealthText.text = enemyHealth + "/" + enemy.maxHealth;
-        //enemyHPText.text = "Enemy HP: " + enemyHealth;
-    }
-
-    public void Skirmish(CardInCombat playerCard, CardInCombat enemyCard)
+        UpdateHPText();
+    } 
+    public void CardCombat2Attackers(CardInCombat playerCard, CardInCombat enemyCard)
     {
         int oldPlayerHp = playerCard.card.health;
         int oldEnemyHp = enemyCard.card.health;
@@ -387,20 +360,62 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerCard.card.ActivateOnHitEffects(playerCard);
         enemyCard.card.ActivateOnHitEffects(enemyCard);
 
-        if(playerCard.PerformeAtackAnimation) playerCard.PerformShortAttackAnimation();
-        if(enemyCard.PerformeAtackAnimation) enemyCard.PerformShortAttackAnimation();
+        if(playerCard.PerformAtackAnimation) playerCard.MoveAnimationStarter(0.5f, new Vector3(playerCard.transform.position.x, 1f, 0f), true);
+        if(enemyCard.PerformAtackAnimation)  enemyCard. MoveAnimationStarter(0.5f, new Vector3(enemyCard .transform.position.x, 1f, 0f), true);
 
-        enemyCard.PerformeAtackAnimation = true;
-        playerCard.PerformeAtackAnimation = true;
+        enemyCard.PerformAtackAnimation = true;
+        playerCard.PerformAtackAnimation = true;
+    } 
+    public void CardCombat1Attacker(CardInCombat attacker, CardInCombat defender, int damage){
+        int oldAttackerHp = attacker.card.health;
+        int oldDefenderHp = defender.card.health;
+       
+        defender.card.health     -= damage;
+        defender.lastTypeOfDamage = attacker.card.typeOfDamage;
+
+        // Generate inaccurate battle data
+        attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp);
+        defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp);
+
+        defender.card.ActivateOnTakeDamageEffects(defender);
+
+        // Generate accurate battle data
+        attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp);
+        defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp);
+
+        attacker.card.ActivateOnHitEffects(attacker);
+
+        if(attacker.PerformAtackAnimation) attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.transform.position.x, 1f, 0f), true);
+
+        attacker.PerformAtackAnimation = true;
     }
 
+    public void UpdateHPText() 
+    {
+        float playerVal = playerHealth / 20f;
+        float enemyVal = enemyHealth / (float)enemy.maxHealth;
+
+        if (playerVal <= 0) playerVal = 0;
+        if (enemyVal <= 0) enemyVal = 0;
+
+        playerHealthRect.transform.localScale =    new Vector3(playerVal, 1, 1);
+        playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
+        enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
+        enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
+
+        playerHealthText.text = playerHealth + "/" + 20;
+        enemyHealthText.text = enemyHealth + "/" + enemy.maxHealth;
+    }
+    #endregion
+
+
+    #region Saving system
     public void LoadData(GameData data)
     {
         playerHealth = data.playerHealth;
 
         enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
-
     public void SaveData(GameData data)
     {
         data.playerHealth = playerHealth;
@@ -411,10 +426,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             data.enemyAI = "";
         }
     }
-    //--------------------------------//
-
     #endregion
 
+
+    #region EndConditions
     void WinGame()
     {
         timerToNextTurn = 1000f;
@@ -461,6 +476,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         endCombatText.text = "You beat the tutorial";
         deck.cards.AddRange(battleReward);
     }
+    #endregion
+
 
     public void ClickOnDialogueBox()
     {

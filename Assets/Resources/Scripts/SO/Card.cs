@@ -26,9 +26,9 @@ public class Card : ScriptableObject
 
     public TypeOfDamage typeOfDamage;
 
-    public List<Sigil> sigils = new();
+    public List<Sigil> sigils = new List<Sigil>();
 
-    public List<TypeOfDamage> injuries = new();
+    public List<TypeOfDamage> injuries = new List<TypeOfDamage>();
 
     public BattleData lastBattle;
 

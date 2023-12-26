@@ -5,32 +5,42 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Overwhelm")]
 public class Overwhelm : Sigil
 {
+    bool activatedThisTurn = false;
     public override void ApplyOnHitEffect(CardInCombat card)
     {
+        if (activatedThisTurn) return;
+
         int bonusDamage = 0;
         if (card.card.captain) bonusDamage = 1;
+
         BattleData battle = card.card.lastBattle;
-        int damage = Mathf.Abs(battle.enemyCard.health) + bonusDamage;
+
         if (battle.enemyCardOldHp < card.card.attack)
         {
+            int damage = Mathf.Abs(battle.enemyCard.health) + bonusDamage;
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
-            if (card.playerCard && card.deck.combatManager.enemyBenchCards[card.slot] != null)
+            activatedThisTurn = true;
+
+            if (card.playerCard && CombatManager.combatManager.enemyBenchCards[card.slot] != null)
             {
-                CardInCombat cardToHit = card.deck.combatManager.enemyBenchCards[card.slot];
-                cardToHit.card.health -= damage;
-                cardToHit.lastTypeOfDamage = card.card.typeOfDamage;
-                
+                CardInCombat cardToHit = CombatManager.combatManager.enemyBenchCards[card.slot];
+                CombatManager.combatManager.CardCombat1Attacker(card, cardToHit, damage);
             }
-            else if (!card.playerCard && card.deck.combatManager.playerBenchCards[card.slot] != null)
+            else if (!card.playerCard && CombatManager.combatManager.playerBenchCards[card.slot] != null)
             {
-                CardInCombat cardToHit = card.deck.combatManager.playerBenchCards[card.slot];
-                cardToHit.card.health -= damage;
-                cardToHit.lastTypeOfDamage = card.card.typeOfDamage;
+                CardInCombat cardToHit = CombatManager.combatManager.playerBenchCards[card.slot];
+                CombatManager.combatManager.CardCombat1Attacker(card, cardToHit, damage);
             }
             else
             {
-                card.deck.combatManager.DirectHit(card, damage);
+                CombatManager.combatManager.DirectHit(card, damage);
             }
         }
+        
+    }
+
+    public override void OnBattleStartEffects(CardInCombat card)
+    {
+        activatedThisTurn = false;
     }
 }

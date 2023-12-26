@@ -3001,7 +3001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapCamera: {fileID: 1049541314}
-  sensitivity: 20
+  sensitivity: 35
 --- !u!114 &1049541317
 MonoBehaviour:
   m_ObjectHideFlags: 0
