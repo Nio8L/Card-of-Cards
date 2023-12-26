@@ -160,6 +160,10 @@ public class Card : ScriptableObject
         foreach (Sigil sigil in sigils) sigil.OnBattleStartEffects(card);
     }
 
+    public void ActivateOnBattleEndEffects(CardInCombat card){
+        foreach (Sigil sigil in sigils) sigil.OnBattleEndEffects(card);
+    }
+
     public void ResetHP() 
     {
         health = maxHealth;

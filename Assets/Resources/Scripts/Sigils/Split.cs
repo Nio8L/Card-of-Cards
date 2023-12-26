@@ -16,6 +16,8 @@ public class Split : Sigil
             cardToAdd.name = splittedCard.name;
 
             card.deck.drawPile.Add(cardToAdd);
+
+            EventManager.CardCreated?.Invoke(splittedCard, card.deck.drawPile);
         }
 
         card.deck.DrawCard(coppiesToAdd);

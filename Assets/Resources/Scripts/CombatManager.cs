@@ -420,6 +420,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         timerToNextTurn = 1000f;
         if (enemy.isTutorialEnemy) { TutorialWin(); return; }
 
+        for (int i = 0; i < 3; i++)
+        {
+            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleEndEffects(playerCombatCards[i]);
+            if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleEndEffects(playerBenchCards[i]);
+            if (enemyCombatCards[i] != null) enemyCombatCards[i].card.ActivateOnBattleEndEffects(enemyCombatCards[i]);
+            if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleEndEffects(enemyBenchCards[i]);
+        }
+
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         endCombatMenu.SetActive(true);
         Time.timeScale = 0;
@@ -430,7 +438,16 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void LoseGame()
     {
         timerToNextTurn = 1000f;
-        TooltipSystem.QuickHide();
+     
+        for (int i = 0; i < 3; i++)
+        {
+            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleEndEffects(playerCombatCards[i]);
+            if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleEndEffects(playerBenchCards[i]);
+            if (enemyCombatCards[i] != null) enemyCombatCards[i].card.ActivateOnBattleEndEffects(enemyCombatCards[i]);
+            if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleEndEffects(enemyBenchCards[i]);
+        }
+
+        TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         endCombatMenu.SetActive(true);
         Time.timeScale = 0;
         endCombatText.text = "You lost...";

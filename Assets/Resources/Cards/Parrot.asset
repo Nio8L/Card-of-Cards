@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
+  m_Name: Parrot
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  health: 0
+  attack: 1
+  cost: 2
+  image: {fileID: 21300000, guid: 6af96027b02a9894eb350fbbcddd4267, type: 3}
+  canRevive: 1
+  captain: 0
+  typeOfDamage: 2
+  sigils:
+  - {fileID: 11400000, guid: ef5c7a074d677b443884fb7ebfa4c7a2, type: 2}
+  injuries: 
