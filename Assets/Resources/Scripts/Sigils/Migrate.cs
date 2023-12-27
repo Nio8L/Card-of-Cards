@@ -21,7 +21,7 @@ public class Migrate : Sigil
         return true;
     }
 
-    public override bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager) 
+    public override bool TryToEndActiveSigil(CardSlot slot) 
     {
         if (!canUseAbility) return false;
         CardInCombat[] firstCardCollection;//collection of cardToMove
@@ -29,13 +29,13 @@ public class Migrate : Sigil
 
         if (slot.playerSlot)
         {
-            firstCardCollection = cardToMove.benched ? combatManager.playerBenchCards : combatManager.playerCombatCards;
-            secondCardCollection = slot.bench ? combatManager.playerBenchCards : combatManager.playerCombatCards;
+            firstCardCollection = cardToMove.benched ? CombatManager.combatManager.playerBenchCards : CombatManager.combatManager.playerCombatCards;
+            secondCardCollection = slot.bench ? CombatManager.combatManager.playerBenchCards : CombatManager.combatManager.playerCombatCards;
         }
         else
         {
-            firstCardCollection = cardToMove.benched ? combatManager.enemyBenchCards : combatManager.enemyCombatCards;
-            secondCardCollection = slot.bench ? combatManager.enemyBenchCards : combatManager.enemyCombatCards;
+            firstCardCollection = cardToMove.benched ? CombatManager.combatManager.enemyBenchCards : CombatManager.combatManager.enemyCombatCards;
+            secondCardCollection = slot.bench ? CombatManager.combatManager.enemyBenchCards : CombatManager.combatManager.enemyCombatCards;
         }
 
         if (secondCardCollection[slot.slot] != cardToMove) 

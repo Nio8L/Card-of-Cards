@@ -951,7 +951,7 @@ public class LeanTween : MonoBehaviour {
     }
 
     public static object logError( string error ){
-        if(throwErrors) Debug.LogError(error); else Debug.Log(error);
+        if(throwErrors) Debug.Log(error); else Debug.Log(error);
         return null;
     }
 

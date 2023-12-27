@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Tutorial1 : MonoBehaviour
 {
     Dialogue dialogue;
-    CombatManager combatManager;
+
     int counter;
     bool boolCounter;
     bool addedCards = false;
@@ -16,10 +16,9 @@ public class Tutorial1 : MonoBehaviour
     bool started = false;
     void Start()
     {
-        combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
         endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         endTurnButton.interactable = false;
-        dialogue = combatManager.enemy.dialogue;
+        dialogue = CombatManager.combatManager.enemy.dialogue;
         dialogue.NextLineAtStartOfTurn = false;
         dialogue.UpdateClickRule(true);
     }
@@ -27,7 +26,7 @@ public class Tutorial1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!started && combatManager.inCombat)
+        if (!started && CombatManager.combatManager.inCombat)
         {
             dialogue.StartDialogue();
             started = true;
@@ -36,15 +35,15 @@ public class Tutorial1 : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                if (combatManager.playerBenchCards[i] != null)
+                if (CombatManager.combatManager.playerBenchCards[i] != null)
                 {
-                    mark = combatManager.playerBenchCards[i];
+                    mark = CombatManager.combatManager.playerBenchCards[i];
                     boolCounter = mark.benched;
                     dialogue.NextLine();
                 }
-                if (combatManager.playerCombatCards[i] != null)
+                if (CombatManager.combatManager.playerCombatCards[i] != null)
                 {
-                    mark = combatManager.playerCombatCards[i];
+                    mark = CombatManager.combatManager.playerCombatCards[i];
                     boolCounter = mark.benched;
                     dialogue.NextLine();
                 }
@@ -83,7 +82,7 @@ public class Tutorial1 : MonoBehaviour
                 endTurnButton.interactable = false;
                 dialogue.GoBack();
             }
-            if (combatManager.round == 2)
+            if (CombatManager.combatManager.round == 2)
             {
                 dialogue.NextLine();
             }
@@ -93,11 +92,11 @@ public class Tutorial1 : MonoBehaviour
             counter = 0;
             for (int i = 0; i < 3; i++)
             {
-                if (combatManager.playerBenchCards[i] != null)
+                if (CombatManager.combatManager.playerBenchCards[i] != null)
                 {
                     counter++;
                 }
-                if (combatManager.playerCombatCards[i] != null)
+                if (CombatManager.combatManager.playerCombatCards[i] != null)
                 {
                     counter++;
                 }
@@ -109,16 +108,16 @@ public class Tutorial1 : MonoBehaviour
         }
         else if (dialogue.line == 13)
         {
-            if (counter != combatManager.round)
+            if (counter != CombatManager.combatManager.round)
             {
                 dialogue.NextLine();
             }
         }
         else if (dialogue.line == 22)
         {
-            for (int i = 0; i < combatManager.deck.cards.Count; i++)
+            for (int i = 0; i < CombatManager.combatManager.deck.cards.Count; i++)
             {
-                if (combatManager.deck.cards[i].name == "LostSoul")
+                if (CombatManager.combatManager.deck.cards[i].name == "LostSoul")
                 {
                     dialogue.NextLine();
                 }
@@ -160,7 +159,7 @@ public class Tutorial1 : MonoBehaviour
         else if (dialogue.line == 13)
         {
             endTurnButton.interactable = true;
-            counter = combatManager.round;
+            counter = CombatManager.combatManager.round;
         }
         else if (dialogue.line == 14)
         {
@@ -181,9 +180,9 @@ public class Tutorial1 : MonoBehaviour
         {
             if (addedCards) return;
             addedCards = true;
-            combatManager.deck.cardsToBeAdded.AddRange(cardsToAdd);
-            combatManager.deck.AddCard(cardsToAdd.Count);
-            combatManager.deck.DrawCard(cardsToAdd.Count);
+            CombatManager.combatManager.deck.cardsToBeAdded.AddRange(cardsToAdd);
+            CombatManager.combatManager.deck.AddCard(cardsToAdd.Count);
+            CombatManager.combatManager.deck.DrawCard(cardsToAdd.Count);
         }
         else if (dialogue.line == 33)
         {

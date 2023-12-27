@@ -49,7 +49,7 @@ public class Sigil : ScriptableObject
         return false;//returns true if it has a second stage
     }
 
-    public virtual bool TryToEndActiveSigil(CardSlot slot, CombatManager combatManager)
+    public virtual bool TryToEndActiveSigil(CardSlot slot)
     {
         return true;//returns true if the second stage ends
 	}

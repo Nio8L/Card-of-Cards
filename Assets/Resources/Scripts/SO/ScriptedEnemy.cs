@@ -23,8 +23,8 @@ public class ScriptedEnemy : EnemyBase
     public override void StartTurn()
     {
         base.StartTurn();
-        if (combatManager.round > turns.Length) return;
-        Turn currentTurn = turns[combatManager.round-1];
+        if (CombatManager.combatManager.round > turns.Length) return;
+        Turn currentTurn = turns[CombatManager.combatManager.round-1];
         if (currentTurn != null)
         {
             if (currentTurn.forcePlace) ForceCards(currentTurn);
@@ -36,9 +36,9 @@ public class ScriptedEnemy : EnemyBase
     {
         for (int i = 0; i < 3; i++)
         {
-            CardInCombat combatCard = combatManager.enemyBenchCards[i] ;
+            CardInCombat combatCard = CombatManager.combatManager.enemyBenchCards[i] ;
             if (combatCard != null) combatCard.card.health = 0;
-            combatCard              = combatManager.enemyCombatCards[i];
+            combatCard              = CombatManager.combatManager.enemyCombatCards[i];
             if (combatCard != null) combatCard.card.health = 0;
 
             Card card = turn.combatCards[i];
@@ -64,7 +64,7 @@ public class ScriptedEnemy : EnemyBase
         for (int i = 0; i < 3; i++)
         {
             Card card = turn.combatCards[i];
-            if (card != null && combatManager.enemyCombatCards[i] == null)
+            if (card != null && CombatManager.combatManager.enemyCombatCards[i] == null)
             {
                 string cardName = card.name;
                 card = Instantiate(card).ResetCard();
@@ -72,7 +72,7 @@ public class ScriptedEnemy : EnemyBase
                 PlayCard(card, i, false);
             }
             card = turn.benchCards[i];
-            if (card != null && combatManager.enemyBenchCards[i] == null)
+            if (card != null && CombatManager.combatManager.enemyBenchCards[i] == null)
             {
                 string cardName = card.name;
                 card = Instantiate(card).ResetCard();

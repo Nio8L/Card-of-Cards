@@ -9,8 +9,6 @@ public class activeAblitiesManager : MonoBehaviour
 
     public bool holding = false;
 
-    public CombatManager combatManager;
-
     bool abilityHasEnded = false;
 
     void Update()
@@ -54,8 +52,8 @@ public class activeAblitiesManager : MonoBehaviour
 
         CardInCombat cardClicked;
 
-        if (slot.playerSlot) cardClicked = slot.bench ? combatManager.playerBenchCards[slot.slot] : combatManager.playerCombatCards[slot.slot];
-        else cardClicked = slot.bench ? combatManager.enemyBenchCards[slot.slot] : combatManager.enemyCombatCards[slot.slot];
+        if (slot.playerSlot) cardClicked = slot.bench ? CombatManager.combatManager.playerBenchCards[slot.slot] : CombatManager.combatManager.playerCombatCards[slot.slot];
+        else cardClicked = slot.bench ? CombatManager.combatManager.enemyBenchCards[slot.slot] : CombatManager.combatManager.enemyCombatCards[slot.slot];
 
         if (cardClicked != null)
         {
@@ -88,11 +86,11 @@ public class activeAblitiesManager : MonoBehaviour
             for (int i = 0; i < activatedActivePlayerSigil.Count; i++)
             {
                 
-                bool hasToEnd = activatedActivePlayerSigil[i].TryToEndActiveSigil(slot,combatManager);
+                bool hasToEnd = activatedActivePlayerSigil[i].TryToEndActiveSigil(slot);
                 if (hasToEnd)
                 {
-                    if (slot.playerSlot) cardClicked = slot.bench ? combatManager.playerBenchCards[slot.slot] : combatManager.playerCombatCards[slot.slot];
-                    else cardClicked = slot.bench ? combatManager.enemyBenchCards[slot.slot] : combatManager.enemyCombatCards[slot.slot];
+                    if (slot.playerSlot) cardClicked = slot.bench ? CombatManager.combatManager.playerBenchCards[slot.slot] : CombatManager.combatManager.playerCombatCards[slot.slot];
+                    else cardClicked = slot.bench ? CombatManager.combatManager.enemyBenchCards[slot.slot] : CombatManager.combatManager.enemyCombatCards[slot.slot];
 
                     cardClicked.SetActiveSigilStar(activatedActivePlayerSigil[i]);
                     activatedActivePlayerSigil.RemoveAt(i);
@@ -103,7 +101,7 @@ public class activeAblitiesManager : MonoBehaviour
         {
             for (int i = 0; i < activatedActiveEnemySigil.Count; i++)
             {
-                 bool hasToEnd = activatedActiveEnemySigil[i].TryToEndActiveSigil(slot,combatManager);
+                 bool hasToEnd = activatedActiveEnemySigil[i].TryToEndActiveSigil(slot);
                  if (hasToEnd) activatedActiveEnemySigil.RemoveAt(i);
             }
         }

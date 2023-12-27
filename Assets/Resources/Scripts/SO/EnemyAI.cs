@@ -49,8 +49,8 @@ public class EnemyAI : EnemyBase
         {
             Card cardToAdd = Instantiate(card).ResetCard();
             cardToAdd.name = card.name;
-            combatManager.enemyDeck.AddCard(cardToAdd);
-            combatManager.enemyDeck.Shuffle();
+            CombatManager.combatManager.enemyDeck.AddCard(cardToAdd);
+            CombatManager.combatManager.enemyDeck.Shuffle();
         }
         savedLastRound = new bool[3];
     }
@@ -58,20 +58,20 @@ public class EnemyAI : EnemyBase
     {
         base.StartTurn();
 
-        combatManager.enemyDeck.energy = maxEnergy;
+        CombatManager.combatManager.enemyDeck.energy = maxEnergy;
 
         useTypeOfDamageToDecideCard = true;
         thinkLimit = 5;
         cardsPlayedThisTurn = 0;
         if (canSeePlayerCardsPlacedThisTurn)
         {
-            playerCards = combatManager.playerCombatCards;
-            playerBenchedCards = combatManager.playerBenchCards;
+            playerCards = CombatManager.combatManager.playerCombatCards;
+            playerBenchedCards = CombatManager.combatManager.playerBenchCards;
         }
         else 
         { 
-            playerCards = combatManager.playerCombatCardsAtStartOfTurn;
-            playerBenchedCards = combatManager.playerBenchCardsAtStartOfTurn; 
+            playerCards = CombatManager.combatManager.playerCombatCardsAtStartOfTurn;
+            playerBenchedCards = CombatManager.combatManager.playerBenchCardsAtStartOfTurn; 
         }
         
         MoveCardsForward();
@@ -91,7 +91,7 @@ public class EnemyAI : EnemyBase
             
             for (int i = 0; i < 3; i++)
             {
-                if (playerCards[i] != null && combatManager.enemyCombatCards[i] == null)
+                if (playerCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
                     hasPlay = true;
                     if (playerCards[i].card.attack > targetDamage)
@@ -115,12 +115,12 @@ public class EnemyAI : EnemyBase
 
             for (int i = 0; i < 3; i++)
             {
-                if (playerCards[i] != null && combatManager.enemyBenchCards[i] == null)
+                if (playerCards[i] != null && CombatManager.combatManager.enemyBenchCards[i] == null)
                 {
                     hasPlay = true;
-                    if (combatManager.enemyCombatCards[i].card.cost > targetValue)
+                    if (CombatManager.combatManager.enemyCombatCards[i].card.cost > targetValue)
                     {
-                        targetValue = combatManager.enemyCombatCards[i].card.cost;
+                        targetValue = CombatManager.combatManager.enemyCombatCards[i].card.cost;
                         targetIndex = i;
                     }
                 }
@@ -140,7 +140,7 @@ public class EnemyAI : EnemyBase
             
             for (int i = 0; i < 3; i++)
             {
-                if (playerCards[i] != null && combatManager.enemyCombatCards[i] == null)
+                if (playerCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
                     //Debug.Log("Can be played at slot: " + i);
                     hasPlay = true;
@@ -161,7 +161,7 @@ public class EnemyAI : EnemyBase
         {
             for (int i = 0; i < 3; i++)
             {
-                if (playerCards[i] == null && combatManager.enemyCombatCards[i] == null)
+                if (playerCards[i] == null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
                     hasPlay = true;
                     targetIndex = i;
@@ -170,7 +170,7 @@ public class EnemyAI : EnemyBase
             for (int i = 0; i < 3; i++)
             {
                 if (hasPlay) break;
-                if (playerBenchedCards[i] == null && combatManager.enemyBenchCards[i] == null)
+                if (playerBenchedCards[i] == null && CombatManager.combatManager.enemyBenchCards[i] == null)
                 {
                     hasPlay = true;
                     targetIndex = i;
@@ -189,7 +189,7 @@ public class EnemyAI : EnemyBase
             {
                 failEscape++;
                 targetIndex = Random.Range(0, 3);
-            } while (combatManager.enemyBenchCards[targetIndex] != null && failEscape < 20);
+            } while (CombatManager.combatManager.enemyBenchCards[targetIndex] != null && failEscape < 20);
 
             if (failEscape < 20)
             {
@@ -212,7 +212,7 @@ public class EnemyAI : EnemyBase
         // Play card
         if (hasPlay)
         {
-            if (card != null && combatManager.enemyBenchCards[targetIndex] == null)
+            if (card != null && CombatManager.combatManager.enemyBenchCards[targetIndex] == null)
             {
                 PlayCard(card, targetIndex, true);
                 if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Savior) Bench(targetIndex);
@@ -223,15 +223,15 @@ public class EnemyAI : EnemyBase
         // Use lost soul
         if (canUseLostSoul)
         {
-            for (int i = 0; i < combatManager.enemyDeck.cardsInHandAsCards.Count; i++)
+            for (int i = 0; i < CombatManager.combatManager.enemyDeck.cardsInHandAsCards.Count; i++)
             {
-                Card cardInHand = combatManager.enemyDeck.cardsInHandAsCards[i];
+                Card cardInHand = CombatManager.combatManager.enemyDeck.cardsInHandAsCards[i];
                 if (cardInHand.name == "LostSoul") UseLostSoul(cardInHand);
             }
         }
 
         // Rethink if the enemy has enough energy
-        if (combatManager.enemyDeck.energy > 0 && thinkLimit > 0 && cardsPlayedThisTurn < maxCardsPerTurn)
+        if (CombatManager.combatManager.enemyDeck.energy > 0 && thinkLimit > 0 && cardsPlayedThisTurn < maxCardsPerTurn)
         {
             thinkLimit--;
             Think();
@@ -241,19 +241,19 @@ public class EnemyAI : EnemyBase
     Strategy PickStrategy()
     {
 
-        if (combatManager.enemyHealth + bias <= startPlayingDefensivelyAt)
+        if (CombatManager.combatManager.enemyHealth + bias <= startPlayingDefensivelyAt)
         {
             bias = 0;
             for (int i = 0; i < 3; i++)
             {
-                if (combatManager.enemyCombatCards[i] == null)
+                if (CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
                     return Strategy.Defensive;
                 }
             }
             return Strategy.Savior;
         }
-        else if (combatManager.enemyHealth - bias <= startPlayingAggressivelyAt || combatManager.playerHealth - bias < combatManager.enemyHealth)
+        else if (CombatManager.combatManager.enemyHealth - bias <= startPlayingAggressivelyAt || CombatManager.combatManager.playerHealth - bias < CombatManager.combatManager.enemyHealth)
         {
             bias -= bias / 2;
             if (useKillerStrategyInstead) return Strategy.Killer;
@@ -267,23 +267,23 @@ public class EnemyAI : EnemyBase
         Card cardToPick = null;
         if (currentStrategy == Strategy.Defensive || currentStrategy == Strategy.Savior)
         {
-            foreach (Card card in combatManager.enemyDeck.cardsInHandAsCards)
+            foreach (Card card in CombatManager.combatManager.enemyDeck.cardsInHandAsCards)
             {
-                if ((cardToPick == null || cardToPick.maxHealth < card.maxHealth) && card.cost <= combatManager.enemyDeck.energy) cardToPick = card;
+                if ((cardToPick == null || cardToPick.maxHealth < card.maxHealth) && card.cost <= CombatManager.combatManager.enemyDeck.energy) cardToPick = card;
             }
         }
         else if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Killer)
         {
-            foreach (Card card in combatManager.enemyDeck.cardsInHandAsCards)
+            foreach (Card card in CombatManager.combatManager.enemyDeck.cardsInHandAsCards)
             {
-                if ((cardToPick == null || cardToPick.attack < card.attack) && card.cost <= combatManager.enemyDeck.energy) cardToPick = card;
+                if ((cardToPick == null || cardToPick.attack < card.attack) && card.cost <= CombatManager.combatManager.enemyDeck.energy) cardToPick = card;
             }
         }
         else if (currentStrategy == Strategy.Random)
         {
-            foreach (Card card in combatManager.enemyDeck.cardsInHandAsCards)
+            foreach (Card card in CombatManager.combatManager.enemyDeck.cardsInHandAsCards)
             {
-                if (cardToPick == null && card.cost <= combatManager.enemyDeck.energy) cardToPick = card;
+                if (cardToPick == null && card.cost <= CombatManager.combatManager.enemyDeck.energy) cardToPick = card;
             }
         }
 
@@ -304,35 +304,35 @@ public class EnemyAI : EnemyBase
     void UseLostSoul(Card lostSoulCard)
     {
         //Debug.Log("Trying to play lost soul");
-        foreach (CardInCombat card in combatManager.enemyCombatCards)
+        foreach (CardInCombat card in CombatManager.combatManager.enemyCombatCards)
         {
             if (card != null && card.card.injuries.Count > 0)
             {
                 Card healedCard = card.card;
 
                 healedCard.AcceptLostSoul();
-                combatManager.deck.UpdateCardAppearance(card.transform, healedCard);
+                CombatManager.combatManager.deck.UpdateCardAppearance(card.transform, healedCard);
                 //Debug.Log("playing lost soul on " + healedCard.name);
                 for (int i = 0; i < healedCard.sigils.Count; i++)
                 {
                     Debug.Log(healedCard.sigils[i].name);
                 }
 
-                combatManager.enemyDeck.cards.Remove(lostSoulCard);
-                combatManager.enemyDeck.cardsInHandAsCards.Remove(lostSoulCard);
+                CombatManager.combatManager.enemyDeck.cards.Remove(lostSoulCard);
+                CombatManager.combatManager.enemyDeck.cardsInHandAsCards.Remove(lostSoulCard);
 
-                Instantiate(combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity);
+                Instantiate(CombatManager.combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity);
 
                 // Visual and sound effects
                 SoundManager.soundManager.Play("LostSoul");
 
                 LostSoulVisuals soulHeart;
 
-                soulHeart = Instantiate(combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                soulHeart = Instantiate(CombatManager.combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
                 soulHeart.angle = 120f;
                 soulHeart.primaryHeart = false;
 
-                soulHeart = Instantiate(combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                soulHeart = Instantiate(CombatManager.combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
                 soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
                 soulHeart.primaryHeart = false;
 
@@ -342,20 +342,20 @@ public class EnemyAI : EnemyBase
     }
     void Bench(int slot)
     {
-        if (combatManager.enemyBenchCards[slot] != null)
+        if (CombatManager.combatManager.enemyBenchCards[slot] != null)
         {
-            combatManager.enemyBenchCards[slot].BenchOrUnbenchEnemy();
+            CombatManager.combatManager.enemyBenchCards[slot].BenchOrUnbenchEnemy();
         }
-        else if (combatManager.enemyCombatCards[slot] != null)
+        else if (CombatManager.combatManager.enemyCombatCards[slot] != null)
         {
-            combatManager.enemyCombatCards[slot].BenchOrUnbenchEnemy();
+            CombatManager.combatManager.enemyCombatCards[slot].BenchOrUnbenchEnemy();
         }
     } 
     void MoveCardsForward()
     {
         for (int i = 0; i < 3; i++)
         {
-            if (combatManager.enemyBenchCards[i] != null && combatManager.enemyCombatCards[i] == null)
+            if (CombatManager.combatManager.enemyBenchCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null)
             {
                 Bench(i);
             }
@@ -363,7 +363,7 @@ public class EnemyAI : EnemyBase
     }
     void TryToSaveCards()
     {
-        if (combatManager.enemyHealth/(float)maxHealth >= 0.25f)
+        if (CombatManager.combatManager.enemyHealth/(float)maxHealth >= 0.25f)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -373,13 +373,13 @@ public class EnemyAI : EnemyBase
                     continue;
                 }
 
-                if (combatManager.playerCombatCards[i] == null || combatManager.enemyCombatCards[i] == null) continue;
+                if (CombatManager.combatManager.playerCombatCards[i] == null || CombatManager.combatManager.enemyCombatCards[i] == null) continue;
 
-                if (combatManager.enemyCombatCards[i].card.health - combatManager.playerCombatCards[i].card.attack <= 0)
+                if (CombatManager.combatManager.enemyCombatCards[i].card.health - CombatManager.combatManager.playerCombatCards[i].card.attack <= 0)
                 {
-                    foreach (Card.TypeOfDamage injury in combatManager.enemyCombatCards[i].card.injuries)
+                    foreach (Card.TypeOfDamage injury in CombatManager.combatManager.enemyCombatCards[i].card.injuries)
                     {
-                        if (injury == combatManager.playerCombatCards[i].card.typeOfDamage)
+                        if (injury == CombatManager.combatManager.playerCombatCards[i].card.typeOfDamage)
                         {
                             Bench(i);
                             savedLastRound[i] = true;

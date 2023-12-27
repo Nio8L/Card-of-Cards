@@ -21,13 +21,11 @@ public class EnemyBase : ScriptableObject
     public bool isHunter;
 
     [HideInInspector]
-    protected CombatManager combatManager;
     protected bool useDeck;
 
     public virtual void Initialize()
     {
-        combatManager = CombatManager.combatManager;
-        combatManager.enemyHealth = maxHealth;
+        CombatManager.combatManager.enemyHealth = maxHealth;
         if (dialogue != null) dialogue.Initialize();
 
         if (dialogue != null && dialogue.StartOnLoad) dialogue.StartDialogue();
@@ -46,11 +44,11 @@ public class EnemyBase : ScriptableObject
     {
         CardSlot slotToUse;
         // Find the slot to play the card at
-        if (benched) slotToUse = combatManager.enemyBenchSlots [slotNumber].GetComponent<CardSlot>();
-        else         slotToUse = combatManager.enemyCombatSlots[slotNumber].GetComponent<CardSlot>();
+        if (benched) slotToUse = CombatManager.combatManager.enemyBenchSlots [slotNumber].GetComponent<CardSlot>();
+        else         slotToUse = CombatManager.combatManager.enemyCombatSlots[slotNumber].GetComponent<CardSlot>();
         
         // Call the proper PlayCard();
-        combatManager.PlayCard(card, slotToUse, useDeck);
+        CombatManager.combatManager.PlayCard(card, slotToUse, useDeck);
     }
 
     public string ReturnPath(){
