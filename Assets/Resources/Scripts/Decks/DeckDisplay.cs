@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DeckDisplay : MonoBehaviour
 {
+    public int defaultDisplacement = 250;
+
     public GameObject cardDisplay;
     public GameObject deckDisplay;
     
@@ -151,7 +153,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * defaultDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
             }else{
@@ -164,7 +166,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * defaultDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
             }

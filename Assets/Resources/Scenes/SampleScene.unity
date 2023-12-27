@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holding: 0
-  combatManager: {fileID: 0}
 --- !u!4 &65892962
 Transform:
   m_ObjectHideFlags: 0
@@ -4916,7 +4915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 680, y: -250}
+  m_AnchoredPosition: {x: 600, y: -250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1797514665
@@ -4931,6 +4930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbe44b513359b894b968bab2957e9ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultDisplacement: 250
   cardDisplay: {fileID: 1531777437509808466, guid: a3bbf4b13ad4ac34297a55974ca3d9c6, type: 3}
   deckDisplay: {fileID: 552172264}
   canvasGroup: {fileID: 1641435452}
