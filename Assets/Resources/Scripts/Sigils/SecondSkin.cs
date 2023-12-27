@@ -20,11 +20,11 @@ public class SecondSkin : Sigil
 
         // Return if there isn't an enemy, or if this card won't take direct damage
         if (    card.playerCard
-            && (card.deck.combatManager.enemyCombatCards[card.slot] == null
-            ||  card.deck.combatManager.enemyCombatCards[card.slot].card.attack <= 0)) return;
+            && (CombatManager.combatManager.enemyCombatCards[card.slot] == null
+            ||  CombatManager.combatManager.enemyCombatCards[card.slot].card.attack <= 0)) return;
         else if (!card.playerCard
-            && (card.deck.combatManager.playerCombatCards[card.slot] == null
-            || card.deck.combatManager.playerCombatCards[card.slot].card.attack <= 0)) return;
+            && (CombatManager.combatManager.playerCombatCards[card.slot] == null
+            || CombatManager.combatManager.playerCombatCards[card.slot].card.attack <= 0)) return;
 
         // Find the slot to play the card at
         CardSlot slotToUse;
@@ -36,13 +36,13 @@ public class SecondSkin : Sigil
         newCard.name = cardToSpawn.name;
 
         // Play the card
-        if (card.playerCard && card.deck.combatManager.playerBenchCards[card.slot] == null)
+        if (card.playerCard && CombatManager.combatManager.playerBenchCards[card.slot] == null)
         {
             hasASkin = false;
             card.BenchOrUnbench();
             CombatManager.combatManager.PlayCard(newCard, slotToUse, false);
         }
-        else if (!card.playerCard && card.deck.combatManager.enemyBenchCards[card.slot] == null)
+        else if (!card.playerCard && CombatManager.combatManager.enemyBenchCards[card.slot] == null)
         {
             hasASkin = false;
             card.BenchOrUnbenchEnemy();

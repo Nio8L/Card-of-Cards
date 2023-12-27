@@ -14,6 +14,6 @@ public class Foresight : Sigil
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
         Instantiate(visualEffect, card.transform.position, Quaternion.identity);
         if (card.playerCard)         card.deck.DrawCard(numberOfCardsToDraw + bonusDraw);
-        else card.deck.combatManager.enemyDeck.DrawCard(numberOfCardsToDraw + bonusDraw);
+        else CombatManager.combatManager.enemyDeck.DrawCard(numberOfCardsToDraw + bonusDraw);
     }
 }

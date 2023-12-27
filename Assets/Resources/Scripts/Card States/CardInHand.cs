@@ -88,20 +88,20 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                     // Trying to play a card in a bench slot
                     if(cardSlot.bench)
                     {
-                        if (deck.combatManager.playerBenchCards[cardSlot.slot] == null)
+                        if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
                         {
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
-                        else if(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
-                            CardInCombat consumingCard = deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>();
+                        else if(CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
+                            CardInCombat consumingCard = CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>();
                             consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
                             ConsumeCard();
                             //Debug.Log(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on bench slot");
                         }
-                        else if (deck.combatManager.playerCombatCards[cardSlot.slot] == null)
+                        else if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
                         {
-                            deck.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench();
+                            CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench();
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
@@ -109,22 +109,22 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                     // Trying to play a card in a combat slot
                     else if (!cardSlot.bench)
                     {
-                        if (deck.combatManager.playerCombatCards[cardSlot.slot] == null)
+                        if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
                         {
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
                         
-                        else if(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
-                            CardInCombat consumingCard = deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>();
+                        else if(CombatManager.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
+                            CardInCombat consumingCard = CombatManager.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>();
                             consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
                             ConsumeCard();
                             //Debug.Log(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on combat slot");
                         }
 
-                        else if (deck.combatManager.playerBenchCards[cardSlot.slot] == null)
+                        else if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
                         {
-                            deck.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench();
+                            CombatManager.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench();
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
@@ -252,7 +252,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void PlayCard(CardSlot slot)
     {
         // Check if its the players turn
-        if (deck.combatManager.gamePhase == 1) return;
+        if (CombatManager.combatManager.gamePhase == 1) return;
 
         // Play the card
         deck.cardsInHand.Remove(gameObject);

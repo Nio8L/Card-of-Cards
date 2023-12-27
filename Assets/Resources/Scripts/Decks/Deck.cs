@@ -21,8 +21,6 @@ public class Deck : MonoBehaviour, IDataPersistence
     public List<Card> cardsInHandAsCards = new();
 
     [HideInInspector]
-    public CombatManager combatManager;
-    [HideInInspector]
     GameObject cardInHandPrefab;
     [HideInInspector]
     public GameObject cardInCombatPrefab;
@@ -164,9 +162,6 @@ public class Deck : MonoBehaviour, IDataPersistence
         CardsInHandParent = GameObject.Find("CardsInHand").transform;
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
 
-        if (playerDeck) combatManager = GetComponent<CombatManager>();
-        else combatManager = GameObject.Find("Deck").GetComponent<CombatManager>(); 
-
         energyText = GameObject.Find("EnergyText").GetComponent<TextMeshProUGUI>();
         drawPile = CopyCardList(cards);
 
@@ -185,10 +180,10 @@ public class Deck : MonoBehaviour, IDataPersistence
         {
             if (DataPersistenceManager.DataManager.currentCombatAI != null)
             {
-                combatManager.enemy = DataPersistenceManager.DataManager.currentCombatAI;
+                CombatManager.combatManager.enemy = DataPersistenceManager.DataManager.currentCombatAI;
             }
-            combatManager.enemy.Initialize();
-            combatManager.UpdateHPText();
+            CombatManager.combatManager.enemy.Initialize();
+            CombatManager.combatManager.combatUI.UpdateHPText();
         }
         Shuffle();
         DrawCard(5);

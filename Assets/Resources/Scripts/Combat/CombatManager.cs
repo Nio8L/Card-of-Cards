@@ -49,77 +49,51 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public Deck deck;
     public Deck enemyDeck;
 
-    public TextMeshProUGUI playerHPText;
-    public TextMeshProUGUI enemyHPText;
-    public GameObject startCombatMenu;
-    public GameObject endCombatMenu;
-    public TextMeshProUGUI endCombatText;
-
-    GameObject playerHealthRect;
-    GameObject playerHealthDash;
-    TextMeshProUGUI playerHealthText;   
-    GameObject enemyHealthRect;
-    GameObject enemyHealthDash;
-    TextMeshProUGUI enemyHealthText;
-    TextMeshProUGUI graveText;
-    TextMeshProUGUI roundText;
-    TextMeshProUGUI enemyCardPileText;
+    public CombatUI combatUI;
 
     public int playerCardsLost = 0;
     public int round = 1;
 
+
     void Awake(){
         combatManager = this;
     }
+    
+    private void OnEnable() {
+        EventManager.CardDeath += CardDeath;
+    }
+
+    private void OnDisable() {
+        EventManager.CardDeath -= CardDeath;
+    }
+    
     private void Start()
     {
         Time.timeScale = 0;
         inCombat = false;
-        startCombatMenu.SetActive(true);
-        endCombatMenu.SetActive(false);
-
-        deck = GetComponent<Deck>();
-        enemyDeck = GameObject.Find("EnemyDeck").GetComponent<Deck>();
-        playerHealthRect = GameObject.Find("PlayerHealth");
-        playerHealthDash = GameObject.Find("PlayerHealthDash");
-        enemyHealthRect = GameObject.Find("EnemyHealth");
-        enemyHealthDash = GameObject.Find("EnemyHealthDash");
-        playerHealthText = GameObject.Find("PlayerHealthText").GetComponent<TextMeshProUGUI>();
-        enemyHealthText = GameObject.Find("EnemyHealthText").GetComponent<TextMeshProUGUI>();
-        graveText = GameObject.Find("GraveText").GetComponent<TextMeshProUGUI>();
-        roundText = GameObject.Find("RoundText").GetComponent<TextMeshProUGUI>();
-        enemyCardPileText = GameObject.Find("EnemyCardPileText").GetComponent<TextMeshProUGUI>();
 
         StartGame();
     }
 
     public void StartGame() 
     {
-        if (enemy.huntAI)
-        {
-            roundText.text = "Round " + round + "/" + enemy.huntRounds;
-            for (int i = 0; i < battleReward.Count; i++) roundText.text += battleReward[i] + "\n";
-        }
-        else roundText.text = "Round " + round;
-
-        enemyCardPileText.text = enemyDeck.cards.Count.ToString();
+        combatUI.BeginCombat();
 
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = true;
         Time.timeScale = 1;
-        startCombatMenu.SetActive(false);
     }
 
     public void EndGame()
     {
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = false;
-        endCombatMenu.SetActive(false);
+        combatUI.LoadOutOfCombat();
         Time.timeScale = 1;
         
         DataPersistenceManager.DataManager.currentCombatAI = null;
             
-        if(endCombatText.text == "You won!") {
+        if(combatUI.endCombatText.text == "You won!") {
             if (enemy.isHunter) SceneManager.LoadSceneAsync("End Screen");
             else                SceneManager.LoadSceneAsync("Map");
         }else{
@@ -153,7 +127,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             StartPlayerTurn();
             startPlayerTurn = false;
         }
-        graveText.text = playerCardsLost.ToString();
+        combatUI.UpdateGraveText();
         if (inCombat && cameraZoomTimer > 0)
         {
             Camera.main.orthographicSize = Mathf.Lerp(8, 5, Mathf.SmoothStep(1f, 0f, cameraZoomTimer));
@@ -262,12 +236,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         round++;
 
-        if (enemy.huntAI)
-        {
-            roundText.text = "Round " + round + "/" + enemy.huntRounds;
-            for (int i = 0; i < battleReward.Count; i++) roundText.text += "\n" + battleReward[i].name;
-        }
-        else roundText.text = "Round " + round;
+        combatUI.UpdateRoundText();
 
         if (enemy.huntAI && round == enemy.huntRounds + 1)
         {
@@ -342,7 +311,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     enemyNonSoulCards++;
                 }
             }
-            enemyCardPileText.text = enemyNonSoulCards.ToString();
+            combatUI.UpdateEnemyCardPileText();
 
             playerCombatCards.CopyTo(playerCombatCardsAtStartOfTurn, 0);
             playerBenchCards.CopyTo(playerBenchCardsAtStartOfTurn, 0);
@@ -392,7 +361,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
         }
         // Updates the health bars
-        UpdateHPText();
+        combatUI.UpdateHPText();
     } 
     public void CardCombat2Attackers(CardInCombat playerCard, CardInCombat enemyCard)
     {
@@ -453,23 +422,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         attacker.PerformAtackAnimation = true;
     }
-
-    public void UpdateHPText() 
-    {
-        float playerVal = playerHealth / 20f;
-        float enemyVal = enemyHealth / (float)enemy.maxHealth;
-
-        if (playerVal <= 0) playerVal = 0;
-        if (enemyVal <= 0) enemyVal = 0;
-
-        playerHealthRect.transform.localScale =    new Vector3(playerVal, 1, 1);
-        playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
-        enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
-        enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
-
-        playerHealthText.text = playerHealth + "/" + 20;
-        enemyHealthText.text = enemyHealth + "/" + enemy.maxHealth;
-    }
     #endregion
 
 
@@ -508,9 +460,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-        endCombatMenu.SetActive(true);
+        combatUI.EndCombat(true);
         Time.timeScale = 0;
-        endCombatText.text = "You won!";
+        
         deck.cards.AddRange(battleReward);
     }
 
@@ -527,17 +479,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-        endCombatMenu.SetActive(true);
+        combatUI.EndCombat(false);
         Time.timeScale = 0;
-        endCombatText.text = "You lost...";
+        
     }
 
     void TutorialWin()
     {
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-        endCombatMenu.SetActive(true);
+        combatUI.EndCombat(true);
         Time.timeScale = 0;
-        endCombatText.text = "You beat the tutorial";
+        
         deck.cards.AddRange(battleReward);
     }
     #endregion
@@ -546,5 +498,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public void ClickOnDialogueBox()
     {
         if (enemy.dialogue != null && enemy.dialogue.NextLineAtClick) enemy.dialogue.NextLine(); 
+    }
+    
+    public void CardDeath(){
+        playerCardsLost++;
     }
 }

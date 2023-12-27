@@ -93,28 +93,28 @@ public class CardInCombat : MonoBehaviour
 
     public void BenchOrUnbench() 
     {
-        if (!canBeBenched || !playerCard || deck.combatManager.gamePhase == 2||rightClicked|| Input.GetMouseButtonDown(1)) return;
+        if (!canBeBenched || !playerCard || CombatManager.combatManager.gamePhase == 2||rightClicked|| Input.GetMouseButtonDown(1)) return;
         benched = !benched;
 
         if (benched)
         {
-            deck.combatManager.playerCombatCards[slot] = deck.combatManager.playerBenchCards[slot];
-            deck.combatManager.playerBenchCards[slot] = this;
-            if (deck.combatManager.playerCombatCards[slot] != null)
+            CombatManager.combatManager.playerCombatCards[slot] = CombatManager.combatManager.playerBenchCards[slot];
+            CombatManager.combatManager.playerBenchCards[slot] = this;
+            if (CombatManager.combatManager.playerCombatCards[slot] != null)
             {
-                deck.combatManager.playerCombatCards[slot].benched = !benched;
-                deck.combatManager.playerCombatCards[slot].PutOnOrOffTheBench();
+                CombatManager.combatManager.playerCombatCards[slot].benched = !benched;
+                CombatManager.combatManager.playerCombatCards[slot].PutOnOrOffTheBench();
             }
             SoundManager.soundManager.Play("CardSlide");
         }
         else
         {
-            deck.combatManager.playerBenchCards[slot] = deck.combatManager.playerCombatCards[slot];
-            deck.combatManager.playerCombatCards[slot] = this;
-            if (deck.combatManager.playerBenchCards[slot] != null)
+            CombatManager.combatManager.playerBenchCards[slot] = CombatManager.combatManager.playerCombatCards[slot];
+            CombatManager.combatManager.playerCombatCards[slot] = this;
+            if (CombatManager.combatManager.playerBenchCards[slot] != null)
             {
-                deck.combatManager.playerBenchCards[slot].benched = !benched;
-                deck.combatManager.playerBenchCards[slot].PutOnOrOffTheBench();
+                CombatManager.combatManager.playerBenchCards[slot].benched = !benched;
+                CombatManager.combatManager.playerBenchCards[slot].PutOnOrOffTheBench();
             }
             SoundManager.soundManager.Play("CardSlide");
         }
@@ -132,22 +132,22 @@ public class CardInCombat : MonoBehaviour
 
         if (benched)
         {
-            deck.combatManager.enemyCombatCards[slot] = deck.combatManager.enemyBenchCards[slot];
-            deck.combatManager.enemyBenchCards[slot] = this;
-            if (deck.combatManager.enemyCombatCards[slot] != null)
+            CombatManager.combatManager.enemyCombatCards[slot] = CombatManager.combatManager.enemyBenchCards[slot];
+            CombatManager.combatManager.enemyBenchCards[slot] = this;
+            if (CombatManager.combatManager.enemyCombatCards[slot] != null)
             {
-                deck.combatManager.enemyCombatCards[slot].benched = !benched;
-                deck.combatManager.enemyCombatCards[slot].PutOnOrOffTheBenchEnemyCards();
+                CombatManager.combatManager.enemyCombatCards[slot].benched = !benched;
+                CombatManager.combatManager.enemyCombatCards[slot].PutOnOrOffTheBenchEnemyCards();
             }
         }
         else
         {
-            deck.combatManager.enemyBenchCards[slot] = deck.combatManager.enemyCombatCards[slot];
-            deck.combatManager.enemyCombatCards[slot] = this;
-            if (deck.combatManager.enemyBenchCards[slot] != null)
+            CombatManager.combatManager.enemyBenchCards[slot] = CombatManager.combatManager.enemyCombatCards[slot];
+            CombatManager.combatManager.enemyCombatCards[slot] = this;
+            if (CombatManager.combatManager.enemyBenchCards[slot] != null)
             {
-                deck.combatManager.enemyBenchCards[slot].benched = !benched;
-                deck.combatManager.enemyBenchCards[slot].PutOnOrOffTheBenchEnemyCards();
+                CombatManager.combatManager.enemyBenchCards[slot].benched = !benched;
+                CombatManager.combatManager.enemyBenchCards[slot].PutOnOrOffTheBenchEnemyCards();
             }
         }
 
@@ -157,19 +157,19 @@ public class CardInCombat : MonoBehaviour
     {
         if (benched) 
         {
-            MoveAnimationStarter(0.5f, deck.combatManager.playerBenchSlots[slot].transform.position, false);
+            MoveAnimationStarter(0.5f, CombatManager.combatManager.playerBenchSlots[slot].transform.position, false);
             return;
         }
-        MoveAnimationStarter(0.5f, deck.combatManager.playerCombatSlots[slot].transform.position, false);
+        MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false);
     }
     public void PutOnOrOffTheBenchEnemyCards()
     {
         if (benched)
         {
-            MoveAnimationStarter(0.5f, deck.combatManager.enemyBenchSlots[slot].transform.position, false);
+            MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false);
             return;
         }
-        MoveAnimationStarter(0.5f, deck.combatManager.enemyCombatSlots[slot].transform.position, false);
+        MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false);
     }
     public void MoveAnimationStarter(float time, Vector3 end, bool returnMove)
     {
@@ -197,13 +197,13 @@ public class CardInCombat : MonoBehaviour
             else
             {
                 RemoveCardFromCardCollections();
-                if (!deck.combatManager.enemy.huntAI)
+                if (!CombatManager.combatManager.enemy.huntAI)
                 {
-                    if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
+                    if (card.canRevive) CombatManager.combatManager.enemyDeck.discardPile.Add(card);
                 }
-                else if (deck.combatManager.battleReward.Count < 3)
+                else if (CombatManager.combatManager.battleReward.Count < 3)
                 {
-                    if (card.canRevive) deck.combatManager.battleReward.Add(card);
+                    if (card.canRevive) CombatManager.combatManager.battleReward.Add(card);
                 }
 
             }
@@ -267,13 +267,13 @@ public class CardInCombat : MonoBehaviour
     {
         if (benched)
         {
-            if(playerCard && deck.combatManager.playerBenchCards[slot] == this) deck.combatManager.playerBenchCards[slot] = null;
-            else if (deck.combatManager.enemyBenchCards[slot] == this) deck.combatManager.enemyBenchCards[slot] = null;
+            if(playerCard && CombatManager.combatManager.playerBenchCards[slot] == this) CombatManager.combatManager.playerBenchCards[slot] = null;
+            else if (CombatManager.combatManager.enemyBenchCards[slot] == this) CombatManager.combatManager.enemyBenchCards[slot] = null;
         }
         else
         {
-            if (playerCard && deck.combatManager.playerCombatCards[slot] == this) deck.combatManager.playerCombatCards[slot] = null;
-            else if (deck.combatManager.enemyCombatCards[slot] == this) deck.combatManager.enemyCombatCards[slot] = null;
+            if (playerCard && CombatManager.combatManager.playerCombatCards[slot] == this) CombatManager.combatManager.playerCombatCards[slot] = null;
+            else if (CombatManager.combatManager.enemyCombatCards[slot] == this) CombatManager.combatManager.enemyCombatCards[slot] = null;
         }
     }
     public void ForceKill()
@@ -290,13 +290,13 @@ public class CardInCombat : MonoBehaviour
             }
             else
             {
-                if (!deck.combatManager.enemy.huntAI)
+                if (!CombatManager.combatManager.enemy.huntAI)
                 {
-                    if (card.canRevive) deck.combatManager.enemyDeck.discardPile.Add(card);
+                    if (card.canRevive) CombatManager.combatManager.enemyDeck.discardPile.Add(card);
                 }
-                else if (deck.combatManager.battleReward.Count < 3)
+                else if (CombatManager.combatManager.battleReward.Count < 3)
                 {
-                    if (card.canRevive) deck.combatManager.battleReward.Add(card);
+                    if (card.canRevive) CombatManager.combatManager.battleReward.Add(card);
                 }
 
             }
