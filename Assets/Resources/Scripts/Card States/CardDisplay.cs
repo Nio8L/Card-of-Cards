@@ -82,10 +82,10 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         else if (card.sigils.Count == 2)
         {
-            sigil2.sprite = card.sigils[0].image;
-            sigil3.sprite = card.sigils[1].image;
+            sigil1.sprite = card.sigils[0].image;
+            sigil2.sprite = card.sigils[1].image;
+            sigil1.color = new Color(1, 1, 1, 1);
             sigil2.color = new Color(1, 1, 1, 1);
-            sigil3.color = new Color(1, 1, 1, 1);
         }
         else if (card.sigils.Count == 3)
         {

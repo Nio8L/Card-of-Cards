@@ -440,26 +440,9 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         // Set sigil sprites
-        if (card.sigils.Count == 1)
-        {
-            cardGameObject.GetChild(7).GetComponent<Image>().sprite = card.sigils[0].image;
-            cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        }
-        else if (card.sigils.Count == 2)
-        {
-            cardGameObject.GetChild(8).GetComponent<Image>().sprite = card.sigils[0].image;
-            cardGameObject.GetChild(9).GetComponent<Image>().sprite = card.sigils[1].image;
-            cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        }
-        else if (card.sigils.Count == 3)
-        {
-            cardGameObject.GetChild(7).GetComponent<Image>().sprite = card.sigils[0].image;
-            cardGameObject.GetChild(8).GetComponent<Image>().sprite = card.sigils[1].image;
-            cardGameObject.GetChild(9).GetComponent<Image>().sprite = card.sigils[2].image;
-            cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        for (int i = 0; i < card.sigils.Count; i++){
+            cardGameObject.GetChild(7+i).GetComponent<Image>().sprite = card.sigils[i].image;
+            cardGameObject.GetChild(7+i).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
         
         // Set injury marks
@@ -516,8 +499,6 @@ public class Deck : MonoBehaviour, IDataPersistence
                 break;
             }
         }
-        if (card.sigils.Count == 2) index++;
-
         cardGameObject.GetChild(7 + index).GetComponent<AnimateSigil>().StartAnimation();
     }
 

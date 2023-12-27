@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44a56dd0b3fce5a4c93fa1fd51be74ca, type: 3}
-  m_Name: Explode
+  m_Name: Hungry Bomb
   m_EditorClassIdentifier: 
-  sigilName: Explode
+  sigilName: Hungry Bomb
   negative: 0
-  image: {fileID: 21300000, guid: 3c6778cd9ab194e488717fc9580b97fd, type: 3}
+  image: {fileID: 21300000, guid: 39e2e5f35426c11459b364305300f808, type: 3}
   description: Upon death deal 0 damage. Increase this damage by feeding cards.
   canUseAbility: 0
   cardAcceptor: {fileID: 0}
   damageIncrement: 1
   damageToDeal: 0
+  splashDamage: 0

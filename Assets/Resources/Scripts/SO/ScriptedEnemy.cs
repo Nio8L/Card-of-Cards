@@ -34,28 +34,41 @@ public class ScriptedEnemy : EnemyBase
 
     void ForceCards(Turn turn)
     {
+        /* This function forces the enemies side of the board to be the same as the cards in Turn turn s lists
+            If there is a null somewhere in the lists it just kills the card in that slot
+            If there is a card it kills the old card and places the new one in its place
+        */
         for (int i = 0; i < 3; i++)
         {
+            // Kill existing cards
             CardInCombat combatCard = CombatManager.combatManager.enemyBenchCards[i] ;
             if (combatCard != null) combatCard.card.health = 0;
             combatCard              = CombatManager.combatManager.enemyCombatCards[i];
             if (combatCard != null) combatCard.card.health = 0;
 
-            Card card = turn.combatCards[i];
-            if (card != null) 
-            {
-                string cardName = card.name;
-                card = Instantiate(card).ResetCard();
-                card.name = cardName;
-                PlayCard(card, i, false); 
+            // Spawn combat cards
+            Card card;
+            if (i < turn.combatCards.Length){
+                card = turn.combatCards[i];
+                if (card != null) 
+                {
+                    string cardName = card.name;
+                    card = Instantiate(card).ResetCard();
+                    card.name = cardName;
+                    PlayCard(card, i, false); 
+                }
             }
-            card = turn.benchCards[i];
-            if (card != null)
-            {
-                string cardName = card.name;
-                card = Instantiate(card).ResetCard();
-                card.name = cardName;
-                PlayCard(card, i, true);
+
+            // Spawn bench cards
+            if (i < turn.benchCards.Length){
+                card = turn.benchCards[i];
+                if (card != null)
+                {
+                    string cardName = card.name;
+                    card = Instantiate(card).ResetCard();
+                    card.name = cardName;
+                    PlayCard(card, i, true);
+                }
             }
         } 
     }
@@ -63,21 +76,28 @@ public class ScriptedEnemy : EnemyBase
     {
         for (int i = 0; i < 3; i++)
         {
-            Card card = turn.combatCards[i];
-            if (card != null && CombatManager.combatManager.enemyCombatCards[i] == null)
-            {
-                string cardName = card.name;
-                card = Instantiate(card).ResetCard();
-                card.name = cardName;
-                PlayCard(card, i, false);
+            Card card;
+
+            if (i < turn.combatCards.Length){
+                card = turn.combatCards[i];
+                if (card != null && CombatManager.combatManager.enemyCombatCards[i] == null)
+                {
+                    string cardName = card.name;
+                    card = Instantiate(card).ResetCard();
+                    card.name = cardName;
+                    PlayCard(card, i, false);
+                }
             }
-            card = turn.benchCards[i];
-            if (card != null && CombatManager.combatManager.enemyBenchCards[i] == null)
-            {
-                string cardName = card.name;
-                card = Instantiate(card).ResetCard();
-                card.name = cardName;
-                PlayCard(card, i, true);
+
+            if (i < turn.benchCards.Length){
+                card = turn.benchCards[i];
+                if (card != null && CombatManager.combatManager.enemyBenchCards[i] == null)
+                {
+                    string cardName = card.name;
+                    card = Instantiate(card).ResetCard();
+                    card.name = cardName;
+                    PlayCard(card, i, true);
+                }
             }
         }
     }

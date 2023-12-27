@@ -20,6 +20,7 @@ public class Explode : ConsumingSigil
         description = "Upon death deal " + damageToDeal + " damage. Increase this damage by feeding cards.";
 
         cardAcceptor.AcceptCard(consumedCard);
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }
 
     public override void OnDeadEffects(CardInCombat card)
@@ -35,5 +36,6 @@ public class Explode : ConsumingSigil
         damageToDeal = 0;
 
         description = "Upon death deal " + damageToDeal + " damage. Increase this damage by feeding cards.";
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }
 }

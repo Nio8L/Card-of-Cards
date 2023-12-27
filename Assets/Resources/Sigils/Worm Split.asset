@@ -15,7 +15,7 @@ MonoBehaviour:
   sigilName: Split
   negative: 0
   image: {fileID: 21300000, guid: cd847440ee3b2fe40bb89eed37e9820d, type: 3}
-  description: Split into 2 weaker cards.
+  description: Split into 2 weaker cards on death.
   canUseAbility: 0
   splittedCard: {fileID: 11400000, guid: fba7ad5eef31a4b438b28c126bbf023e, type: 2}
   coppiesToAdd: 2

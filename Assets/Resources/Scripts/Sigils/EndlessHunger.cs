@@ -15,5 +15,6 @@ public class EndlessHunger : ConsumingSigil
         card.deck.UpdateCardAppearance(card.gameObject.transform, card.card);
 
         cardAcceptor.AcceptCard(consumedCard);
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }
 }

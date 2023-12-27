@@ -11,6 +11,7 @@ public class Split : Sigil
 
     public override void OnDeadEffects(CardInCombat card)
     {
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
         for(int i = 0; i < coppiesToAdd; i++){
             Card cardToAdd = Instantiate(splittedCard).ResetCard();
             cardToAdd.name = splittedCard.name;
@@ -19,8 +20,6 @@ public class Split : Sigil
 
             EventManager.CardCreated?.Invoke(splittedCard, card.deck.drawPile);
         }
-
-        card.deck.DrawCard(coppiesToAdd);
     }
 
 }

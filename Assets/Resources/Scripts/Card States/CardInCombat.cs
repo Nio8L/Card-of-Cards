@@ -36,6 +36,8 @@ public class CardInCombat : MonoBehaviour
     bool rightClicked;
     bool returnMovement;
 
+    public float animationStartDelay;
+
     GameObject bloodSplat;
     GameObject deathMark;
     void Start()
@@ -65,13 +67,18 @@ public class CardInCombat : MonoBehaviour
 
         if (returnMovement && currentAnimationTime > -0.5f)
         {
-            currentAnimationTime -= Time.deltaTime;
+            if (animationStartDelay > 0){
+                animationStartDelay -= Time.deltaTime;
+            }else{
+                currentAnimationTime -= Time.deltaTime;
+            }
             transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(currentAnimationTime) * 2);
 
             if (currentAnimationTime < 0f && !updatedAfterReturnAnimation)
             {
                 deck.UpdateCardAppearance(transform, card);
                 updatedAfterReturnAnimation = true;
+                SoundManager.soundManager.Play("CardCombat");
             }
         }
         else if (returnMovement && currentAnimationTime <= -0.5 && updatedAfterReturnAnimation) 
@@ -157,27 +164,29 @@ public class CardInCombat : MonoBehaviour
     {
         if (benched) 
         {
-            MoveAnimationStarter(0.5f, CombatManager.combatManager.playerBenchSlots[slot].transform.position, false);
+            MoveAnimationStarter(0.5f, CombatManager.combatManager.playerBenchSlots[slot].transform.position, false, 0f);
             return;
         }
-        MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false);
+        MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
     }
     public void PutOnOrOffTheBenchEnemyCards()
     {
         if (benched)
         {
-            MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false);
+            MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
             return;
         }
-        MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false);
+        MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
     }
-    public void MoveAnimationStarter(float time, Vector3 end, bool returnMove)
+    public void MoveAnimationStarter(float time, Vector3 end, bool returnMove, float startDelay)
     {
         maxAnimationTime = time;
         currentAnimationTime = time;
         endPosition = end;
         startPosition = transform.position;
         returnMovement = returnMove;
+
+        animationStartDelay = startDelay;
     }
     public void OnDeath()
     {
@@ -226,16 +235,14 @@ public class CardInCombat : MonoBehaviour
     {
         int alpha = 0;
         if (sigil.canUseAbility) alpha = 1;
-        int index = 0;
-        if (card.sigils.Count == 2) index++;
 
         if (card.sigils[0] == sigil)
         {
-            transform.GetChild(14 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            transform.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
         }
         else if (card.sigils[1] == sigil)
         {
-            transform.GetChild(15 + index).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
         }
         else
         {
@@ -247,16 +254,14 @@ public class CardInCombat : MonoBehaviour
         Sprite spriteToUse;
         if (sigil.canUseAbility) spriteToUse = deck.selectedActiveStar;
         else                     spriteToUse = deck.activeStar;
-        int index = 0;
-        if (card.sigils.Count == 2) index++;
 
         if (card.sigils[0] == sigil)
         {
-            transform.GetChild(14 + index).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(14).GetComponent<Image>().sprite = spriteToUse;
         }
         else if (card.sigils[1] == sigil)
         {
-            transform.GetChild(15 + index).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(15).GetComponent<Image>().sprite = spriteToUse;
         }
         else
         {

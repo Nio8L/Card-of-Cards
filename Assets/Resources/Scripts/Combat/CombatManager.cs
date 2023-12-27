@@ -165,6 +165,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         cardToCreate.transform.SetParent(deck.CardsInCombatParent);
         // Fixings its scale
         cardToCreate.transform.localScale = Vector3.one * 0.75f;
+        cardToCreate.transform.rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-5, 5f) );
         // Initializing CardInCombat component with necesery values
         CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
         cardInCombat.card = card;
@@ -221,7 +222,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         gamePhase = 2;
-        SoundManager.soundManager.Play("CardCombat");
         for (int i = 0; i < 3; i++)
         {
             if (playerCombatCards[i] != null && enemyCombatCards[i] != null) CardCombat2Attackers(playerCombatCards[i], enemyCombatCards[i]);
@@ -336,9 +336,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // Hits the opponent directly
 
         // Return if the card is benched since benched cards can't attack
-        if (card.benched) return;
+        if (card.benched || damage == 0) return;
         // Starts the attack animation
-        card.MoveAnimationStarter(0.5f, new Vector3(card.transform.position.x, 1f, 0f), true);
+        card.MoveAnimationStarter(0.5f, new Vector3(card.transform.position.x, 2f + -2f * Convert.ToInt32(!card.playerCard), 0f), true, card.slot * 0.2f);
 
         // Checks who the owner of the cards is and deals damage to them
         if (card.playerCard)
@@ -365,11 +365,15 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     } 
     public void CardCombat2Attackers(CardInCombat playerCard, CardInCombat enemyCard)
     {
+        if (playerCard.card.attack == 0 && enemyCard.card.attack == 0) return;
+        else if (playerCard.card.attack == 0) {CardCombat1Attacker(enemyCard , playerCard, enemyCard.card.attack ); return;}
+        else if (enemyCard.card.attack == 0)  {CardCombat1Attacker(playerCard, enemyCard , playerCard.card.attack); return;}
+
         int oldPlayerHp = playerCard.card.health;
         int oldEnemyHp = enemyCard.card.health;
 
         if (playerCard.benched && enemyCard.benched) return;
-        else if (playerCard.benched) { DirectHit(enemyCard); return;}
+        else if (playerCard.benched) { DirectHit(enemyCard ); return;}
         else if (enemyCard.benched)  { DirectHit(playerCard); return;}
 
 
@@ -393,8 +397,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerCard.card.ActivateOnHitEffects(playerCard);
         enemyCard.card.ActivateOnHitEffects(enemyCard);
 
-        if(playerCard.PerformAtackAnimation) playerCard.MoveAnimationStarter(0.5f, new Vector3(playerCard.transform.position.x, 1f, 0f), true);
-        if(enemyCard.PerformAtackAnimation)  enemyCard. MoveAnimationStarter(0.5f, new Vector3(enemyCard .transform.position.x, 1f, 0f), true);
+        if(playerCard.PerformAtackAnimation) playerCard.MoveAnimationStarter(0.5f, new Vector3(playerCard.transform.position.x, 1f, 0f), true, playerCard.slot * 0.2f);
+        if(enemyCard.PerformAtackAnimation)  enemyCard. MoveAnimationStarter(0.5f, new Vector3(enemyCard .transform.position.x, 1f, 0f), true, enemyCard.slot  * 0.2f);
 
         enemyCard.PerformAtackAnimation = true;
         playerCard.PerformAtackAnimation = true;
@@ -418,7 +422,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         attacker.card.ActivateOnHitEffects(attacker);
 
-        if(attacker.PerformAtackAnimation) attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.transform.position.x, 1f, 0f), true);
+        if(attacker.PerformAtackAnimation) attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.transform.position.x, 1f, 0f), true, attacker.slot * 0.2f);
 
         attacker.PerformAtackAnimation = true;
     }

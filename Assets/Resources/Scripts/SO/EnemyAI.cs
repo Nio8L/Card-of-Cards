@@ -215,7 +215,6 @@ public class EnemyAI : EnemyBase
             if (card != null && CombatManager.combatManager.enemyBenchCards[targetIndex] == null)
             {
                 PlayCard(card, targetIndex, true);
-                if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Savior) Bench(targetIndex);
                 cardsPlayedThisTurn++;
             }
         }

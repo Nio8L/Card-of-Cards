@@ -32,64 +32,28 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         tooltipTrigger.content = "";
 
         if(cardInHand != null){
+            // Card in hand ?
+
             if(index < cardInHand.card.sigils.Count){
-                if(cardInHand.card.sigils.Count == 1){
-                    tooltipTrigger.content = cardInHand.card.sigils[index].description;
-                    tooltipTrigger.header = cardInHand.card.sigils[index].sigilName;
-                }else if(cardInHand.card.sigils.Count == 3){
-                    tooltipTrigger.content = cardInHand.card.sigils[index].description;
-                    tooltipTrigger.header = cardInHand.card.sigils[index].name;
-                }
-            }
-            if(cardInHand.card.sigils.Count == 2){
-                if(index == 1){
-                    tooltipTrigger.content = cardInHand.card.sigils[0].description;
-                    tooltipTrigger.header = cardInHand.card.sigils[0].name;
-                }else if(index == 2){
-                    tooltipTrigger.content = cardInHand.card.sigils[1].description;
-                    tooltipTrigger.header = cardInHand.card.sigils[1].name;
-                }
+                tooltipTrigger.content = cardInHand.card.sigils[index].description;
+                tooltipTrigger.header = cardInHand.card.sigils[index].sigilName;
             }
         }else{
             cardInCombat = transform.parent.gameObject.GetComponent<CardInCombat>();
             if(cardInCombat != null){
+                // Card in combat ?
+
                 if(index < cardInCombat.card.sigils.Count){
-                    if(cardInCombat.card.sigils.Count == 1){
-                        tooltipTrigger.content = cardInCombat.card.sigils[index].description;
-                        tooltipTrigger.header = cardInCombat.card.sigils[index].name;
-                    }else if(cardInCombat.card.sigils.Count == 3){
-                        tooltipTrigger.content = cardInCombat.card.sigils[index].description;
-                        tooltipTrigger.header = cardInCombat.card.sigils[index].name;
-                    }
-                }
-                if(cardInCombat.card.sigils.Count == 2){
-                    if(index == 1){
-                        tooltipTrigger.content = cardInCombat.card.sigils[0].description;
-                        tooltipTrigger.header = cardInCombat.card.sigils[0].name;
-                    }else if(index == 2){
-                        tooltipTrigger.content = cardInCombat.card.sigils[1].description;
-                        tooltipTrigger.header = cardInCombat.card.sigils[1].name;
-                    }
+                    tooltipTrigger.content = cardInCombat.card.sigils[index].description;
+                    tooltipTrigger.header = cardInCombat.card.sigils[index].name;
                 }
             }else{
+                // Card display ?
+
                 cardDisplay = transform.parent.gameObject.GetComponent<CardDisplay>();
                 if(index < cardDisplay.card.sigils.Count){
-                    if(cardDisplay.card.sigils.Count == 1){
-                        tooltipTrigger.content = cardDisplay.card.sigils[index].description;
-                        tooltipTrigger.header = cardDisplay.card.sigils[index].name;
-                    }else if(cardDisplay.card.sigils.Count == 3){
-                        tooltipTrigger.content = cardDisplay.card.sigils[index].description;
-                        tooltipTrigger.header = cardDisplay.card.sigils[index].name;
-                    }
-                }
-                if(cardDisplay.card.sigils.Count == 2){
-                    if(index == 1){
-                        tooltipTrigger.content = cardDisplay.card.sigils[0].description;
-                        tooltipTrigger.header = cardDisplay.card.sigils[0].name;
-                    }else if(index == 2){
-                        tooltipTrigger.content = cardDisplay.card.sigils[1].description;
-                        tooltipTrigger.header = cardDisplay.card.sigils[1].name;
-                    }
+                    tooltipTrigger.content = cardDisplay.card.sigils[index].description;
+                    tooltipTrigger.header = cardDisplay.card.sigils[index].name;
                 }
             }
         }

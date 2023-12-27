@@ -46,12 +46,12 @@ public class Migrate : Sigil
             if (firstCardCollection[cardToMove.slot] != null)
             {
                 firstCardCollection[cardToMove.slot].slot = cardToMove.slot;
-                firstCardCollection[cardToMove.slot].transform.position = cardToMove.transform.position;
+                firstCardCollection[cardToMove.slot].MoveAnimationStarter(0.5f, cardToMove.transform.position, false, 0f);
                 firstCardCollection[cardToMove.slot].benched = cardToMove.benched;
             }
 
             cardToMove.slot = slot.slot;
-            cardToMove.transform.position = slot.transform.position;
+            cardToMove.MoveAnimationStarter(0.5f, slot.transform.position, false, 0f);
             cardToMove.benched = slot.bench;
 
 
