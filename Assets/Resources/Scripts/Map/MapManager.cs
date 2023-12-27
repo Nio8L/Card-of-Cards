@@ -15,7 +15,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public int numOfLayers = 0;
     public bool isGenerating = true;
-    public int[] chaceForRooms;
+    public int[] chanceForRooms;
 
     static List<Layer> layers = new List<Layer>();
     static List<GameObject>[] allLayers = new List<GameObject>[7];
@@ -28,7 +28,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     // Enemy Ai list
     static EnemyAI[] tier1EnemyAIs;
-    static EnemyAI[] huntEnemyAIs;
+    static EnemyBase[] huntEnemyAIs;
     static EnemyAI[] hunterEnemyAIs;
 
     public MapDeck mapDeck;
@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     private bool shouldGenerate = true;
 
-    public EnemyAI lastEnemyAI;
+    public EnemyBase lastEnemyAI;
 
     public GameObject threeChoice;
     static Transform eventCanvas;
@@ -59,7 +59,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         threeChoice = Resources.Load<GameObject>("Prefabs/Events/ThreeCardChoice");
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
-        huntEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Hunt");
+        huntEnemyAIs = Resources.LoadAll<EnemyBase>("Enemies/Hunt");
         hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
@@ -271,7 +271,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             else if (currentNode.roomType == MapNode.RoomType.Hunt)
             {
                 retry:;
-                EnemyAI ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
+                EnemyBase ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
                 if(ai == mapManager.lastEnemyAI){
                     goto retry;
                 }
@@ -310,12 +310,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
         int randomValue = Random.Range(0, 101);
         for (int i = 0; i < 5; i++)
         {
-            if (randomValue <= chaceForRooms[i]) 
+            if (randomValue <= chanceForRooms[i]) 
             {
                 room = (MapNode.RoomType)i;
                 break;
             }
-            randomValue -= chaceForRooms[i];
+            randomValue -= chanceForRooms[i];
         }
 
         if (room == node.roomType && Random.Range(0, 2) == 0 && !retryed) 

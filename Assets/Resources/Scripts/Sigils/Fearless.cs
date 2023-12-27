@@ -21,7 +21,7 @@ public class Fearless : Sigil
 
     public override void OnDeadEffects(CardInCombat card) 
     {
-        if(canRevive && card.card.lastBattle == null)
+        if(canRevive)
         {
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.ResetHP();

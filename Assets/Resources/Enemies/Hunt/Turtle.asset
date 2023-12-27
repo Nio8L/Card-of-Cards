@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
   m_Name: Turtle
   m_EditorClassIdentifier: 
   maxHealth: 20
@@ -19,24 +19,50 @@ MonoBehaviour:
   huntRounds: 5
   pacingObject: {fileID: 0}
   isTutorialEnemy: 0
-  cards:
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  maxCardsPerTurn: 6
-  maxEnergy: 50
-  startPlayingDefensivelyAt: 0
-  startPlayingAggressivelyAt: 0
-  canUseLostSoul: 0
-  useKillerStrategyInstead: 0
-  canSeePlayerCardsPlacedThisTurn: 1
-  canHideCardsThatAreAboutToDie: 0
+  isHunter: 0
+  turns:
+  - combatCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    forcePlace: 0
+  - combatCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    forcePlace: 0

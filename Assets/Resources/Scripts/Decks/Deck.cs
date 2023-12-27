@@ -396,12 +396,16 @@ public class Deck : MonoBehaviour, IDataPersistence
 
             if (playerDeck)
             {
-                CardInHand cardObject = cardsInHand[i].GetComponent<CardInHand>();
-                cardObject.dontTidy = true;
-                cardObject.discarding = true;
-                cardObject.travelTime = 0.5f;
-                cardObject.startPos = cardObject.transform.localPosition;
-                cardObject.targetLocation = DiscardPileText.transform.parent.localPosition;
+                if (cardsInHand.Count <= i) break;
+                GameObject cardObject = cardsInHand[i];
+                if (cardObject == null) continue;
+
+                CardInHand cardInHand = cardObject.GetComponent<CardInHand>();
+                cardInHand.dontTidy = true;
+                cardInHand.discarding = true;
+                cardInHand.travelTime = 0.5f;
+                cardInHand.startPos = cardObject.transform.localPosition;
+                cardInHand.targetLocation = DiscardPileText.transform.parent.localPosition;
             }
         }
         cardsInHand.Clear();

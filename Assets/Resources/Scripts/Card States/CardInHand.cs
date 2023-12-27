@@ -165,7 +165,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     //--------------------------------//
     #endregion
    
-
     public void PlayLostSoul(){
         //Set up the new Pointer Event
         m_PointerEventData = new PointerEventData(m_EventSystem)
@@ -238,6 +237,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     CardSlot CheckForSlot()
     {
+        // Raycast down to find if there are suitable slots
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.forward, 100);
         foreach (RaycastHit2D hit in hits)
         {
@@ -251,41 +251,12 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void PlayCard(CardSlot slot)
     {
+        // Check if its the players turn
         if (deck.combatManager.gamePhase == 1) return;
 
-        if (!deck.hasCaptain) 
-        {
-            card.captain = true;
-            deck.hasCaptain = true;
-        }
-        
-
-        GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
-        cardToCreate.transform.SetParent(deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one * 0.75f;
-
-        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = card;
-        cardInCombat.deck = deck;
-        cardInCombat.slot = slot.slot;
-
-        deck.energy -= card.cost;
-        if (slot.bench)
-        {
-            deck.combatManager.playerBenchCards[slot.slot] = cardInCombat;
-            cardInCombat.benched = true;
-        }
-        else
-        {
-            deck.combatManager.playerCombatCards[slot.slot] = cardInCombat;
-            cardInCombat.benched = false;
-        }
-
-        
-
-        //maha go ot deck.cardsInHand
+        // Play the card
         deck.cardsInHand.Remove(gameObject);
-        deck.cardsInHandAsCards.Remove(card);
+        CombatManager.combatManager.PlayCard(card, slot, true);
         Destroy(gameObject);
     }
 

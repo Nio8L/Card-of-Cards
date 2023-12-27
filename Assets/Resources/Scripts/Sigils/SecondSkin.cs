@@ -7,16 +7,18 @@ public class SecondSkin : Sigil
 {
     bool hasASkin = true;
     public Card cardToSpawn;
-    Card secondSkin;
-
     public override void OnDeadEffects(CardInCombat card) 
     {
+        // Make it so this effect can be used the next time this card is played
         hasASkin = true;
     }
 
     public override void OnBattleStartEffects(CardInCombat card)
     {
+        // Return if this sigils has already been used 
         if (!hasASkin) return;
+
+        // Return if there isn't an enemy, or if this card won't take direct damage
         if (    card.playerCard
             && (card.deck.combatManager.enemyCombatCards[card.slot] == null
             ||  card.deck.combatManager.enemyCombatCards[card.slot].card.attack <= 0)) return;
@@ -24,41 +26,28 @@ public class SecondSkin : Sigil
             && (card.deck.combatManager.playerCombatCards[card.slot] == null
             || card.deck.combatManager.playerCombatCards[card.slot].card.attack <= 0)) return;
 
-        secondSkin = Instantiate(cardToSpawn).ResetCard();
-        secondSkin.name = cardToSpawn.name;
+        // Find the slot to play the card at
+        CardSlot slotToUse;
+        if   (card.playerCard) slotToUse = CombatManager.combatManager.playerCombatSlots[card.slot].GetComponent<CardSlot>();
+        else                   slotToUse = CombatManager.combatManager.enemyCombatSlots [card.slot].GetComponent<CardSlot>();
 
-        hasASkin = false;
+        // Instantiate the card to prevent the game from overriding the original scriptable object
+        Card newCard = Instantiate(cardToSpawn).ResetCard();
+        newCard.name = cardToSpawn.name;
 
+        // Play the card
         if (card.playerCard && card.deck.combatManager.playerBenchCards[card.slot] == null)
         {
+            hasASkin = false;
             card.BenchOrUnbench();
-            SpawnSkin(card);
+            CombatManager.combatManager.PlayCard(newCard, slotToUse, false);
         }
         else if (!card.playerCard && card.deck.combatManager.enemyBenchCards[card.slot] == null)
         {
+            hasASkin = false;
             card.BenchOrUnbenchEnemy();
-            card.deck.combatManager.enemy.PlayCard(secondSkin, card.slot, false);
+            CombatManager.combatManager.PlayCard(newCard, slotToUse, false);
         }
 
-    }
-
-    void SpawnSkin(CardInCombat card) 
-    {
-        if (card.card.captain) secondSkin.attack += 1;
-        card.deck.PlaySigilAnimation(card.transform, card.card, this);
-        GameObject cardToCreate = Instantiate(card.deck.cardInCombatPrefab, card.deck.combatManager.playerCombatSlots[card.slot].transform.position, Quaternion.identity);
-        cardToCreate.transform.SetParent(card.deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one * 0.75f;
-
-        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = secondSkin;
-        cardInCombat.deck = card.deck;
-        cardInCombat.slot = card.slot;
-        cardInCombat.benched = false;
-
-        card.deck.combatManager.playerCombatCards[card.slot] = cardInCombat;
-
-        cardInCombat.card.health -= card.card.maxHealth - card.card.health;
-        card.card.ResetHP();
     }
 }

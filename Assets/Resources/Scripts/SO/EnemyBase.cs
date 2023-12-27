@@ -26,7 +26,7 @@ public class EnemyBase : ScriptableObject
 
     public virtual void Initialize()
     {
-        combatManager = GameObject.Find("Deck").GetComponent<CombatManager>();
+        combatManager = CombatManager.combatManager;
         combatManager.enemyHealth = maxHealth;
         if (dialogue != null) dialogue.Initialize();
 
@@ -44,39 +44,13 @@ public class EnemyBase : ScriptableObject
     }
     public void PlayCard(Card card, int slotNumber, bool benched)
     {
-        if (!combatManager.enemyDeck.hasCaptain)
-        {
-            combatManager.enemyDeck.hasCaptain = true;
-            card.captain = true;
-        }
-
-        GameObject cardToCreate;
-        if (benched) cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyBenchSlots[slotNumber].transform.position, Quaternion.identity);
-        else cardToCreate = Instantiate(combatManager.deck.cardInCombatPrefab, combatManager.enemyCombatSlots[slotNumber].transform.position, Quaternion.identity);
-        cardToCreate.transform.SetParent(combatManager.deck.CardsInCombatParent);
-        cardToCreate.transform.localScale = Vector3.one * 0.75f;
-        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
-        cardInCombat.card = card;
-        cardInCombat.deck = combatManager.enemyDeck;
-        cardInCombat.slot = slotNumber;
-        cardInCombat.playerCard = false;
-
-        if (benched)
-        {
-            cardInCombat.benched = true;
-            combatManager.enemyBenchCards[slotNumber] = cardInCombat;
-        }
-        else
-        {
-            cardInCombat.benched = false;
-            combatManager.enemyCombatCards[slotNumber] = cardInCombat;
-        }
-
-        if (useDeck)
-        {
-            combatManager.enemyDeck.energy -= card.cost;
-            combatManager.enemyDeck.cardsInHandAsCards.Remove(card);
-        }
+        CardSlot slotToUse;
+        // Find the slot to play the card at
+        if (benched) slotToUse = combatManager.enemyBenchSlots [slotNumber].GetComponent<CardSlot>();
+        else         slotToUse = combatManager.enemyCombatSlots[slotNumber].GetComponent<CardSlot>();
+        
+        // Call the proper PlayCard();
+        combatManager.PlayCard(card, slotToUse, useDeck);
     }
 
     public string ReturnPath(){

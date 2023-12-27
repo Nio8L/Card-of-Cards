@@ -73,6 +73,8 @@ public class EnemyAI : EnemyBase
             playerCards = combatManager.playerCombatCardsAtStartOfTurn;
             playerBenchedCards = combatManager.playerBenchCardsAtStartOfTurn; 
         }
+        
+        MoveCardsForward();
         Think();
     }
     void Think()
@@ -234,11 +236,7 @@ public class EnemyAI : EnemyBase
             thinkLimit--;
             Think();
         }
-        else
-        {
-            if (canHideCardsThatAreAboutToDie) TryToSaveCards();
-            MoveCardsForward();
-        }
+        else if (canHideCardsThatAreAboutToDie) TryToSaveCards();
     }
     Strategy PickStrategy()
     {

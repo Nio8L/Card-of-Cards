@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using System;
 
 
 public class CombatManager : MonoBehaviour, IDataPersistence
@@ -166,7 +167,57 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
     }
   
-  
+    public void PlayCard(Card card, CardSlot slot, bool useDeck){
+        /*
+            Card card     - The card scriptable object to play the card with
+            CardSlot slot - The slot at which the card will be player
+            bool useDeck  - Whether or not the card has to be removed from its owners hand and its cost has to be deducted from the owners energy
+        */
+        
+        // Remove the card from its owners hand
+        if (useDeck){
+            if (slot.playerSlot){
+                deck.energy -= card.cost;
+                deck.cardsInHandAsCards.Remove(card);
+            }else{
+                enemyDeck.energy -= card.cost;
+            enemyDeck.cardsInHandAsCards.Remove(card);
+            }
+        }
+
+        // Instantiating a Card in combat prefab
+        GameObject cardToCreate = Instantiate(deck.cardInCombatPrefab, slot.transform.position, Quaternion.identity);
+        // Fixings its order in the hierarchy
+        cardToCreate.transform.SetParent(deck.CardsInCombatParent);
+        // Fixings its scale
+        cardToCreate.transform.localScale = Vector3.one * 0.75f;
+        // Initializing CardInCombat component with necesery values
+        CardInCombat cardInCombat = cardToCreate.GetComponent<CardInCombat>();
+        cardInCombat.card = card;
+        cardInCombat.slot = slot.slot;
+        cardInCombat.playerCard = slot.playerSlot;
+        
+        // Find the card's owner's deck so it has a reference to it
+        if (slot.playerSlot) cardInCombat.deck = deck;
+        else                 cardInCombat.deck = enemyDeck;
+
+        // Place the card in the correct list of cards so the Combat Manager (this) can track it
+        if (slot.bench)
+        {
+            cardInCombat.benched = true;
+            if (slot.playerSlot) playerBenchCards[slot.slot] = cardInCombat;
+            else                 enemyBenchCards[slot.slot] = cardInCombat;
+            
+        }
+        else
+        {
+            cardInCombat.benched = false;
+            if (slot.playerSlot) playerCombatCards[slot.slot] = cardInCombat;
+            else                 enemyCombatCards[slot.slot] = cardInCombat;
+        }
+    }
+
+
     #region Game Phases
     public void StartEnemyTurn()
     {
@@ -304,30 +355,43 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     #region Attacks
     public void DirectHit(CardInCombat card)
     {
+        // Just calls its alternate functions with int damage set as the cards attack
         DirectHit(card, card.card.attack);
     }
     public void DirectHit(CardInCombat card, int damage)
     {
+        /*
+            CardInCombat card - The card that is dealing damage
+            int damage        - The amount of damage it will do
+        */
+        // Hits the opponent directly
+
+        // Return if the card is benched since benched cards can't attack
         if (card.benched) return;
+        // Starts the attack animation
         card.MoveAnimationStarter(0.5f, new Vector3(card.transform.position.x, 1f, 0f), true);
 
+        // Checks who the owner of the cards is and deals damage to them
         if (card.playerCard)
         {
             enemyHealth -= damage;
+            // Win if the enemies health drops to or below 0
             if (enemyHealth <= 0)
             {
-                GameObject.Find("EndTurnButton").SetActive(false);
+                if (GameObject.Find("EndTurnButton") != null) GameObject.Find("EndTurnButton").SetActive(false);
                 Invoke("WinGame", 2f);
             }
         }
         else
         {
             playerHealth -= damage;
+            // Lose if the players health drops to or below 0
             if (playerHealth <= 0)
             {
                 Invoke("LoseGame", 2f);
             }
         }
+        // Updates the health bars
         UpdateHPText();
     } 
     public void CardCombat2Attackers(CardInCombat playerCard, CardInCombat enemyCard)
