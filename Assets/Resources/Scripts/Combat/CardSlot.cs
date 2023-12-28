@@ -23,6 +23,10 @@ public class CardSlot : MonoBehaviour
 
     private void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(playerSlot && bench && slot == 0){
+            IgniteSlot(3);
+        }
     }
 
     private void OnDisable() {
@@ -45,6 +49,11 @@ public class CardSlot : MonoBehaviour
     }
 
     public void ApplyIgnitedEffects(){
+        if(turnsIgnited == 0){
+            ResetSlot();
+            return;
+        }
+        
         if(playerSlot){
             if(bench){
                 if(CombatManager.combatManager.playerBenchCards[slot] != null){
@@ -68,9 +77,6 @@ public class CardSlot : MonoBehaviour
         }
 
         turnsIgnited--;
-        if(turnsIgnited == 0){
-            ResetSlot();
-        }
     }
 
     public void DrenchSlot(int duration){

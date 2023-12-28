@@ -316,6 +316,35 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             playerCombatCards.CopyTo(playerCombatCardsAtStartOfTurn, 0);
             playerBenchCards.CopyTo(playerBenchCardsAtStartOfTurn, 0);
             gamePhase = 0;
+
+            //Activate end of turn effects
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (playerBenchCards[i] != null && playerBenchCards[i].card.health > 0f) 
+                {
+                    playerBenchCards[i].card.ActivaeOnEndOfTurnEffects(playerBenchCards[i]);
+                    deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
+                }
+                if(playerCombatCards[i] != null && playerCombatCards[i].card.health > 0f)
+                {
+                    playerCombatCards[i].card.ActivaeOnEndOfTurnEffects(playerCombatCards[i]);
+                    deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
+                }
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                if (enemyBenchCards[i] != null && enemyBenchCards[i].card.health > 0f)
+                {
+                    enemyBenchCards[i].card.ActivaeOnEndOfTurnEffects(enemyBenchCards[i]);
+                    deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
+                }
+                if (enemyCombatCards[i] != null && enemyCombatCards[i].card.health > 0f)
+                {
+                    enemyCombatCards[i].card.ActivaeOnEndOfTurnEffects(enemyCombatCards[i]);
+                    deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
+                }
+            }
         }
     }
     #endregion

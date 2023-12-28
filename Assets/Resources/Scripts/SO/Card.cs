@@ -161,6 +161,10 @@ public class Card : ScriptableObject
         foreach (Sigil sigil in sigils) sigil.OnBattleStartEffects(card);
     }
 
+    public void ActivaeOnEndOfTurnEffects(CardInCombat card){
+        foreach (Sigil sigil in sigils) sigil.OnEndOfTurnEffects(card);
+    }
+
     public void ActivateOnBattleEndEffects(CardInCombat card){
         foreach (Sigil sigil in sigils) sigil.OnBattleEndEffects(card);
     }

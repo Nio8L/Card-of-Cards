@@ -59,6 +59,10 @@ public class Sigil : ScriptableObject
         //effect should be here
     }
 
+    public virtual void OnEndOfTurnEffects(CardInCombat card){
+        //effect should be here
+    }
+
     public virtual void OnBattleEndEffects(CardInCombat card){
         //effect should be here
     }
