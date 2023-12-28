@@ -101,7 +101,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                         }
                         else if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
                         {
-                            CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench();
+                            CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench(true);
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }
@@ -124,7 +124,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
                         else if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
                         {
-                            CombatManager.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench();
+                            CombatManager.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench(true);
                             PlayCard(cardSlot);
                             SoundManager.soundManager.Play("CardPlaced");
                         }

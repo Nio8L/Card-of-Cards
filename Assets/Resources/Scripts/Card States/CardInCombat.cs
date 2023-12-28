@@ -35,6 +35,8 @@ public class CardInCombat : MonoBehaviour
 
     GameObject bloodSplat;
     GameObject deathMark;
+    bool rightClickedRecently;
+    float rightClickTimer;
     void Start()
     {
         card.ActivateOnSummonEffects(this);
@@ -54,11 +56,13 @@ public class CardInCombat : MonoBehaviour
             }
             transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(currentAnimationTime) * 2);
 
-            if (currentAnimationTime < 0f && !updatedAfterReturnAnimation)
+            if (currentAnimationTime < 0f)
             {
-                deck.UpdateCardAppearance(transform, card);
-                updatedAfterReturnAnimation = true;
-                SoundManager.soundManager.Play("CardCombat");
+                if (!updatedAfterReturnAnimation){
+                    deck.UpdateCardAppearance(transform, card);
+                    updatedAfterReturnAnimation = true;
+                    SoundManager.soundManager.Play("CardCombat");
+                }
             }
         }
         else if (returnMovement && currentAnimationTime <= -0.5 && updatedAfterReturnAnimation) 
@@ -76,18 +80,38 @@ public class CardInCombat : MonoBehaviour
         }
 
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        
+        // Check if benching should be enabled again
+        if (rightClickTimer <= 0){
+            // Enable benching if the 0.1 second timer since last right click has passed
+            rightClickedRecently = false;
+        }else{
+            // Count down
+            rightClickTimer -= Time.deltaTime;
+        }
+        // Check if the right button of the mouse has been clicked
+        if (Input.GetMouseButton(1)){
+            // Disable card benching for a bit to avoid considering right clicks as left ones
+            rightClickedRecently = true;
+            rightClickTimer = 0.1f;
+        }
+
+        
     }
-    public void BenchOrUnbench() 
+    public void BenchOrUnbench(bool playerInput) 
     {
         /*  Reworking this was a mistake
             It's somehow worse
         */ 
         
         if (!canBeBenched) return;
-        benched = !benched;
-        SoundManager.soundManager.Play("CardSlide");
-        if (playerCard){
+        
+        if (playerCard && CombatManager.combatManager.gamePhase == 0 && playerInput){
             // Player card
+            if (rightClickedRecently) return;
+
+            benched = !benched;
+            SoundManager.soundManager.Play("CardSlide");
             if (benched)
             {
                 // Benched -> Combat
@@ -112,8 +136,10 @@ public class CardInCombat : MonoBehaviour
                 }
                 MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
             }
-        }else{
+        }else if (!playerInput){
             // Enemy card
+            benched = !benched;
+            SoundManager.soundManager.Play("CardSlide");
             if (benched)
             {
                 // Benched -> Combat
@@ -122,9 +148,9 @@ public class CardInCombat : MonoBehaviour
                 if (CombatManager.combatManager.enemyCombatCards[slot] != null)
                 {
                     CombatManager.combatManager.enemyCombatCards[slot].benched = !benched;
-                    CombatManager.combatManager.enemyCombatCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
+                    CombatManager.combatManager.enemyCombatCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
                 }
-                MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
+                MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
             }
             else
             {
@@ -134,9 +160,9 @@ public class CardInCombat : MonoBehaviour
                 if (CombatManager.combatManager.enemyBenchCards[slot] != null)
                 {
                     CombatManager.combatManager.enemyBenchCards[slot].benched = !benched;
-                    CombatManager.combatManager.enemyBenchCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
+                    CombatManager.combatManager.enemyBenchCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
                 }
-                MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
+                MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
             }
         }
 
