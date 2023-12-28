@@ -343,11 +343,11 @@ public class EnemyAI : EnemyBase
     {
         if (CombatManager.combatManager.enemyBenchCards[slot] != null)
         {
-            CombatManager.combatManager.enemyBenchCards[slot].BenchOrUnbenchEnemy();
+            CombatManager.combatManager.enemyBenchCards[slot].BenchOrUnbench();
         }
         else if (CombatManager.combatManager.enemyCombatCards[slot] != null)
         {
-            CombatManager.combatManager.enemyCombatCards[slot].BenchOrUnbenchEnemy();
+            CombatManager.combatManager.enemyCombatCards[slot].BenchOrUnbench();
         }
     } 
     void MoveCardsForward()

@@ -15,7 +15,7 @@ public class SecondSkin : Sigil
 
     public override void OnBattleStartEffects(CardInCombat card)
     {
-        // Return if this sigils has already been used 
+        // Return if this sigil has already been used 
         if (!hasASkin) return;
 
         // Return if there isn't an enemy, or if this card won't take direct damage
@@ -45,7 +45,7 @@ public class SecondSkin : Sigil
         else if (!card.playerCard && CombatManager.combatManager.enemyBenchCards[card.slot] == null)
         {
             hasASkin = false;
-            card.BenchOrUnbenchEnemy();
+            card.BenchOrUnbench();
             CombatManager.combatManager.PlayCard(newCard, slotToUse, false);
         }
 

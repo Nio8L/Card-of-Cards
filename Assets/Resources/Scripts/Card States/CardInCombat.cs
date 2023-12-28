@@ -28,12 +28,7 @@ public class CardInCombat : MonoBehaviour
     float currentAnimationTime = -0.5f;
     float maxAnimationTime;
 
-    float delayAfterRightClick = 0f;
-    float maxDelay = 0.2f;
-
     bool updatedAfterReturnAnimation;
-
-    bool rightClicked;
     bool returnMovement;
 
     public float animationStartDelay;
@@ -47,23 +42,8 @@ public class CardInCombat : MonoBehaviour
         bloodSplat = Resources.Load<GameObject>("Prefabs/BloodSplatPart");
         deathMark = Resources.Load<GameObject>("Prefabs/DeathMark");
     }
-
     private void Update()
     {
-        if (Input.GetMouseButton(1))
-        {
-            delayAfterRightClick = maxDelay;
-            rightClicked = true;
-        }
-        else if(delayAfterRightClick > 0)
-        {
-            delayAfterRightClick -= Time.deltaTime;
-        }
-        else if (rightClicked)
-        {
-            rightClicked = false;
-        }
-
 
         if (returnMovement && currentAnimationTime > -0.5f)
         {
@@ -97,86 +77,70 @@ public class CardInCombat : MonoBehaviour
 
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
-
     public void BenchOrUnbench() 
     {
-        if (!canBeBenched || !playerCard || CombatManager.combatManager.gamePhase == 2||rightClicked|| Input.GetMouseButtonDown(1)) return;
+        /*  Reworking this was a mistake
+            It's somehow worse
+        */ 
+        
+        if (!canBeBenched) return;
         benched = !benched;
-
-        if (benched)
-        {
-            CombatManager.combatManager.playerCombatCards[slot] = CombatManager.combatManager.playerBenchCards[slot];
-            CombatManager.combatManager.playerBenchCards[slot] = this;
-            if (CombatManager.combatManager.playerCombatCards[slot] != null)
+        SoundManager.soundManager.Play("CardSlide");
+        if (playerCard){
+            // Player card
+            if (benched)
             {
-                CombatManager.combatManager.playerCombatCards[slot].benched = !benched;
-                CombatManager.combatManager.playerCombatCards[slot].PutOnOrOffTheBench();
+                // Benched -> Combat
+                CombatManager.combatManager.playerCombatCards[slot] = CombatManager.combatManager.playerBenchCards[slot];
+                CombatManager.combatManager.playerBenchCards[slot] = this;
+                if (CombatManager.combatManager.playerCombatCards[slot] != null)
+                {
+                    CombatManager.combatManager.playerCombatCards[slot].benched = !benched;
+                    CombatManager.combatManager.playerCombatCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
+                }
+                MoveAnimationStarter(0.5f, CombatManager.combatManager.playerBenchSlots[slot].transform.position, false, 0f);
             }
-            SoundManager.soundManager.Play("CardSlide");
-        }
-        else
-        {
-            CombatManager.combatManager.playerBenchCards[slot] = CombatManager.combatManager.playerCombatCards[slot];
-            CombatManager.combatManager.playerCombatCards[slot] = this;
-            if (CombatManager.combatManager.playerBenchCards[slot] != null)
+            else
             {
-                CombatManager.combatManager.playerBenchCards[slot].benched = !benched;
-                CombatManager.combatManager.playerBenchCards[slot].PutOnOrOffTheBench();
+                // Combat -> Benched
+                CombatManager.combatManager.playerBenchCards[slot] = CombatManager.combatManager.playerCombatCards[slot];
+                CombatManager.combatManager.playerCombatCards[slot] = this;
+                if (CombatManager.combatManager.playerBenchCards[slot] != null)
+                {
+                    CombatManager.combatManager.playerBenchCards[slot].benched = !benched;
+                    CombatManager.combatManager.playerBenchCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.playerBenchSlots[slot].transform.position, false, 0f);
+                }
+                MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
             }
-            SoundManager.soundManager.Play("CardSlide");
+        }else{
+            // Enemy card
+            if (benched)
+            {
+                // Benched -> Combat
+                CombatManager.combatManager.enemyCombatCards[slot] = CombatManager.combatManager.enemyBenchCards[slot];
+                CombatManager.combatManager.enemyBenchCards[slot] = this;
+                if (CombatManager.combatManager.enemyCombatCards[slot] != null)
+                {
+                    CombatManager.combatManager.enemyCombatCards[slot].benched = !benched;
+                    CombatManager.combatManager.enemyCombatCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
+                }
+                MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
+            }
+            else
+            {
+                // Combat -> Benched
+                CombatManager.combatManager.enemyBenchCards[slot] = CombatManager.combatManager.enemyCombatCards[slot];
+                CombatManager.combatManager.enemyCombatCards[slot] = this;
+                if (CombatManager.combatManager.enemyBenchCards[slot] != null)
+                {
+                    CombatManager.combatManager.enemyBenchCards[slot].benched = !benched;
+                    CombatManager.combatManager.enemyBenchCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
+                }
+                MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
+            }
         }
-
-        PutOnOrOffTheBench();
 
         
-    }
-    public void BenchOrUnbenchEnemy()
-    {
-        SoundManager.soundManager.Play("CardSlide");
-
-        if (!canBeBenched || playerCard) return;
-        benched = !benched;
-
-        if (benched)
-        {
-            CombatManager.combatManager.enemyCombatCards[slot] = CombatManager.combatManager.enemyBenchCards[slot];
-            CombatManager.combatManager.enemyBenchCards[slot] = this;
-            if (CombatManager.combatManager.enemyCombatCards[slot] != null)
-            {
-                CombatManager.combatManager.enemyCombatCards[slot].benched = !benched;
-                CombatManager.combatManager.enemyCombatCards[slot].PutOnOrOffTheBenchEnemyCards();
-            }
-        }
-        else
-        {
-            CombatManager.combatManager.enemyBenchCards[slot] = CombatManager.combatManager.enemyCombatCards[slot];
-            CombatManager.combatManager.enemyCombatCards[slot] = this;
-            if (CombatManager.combatManager.enemyBenchCards[slot] != null)
-            {
-                CombatManager.combatManager.enemyBenchCards[slot].benched = !benched;
-                CombatManager.combatManager.enemyBenchCards[slot].PutOnOrOffTheBenchEnemyCards();
-            }
-        }
-
-        PutOnOrOffTheBenchEnemyCards();
-    }
-    public void PutOnOrOffTheBench() 
-    {
-        if (benched) 
-        {
-            MoveAnimationStarter(0.5f, CombatManager.combatManager.playerBenchSlots[slot].transform.position, false, 0f);
-            return;
-        }
-        MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
-    }
-    public void PutOnOrOffTheBenchEnemyCards()
-    {
-        if (benched)
-        {
-            MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyBenchSlots[slot].transform.position, false, 0f);
-            return;
-        }
-        MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
     }
     public void MoveAnimationStarter(float time, Vector3 end, bool returnMove, float startDelay)
     {
