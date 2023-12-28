@@ -144,7 +144,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public void PlayCard(Card card, CardSlot slot, bool useDeck){
         /*
             Card card     - The card scriptable object to play the card with
-            CardSlot slot - The slot at which the card will be player
+            CardSlot slot - The slot at which the card will be played
             bool useDeck  - Whether or not the card has to be removed from its owners hand and its cost has to be deducted from the owners energy
         */
         
