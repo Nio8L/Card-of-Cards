@@ -22,4 +22,5 @@ MonoBehaviour:
   typeOfDamage: 1
   sigils:
   - {fileID: 11400000, guid: f1efb2a8b94740642a1e09c61c9266c2, type: 2}
+  - {fileID: 11400000, guid: be1652e94d28ef04da53a4d5eb4d81b6, type: 2}
   injuries: 

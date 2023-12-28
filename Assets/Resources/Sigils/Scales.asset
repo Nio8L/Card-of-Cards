@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbd7cba3d8daa248bb98f848fd3a0c2, type: 3}
   m_Name: Scales
   m_EditorClassIdentifier: 
-  sigilName: 
+  sigilName: Scales
   negative: 0
-  image: {fileID: 0}
-  description: 
+  image: {fileID: 21300000, guid: 0d46148c890ea1e4f8510cb676c27c70, type: 3}
+  description: This card is immune to fire damage.
   canUseAbility: 0
