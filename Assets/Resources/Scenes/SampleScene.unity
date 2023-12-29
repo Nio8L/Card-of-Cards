@@ -1235,6 +1235,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1308,6 +1309,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d093f6323949742840253bfe2e8169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &527115433
 GameObject:
   m_ObjectHideFlags: 0
@@ -4347,6 +4360,18 @@ PrefabInstance:
       propertyPath: bench
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1140991898236343120, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140991898236343120, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140991898236343120, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8353563794156794256, guid: 611bc8584881f784b88ca4b1de1c06da, type: 3}
       propertyPath: m_Name
       value: BenchSlot
@@ -6627,6 +6652,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1262811047}
         m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
         m_MethodName: StartEnemyTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 519420033}
+        m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+        m_MethodName: InvokeNextTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

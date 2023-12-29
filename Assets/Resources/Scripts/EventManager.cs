@@ -9,4 +9,11 @@ public class EventManager : MonoBehaviour
     public static Action<Card, List<Card>> CardCreated;
 
     public static Action CardDeath;
+
+    public static Action NextTurn;
+
+    public void InvokeNextTurn(){
+        NextTurn?.Invoke();
+
+    }
 }

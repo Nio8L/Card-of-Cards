@@ -144,7 +144,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public void PlayCard(Card card, CardSlot slot, bool useDeck){
         /*
             Card card     - The card scriptable object to play the card with
-            CardSlot slot - The slot at which the card will be player
+            CardSlot slot - The slot at which the card will be played
             bool useDeck  - Whether or not the card has to be removed from its owners hand and its cost has to be deducted from the owners energy
         */
         
@@ -318,6 +318,35 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             playerCombatCards.CopyTo(playerCombatCardsAtStartOfTurn, 0);
             playerBenchCards.CopyTo(playerBenchCardsAtStartOfTurn, 0);
             gamePhase = 0;
+
+            //Activate end of turn effects
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (playerBenchCards[i] != null && playerBenchCards[i].card.health > 0f) 
+                {
+                    playerBenchCards[i].card.ActivaeOnEndOfTurnEffects(playerBenchCards[i]);
+                    deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
+                }
+                if(playerCombatCards[i] != null && playerCombatCards[i].card.health > 0f)
+                {
+                    playerCombatCards[i].card.ActivaeOnEndOfTurnEffects(playerCombatCards[i]);
+                    deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
+                }
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                if (enemyBenchCards[i] != null && enemyBenchCards[i].card.health > 0f)
+                {
+                    enemyBenchCards[i].card.ActivaeOnEndOfTurnEffects(enemyBenchCards[i]);
+                    deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
+                }
+                if (enemyCombatCards[i] != null && enemyCombatCards[i].card.health > 0f)
+                {
+                    enemyCombatCards[i].card.ActivaeOnEndOfTurnEffects(enemyCombatCards[i]);
+                    deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
+                }
+            }
         }
     }
     #endregion

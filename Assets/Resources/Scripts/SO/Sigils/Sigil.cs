@@ -57,6 +57,10 @@ public class Sigil : ScriptableObject
         */
     }
 
+    public virtual void OnEndOfTurnEffects(CardInCombat card){
+        //effect should be here
+    }
+
     public virtual void OnBattleEndEffects(CardInCombat card){
         /*
             Triggers after the end of all combats
