@@ -125,6 +125,9 @@ public class ActiveAbilityManager : MonoBehaviour
         int indexToPlaceSigilAt = 0;
         for (int i = 0; i < 3; i++){
             // Loop through all 3 sigils of a card to find the active ones
+
+            // Deactivate the buttons
+            sigilMenu.GetChild(i).gameObject.SetActive(false);
             if (selectedCard.card.sigils.Count > i){
                 Sigil sigil = selectedCard.card.sigils[i] ;
                 if (sigil.GetActiveSigil() != null){
@@ -157,8 +160,6 @@ public class ActiveAbilityManager : MonoBehaviour
                     continue;
                 }
             }
-            // If there are no more sigils deactivate the excess buttons
-            sigilMenu.GetChild(i).gameObject.SetActive(false);
         }
     }
     void RemoveHighlight(){
