@@ -9,57 +9,64 @@ public class Sigil : ScriptableObject
     public bool negative;
     public Sprite image;
     public string description;
-    
-
-    [HideInInspector]
-    public bool canUseAbility = false;
-    CardSlot selectedSlot;
-
     public virtual void PasiveEffect(CardInCombat card) 
     {
-        //effect should be here
+        /*
+            Activates at the start of the owners turn
+        */
     }
 
     public virtual void ApplyOnHitEffect(CardInCombat card)
     {
-        //effect should be here
+        /*
+            Activates when the card with this sigils attacks 
+        */
     }
 
     public virtual void OnTakeDamageEffect(CardInCombat card)
     {
-        //effect should be here
+        /*
+            Activates when the card with this sigils is attacked during combat (used before on hit effects)
+        */
     }
 
     public virtual void OnSummonEffects(CardInCombat card) 
     {
-        //effect should be here
+        /*
+            Activates when the card with this sigils is played
+        */
     }
 
     public virtual void OnDeadEffects(CardInCombat card) 
     {
-        //effect should be here
+        /*
+            This activates when the card with this sigils dies (or would die)
+        */
     }
 
     public virtual void OnConsumeEffects(CardInCombat card, Card consumedCard){
-        //effect should be here
+        /*
+            Consume effects use this after consuming a card
+        */
     }
-
-    public virtual bool ActiveSigilStart(CardInCombat card) 
-    {
-        return false;//returns true if it has a second stage
-    }
-
-    public virtual bool TryToEndActiveSigil(CardSlot slot)
-    {
-        return true;//returns true if the second stage ends
-	}
 
     public virtual void OnBattleStartEffects(CardInCombat card)
     {
-        //effect should be here
+        /*
+            Activates right before the start of combat
+        */
     }
 
     public virtual void OnBattleEndEffects(CardInCombat card){
-        //effect should be here
+        /*
+            Triggers after the end of all combats
+        */
+    }
+
+    public virtual ActiveSigil GetActiveSigil(){
+        /*
+            Ignore this unless you are working with active sigils 
+        */
+        return null;
     }
 }

@@ -139,23 +139,6 @@ public class Card : ScriptableObject
     public void ActivateOnConsumeEffects(CardInCombat card, Card consumedCard){
         foreach (Sigil sigil in sigils) sigil.OnConsumeEffects(card, consumedCard);
     }
-
-    public void ActivateActiveEffects(CardInCombat card)
-    {
-        foreach (Sigil sigil in sigils) { sigil.OnDeadEffects(card); break; }
-    }
-
-    public List<Sigil> ActivateActiveSigilStartEffects(CardInCombat card)
-    {
-        List<Sigil> returnList = new List<Sigil>();
-        foreach (Sigil sigil in sigils) 
-        {
-            bool secondStage = sigil.ActiveSigilStart(card);
-            if (secondStage) returnList.Add(sigil);
-        }
-        return returnList;
-    }
-
     public void ActivateOnBattleStartEffects(CardInCombat card) 
     {
         foreach (Sigil sigil in sigils) sigil.OnBattleStartEffects(card);

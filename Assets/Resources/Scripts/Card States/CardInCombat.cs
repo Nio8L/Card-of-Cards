@@ -100,7 +100,8 @@ public class CardInCombat : MonoBehaviour
     }
     public void BenchOrUnbench(bool playerInput) 
     {
-        /*  Reworking this was a mistake
+        /*  
+            Reworking this was a mistake
             It's somehow worse
         */ 
         
@@ -108,7 +109,7 @@ public class CardInCombat : MonoBehaviour
         
         if (playerCard && CombatManager.combatManager.gamePhase == 0 && playerInput){
             // Player card
-            if (rightClickedRecently) return;
+            if (rightClickedRecently || !ActiveAbilityManager.activeAbilityManager.cardsCanBench || currentAnimationTime > 0.4f) return;
 
             benched = !benched;
             SoundManager.soundManager.Play("CardSlide");
@@ -221,29 +222,37 @@ public class CardInCombat : MonoBehaviour
     private void OnDestroy() {
         SoundManager.soundManager.Play("CardDeath");
     }
-    public void ShowSigilStar(Sigil sigil)
+    public void ShowSigilStars()
     {
-        int alpha = 0;
-        if (sigil.canUseAbility) alpha = 1;
+        for (int i = 0; i < card.sigils.Count; i++){
+            Sigil sigil = card.sigils[i];
+            int alpha = 0;
+            ActiveSigil activeSigil = sigil.GetActiveSigil();
+            if (activeSigil != null && activeSigil.canBeUsed) alpha = 1;
 
-        if (card.sigils[0] == sigil)
-        {
-            transform.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-        }
-        else if (card.sigils[1] == sigil)
-        {
-            transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-        }
-        else
-        {
-            transform.GetChild(16).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+            if (card.sigils[0] == sigil)
+            {
+                transform.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+                transform.GetChild(14).GetComponent<Image>().sprite = deck.activeStar;
+            }
+            else if (card.sigils[1] == sigil)
+            {
+                transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+                transform.GetChild(15).GetComponent<Image>().sprite = deck.activeStar;
+            }
+            else
+            {
+                transform.GetChild(16).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+                transform.GetChild(16).GetComponent<Image>().sprite = deck.activeStar;
+            }
         }
     }
     public void SetActiveSigilStar(Sigil sigil)
     {
-        Sprite spriteToUse;
-        if (sigil.canUseAbility) spriteToUse = deck.selectedActiveStar;
-        else                     spriteToUse = deck.activeStar;
+        Sprite spriteToUse = deck.activeStar;
+        ActiveSigil activeSigil = sigil.GetActiveSigil();
+        if (activeSigil != null && activeSigil.canBeUsed) spriteToUse = deck.selectedActiveStar;
+        else                                              spriteToUse = deck.activeStar;
 
         if (card.sigils[0] == sigil)
         {
@@ -305,6 +314,26 @@ public class CardInCombat : MonoBehaviour
             GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
             deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
             GetComponent<DestroyTimer>().enabled = true;
+        }
+    }
+    public void TryToSelectForActiveAbility(){
+        if (!playerCard || !rightClickedRecently) return;
+
+        for (int i = 0; i < card.sigils.Count; i++){
+            if (card.sigils[i].GetActiveSigil() != null){
+                if (ActiveAbilityManager.activeAbilityManager.selectedCard == this) ActiveAbilityManager.activeAbilityManager.Deselect();
+                else ActiveAbilityManager.activeAbilityManager.SelectCard(this);
+                break;
+            }
+        }
+    }
+    public CardSlot GetSlot(){
+        if (playerCard){
+            if (benched) return CombatManager.combatManager.playerBenchSlots [slot].GetComponent<CardSlot>();
+            else         return CombatManager.combatManager.playerCombatSlots[slot].GetComponent<CardSlot>();
+        }else{
+            if (benched) return CombatManager.combatManager.enemyBenchSlots  [slot].GetComponent<CardSlot>();
+            else         return CombatManager.combatManager.enemyCombatSlots [slot].GetComponent<CardSlot>();
         }
     }
 }

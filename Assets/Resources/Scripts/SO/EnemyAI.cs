@@ -230,7 +230,7 @@ public class EnemyAI : EnemyBase
         }
 
         // Rethink if the enemy has enough energy
-        if (CombatManager.combatManager.enemyDeck.energy > 0 && thinkLimit > 0 && cardsPlayedThisTurn < maxCardsPerTurn)
+        if (thinkLimit > 0 && cardsPlayedThisTurn < maxCardsPerTurn)
         {
             thinkLimit--;
             Think();

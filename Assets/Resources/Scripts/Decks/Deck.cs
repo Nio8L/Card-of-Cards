@@ -154,8 +154,8 @@ public class Deck : MonoBehaviour, IDataPersistence
         deathMarkBite = Resources.Load<Sprite>("Sprites/DeathMarkBite");
         deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
 
-        activeStar = Resources.Load<Sprite>("Sprites/ActiveStar");
-        selectedActiveStar = Resources.Load<Sprite>("Sprites/SelectedActiveStar");
+        activeStar = Resources.Load<Sprite>("Sprites/Sigils/ActiveStar");
+        selectedActiveStar = Resources.Load<Sprite>("Sprites/Sigils/SelectedActiveStar");
 
         soulHeart = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
 
@@ -477,10 +477,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             cardGameObject.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, 0);
             cardGameObject.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, 0);
             cardGameObject.GetChild(16).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            for (int i = 0; i < card.sigils.Count; i++)
-            {
-                combatCard.ShowSigilStar(card.sigils[i]);
-            }
+            combatCard.ShowSigilStars();
         }
         else if (handCard)
         {

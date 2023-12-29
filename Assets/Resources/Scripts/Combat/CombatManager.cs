@@ -199,6 +199,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         if (gamePhase > 0) return;
         gamePhase = 1;
 
+        ActiveAbilityManager.activeAbilityManager.Deselect();
+
         deck.ForceDraw();
         deck.DiscardHand();
 
@@ -506,5 +508,31 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     
     public void CardDeath(){
         playerCardsLost++;
+    }
+
+    public CardInCombat GetCardAtSlot(CardSlot slot){
+        // Find cardInCombat via cardSlot
+        if (slot.playerSlot){
+            if (slot.bench) return playerBenchCards [slot.slot];
+            else            return playerCombatCards[slot.slot];
+        }else{
+            if (slot.bench) return enemyBenchCards  [slot.slot];
+            else            return enemyCombatCards [slot.slot];
+        }
+    }
+
+    public void SetCardAtSlot(CardSlot slot, CardInCombat cardInCombat){
+        if (cardInCombat != null){
+            cardInCombat.slot    = slot.slot;
+            cardInCombat.benched = slot.bench;
+        }
+
+        if (slot.playerSlot){
+            if (slot.bench) playerBenchCards [slot.slot] = cardInCombat;
+            else            playerCombatCards[slot.slot] = cardInCombat;
+        }else{
+            if (slot.bench) enemyBenchCards  [slot.slot] = cardInCombat;
+            else            enemyCombatCards [slot.slot] = cardInCombat;
+        }
     }
 }
