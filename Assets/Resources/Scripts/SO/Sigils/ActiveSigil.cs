@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Active Sigil")]
 public class ActiveSigil : Sigil
 {
+    [Header("Active Sigil")]
     public bool canBeUsed;
     public int neededTargets;
     public virtual void ActiveEffect(CardInCombat card, List<CardSlot> targets) 
