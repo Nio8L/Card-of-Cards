@@ -6,19 +6,13 @@ using UnityEngine;
 public class Ignite : ActiveSigil
 {
     public int ignitionDuration;
-
-    [Header("Possible ignitions")]
-    public bool playerCombat = false;
-    public bool playerBench = false;
-    public bool enemyCombat = false;
-    public bool enemyBench = false;
-
     public override void ActiveEffect(CardInCombat card, List<CardSlot> targets)
     {
-        CardSlot targetSlot = targets[0];
+        for (int i = 0; i < targets.Count; i++){
+            CardSlot targetSlot = targets[i];
 
-        targetSlot.IgniteSlot(ignitionDuration);
-
+            targetSlot.IgniteSlot(ignitionDuration);
+        }
         canBeUsed = false;
     }
 
@@ -26,38 +20,13 @@ public class Ignite : ActiveSigil
     {
         List<CardSlot> targets = new List<CardSlot>();
 
-        if (playerBench)
+         for(int i = 0; i < CombatManager.combatManager.playerBenchSlots.Length; i++)
         {
-            for(int i = 0; i < CombatManager.combatManager.playerBenchSlots.Length; i++)
-            {
-                targets.Add(CombatManager.combatManager.playerBenchSlots[i].GetComponent<CardSlot>());
-            }
+            targets.Add(CombatManager.combatManager.playerBenchSlots[i].GetComponent<CardSlot>());
+            targets.Add(CombatManager.combatManager.playerCombatSlots[i].GetComponent<CardSlot>());
+            targets.Add(CombatManager.combatManager.enemyBenchSlots[i].GetComponent<CardSlot>());
+            targets.Add(CombatManager.combatManager.enemyCombatSlots[i].GetComponent<CardSlot>());
         }
-
-        if (playerCombat)
-        {
-            for(int i = 0; i < CombatManager.combatManager.playerCombatSlots.Length; i++)
-            {
-                targets.Add(CombatManager.combatManager.playerCombatSlots[i].GetComponent<CardSlot>());
-            }
-        }
-
-        if (enemyBench)
-        {
-            for(int i = 0; i < CombatManager.combatManager.enemyBenchSlots.Length; i++)
-            {
-                targets.Add(CombatManager.combatManager.enemyBenchSlots[i].GetComponent<CardSlot>());
-            }
-        }
-
-        if (enemyCombat)
-        {
-            for(int i = 0; i < CombatManager.combatManager.enemyCombatSlots.Length; i++)
-            {
-                targets.Add(CombatManager.combatManager.enemyCombatSlots[i].GetComponent<CardSlot>());
-            }
-        }
-
         
         //targets.Remove(thisSlot);
         return targets;
