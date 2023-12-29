@@ -37,6 +37,9 @@ public class CardSlot : MonoBehaviour
         status = Status.Normal;
         spriteRenderer.color = Color.white;
 
+        turnsIgnited = 0;
+        turnsDrenched = 0;
+
         EventManager.NextTurn -= ApplyIgnitedEffects;
     }
 
