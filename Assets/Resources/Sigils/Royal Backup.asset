@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a56b85a48dd0a41b9e74875ae7b1f7, type: 3}
+  m_Name: Royal Backup
+  m_EditorClassIdentifier: 
+  sigilName: Royal Backup
+  negative: 0
+  image: {fileID: 21300000, guid: 4c1210abb8adeb240b3e4dd364a0af2f, type: 3}
+  description: Upon death add a random ant to your draw pile
+  cardsToGive:
+  - {fileID: 11400000, guid: a44469202caecbf4992051ff0ca21721, type: 2}
+  - {fileID: 11400000, guid: 8dd720278f60df54c9b6056c4b0cd7b0, type: 2}
+  - {fileID: 11400000, guid: 593d9feb501a2b04e95087f4d55abe51, type: 2}

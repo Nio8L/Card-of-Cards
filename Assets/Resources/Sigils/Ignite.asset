@@ -19,3 +19,7 @@ MonoBehaviour:
   canBeUsed: 0
   neededTargets: 3
   ignitionDuration: 2
+  playerCombat: 1
+  playerBench: 1
+  enemyCombat: 1
+  enemyBench: 1
