@@ -19,7 +19,7 @@ public class ActiveAbilityManager : MonoBehaviour
 
     public List<CardSlot> targetableSlots;
     List<CardSlot> selectedSlots  = new List<CardSlot>();
-    ActiveSigil selectedSigil;
+    public ActiveSigil selectedSigil;
 
     float activateBenchingTimer;
     public bool cardsCanBench = true;
@@ -211,12 +211,16 @@ public class ActiveAbilityManager : MonoBehaviour
     }
 
     int GetUsableAbility(){
+        int saveActive = -1;
         for (int i = 0; i < selectedCard.card.sigils.Count; i++){
             ActiveSigil activeSigil = selectedCard.card.sigils[i].GetActiveSigil();
-            if (activeSigil != null && activeSigil.canBeUsed){
-                return i;
+            if (activeSigil != null){
+                if (activeSigil.canBeUsed) return i;
+                else if (saveActive == -1) saveActive = i;
             }
         }
+
+        if (saveActive != -1) return saveActive;
         return 0;
     }
 }
