@@ -54,27 +54,8 @@ public class CardSlot : MonoBehaviour
             return;
         }
         
-        if(playerSlot){
-            if(bench){
-                if(CombatManager.combatManager.playerBenchCards[slot] != null){
-                    CombatManager.combatManager.playerBenchCards[slot].card.health -= 1;
-                }
-            }else{
-                if(CombatManager.combatManager.playerCombatCards[slot] != null){
-                    CombatManager.combatManager.playerCombatCards[slot].card.health -= 1;
-                }
-            }
-        }else{
-            if(bench){
-                if(CombatManager.combatManager.enemyBenchCards[slot] != null){
-                    CombatManager.combatManager.enemyBenchCards[slot].card.health -= 1;
-                }
-            }else{
-                if(CombatManager.combatManager.enemyCombatCards[slot] != null){
-                    CombatManager.combatManager.enemyCombatCards[slot].card.health -= 1;
-                }
-            }
-        }
+        CardInCombat cardInCombat = CombatManager.combatManager.GetCardAtSlot(this);
+        if (cardInCombat != null) cardInCombat.card.health--;
 
         turnsIgnited--;
     }

@@ -121,6 +121,7 @@ public class ActiveAbilityManager : MonoBehaviour
         RemoveHighlight();
     }
     void SetupSigilIcons(int selectedSigilIndex){
+        selectedCard.ShowSigilStars();
         int indexToPlaceSigilAt = 0;
         for (int i = 0; i < 3; i++){
             // Loop through all 3 sigils of a card to find the active ones
