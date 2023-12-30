@@ -11,8 +11,8 @@ public class ScriptedEnemy : EnemyBase
     [System.Serializable]
     private class Turn
     {
-        public Card[] combatCards = new Card[3];
-        public Card[] benchCards  = new Card[3];
+        public Card[] combatCards = new Card[5];
+        public Card[] benchCards  = new Card[5];
         public bool forcePlace;
     }
     public override void Initialize()
@@ -38,7 +38,7 @@ public class ScriptedEnemy : EnemyBase
             If there is a null somewhere in the lists it just kills the card in that slot
             If there is a card it kills the old card and places the new one in its place
         */
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             // Kill existing cards
             CardInCombat combatCard = CombatManager.combatManager.enemyBenchCards[i] ;
@@ -74,7 +74,7 @@ public class ScriptedEnemy : EnemyBase
     }
     void PlayTurn(Turn turn) 
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             Card card;
 

@@ -21,20 +21,20 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public int playerHealth = 20;
     public int enemyHealth = 20;
 
-    public CardInCombat[] playerCombatCards = new CardInCombat[3];
-    public CardInCombat[] playerBenchCards = new CardInCombat[3];
+    public CardInCombat[] playerCombatCards = new CardInCombat[5];
+    public CardInCombat[] playerBenchCards = new CardInCombat[5];
 
-    public CardInCombat[] playerCombatCardsAtStartOfTurn = new CardInCombat[3];
-    public CardInCombat[] playerBenchCardsAtStartOfTurn = new CardInCombat[3];
+    public CardInCombat[] playerCombatCardsAtStartOfTurn = new CardInCombat[5];
+    public CardInCombat[] playerBenchCardsAtStartOfTurn = new CardInCombat[5];
 
-    public CardInCombat[] enemyCombatCards = new CardInCombat[3];
-    public CardInCombat[] enemyBenchCards = new CardInCombat[3];
+    public CardInCombat[] enemyCombatCards = new CardInCombat[5];
+    public CardInCombat[] enemyBenchCards = new CardInCombat[5];
 
-    public GameObject[] enemyCombatSlots = new GameObject[3];
-    public GameObject[] enemyBenchSlots = new GameObject[3];
+    public GameObject[] enemyCombatSlots = new GameObject[5];
+    public GameObject[] enemyBenchSlots = new GameObject[5];
 
-    public GameObject[] playerCombatSlots = new GameObject[3];
-    public GameObject[] playerBenchSlots = new GameObject[3];
+    public GameObject[] playerCombatSlots = new GameObject[5];
+    public GameObject[] playerBenchSlots = new GameObject[5];
 
     public List<Card> battleReward = new List<Card>();
 
@@ -215,7 +215,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void StartCombatPhase()
     {
         //Debug.Log("Start combat");
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleStartEffects(playerCombatCards[i]);
             if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleStartEffects(playerBenchCards[i]);
@@ -224,7 +224,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         gamePhase = 2;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (playerCombatCards[i] != null && enemyCombatCards[i] != null) CardCombat2Attackers(playerCombatCards[i], enemyCombatCards[i]);
             else if (playerCombatCards[i] != null) DirectHit(playerCombatCards[i]);
@@ -251,7 +251,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             deck.energy = 3;
             deck.DrawCard(5);
 
-            for(int i = 0; i < 3 ;i++)
+            for(int i = 0; i < 5 ;i++)
             {
                 if (playerCombatCards[i] != null)
                 {
@@ -262,7 +262,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     playerBenchCards[i].passivesTurnedOnThisTurn = false;
                 }
             }
-            for(int i = 0; i < 3 ;i++)
+            for(int i = 0; i < 5 ;i++)
             {
                 if (enemyBenchCards[i] != null)
                 {
@@ -274,7 +274,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 }
             }
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false && playerBenchCards[i].card.health > 0f) 
                 {
@@ -289,7 +289,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
                 }
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false && enemyBenchCards[i].card.health > 0f)
                 {
@@ -321,7 +321,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
             //Activate end of turn effects
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (playerBenchCards[i] != null && playerBenchCards[i].card.health > 0f) 
                 {
@@ -334,7 +334,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
                 }
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (enemyBenchCards[i] != null && enemyBenchCards[i].card.health > 0f)
                 {
@@ -486,7 +486,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         timerToNextTurn = 1000f;
         if (enemy.isTutorialEnemy) { TutorialWin(); return; }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleEndEffects(playerCombatCards[i]);
             if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleEndEffects(playerBenchCards[i]);
@@ -505,7 +505,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         timerToNextTurn = 1000f;
      
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleEndEffects(playerCombatCards[i]);
             if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleEndEffects(playerBenchCards[i]);

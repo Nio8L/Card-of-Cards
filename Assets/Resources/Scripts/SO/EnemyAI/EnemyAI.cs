@@ -52,7 +52,7 @@ public class EnemyAI : EnemyBase
             CombatManager.combatManager.enemyDeck.AddCard(cardToAdd);
             CombatManager.combatManager.enemyDeck.Shuffle();
         }
-        savedLastRound = new bool[3];
+        savedLastRound = new bool[5];
     }
     public override void StartTurn()
     {
@@ -89,7 +89,7 @@ public class EnemyAI : EnemyBase
         {
             int targetDamage = 0;
             
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (playerCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
@@ -113,7 +113,7 @@ public class EnemyAI : EnemyBase
         {
             int targetValue = 0;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (playerCards[i] != null && CombatManager.combatManager.enemyBenchCards[i] == null)
                 {
@@ -138,7 +138,7 @@ public class EnemyAI : EnemyBase
 
             int targetHealth = 0;
             
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (playerCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
@@ -159,7 +159,7 @@ public class EnemyAI : EnemyBase
         }
         if (currentStrategy == Strategy.Aggressive)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (playerCards[i] == null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
@@ -167,7 +167,7 @@ public class EnemyAI : EnemyBase
                     targetIndex = i;
                 }
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (hasPlay) break;
                 if (playerBenchedCards[i] == null && CombatManager.combatManager.enemyBenchCards[i] == null)
@@ -243,7 +243,7 @@ public class EnemyAI : EnemyBase
         if (CombatManager.combatManager.enemyHealth + bias <= startPlayingDefensivelyAt)
         {
             bias = 0;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
@@ -352,7 +352,7 @@ public class EnemyAI : EnemyBase
     } 
     void MoveCardsForward()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (CombatManager.combatManager.enemyBenchCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null)
             {
@@ -364,7 +364,7 @@ public class EnemyAI : EnemyBase
     {
         if (CombatManager.combatManager.enemyHealth/(float)maxHealth >= 0.25f)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (savedLastRound[i] == true)
                 {
