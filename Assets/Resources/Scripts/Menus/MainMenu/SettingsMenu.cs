@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Diagnostics;
 
 public class SettingsMenu : MonoBehaviour, ISettingsPersistence
 {
@@ -15,28 +14,49 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [Header("Menu Operational Stuff")]
     [SerializeField] private Slider audioSlider;
     [SerializeField] private TextMeshProUGUI audioText;
-    [SerializeField] private Toggle audioToggle;
+    [SerializeField] private Button audioButton;
 
 
     [SerializeField] private Slider musicSlider;
     [SerializeField] private TextMeshProUGUI musicSliderText;
-    [SerializeField] private Toggle musicToggle;
+    [SerializeField] private Button musicButton;
+
+    [Header("Sprites")]
+    public Sprite onImage;
+    public Sprite offImage;
+
+    public bool disableAudio = false;
+    private bool disableMusic = false;
 
 
     public void SaveData(SettingsData data){
         data.audioLevel = (int)audioSlider.value;
         data.musicLevel = (int)musicSlider.value;
 
-        data.disableAudio = audioToggle.isOn;
-        data.disableMusic = musicToggle.isOn;
+        data.disableAudio = disableAudio;
+        data.disableMusic = disableMusic;
     }
 
     public void LoadData(SettingsData data){
         audioSlider.value = data.audioLevel;
         musicSlider.value = data.musicLevel;
 
-        audioToggle.isOn = data.disableAudio;
-        musicToggle.isOn = data.disableMusic;
+        if(data.disableAudio){
+            audioButton.image.sprite = offImage;
+        }else{
+            audioButton.image.sprite = onImage;
+        }
+        disableAudio = data.disableAudio;
+        SoundManager.soundManager.disableAudio = data.disableAudio;
+        
+        if(data.disableMusic){
+            musicButton.image.sprite = offImage;
+        }else{
+            musicButton.image.sprite = onImage;
+        }
+        disableMusic = data.disableMusic;
+        SoundManager.soundManager.disableMusic = data.disableMusic;
+        
     }
 
     public void OnBackClick(){
@@ -73,12 +93,28 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         SoundManager.soundManager.UpdateMusicVolume(musicSlider.value / 100);
     }
 
-    public void DisableAudio(){
-        SoundManager.soundManager.disableAudio = !audioToggle.isOn;
+    public void SoundToggleClick(){
+        if(disableAudio){
+            audioButton.image.sprite = onImage;
+        }else{
+            audioButton.image.sprite = offImage;
+        }
+        
+        disableAudio = !disableAudio;
+
+        SoundManager.soundManager.disableAudio = disableAudio;
     }
 
-    public void DisableMusic(){
-        SoundManager.soundManager.disableMusic = !musicToggle.isOn;
+    public void MusicToggleClick(){
+        if(disableMusic){
+            musicButton.image.sprite = onImage;
+        }else{
+            musicButton.image.sprite = offImage;
+        }
+
+        disableMusic = !disableMusic;
+
+        SoundManager.soundManager.disableMusic = disableMusic;
         SoundManager.soundManager.StopCurrentMusic();
         SoundManager.soundManager.PlayMusic(SoundManager.soundManager.currentMusic);
     }
