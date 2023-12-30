@@ -197,6 +197,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public void StartEnemyTurn()
     {
         if (gamePhase > 0) return;
+        EventManager.NextTurn?.Invoke();
         gamePhase = 1;
 
         ActiveAbilityManager.activeAbilityManager.Deselect();
@@ -211,6 +212,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         startCombatPhase = true;
         timerAfterEnemyTurn = resetTimerAfterEnemyTurnTo;
+
     }
     void StartCombatPhase()
     {
@@ -245,7 +247,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             GameObject.Find("EndTurnButton").SetActive(false);
             Invoke("WinGame", 2f);
         }
-        
+
         if (gamePhase == 2)
         {
             deck.energy = 3;

@@ -15,6 +15,9 @@ public class CardSlot : MonoBehaviour
         Drenched
     };
 
+    [SerializeField]
+    ParticleSystem ignitedParticles;
+
     [HideInInspector]
     public int turnsIgnited;
     public int turnsDrenched;
@@ -48,12 +51,15 @@ public class CardSlot : MonoBehaviour
         turnsIgnited = duration;
         spriteRenderer.color = Color.red;
 
+        ignitedParticles.Play();
+
         EventManager.NextTurn += ApplyIgnitedEffects;
     }
 
     public void ApplyIgnitedEffects(){
         if(turnsIgnited == 0){
             ResetSlot();
+            ignitedParticles.Stop();
             return;
         }
         
