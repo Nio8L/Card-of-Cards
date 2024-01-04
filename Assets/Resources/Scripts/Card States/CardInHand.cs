@@ -17,7 +17,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     private EventSystem m_EventSystem;
 
     [HideInInspector]
-    public float tiltAngle;
+    public float tiltAngle = 0;
     public bool dontTidy = true;
     public bool discarding = false;
     public Vector3 targetLocation;
@@ -31,7 +31,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
         m_Raycaster = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
         m_EventSystem = GetComponent<EventSystem>();
-        tiltAngle = 0;
         transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
     }
 
@@ -75,11 +74,15 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     //--------------------------------//
     public void OnDrag(PointerEventData eventData)
     {
+        // Return if the active manu is active
+        if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
         if (deck.selectedCard != transform) deck.selectedCard = transform; 
     }
 
     public void OnStopDrag()
     {
+        // Return if the active manu is active
+        if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
         CardSlot cardSlot = CheckForSlot();
         
             if (cardSlot != null && cardSlot.playerSlot && deck.energy >= card.cost)
@@ -217,6 +220,9 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     //that is for deck.TidyHand()
     public void GetOnTop(Transform card)
     {
+        if (ActiveAbilityManager.activeAbilityManager.selectedSigil != null
+        && ActiveAbilityManager.activeAbilityManager.selectedSigil.targetType == ActiveSigil.TargetType.Hand) return;
+        
         if (deck.hoveredCard == null) 
         {
             deck.hoveredCard = card;
@@ -253,6 +259,9 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         // Check if its the players turn
         if (CombatManager.combatManager.gamePhase == 1) return;
+
+        // Return if the active manu is active
+        if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
 
         // Play the card
         deck.cardsInHand.Remove(gameObject);

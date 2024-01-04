@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/ActiveSigil/Ignite")]
+[CreateAssetMenu(menuName = "Sigil/Active Sigil/Ignite")]
 public class Ignite : ActiveSigil
 {
     public int ignitionDuration;

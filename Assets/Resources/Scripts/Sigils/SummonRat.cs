@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/ActiveSigil/SummonRatExample")]
+[CreateAssetMenu(menuName = "Sigil/Active Sigil/SummonRatExample")]
 public class SummonRat : ActiveSigil
 {
     public Card rat;

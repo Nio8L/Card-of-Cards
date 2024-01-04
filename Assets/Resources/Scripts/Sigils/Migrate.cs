@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/ActiveSigil/Migrate")]
+[CreateAssetMenu(menuName = "Sigil/Active Sigil/Migrate")]
 public class Migrate : ActiveSigil
 {
     public override void ActiveEffect(CardInCombat card, List<CardSlot> targets)

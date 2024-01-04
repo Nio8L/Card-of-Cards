@@ -4707,6 +4707,7 @@ MonoBehaviour:
   abilityInterface: {fileID: 581765637}
   namePlate: {fileID: 809792145}
   targetableSlots: []
+  targetableCardsInHand: []
   selectedSigil: {fileID: 0}
   cardsCanBench: 1
   vignette: {fileID: 1426207973}

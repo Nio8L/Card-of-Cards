@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/ActiveSigil/EarlyAttackExample")]
+[CreateAssetMenu(menuName = "Sigil/Active Sigil/EarlyAttackExample")]
 public class EarlyAttackExample : ActiveSigil
 {
     public override void ActiveEffect(CardInCombat card, List<CardSlot> targets)

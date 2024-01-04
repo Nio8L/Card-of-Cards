@@ -283,7 +283,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                     continue;
                 }
                 
-                //Tilt cards so they form //|\\    .|.
+                //Tilt cards so they form //|\\
                 cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
                 targetCard.tiltAngle = (cardsInHand.Count / 2 - i) * 10;
                 targetCard.UpdateTilt();
@@ -406,6 +406,26 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardsInHand.Clear();
         cardsInHandAsCards.Clear();
         UpdatePileNumbers();
+    }
+
+    public void DiscardCard(CardInHand card){
+        cardsInHand.Remove(card.gameObject);
+        cardsInHandAsCards.Remove(card.card);
+        
+        discardPile.Add(card.card);
+
+        if(playerDeck){
+            GameObject cardObject = card.gameObject;
+
+            card.dontTidy = true;
+            card.discarding = true;
+            card.travelTime = 0.5f;
+            card.startPos = cardObject.transform.localPosition;
+            card.targetLocation = DiscardPileText.transform.parent.localPosition;
+        }
+
+        UpdatePileNumbers();
+        TidyHand();
     }
 
     //Shuffle the deck using the Fisher-Yates shuffle

@@ -7,6 +7,7 @@ using System.Data.SqlTypes;
 using Unity.VisualScripting;
 using UnityEditor.U2D.Common;
 using System;
+using UnityEngine.EventSystems;
 
 public class ActiveAbilityManager : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class ActiveAbilityManager : MonoBehaviour
     public TextMeshProUGUI namePlate;
 
     public List<CardSlot> targetableSlots;
+    public List<CardInHand> targetableCardsInHand;
+
     List<CardSlot> selectedSlots  = new List<CardSlot>();
+    List<CardInHand> selectedCardsInHand = new List<CardInHand>();
     public ActiveSigil selectedSigil;
 
     float activateBenchingTimer;
@@ -27,10 +31,18 @@ public class ActiveAbilityManager : MonoBehaviour
     float vignetteAlphaTimer = 0;
     public Image vignette;
 
+    //Used for registering a click on a card in hand
+    private GraphicRaycaster graphicRaycaster;
+    private PointerEventData pointerEventData;
+    private EventSystem eventSystem;
+
     void Start()
     {
         activeAbilityManager = this;
         sigilMenu = abilityInterface.transform.GetChild(0);
+
+        graphicRaycaster = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
+        eventSystem = GetComponent<EventSystem>();
     }
 
     void Update(){
@@ -49,21 +61,46 @@ public class ActiveAbilityManager : MonoBehaviour
 
             if (selectedSigil.canBeUsed){
                 if (Input.GetMouseButtonDown(0)){
-                    CardSlot newTarget = CheckForSlot();
-                    if (newTarget != null){
-                        
-                        bool canBeTargeted = false;
-                        for (int i = 0; i < targetableSlots.Count; i++){
-                            if (targetableSlots[i] == newTarget){
-                                canBeTargeted = true;
+                    //Slot case
+                    if (selectedSigil.targetType == ActiveSigil.TargetType.Slot)
+                    {
+                        //Check for slot
+                        CardSlot newTarget = CheckForSlot();
+                        if (newTarget != null){
+                            
+                            bool canBeTargeted = false;
+                            for (int i = 0; i < targetableSlots.Count; i++){
+                                if (targetableSlots[i] == newTarget){
+                                    canBeTargeted = true;
+                                }
+                            }
+                            //Activate the sigil
+                            if (canBeTargeted){
+                                selectedSlots.Add(newTarget);
+                                HighlightSelectedSlots();
+                                if (selectedSlots.Count >= selectedSigil.neededTargets){
+                                    UseSigil();
+                                }
                             }
                         }
-
-                        if (canBeTargeted){
-                            selectedSlots.Add(newTarget);
-                            HighlightSelectedSlots();
-                            if (selectedSlots.Count >= selectedSigil.neededTargets){
-                                UseSigil();
+                    //Card in hand case
+                    }else if(selectedSigil.targetType == ActiveSigil.TargetType.Hand){
+                        CardInHand newTarget = CheckForCardInHand();
+                        if(newTarget != null){
+                            
+                            bool canBeTargeted = false;
+                            for (int i = 0; i < targetableCardsInHand.Count; i++){
+                                if (targetableCardsInHand[i] == newTarget){
+                                    canBeTargeted = true;
+                                }
+                            }
+                            //Activate the sigil
+                            if (canBeTargeted){
+                                selectedCardsInHand.Add(newTarget);
+                                
+                                if(selectedCardsInHand.Count >= selectedSigil.neededTargets){
+                                    UseSigil();
+                                }
                             }
                         }
                     }
@@ -119,6 +156,7 @@ public class ActiveAbilityManager : MonoBehaviour
         abilityInterface.SetActive(false);
 
         RemoveHighlight();
+        CombatManager.combatManager.deck.TidyHand();
     }
     void SetupSigilIcons(int selectedSigilIndex){
         selectedCard.ShowSigilStars();
@@ -149,7 +187,14 @@ public class ActiveAbilityManager : MonoBehaviour
                         selectedSlots.Clear();
 
                         targetableSlots = selectedSigil.GetPossibleTargets(selectedCard);
-                        HighlightTargetableSlots();
+                        
+                        if(selectedSigil.targetType == ActiveSigil.TargetType.Slot){
+                            HighlightTargetableSlots();
+                        }else{
+                            targetableCardsInHand = selectedSigil.GetCardInHandTargets(selectedCard);
+                            
+                            BringUpTargetableCardsInHand();
+                        }
 
                         selectedCard.SetActiveSigilStar(sigil);
                     }
@@ -185,17 +230,30 @@ public class ActiveAbilityManager : MonoBehaviour
             slot.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
         }
     }
+
+    void BringUpTargetableCardsInHand(){
+        foreach (CardInHand cardInHand in targetableCardsInHand)
+        {
+            cardInHand.tiltAngle = 0;
+            cardInHand.transform.localPosition = new Vector3(cardInHand.transform.localPosition.x, cardInHand.transform.localPosition.y + 200, cardInHand.transform.localPosition.z);
+        }
+    }
+
     public void SigilButton(int index){
         // Used by the UI buttons
         SetupSigilIcons(index);
     }
     public void UseSigil(){
         // Activate the sigil
-        selectedSigil.ActiveEffect(selectedCard, selectedSlots);
+        if(selectedSigil.targetType == ActiveSigil.TargetType.Hand){
+            selectedSigil.ActivateEffect(selectedCard, selectedCardsInHand);
+        }else{
+            selectedSigil.ActiveEffect(selectedCard, selectedSlots);
+        }
         selectedCard.ShowSigilStars();
         Deselect();
-        Debug.Log("Slots: " + selectedSlots.Count);
     }
+
     CardSlot CheckForSlot()
     {
         // Raycast down to find if there are suitable slots
@@ -207,6 +265,29 @@ public class ActiveAbilityManager : MonoBehaviour
                 return hit.transform.GetComponent<CardSlot>();
             }
         }
+        return null;
+    }
+
+    CardInHand CheckForCardInHand(){
+        // Raycast down to find if there are suitable cards in hand
+        
+        //Use a graphic raycaster since the cards in hand are UI objects
+
+        pointerEventData = new PointerEventData(eventSystem){
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new();
+
+        graphicRaycaster.Raycast(pointerEventData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            if(result.gameObject.tag == "CardInHand"){
+                return result.gameObject.GetComponent<CardInHand>();
+            }
+        }
+
         return null;
     }
 
