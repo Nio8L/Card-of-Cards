@@ -263,7 +263,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             {
                 if (!mapManager.deckDisplay.deckDisplay.activeSelf)
                 {
-                    mapManager.deckDisplay.ShowDeck();
+                    mapManager.deckDisplay.ShowDeck(5, 250);
                 }
                 mapManager.deckDisplay.canClose = false;
                 DataPersistenceManager.DataManager.currentCombatAI = null;

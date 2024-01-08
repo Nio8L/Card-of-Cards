@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DeckDisplay : MonoBehaviour
 {
     public int defaultDisplacement = 250;
+    public int defaultNumberOfCardsInARow = 5;
 
     public GameObject cardDisplay;
     public GameObject deckDisplay;
@@ -36,7 +37,7 @@ public class DeckDisplay : MonoBehaviour
     private void Update() {
         if(Input.GetKeyUp(KeyCode.D)){
             if(canClose){
-                ShowDeck();
+                ShowDeck(defaultNumberOfCardsInARow, defaultDisplacement);
             }    
         }
     }
@@ -51,7 +52,7 @@ public class DeckDisplay : MonoBehaviour
                 if (cardDisplays.Count != deck.cards.Count)
                 {
                     LeanTween.delayedCall(0.4f, () => {
-                        ShowDeck();
+                        ShowDeck(defaultNumberOfCardsInARow, defaultDisplacement);
                     });
                 }
             }
@@ -88,7 +89,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(xDisplacement + (cardDisplays.Count % numOfCardsInARow * 200), -cardDisplays.Count / numOfCardsInARow * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numOfCardsInARow * xDisplacement, -cardDisplays.Count / numOfCardsInARow * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
             }
@@ -103,7 +104,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(xDisplacement + (cardDisplays.Count % numOfCardsInARow * 200), -cardDisplays.Count / numOfCardsInARow * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numOfCardsInARow * xDisplacement, -cardDisplays.Count / numOfCardsInARow * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
             }
@@ -113,70 +114,7 @@ public class DeckDisplay : MonoBehaviour
         }
     }
 
-    public void ShowDeck(){
-        SoundManager.soundManager.Play("DeckDisplaySlide");
-        if(deckDisplay.activeSelf){
-           if (SceneManager.GetActiveScene().name == "SampleScene"){
-               if(cardDisplays.Count != deck.cards.Count){
-                   LeanTween.delayedCall(0.4f, () => {
-                       ShowDeck();
-                   });
-               }
-            }
-            else if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
-            {
-                graveyardText.SetActive(false);
-            }
-            
-            LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
-
-            LeanTween.delayedCall(0.3f, () => {
-                deckDisplay.SetActive(false);
-
-                if(cardDisplays.Count > 0){
-                    foreach(GameObject cardDisplay in cardDisplays){
-                        Destroy(cardDisplay);
-                    }
-                }
-                
-                cardDisplays.Clear();
-            });
-
-        }
-        else
-        {
-            if(deck != null){
-                
-                foreach (Card card in deck.cards)
-                {   
-                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
-                    newCardDisplay.GetComponent<CardDisplay>().card = card;
-                    newCardDisplay.transform.SetParent(deckDisplay.transform);
-                    newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * defaultDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
-                    cardDisplays.Add(newCardDisplay);
-                }
-            }else{
-
-                if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used) graveyardText.SetActive(true);
-
-                foreach (Card card in mapDeck.cards)
-                {   
-                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
-                    newCardDisplay.GetComponent<CardDisplay>().card = card;
-                    newCardDisplay.transform.SetParent(deckDisplay.transform);
-                    newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * defaultDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
-                    cardDisplays.Add(newCardDisplay);
-                }
-            }
-
-            deckDisplay.SetActive(true);
-            LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
-        } 
-    }
-
-    public void UpdateDisplay(){
+    public void UpdateDisplay(int numberOfCardsInARow, int xDisplacement){
         foreach (GameObject cardDisplay in cardDisplays)
         {
             Destroy(cardDisplay);
@@ -192,7 +130,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numberOfCardsInARow * xDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
             }else{
@@ -205,7 +143,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numberOfCardsInARow * xDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
             }
@@ -243,7 +181,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * defaultDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
                 deckDisplay.SetActive(true);
@@ -282,7 +220,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * 200,  -cardDisplays.Count / 5 * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % 5 * defaultDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
                     cardDisplays.Add(newCardDisplay);
                 }
             deckDisplay.SetActive(true);

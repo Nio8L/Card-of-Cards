@@ -36,7 +36,7 @@ public class EventCardSlot : MonoBehaviour
 
         MapManager.mapManager.mapDeck.RemoveCard(cardToAdd);
 
-        MapManager.mapManager.deckDisplay.UpdateDisplay(); 
+        MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250); 
     }
 
     //Removes the card from the slot
@@ -50,7 +50,7 @@ public class EventCardSlot : MonoBehaviour
     //Removes the card from the slot and returns it to the deck
     public void RemoveCard(){
         MapManager.mapManager.mapDeck.AddCard(card);
-        MapManager.mapManager.deckDisplay.UpdateDisplay(); 
+        MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250); 
         
         DropCard();
     }

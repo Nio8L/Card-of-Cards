@@ -21,9 +21,9 @@ public class ExchangeShop : MonoBehaviour
         //Reposition the deck display and open it
         if (!MapManager.mapManager.deckDisplay.deckDisplay.activeSelf)
         {
-            MapManager.mapManager.deckDisplay.ShowDeck();
+            MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
             MapManager.mapManager.deckDisplay.canClose = false;
-            MapManager.mapManager.deckDisplay.deckDisplay.GetComponent<RectTransform>().localPosition = new Vector3(450, 0, 0);
+            MapManager.mapManager.deckDisplay.deckDisplay.GetComponent<RectTransform>().localPosition = new Vector3(400, 0, 0);
         }
 
         //Generate offers
@@ -87,7 +87,7 @@ public class ExchangeShop : MonoBehaviour
         selectedCard = null;
         selectedCardDisplay = null;
 
-        MapManager.mapManager.deckDisplay.UpdateDisplay();
+        MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250);
 
         //Leave the event if there are no offered cards left
         if(FindObjectsOfType<CardOffered>().Length == 1){
@@ -139,7 +139,7 @@ public class ExchangeShop : MonoBehaviour
         
         MapManager.mapManager.currentEvent = null;
         MapManager.mapManager.deckDisplay.canClose = true;
-        MapManager.mapManager.deckDisplay.ShowDeck();
+        MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
         
         Destroy(gameObject);
     }

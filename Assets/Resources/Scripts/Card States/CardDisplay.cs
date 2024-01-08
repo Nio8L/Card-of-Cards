@@ -140,7 +140,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                             MapManager.mapManager.deckDisplay.canClose = true;
                             LeanTween.delayedCall(2, () => {
 
-                                MapManager.mapManager.deckDisplay.ShowDeck();
+                                MapManager.mapManager.deckDisplay.ShowDeck(5, 250);
                             });
                         }
                     }
