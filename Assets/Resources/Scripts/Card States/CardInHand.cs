@@ -98,7 +98,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                 {
                     if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
                     {
-                        Debug.Log("Placing card in an empty bench slot");
                         // Play card in a bench slot
                         PlayCard(cardSlot);
                         SoundManager.soundManager.Play("CardPlaced");
@@ -113,7 +112,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                     }
                     else if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
                     {
-                        Debug.Log("Placing card in a filled bench slot");
                         // Place a card in a filled bench slot
                         if (!CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench(true)) return;
                         PlayCard(cardSlot);
@@ -165,10 +163,10 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
             }
         }
 
-        //Check if the card to which this script is attachd is a "Lost Soul"
+        //Check if the card to which this script is attached is a "Lost Soul"
         //Check if we have selected a card
         //Check if the selected card is a "Lost Soul" 
-        if (card.name == "LostSoul" && deck.selectedCard != null && deck.selectedCard.GetComponent<CardInHand>().card.name == "LostSoul")
+        if (card.name == "LostSoul")
         {
             PlayLostSoul();
         }
@@ -275,6 +273,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         deck.cardsInHand.Remove(gameObject);
         CombatManager.combatManager.PlayCard(card, slot, true);
         Destroy(gameObject);
+        deck.TidyHand();
     }
 
     public void ConsumeCard(){
