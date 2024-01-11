@@ -6701,8 +6701,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: -1797897018395449919}
           m_TargetAssemblyTypeName: CardInCombat, Assembly-CSharp
-          m_MethodName: BenchOrUnbench
-          m_Mode: 6
+          m_MethodName: CallBenchOrUnbench
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

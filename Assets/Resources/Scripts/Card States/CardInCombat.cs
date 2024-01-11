@@ -98,19 +98,27 @@ public class CardInCombat : MonoBehaviour
 
         
     }
-    public void BenchOrUnbench(bool playerInput) 
+
+    public void CallBenchOrUnbench(){
+        // Unity event trigger crashes if BenchOrUnbench gets called directly...
+        BenchOrUnbench(true);
+    }
+    public bool BenchOrUnbench(bool playerInput) 
     {
         /*  
-            Reworking this was a mistake
-            It's somehow worse
+            Tries to bench or unbench cards.
+            Returns true if it succedess
+            Returns false if it fails
         */ 
         
-        if (!canBeBenched) return;
+        // Return if this card can't be benched (currently not used)
+        if (!canBeBenched) return false;
         
+        // Benching
         if (playerCard && CombatManager.combatManager.gamePhase == 0 && playerInput){
             // Player card
-            if (rightClickedRecently || !ActiveAbilityManager.activeAbilityManager.cardsCanBench || currentAnimationTime > 0.4f) return;
-
+            if (rightClickedRecently || !ActiveAbilityManager.activeAbilityManager.cardsCanBench || currentAnimationTime > 0.4f) return false;
+            
             benched = !benched;
             SoundManager.soundManager.Play("CardSlide");
             if (benched)
@@ -124,6 +132,7 @@ public class CardInCombat : MonoBehaviour
                     CombatManager.combatManager.playerCombatCards[slot].MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
                 }
                 MoveAnimationStarter(0.5f, CombatManager.combatManager.playerBenchSlots[slot].transform.position, false, 0f);
+                
             }
             else
             {
@@ -137,6 +146,7 @@ public class CardInCombat : MonoBehaviour
                 }
                 MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
             }
+            return true;
         }else if (!playerInput){
             // Enemy card
             benched = !benched;
@@ -165,9 +175,9 @@ public class CardInCombat : MonoBehaviour
                 }
                 MoveAnimationStarter(0.5f, CombatManager.combatManager.enemyCombatSlots[slot].transform.position, false, 0f);
             }
+            return true;
         }
-
-        
+        return false;   
     }
     public void MoveAnimationStarter(float time, Vector3 end, bool returnMove, float startDelay)
     {

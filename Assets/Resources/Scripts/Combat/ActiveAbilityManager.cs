@@ -185,6 +185,7 @@ public class ActiveAbilityManager : MonoBehaviour
                         namePlate.text = selectedSigil.name;
 
                         selectedSlots.Clear();
+                        selectedCardsInHand.Clear();
 
                         targetableSlots = selectedSigil.GetPossibleTargets(selectedCard);
                         
