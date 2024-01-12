@@ -74,8 +74,9 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     //--------------------------------//
     public void OnDrag(PointerEventData eventData)
     {
+        // Return if the right mouse click is being held down
         if (Input.GetMouseButton(1)) return;
-        // Return if the active manu is active
+        // Return if the active menu is active
         if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
         if (deck.selectedCard != transform) deck.selectedCard = transform; 
     }
@@ -86,6 +87,9 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
         CardSlot cardSlot = CheckForSlot();
         
+        deck.selectedCard = null;
+        deck.TidyHand();
+
         if (cardSlot != null && cardSlot.playerSlot && deck.energy >= card.cost)
         {
             if(card.name != "LostSoul"){
@@ -94,10 +98,13 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                 {
                     if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
                     {
+                        // Play card in a bench slot
                         PlayCard(cardSlot);
                         SoundManager.soundManager.Play("CardPlaced");
                     }
-                    else if(CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
+                    else if(CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null)
+                    {
+                        // Use consuming sigils
                         CardInCombat consumingCard = CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>();
                         consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
                         ConsumeCard();
@@ -105,7 +112,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                     }
                     else if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
                     {
-                        CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench(true);
+                        // Place a card in a filled bench slot
+                        if (!CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench(true)) return;
                         PlayCard(cardSlot);
                         SoundManager.soundManager.Play("CardPlaced");
                     }
@@ -128,7 +136,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
                     else if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
                     {
-                        CombatManager.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench(true);
+                        if (!CombatManager.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench(true)) return;
                         PlayCard(cardSlot);
                         SoundManager.soundManager.Play("CardPlaced");
                     }
@@ -155,16 +163,13 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
             }
         }
 
-        //Check if the card to which this script is attachd is a "Lost Soul"
+        //Check if the card to which this script is attached is a "Lost Soul"
         //Check if we have selected a card
         //Check if the selected card is a "Lost Soul" 
-        if (card.name == "LostSoul" && deck.selectedCard != null && deck.selectedCard.GetComponent<CardInHand>().card.name == "LostSoul")
+        if (card.name == "LostSoul")
         {
             PlayLostSoul();
         }
-    
-        deck.selectedCard = null;
-        deck.TidyHand();
     }
     //--------------------------------//
     #endregion
@@ -268,6 +273,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         deck.cardsInHand.Remove(gameObject);
         CombatManager.combatManager.PlayCard(card, slot, true);
         Destroy(gameObject);
+        deck.TidyHand();
     }
 
     public void ConsumeCard(){

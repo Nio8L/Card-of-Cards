@@ -26,10 +26,6 @@ public class CardSlot : MonoBehaviour
 
     private void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if(playerSlot && bench && slot == 0){
-            IgniteSlot(3);
-        }
     }
 
     private void OnDisable() {

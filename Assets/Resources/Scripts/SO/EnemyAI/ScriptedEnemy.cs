@@ -80,23 +80,23 @@ public class ScriptedEnemy : EnemyBase
 
             if (i < turn.combatCards.Length){
                 card = turn.combatCards[i];
-                if (card != null && CombatManager.combatManager.enemyCombatCards[i] == null)
+                if (card != null && CombatManager.combatManager.enemyCombatCards[i+1] == null)
                 {
                     string cardName = card.name;
                     card = Instantiate(card).ResetCard();
                     card.name = cardName;
-                    PlayCard(card, i, false);
+                    PlayCard(card, i+1, false);
                 }
             }
 
             if (i < turn.benchCards.Length){
                 card = turn.benchCards[i];
-                if (card != null && CombatManager.combatManager.enemyBenchCards[i] == null)
+                if (card != null && CombatManager.combatManager.enemyBenchCards[i+1] == null)
                 {
                     string cardName = card.name;
                     card = Instantiate(card).ResetCard();
                     card.name = cardName;
-                    PlayCard(card, i, true);
+                    PlayCard(card, i+1, true);
                 }
             }
         }
