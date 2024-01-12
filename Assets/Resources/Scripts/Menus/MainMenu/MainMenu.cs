@@ -16,7 +16,12 @@ public class MainMenu : MonoBehaviour
 
     public List<Card> tutorialCards = new List<Card>();
     private void Start() {
+        //Reset tutorial
         DataPersistenceManager.DataManager.inTutorial = false;
+        DataPersistenceManager.DataManager.tutorialStage = 0;
+        DataPersistenceManager.DataManager.tutorialDeck.Clear();
+
+        DataPersistenceManager.DataManager.currentCombatAI = null;
         if (!DataPersistenceManager.DataManager.HasGameData()){
             continueButton.interactable = false;
             loadButton.interactable = false;
@@ -62,8 +67,8 @@ public class MainMenu : MonoBehaviour
     public void StartTutorial(EnemyBase enemy)
     {
         DataPersistenceManager.DataManager.inTutorial = true;
-        DataPersistenceManager.DataManager.currentCombatAI = enemy;
-        DataPersistenceManager.DataManager.playerDeck.AddRange(tutorialCards);
-        SceneManager.LoadSceneAsync("SampleScene");
+        //DataPersistenceManager.DataManager.currentCombatAI = enemy;
+        //DataPersistenceManager.DataManager.playerDeck.AddRange(tutorialCards);
+        SceneManager.LoadSceneAsync("Map");
     }
 }

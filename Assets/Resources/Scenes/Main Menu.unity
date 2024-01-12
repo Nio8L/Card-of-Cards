@@ -1967,6 +1967,118 @@ PrefabInstance:
       propertyPath: AutoSaveData
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCombats.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCombats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 00c1334a629709e45af36eddac0a7b7a, type: 2}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCombats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 16d94e2ebd08d2f4d8a9c0148380b3d4, type: 2}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCombats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 302c9773d1fee2044a855d62979b0945, type: 2}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCombats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9e755af8db3a0974da877b3616c95526, type: 2}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[0].list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[1].list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[2].list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[0].list.Array.data[0]
+      value: Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[0].list.Array.data[1]
+      value: Lazy cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[1].list.Array.data[0]
+      value: Bat
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[1].list.Array.data[1]
+      value: Rabbit
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[2].list.Array.data[0]
+      value: Firefly
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialDecks.Array.data[2].list.Array.data[1]
+      value: Elk
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[0].list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[1].list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[2].list.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[3].list.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[0].list.Array.data[0]
+      value: Lazy Cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[0].list.Array.data[1]
+      value: Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[1].list.Array.data[0]
+      value: Bat
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[1].list.Array.data[1]
+      value: Rabbit
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[2].list.Array.data[0]
+      value: Elk
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[2].list.Array.data[1]
+      value: Firefly
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[3].list.Array.data[0]
+      value: Elk
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[3].list.Array.data[1]
+      value: Firefly
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
 --- !u!1 &1371316023

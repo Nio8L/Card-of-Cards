@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using System;
+using Mono.Cecil;
 
 
 public class CombatManager : MonoBehaviour, IDataPersistence
@@ -57,6 +58,24 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void Awake(){
         combatManager = this;
+        
+        if(DataPersistenceManager.DataManager.inTutorial)
+        {
+            Debug.Log(DataPersistenceManager.DataManager.tutorialCombats[DataPersistenceManager.DataManager.tutorialStage].ReturnPath());
+            DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + DataPersistenceManager.DataManager.tutorialCombats[DataPersistenceManager.DataManager.tutorialStage].ReturnPath());
+
+            deck.cards.AddRange(DataPersistenceManager.DataManager.tutorialDeck);
+            
+            ListWrapper tutorialDeckToLoad = DataPersistenceManager.DataManager.tutorialCardsToAdd[DataPersistenceManager.DataManager.tutorialStage];
+
+            foreach (string card in tutorialDeckToLoad.list)
+            {
+                Debug.Log("loading " + card);
+                Card cardToAdd = Instantiate(Resources.Load<Card>("Cards/" + card)).ResetCard();
+                cardToAdd.name = card;
+                deck.cards.Add(cardToAdd);
+            }
+        }
     }
     
     private void OnEnable() {
@@ -71,6 +90,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         Time.timeScale = 0;
         inCombat = false;
+
 
         StartGame();
     }
@@ -93,6 +113,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         
         DataPersistenceManager.DataManager.currentCombatAI = null;
             
+        if(DataPersistenceManager.DataManager.inTutorial){
+            DataPersistenceManager.DataManager.tutorialStage++;
+            DataPersistenceManager.DataManager.tutorialDeck.Clear();
+            DataPersistenceManager.DataManager.tutorialDeck.AddRange(deck.cards);
+        }
+
         if(combatUI.endCombatText.text == "You won!") {
             if (enemy.isHunter) SceneManager.LoadSceneAsync("End Screen");
             else                SceneManager.LoadSceneAsync("Map");

@@ -80,9 +80,4 @@ public class GameMenu : MonoBehaviour
         cardsInCombat.SetActive(!cardsInCombat.activeSelf);
         bench.SetActive(!bench.activeSelf);
     }
-
-    public void OnClickMap(){
-        ChangeButtonsState();
-        SceneManager.LoadSceneAsync("Map");
-    }
 }

@@ -34,7 +34,7 @@ public class CombatUI : MonoBehaviour
         endCombatMenu.SetActive(true);
 
         if(victory){
-            if(CombatManager.combatManager.enemy.isTutorialEnemy){
+            if(CombatManager.combatManager.enemy.isTutorialEnemy && DataPersistenceManager.DataManager.tutorialStage == 3){
                 endCombatText.text = "You beat the tutorial!";
             }else{
                 endCombatText.text = "You won!";

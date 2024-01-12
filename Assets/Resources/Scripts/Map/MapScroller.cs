@@ -38,14 +38,14 @@ public class MapScroller : MonoBehaviour
                 transform.position = Vector3.Lerp(startPosition, new Vector3(0, 1, -10), 1-(float)Math.Pow(animationTime/3f, 2));
             }else{
                 transform.position = startPosition;
-            }
+            }   
         }
     }
 
     public void SetUpCameraPosition()
     {
-        if(MapManager.currentNode != null){
-            mapCamera.transform.position = new Vector3(0, MapManager.currentNode.transform.position.y, -10);
+        if(MapManager.mapManager.currentNode != null){
+            mapCamera.transform.position = new Vector3(0, MapManager.mapManager.currentNode.transform.position.y, -10);
         }
     }
 

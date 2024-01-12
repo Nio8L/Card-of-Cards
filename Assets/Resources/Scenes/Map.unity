@@ -557,6 +557,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbe44b513359b894b968bab2957e9ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultDisplacement: 250
+  defaultNumberOfCardsInARow: 5
   cardDisplay: {fileID: 1531777437509808466, guid: a3bbf4b13ad4ac34297a55974ca3d9c6, type: 3}
   deckDisplay: {fileID: 969363249}
   canvasGroup: {fileID: 67744770}
@@ -3469,6 +3471,7 @@ MonoBehaviour:
   events:
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
   currentEvent: {fileID: 0}
+  tutorialMap: {fileID: 8800594967174291148, guid: 3a22b466e641e664299c0857d999320f, type: 3}
 --- !u!4 &1377556452
 Transform:
   m_ObjectHideFlags: 0
