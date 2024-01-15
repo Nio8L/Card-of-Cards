@@ -17,9 +17,6 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: ddb0fa7af2872734fbe6cccab5d0ec34, type: 3}
   description: Ignite a selected slot.
   canBeUsed: 0
-  neededTargets: 3
+  neededTargets: 1
+  targetType: 0
   ignitionDuration: 2
-  playerCombat: 1
-  playerBench: 1
-  enemyCombat: 1
-  enemyBench: 1
