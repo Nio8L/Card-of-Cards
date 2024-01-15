@@ -43,7 +43,6 @@ public class EventCardSlotHandler : MonoBehaviour
         allCardSlots[index].RemoveCard();
 
         allCardSlots[index].image.enabled = false;
-        //Debug.Log(allCardSlots[index].image.enabled);
         cardSlots[index] = null;
     }
 

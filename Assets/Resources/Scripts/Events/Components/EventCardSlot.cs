@@ -54,8 +54,4 @@ public class EventCardSlot : MonoBehaviour
         
         DropCard();
     }
-
-    public void UpdateCardAppearance(){
-
-    }
 }

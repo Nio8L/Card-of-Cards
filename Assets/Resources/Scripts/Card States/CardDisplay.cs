@@ -168,15 +168,14 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void SelectCardForSacrifice(){
         if(SceneManager.GetActiveScene().name == "Map"){
             if(MapManager.mapManager.currentNode != null){
-                if(MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Event && MapManager.mapManager.currentEvent.name == "Exchange"){
+                if(MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Event){
                     //Check if this card display is displaying an offered card    
                     if(gameObject.GetComponent<CardOffered>() != null){
                         MapManager.mapManager.currentEvent.GetComponent<ExchangeShop>().SelectOfferedCard(gameObject, card);
                     //Check if this card display is displaying a selected card
                     }else if(gameObject.GetComponent<CardSelected>() == null){
                         //Place the card on the first available sacrificial spot
-                        MapManager.mapManager.currentEvent.GetComponent<ExchangeShop>().cardSlotHandler.AddCardOnAvailableSlot(card);
-
+                        MapManager.mapManager.currentEvent.GetComponent<EventCardSlotHandler>().AddCardOnAvailableSlot(card);
                     }
                 }
             }

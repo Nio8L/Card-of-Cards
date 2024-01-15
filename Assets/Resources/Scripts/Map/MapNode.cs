@@ -25,7 +25,6 @@ public class MapNode : MonoBehaviour
 
     public void OnPointerDown()
     {
-        Debug.Log("clicked on " + roomType);
         MapManager.NodeClicked(this);
     }
 
