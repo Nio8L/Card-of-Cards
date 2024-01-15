@@ -122,31 +122,28 @@ public class DeckDisplay : MonoBehaviour
 
         cardDisplays.Clear();
 
-         if(deck != null){
-                
-                foreach (Card card in deck.cards)
-                {   
-                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
-                    newCardDisplay.GetComponent<CardDisplay>().card = card;
-                    newCardDisplay.transform.SetParent(deckDisplay.transform);
-                    newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numberOfCardsInARow * xDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
-                    cardDisplays.Add(newCardDisplay);
-                }
-            }else{
-
-                if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used) graveyardText.SetActive(true);
-
-                foreach (Card card in mapDeck.cards)
-                {   
-                    GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
-                    newCardDisplay.GetComponent<CardDisplay>().card = card;
-                    newCardDisplay.transform.SetParent(deckDisplay.transform);
-                    newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numberOfCardsInARow * xDisplacement,  -cardDisplays.Count / 5 * 270, transform.position.z);
-                    cardDisplays.Add(newCardDisplay);
-                }
+        if(deck != null){ 
+            foreach (Card card in deck.cards)
+            {   
+                GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
+                newCardDisplay.GetComponent<CardDisplay>().card = card;
+                newCardDisplay.transform.SetParent(deckDisplay.transform);
+                newCardDisplay.transform.localScale = Vector3.one;
+                newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numberOfCardsInARow * xDisplacement,  -cardDisplays.Count / numberOfCardsInARow * 270, transform.position.z);
+                cardDisplays.Add(newCardDisplay);
             }
+        }else{
+            if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used) graveyardText.SetActive(true);
+            foreach (Card card in mapDeck.cards)
+            {   
+                GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
+                newCardDisplay.GetComponent<CardDisplay>().card = card;
+                newCardDisplay.transform.SetParent(deckDisplay.transform);
+                newCardDisplay.transform.localScale = Vector3.one;
+                newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numberOfCardsInARow * xDisplacement,  -cardDisplays.Count / numberOfCardsInARow * 270, transform.position.z);
+                cardDisplays.Add(newCardDisplay);
+            }
+        }
     }
 
     public void ShowDrawPile(){
