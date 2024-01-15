@@ -101,9 +101,9 @@ public class CardInCombat : MonoBehaviour
 
     public void CallBenchOrUnbench(){
         // Unity event trigger crashes if BenchOrUnbench gets called directly...
-        BenchOrUnbench(true);
+        BenchOrUnbench(true, false);
     }
-    public bool BenchOrUnbench(bool playerInput) 
+    public bool BenchOrUnbench(bool playerInput, bool force) 
     {
         /*  
             Tries to bench or unbench cards.
@@ -115,7 +115,7 @@ public class CardInCombat : MonoBehaviour
         if (!canBeBenched) return false;
         
         // Benching
-        if (playerCard && CombatManager.combatManager.gamePhase == 0 && playerInput){
+        if (playerCard && ((CombatManager.combatManager.gamePhase == 0 && playerInput) || force)){
             // Player card
             if (rightClickedRecently || !ActiveAbilityManager.activeAbilityManager.cardsCanBench || currentAnimationTime > 0.4f) return false;
             
@@ -147,7 +147,7 @@ public class CardInCombat : MonoBehaviour
                 MoveAnimationStarter(0.5f, CombatManager.combatManager.playerCombatSlots[slot].transform.position, false, 0f);
             }
             return true;
-        }else if (!playerInput){
+        }else if (!playerCard && (!playerInput || force)){
             // Enemy card
             benched = !benched;
             SoundManager.soundManager.Play("CardSlide");

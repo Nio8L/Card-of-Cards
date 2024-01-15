@@ -39,13 +39,14 @@ public class SecondSkin : Sigil
         if (card.playerCard && CombatManager.combatManager.playerBenchCards[card.slot] == null)
         {
             hasASkin = false;
-            card.BenchOrUnbench(card.playerCard);
+            // Ignore the fact that this is a player card because it won't work otherwise
+            card.BenchOrUnbench(false, true);
             CombatManager.combatManager.PlayCard(newCard, slotToUse, false);
         }
         else if (!card.playerCard && CombatManager.combatManager.enemyBenchCards[card.slot] == null)
         {
             hasASkin = false;
-            card.BenchOrUnbench(card.playerCard);
+            card.BenchOrUnbench(false, true);
             CombatManager.combatManager.PlayCard(newCard, slotToUse, false);
         }
 

@@ -82,6 +82,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = true;
         Time.timeScale = 1;
+
+        Invoke("StartHunt", 1f);
     }
 
     public void EndGame()
@@ -216,6 +218,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartCombatPhase()
     {
+        // If this is a hunt save the current enemy combat slots in hunt manager
+        if (enemy.huntAI) enemy.GetScriptedEnemy().currentPacingObject.GetComponent<HuntManager>().GetEnemyCards();
+
+
         //Debug.Log("Start combat");
         for (int i = 0; i < 5; i++)
         {
@@ -242,10 +248,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         combatUI.UpdateRoundText();
 
-        if (enemy.huntAI && round == enemy.huntRounds + 1)
+        if (enemy.huntAI)
         {
-            GameObject.Find("EndTurnButton").SetActive(false);
-            Invoke("WinGame", 2f);
+            // The enemy plays cards where the player hit it
+            enemy.GetScriptedEnemy().PlayTurn(enemy.currentPacingObject.GetComponent<HuntManager>().PlayStrongCards());
+            if (round == enemy.huntRounds + 1){
+                GameObject.Find("EndTurnButton").SetActive(false);
+                Invoke("WinGame", 2f);
+            }
         }
 
         if (gamePhase == 2)
@@ -564,6 +574,15 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }else{
             if (slot.bench) enemyBenchCards  [slot.slot] = cardInCombat;
             else            enemyCombatCards [slot.slot] = cardInCombat;
+        }
+    }
+
+    void StartHunt(){
+        if (enemy.huntAI){
+            ScriptedEnemy scriptedEnemy = enemy.GetScriptedEnemy();
+            if (scriptedEnemy.turnZero){
+                scriptedEnemy.PlayTurn(scriptedEnemy.turns[0]);
+            }
         }
     }
 }

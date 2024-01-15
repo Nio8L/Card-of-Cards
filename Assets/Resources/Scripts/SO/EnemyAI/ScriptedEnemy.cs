@@ -5,15 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Enemy/Scripted")]
 public class ScriptedEnemy : EnemyBase
 {
+    public bool turnZero;
     [SerializeField]
-    private Turn[] turns;
+    public Turn[] turns;
     
     [System.Serializable]
-    private class Turn
+    public class Turn
     {
-        public Card[] combatCards = new Card[5];
-        public Card[] benchCards  = new Card[5];
+        public Card[] combatCards  = new Card[5];
+        public Card[] benchCards   = new Card[5];
+
+        public bool[] benchColumbs = new bool[5];
         public bool forcePlace;
+
+        public bool pushBench;
     }
     public override void Initialize()
     {
@@ -23,15 +28,28 @@ public class ScriptedEnemy : EnemyBase
     public override void StartTurn()
     {
         base.StartTurn();
+
         if (CombatManager.combatManager.round > turns.Length) return;
-        Turn currentTurn = turns[CombatManager.combatManager.round-1];
+
+        int bonusForZeroTurn = 0;
+        if (turnZero) bonusForZeroTurn = 1;
+
+        int turnNumber = CombatManager.combatManager.round-1 + bonusForZeroTurn;
+        if (turns.Length <= turnNumber) return;
+        Turn currentTurn = turns[CombatManager.combatManager.round-1 + bonusForZeroTurn];
+
+        // Push bench
+        if (currentTurn.pushBench) Bench();
+
+        // Play cards
         if (currentTurn != null)
         {
             if (currentTurn.forcePlace) ForceCards(currentTurn);
             else                        PlayTurn(currentTurn);
         }
+        // Bench specified columbs
+        Bench(currentTurn);
     }
-
     void ForceCards(Turn turn)
     {
         /* This function forces the enemies side of the board to be the same as the cards in Turn turn s lists
@@ -72,7 +90,7 @@ public class ScriptedEnemy : EnemyBase
             }
         } 
     }
-    void PlayTurn(Turn turn) 
+    public void PlayTurn(Turn turn) 
     {
         for (int i = 0; i < 5; i++)
         {
@@ -80,26 +98,54 @@ public class ScriptedEnemy : EnemyBase
 
             if (i < turn.combatCards.Length){
                 card = turn.combatCards[i];
-                if (card != null && CombatManager.combatManager.enemyCombatCards[i+1] == null)
+                if (card != null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
                     string cardName = card.name;
                     card = Instantiate(card).ResetCard();
                     card.name = cardName;
-                    PlayCard(card, i+1, false);
+                    PlayCard(card, i, false);
                 }
             }
 
             if (i < turn.benchCards.Length){
                 card = turn.benchCards[i];
-                if (card != null && CombatManager.combatManager.enemyBenchCards[i+1] == null)
+                if (card != null && CombatManager.combatManager.enemyBenchCards[i] == null)
                 {
                     string cardName = card.name;
                     card = Instantiate(card).ResetCard();
                     card.name = cardName;
-                    PlayCard(card, i+1, true);
+                    PlayCard(card, i, true);
                 }
             }
         }
     }
+    void Bench(Turn turn){
+        // Bench columbs specified in benchColumbs array
+        for (int i = 0; i < turn.benchColumbs.Length; i++){
+            if (turn.benchColumbs[i]){
+                Bench(i);
+            }
+        }
+    }
+    void Bench(){
+        // Push bench
+        for (int i = 0; i < 5; i++){
+            if(CombatManager.combatManager.enemyBenchCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null){
+                Bench(i);
+            }
+        }
+    }
+    void Bench(int col){
+        // Bench a columb
+        if (CombatManager.combatManager.enemyBenchCards[col] != null){
+            CombatManager.combatManager.enemyBenchCards[col].BenchOrUnbench(false, true);
+        }
+        else if (CombatManager.combatManager.enemyCombatCards[col] != null){
+            CombatManager.combatManager.enemyCombatCards[col].BenchOrUnbench(false, true);
+        }
+    }
 
+    public override ScriptedEnemy GetScriptedEnemy(){
+        return this;
+    }
 }

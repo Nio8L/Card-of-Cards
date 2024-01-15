@@ -21,6 +21,9 @@ public class EnemyBase : ScriptableObject
     public bool isHunter;
 
     [HideInInspector]
+    public GameObject currentPacingObject;
+
+    [HideInInspector]
     protected bool useDeck;
 
     public virtual void Initialize()
@@ -33,7 +36,7 @@ public class EnemyBase : ScriptableObject
 
         if (pacingObject != null)
         {
-            Instantiate(pacingObject, Vector3.zero, Quaternion.identity);
+            currentPacingObject = Instantiate(pacingObject, Vector3.zero, Quaternion.identity);
         }
     }   
     public virtual void StartTurn()
@@ -53,5 +56,9 @@ public class EnemyBase : ScriptableObject
 
     public string ReturnPath(){
         return path + "/" + name;
+    }
+
+    public virtual ScriptedEnemy GetScriptedEnemy(){
+        return null;
     }
 }
