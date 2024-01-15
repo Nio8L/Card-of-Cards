@@ -20,13 +20,16 @@ MonoBehaviour:
   pacingObject: {fileID: 0}
   isTutorialEnemy: 0
   isHunter: 1
+  currentPacingObject: {fileID: 0}
   cards:
+  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
+  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
+  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
-  - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
   maxCardsPerTurn: 3
   maxEnergy: 4
   startPlayingDefensivelyAt: 15
