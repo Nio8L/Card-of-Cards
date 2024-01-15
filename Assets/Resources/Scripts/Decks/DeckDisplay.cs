@@ -56,7 +56,7 @@ public class DeckDisplay : MonoBehaviour
                     });
                 }
             }
-            else if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
+            else if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
             {
                 graveyardText.SetActive(false);
             }
@@ -96,7 +96,7 @@ public class DeckDisplay : MonoBehaviour
             else
             {
 
-                if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used) graveyardText.SetActive(true);
+                if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used) graveyardText.SetActive(true);
 
                 foreach (Card card in mapDeck.cards)
                 {
@@ -135,7 +135,7 @@ public class DeckDisplay : MonoBehaviour
                 }
             }else{
 
-                if (MapManager.currentNode != null && MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used) graveyardText.SetActive(true);
+                if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used) graveyardText.SetActive(true);
 
                 foreach (Card card in mapDeck.cards)
                 {   

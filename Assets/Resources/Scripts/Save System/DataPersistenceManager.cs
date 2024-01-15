@@ -18,7 +18,14 @@ public class DataPersistenceManager : MonoBehaviour
 
     public EnemyBase currentCombatAI;
     public List<Card> playerDeck;
+
+    [Header("Tutorial tracking")]
     public bool inTutorial;
+    public int tutorialStage = 0;
+    public List<Card> tutorialDeck;
+    //These cards are added to the tutorialDeck according to tutorialStage
+    public List<ListWrapper> tutorialCardsToAdd;
+    public List<EnemyBase> tutorialCombats;
 
     private GameData gameData;
     private SettingsData settingsData;
@@ -64,21 +71,8 @@ public class DataPersistenceManager : MonoBehaviour
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
-    //DARK MAGIC CODE, DO NOT TOUCH
-    //IF THIS BREAKS WE ARE DOOMED
-    public void MapManagerHandler(){
-        if(MapManager.mapManager != null){
-            if(SceneManager.GetActiveScene().name == "Map"){
-                MapManager.mapManager.gameObject.SetActive(true);
-            }else{
-                MapManager.mapManager.gameObject.SetActive(false);
-            }
-        }
-    }
-
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         dataPersistenceObjects = FindAllDataPersistenceObjects();
-        MapManagerHandler();
         if (!inTutorial) LoadGame();
     }
 
@@ -122,7 +116,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame(){
         gameData = new GameData();
         SaveGame();
-    }
+    }   
 
     public void SaveSettings(){
         foreach(ISettingsPersistence settingsPersistenceObject in settingsPersistenceObjects){
@@ -134,14 +128,13 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame(){
         if(gameData == null){
-            Debug.LogWarning("No data was found. There needs to be a game started to save.");
+            //Debug.LogWarning("No data was found. There needs to be a game started to save.");
             return;
         }
         
         foreach(IDataPersistence dataPersistenceObject in dataPersistenceObjects){
             dataPersistenceObject.SaveData(gameData);
         }
-        //Debug.Log("saved, first and second card are " + gameData.Deck[0].name + ", " + gameData.Deck[1].name);
 
         gameData.lastSaved = System.DateTime.Now.ToBinary();
 
@@ -168,14 +161,13 @@ public class DataPersistenceManager : MonoBehaviour
         gameData = dataHandler.Load(selectedProfileId);
 
         if(gameData == null){
-            Debug.Log("No data was found. There needs to be a save to load.");
+            //Debug.Log("No data was found. There needs to be a save to load.");
             return;
         }
 
         foreach(IDataPersistence dataPersistenceObject in dataPersistenceObjects){
             dataPersistenceObject.LoadData(gameData);
         }
-        //Debug.Log("loaded, first and second card are " + gameData.Deck);
     }
 
     private void OnApplicationQuit() {

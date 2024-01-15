@@ -76,7 +76,11 @@ public class ActiveAbilityManager : MonoBehaviour
                             }
                             //Activate the sigil
                             if (canBeTargeted){
-                                selectedSlots.Add(newTarget);
+                                //Check if the targeted slot is already selected
+                                if(!selectedSlots.Contains(newTarget)){
+                                    selectedSlots.Add(newTarget);
+                                }
+
                                 HighlightSelectedSlots();
                                 if (selectedSlots.Count >= selectedSigil.neededTargets){
                                     UseSigil();
@@ -96,7 +100,10 @@ public class ActiveAbilityManager : MonoBehaviour
                             }
                             //Activate the sigil
                             if (canBeTargeted){
-                                selectedCardsInHand.Add(newTarget);
+                                //Check if the targeted card in hand is already selected
+                                if(!selectedCardsInHand.Contains(newTarget)){
+                                    selectedCardsInHand.Add(newTarget);
+                                }
                                 
                                 if(selectedCardsInHand.Count >= selectedSigil.neededTargets){
                                     UseSigil();

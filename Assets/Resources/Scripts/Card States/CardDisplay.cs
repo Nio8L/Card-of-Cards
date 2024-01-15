@@ -114,8 +114,8 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     
     public void HealCard(){
         if(SceneManager.GetActiveScene().name == "Map"){
-            if (MapManager.currentNode != null){
-                if (MapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.currentNode.used){
+            if (MapManager.mapManager.currentNode != null){
+                if (MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used){
                     if (card.name != "LostSoul"){
                         if (card.injuries.Count > 0 || !MapManager.mapManager.mapDeck.HasInjuredCards())
                         {
@@ -136,7 +136,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                             soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
                             soulHeart.primaryHeart = false;
 
-                            MapManager.currentNode.used = true;
+                            MapManager.mapManager.currentNode.used = true;
                             MapManager.mapManager.deckDisplay.canClose = true;
                             LeanTween.delayedCall(2, () => {
 
@@ -154,9 +154,9 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (SceneManager.GetActiveScene().name == "Map")
         {
-            if (MapManager.currentNode != null)
+            if (MapManager.mapManager.currentNode != null)
             {
-                if (MapManager.currentNode.roomType == MapNode.RoomType.RestSite && !MapManager.currentNode.used)
+                if (MapManager.mapManager.currentNode.roomType == MapNode.RoomType.RestSite && !MapManager.mapManager.currentNode.used)
                 {
                     MapManager.mapManager.mapDeck.cards.Add(card);
                     Destroy(GameObject.Find("ThreeCardChoice"));
@@ -167,8 +167,8 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void SelectCardForSacrifice(){
         if(SceneManager.GetActiveScene().name == "Map"){
-            if(MapManager.currentNode != null){
-                if(MapManager.currentNode.roomType == MapNode.RoomType.Event && MapManager.mapManager.currentEvent.name == "Exchange"){
+            if(MapManager.mapManager.currentNode != null){
+                if(MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Event && MapManager.mapManager.currentEvent.name == "Exchange"){
                     //Check if this card display is displaying an offered card    
                     if(gameObject.GetComponent<CardOffered>() != null){
                         MapManager.mapManager.currentEvent.GetComponent<ExchangeShop>().SelectOfferedCard(gameObject, card);

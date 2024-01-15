@@ -20,7 +20,7 @@ public class Ignite : ActiveSigil
     {
         List<CardSlot> targets = new List<CardSlot>();
 
-         for(int i = 0; i < CombatManager.combatManager.playerBenchSlots.Length; i++)
+        for(int i = 0; i < CombatManager.combatManager.playerBenchSlots.Length; i++)
         {
             targets.Add(CombatManager.combatManager.playerBenchSlots[i].GetComponent<CardSlot>());
             targets.Add(CombatManager.combatManager.playerCombatSlots[i].GetComponent<CardSlot>());
@@ -28,14 +28,12 @@ public class Ignite : ActiveSigil
             targets.Add(CombatManager.combatManager.enemyCombatSlots[i].GetComponent<CardSlot>());
         }
         
-        //targets.Remove(thisSlot);
         return targets;
     }
+
     public override void OnSummonEffects(CardInCombat card)
     {
         canBeUsed = true;
-
-        description = "Ignite a slot for " + ignitionDuration + " turns.";
     }
 
     public override void PasiveEffect(CardInCombat card)

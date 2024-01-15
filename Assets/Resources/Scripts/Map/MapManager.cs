@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -11,14 +12,14 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public GameObject lineObject;
     public static MapManager mapManager;
 
-    public static MapNode currentNode;
+    public MapNode currentNode;
 
     public int numOfLayers = 0;
     public bool isGenerating = true;
     public int[] chanceForRooms;
 
     static List<Layer> layers = new List<Layer>();
-    static List<GameObject>[] allLayers = new List<GameObject>[7];
+    public List<GameObject>[] allLayers = new List<GameObject>[7];
     static List<LineRenderer> lines = new List<LineRenderer>();
     public List<MapNode> nodesAvaliable = new List<MapNode>();
 
@@ -45,6 +46,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public GameObject[] events;
     public GameObject currentEvent;
 
+    public GameObject tutorialMap;
+
     private void Awake()
     {
         mapManager = this;
@@ -64,7 +67,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
         mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
 
 
-        if(shouldGenerate){
+        if(DataPersistenceManager.DataManager.inTutorial){
+            GenerateTutorialMap();
+        }else if(shouldGenerate){
             Generate(0, Layer.ConectionType.None);
             Camera.main.GetComponent<MapScroller>().FirstLoadAnimation();
 
@@ -93,6 +98,14 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         if (currentNode != null)nodesAvaliable = currentNode.children;
         MakeAvvNodesDifferent();
+    }
+
+    public void GenerateTutorialMap(){
+        GameObject tutorialLayer = Instantiate(tutorialMap);
+        layers.Add(tutorialMap.GetComponent<Layer>());
+        
+        tutorialLayer.transform.SetParent(transform);  
+        nodesAvaliable.Add(tutorialLayer.GetComponent<Layer>().mapNodes[DataPersistenceManager.DataManager.tutorialStage]); 
     }
 
     public void Generate(int curentDepth, Layer.ConectionType typeWanted) 
@@ -231,25 +244,25 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         if (mapManager.nodesAvaliable.Contains(node) && mapManager.deckDisplay.canClose)
         {
-            if (currentNode != null)
+            if (mapManager.currentNode != null)
             {
-                currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                currentNode.isCurrentNode = false;
+                mapManager.currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                mapManager.currentNode.isCurrentNode = false;
             }
-            currentNode = node;
+            mapManager.currentNode = node;
             node.isCurrentNode = true;
             ReverseMakeAvvNodesDifferent();
             mapManager.nodesAvaliable = node.children;
             MakeAvvNodesDifferent();
-            currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            mapManager.currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
-            if (currentNode.roomType == MapNode.RoomType.Combat)
+            if (mapManager.currentNode.roomType == MapNode.RoomType.Combat)
             {
                 EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(Random.value * tier1EnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
-            else if (currentNode.roomType == MapNode.RoomType.RestSite)
+            else if (mapManager.currentNode.roomType == MapNode.RoomType.RestSite)
             {
                 if (mapManager.mapDeck.playerHealth < 15) mapManager.mapDeck.playerHealth += 5;
                 else mapManager.mapDeck.playerHealth = 20;
@@ -259,7 +272,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 GameObject eventUI = Instantiate(mapManager.threeChoice, eventCanvas);
                 eventUI.name = mapManager.threeChoice.name;
             }
-            else if (currentNode.roomType == MapNode.RoomType.Graveyard)
+            else if (mapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
             {
                 if (!mapManager.deckDisplay.deckDisplay.activeSelf)
                 {
@@ -268,7 +281,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 mapManager.deckDisplay.canClose = false;
                 DataPersistenceManager.DataManager.currentCombatAI = null;
             }
-            else if (currentNode.roomType == MapNode.RoomType.Hunt)
+            else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunt)
             {
                 retry:;
                 EnemyBase ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
@@ -279,13 +292,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 mapManager.lastEnemyAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
-            else if (currentNode.roomType == MapNode.RoomType.Hunter)
+            else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunter)
             {
                 EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(Random.value * hunterEnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
-            else if (currentNode.roomType == MapNode.RoomType.Event)
+            else if (mapManager.currentNode.roomType == MapNode.RoomType.Event)
             {
                 GameObject eventObject = mapManager.events[Random.Range(0, mapManager.events.Length)];
                 GameObject eventUI = Instantiate(eventObject, eventCanvas);
@@ -356,7 +369,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         return node.children;
     }
 
-    void PutSprite(MapNode node) 
+    public void PutSprite(MapNode node) 
     {
         SpriteRenderer spriteRenderer = node.gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/RoomSprites/" + node.roomType.ToString());
@@ -366,7 +379,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         for (int i = 0; i < mapManager.nodesAvaliable.Count; i++)
         {
-            mapManager.nodesAvaliable[i].indicator.SetActive(true);
+            if (mapManager.nodesAvaliable[i] != null)
+            {
+                mapManager.nodesAvaliable[i].indicator.SetActive(true);
+            }
         }
     }
 
@@ -374,40 +390,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         for (int i = 0; i < mapManager.nodesAvaliable.Count; i++)
         {
-            mapManager.nodesAvaliable[i].indicator.SetActive(false);
+            if (mapManager.nodesAvaliable[i] != null)
+            {
+                mapManager.nodesAvaliable[i].indicator.SetActive(false);
+            }
         }
-    }
-
-    public bool LinesInterescting(LineRenderer lineRenderer1, LineRenderer lineRenderer2){
-        bool isIntersecting = false;
-
-        Vector2 L1_start = lineRenderer1.GetPosition(0);
-        Vector2 L1_end = lineRenderer1.GetPosition(1);
-
-        Vector2 L2_start = lineRenderer2.GetPosition(0);
-        Vector2 L2_end = lineRenderer2.GetPosition(1);
-
-        Vector2 p1 = new(L1_start.x, L1_start.y);
-        Vector2 p2 = new(L1_end.x, L1_end.y);
-
-        Vector2 p3 = new(L2_start.x, L2_start.y);
-        Vector2 p4 = new(L2_end.x, L2_end.y);
-
-        float denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
-	
-        if (denominator != 0)
-	    {
-	    	float u_a = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
-	    	float u_b = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
-
-	    	//Is intersecting if u_a and u_b are between 0 and 1
-	    	if (u_a >= 0 && u_a <= 1 && u_b >= 0 && u_b <= 1)
-	    	{
-		    	isIntersecting = true;
-	    	}
-        }
-
-        return isIntersecting;
     }
 
     public void LoadData(GameData data)
