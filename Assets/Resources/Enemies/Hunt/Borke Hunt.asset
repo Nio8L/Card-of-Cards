@@ -98,18 +98,3 @@ MonoBehaviour:
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 1
-  - combatCards:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    benchCards:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
-    benchColumbs: 0000000000
-    forcePlace: 0
-    pushBench: 1
