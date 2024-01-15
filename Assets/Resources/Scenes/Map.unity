@@ -3459,6 +3459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeObject: {fileID: 8456520580759990429, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
+  currentNode: {fileID: 0}
   numOfLayers: 7
   isGenerating: 1
   chanceForRooms: 0f0000000f00000014000000140000001e000000
@@ -3470,6 +3471,7 @@ MonoBehaviour:
   threeChoice: {fileID: 4567353456648998494, guid: 3c5dbf4914c8bd341beb8bd72c8d4869, type: 3}
   events:
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
+  - {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
   currentEvent: {fileID: 0}
   tutorialMap: {fileID: 8800594967174291148, guid: 3a22b466e641e664299c0857d999320f, type: 3}
 --- !u!4 &1377556452
