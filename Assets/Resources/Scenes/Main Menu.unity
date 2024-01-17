@@ -1628,6 +1628,13 @@ MonoBehaviour:
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
+  - name: Fearless
+    clip:
+    - {fileID: 8300000, guid: b8f2a3ed95a782f4ca6decd5838791c7, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 0
+    source: {fileID: 0}
   musics:
   - name: Theme
     clip:
