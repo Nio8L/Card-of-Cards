@@ -3544,9 +3544,9 @@ MonoBehaviour:
   nodeObject: {fileID: 8456520580759990429, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
   currentNode: {fileID: 0}
-  numOfLayers: 7
+  numOfLayers: 12
   isGenerating: 1
-  chanceForRooms: 0f0000000f00000014000000140000001e000000
+  chanceForRooms: 140000000a000000140000000f00000023000000
   nodesAvaliable: []
   lastLayer: {fileID: 0}
   mapDeck: {fileID: 0}

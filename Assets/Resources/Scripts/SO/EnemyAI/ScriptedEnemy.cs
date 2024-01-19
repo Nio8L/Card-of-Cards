@@ -29,17 +29,24 @@ public class ScriptedEnemy : EnemyBase
     {
         base.StartTurn();
 
+        // Return if there are no pre made rounds left to play
         if (CombatManager.combatManager.round > turns.Length) return;
 
+        // Check if there is turn zero
         int bonusForZeroTurn = 0;
         if (turnZero) bonusForZeroTurn = 1;
 
         int turnNumber = CombatManager.combatManager.round-1 + bonusForZeroTurn;
         if (turns.Length <= turnNumber) return;
+
+        // Find the current turn
         Turn currentTurn = turns[CombatManager.combatManager.round-1 + bonusForZeroTurn];
 
         // Push bench
         if (currentTurn.pushBench) Bench();
+
+        // The enemy plays cards where the player hit it
+        PlayTurn(currentPacingObject.GetComponent<HuntManager>().PlayStrongCards());
 
         // Play cards
         if (currentTurn != null)

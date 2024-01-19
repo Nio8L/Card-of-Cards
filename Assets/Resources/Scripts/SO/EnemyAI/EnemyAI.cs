@@ -14,7 +14,6 @@ public class EnemyAI : EnemyBase
     public int maxCardsPerTurn = 3; // Can't be more than 3 or less than 1
     public int maxEnergy = 3;
     public int startPlayingDefensivelyAt;
-    public int startPlayingAggressivelyAt;
     public bool canUseLostSoul = true;
     public bool useKillerStrategyInstead;
     public bool canSeePlayerCardsPlacedThisTurn = false;
@@ -53,6 +52,7 @@ public class EnemyAI : EnemyBase
             CombatManager.combatManager.enemyDeck.Shuffle();
         }
         savedLastRound = new bool[5];
+        bias = Random.Range(-3, 3);
     }
     public override void StartTurn()
     {
@@ -61,7 +61,7 @@ public class EnemyAI : EnemyBase
         CombatManager.combatManager.enemyDeck.energy = maxEnergy;
 
         useTypeOfDamageToDecideCard = true;
-        thinkLimit = 5;
+        thinkLimit = maxCardsPerTurn * 2 + 1;
         cardsPlayedThisTurn = 0;
         if (canSeePlayerCardsPlacedThisTurn)
         {
@@ -79,7 +79,9 @@ public class EnemyAI : EnemyBase
     }
     void Think()
     {
-        currentStrategy = PickStrategy();
+        if (Random.value * 3 > 2) currentStrategy = Strategy.Random;
+        else                      currentStrategy = PickStrategy();
+        
 
         bool hasPlay = false;
         int targetIndex = 0;
@@ -104,8 +106,8 @@ public class EnemyAI : EnemyBase
 
             if (!hasPlay)
             {
-                bias += 5;
-                currentStrategy = Strategy.Random;
+                bias += 3;
+                currentStrategy = Strategy.Savior;
             }
 
         }
@@ -128,10 +130,26 @@ public class EnemyAI : EnemyBase
 
             if (!hasPlay)
             {
-                bias += 10;
-                currentStrategy = Strategy.Random;
+                bias += 3;
+                currentStrategy = Strategy.Aggressive;
             }
 
+        }
+        if (currentStrategy == Strategy.Aggressive)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (playerCards[i] == null && CombatManager.combatManager.enemyBenchCards[i] == null && CombatManager.combatManager.enemyCombatCards[i] == null)
+                {
+                    hasPlay = true;
+                    targetIndex = i;
+                }
+            }
+            if (!hasPlay)
+            {
+                currentStrategy = Strategy.Killer;
+            }
+            bias -= 3;
         }
         if (currentStrategy == Strategy.Killer)
         {
@@ -142,7 +160,6 @@ public class EnemyAI : EnemyBase
             {
                 if (playerCards[i] != null && CombatManager.combatManager.enemyCombatCards[i] == null)
                 {
-                    //Debug.Log("Can be played at slot: " + i);
                     hasPlay = true;
                     if (playerCards[i].card.health < targetHealth || targetHealth == 0)
                     {
@@ -153,34 +170,9 @@ public class EnemyAI : EnemyBase
             }
             if (!hasPlay)
             {
-                currentStrategy = Strategy.Aggressive;
+                currentStrategy = Strategy.Savior;
             }
-
-        }
-        if (currentStrategy == Strategy.Aggressive)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if (playerCards[i] == null && CombatManager.combatManager.enemyCombatCards[i] == null)
-                {
-                    hasPlay = true;
-                    targetIndex = i;
-                }
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                if (hasPlay) break;
-                if (playerBenchedCards[i] == null && CombatManager.combatManager.enemyBenchCards[i] == null)
-                {
-                    hasPlay = true;
-                    targetIndex = i;
-                }
-            }
-            if (!hasPlay)
-            {
-                currentStrategy = Strategy.Random;
-            }
-
+            bias -= 2;
         }
         if (currentStrategy == Strategy.Random)
         {
@@ -188,7 +180,7 @@ public class EnemyAI : EnemyBase
             do
             {
                 failEscape++;
-                targetIndex = Random.Range(0, 3);
+                targetIndex = Random.Range(0, 5);
             } while (CombatManager.combatManager.enemyBenchCards[targetIndex] != null && failEscape < 20);
 
             if (failEscape < 20)
@@ -239,8 +231,25 @@ public class EnemyAI : EnemyBase
     }
     Strategy PickStrategy()
     {
+        if (CombatManager.combatManager.enemyHealth <= startPlayingDefensivelyAt - bias){
+            bias += 1;
+            for (int i = 0; i < 5; i++)
+            {
+                if (CombatManager.combatManager.enemyCombatCards[i] == null)
+                {
+                    return Strategy.Defensive;
+                }
+            }
+            return Strategy.Savior;
+        }else{
+            bias -= 1;
+            if (useKillerStrategyInstead) return Strategy.Killer;
 
-        if (CombatManager.combatManager.enemyHealth + bias <= startPlayingDefensivelyAt)
+            return Strategy.Aggressive;
+        }
+        // Selects a play style for this think cycle 
+
+        /*if (CombatManager.combatManager.enemyHealth + bias <= startPlayingDefensivelyAt)
         {
             bias = 0;
             for (int i = 0; i < 5; i++)
@@ -259,7 +268,7 @@ public class EnemyAI : EnemyBase
 
             return Strategy.Aggressive;
         }
-        return Strategy.Random;
+        return Strategy.Random;*/
     }
     Card PickCard(Card.TypeOfDamage enemyType)
     {
@@ -293,7 +302,7 @@ public class EnemyAI : EnemyBase
             {
                 foreach (Card.TypeOfDamage injury in cardToPick.injuries)
                 {
-                    if (injury == enemyType) { useTypeOfDamageToDecideCard = false; bias += Random.Range(-15, 15); return null; }
+                    if (injury == enemyType) { bias += 3; return null; }
                 }
             }
         }

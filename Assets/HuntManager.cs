@@ -31,19 +31,9 @@ public class HuntManager : MonoBehaviour
 
     bool CheckColumb(int col){
         // Returns true if the columb col has a player card in the combat slot that has more than 0 damage and if there is no enemy
-        if (playerCards[col] != null && playerCards[col].card.attack > 0 && !enemyCards[col] && CombatManager.combatManager.enemyBenchCards[col] == null){
+        if (playerCards[col] != null && playerCards[col].card.attack > 0 && CombatManager.combatManager.enemyBenchCards[col] == null && CombatManager.combatManager.enemyCombatCards[col] == null){
             return true;
         }
         return false;
-    }
-
-    public void GetEnemyCards(){
-        for (int i = 0; i < 5; i++){
-            if (CombatManager.combatManager.enemyCombatCards[i] != null){
-                enemyCards[i] = true;
-            }else{
-                enemyCards[i] = false;
-            }
-        }
     }
 }

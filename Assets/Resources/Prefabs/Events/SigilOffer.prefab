@@ -950,10 +950,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f6ab41d59a109654788bf8f2dab9e20b, type: 2}
   - {fileID: 11400000, guid: 3a5255f6c7969d145918cdb7eacb8539, type: 2}
   - {fileID: 11400000, guid: 49e498f4ff76a824da4cf16f328d668e, type: 2}
+  - {fileID: 11400000, guid: 5822a764e892eeb4293c85aedb10fc96, type: 2}
+  - {fileID: 11400000, guid: 1a199fe5c63da104199f01d2ad280e54, type: 2}
+  - {fileID: 11400000, guid: e9bddd1f38643b84f94d6483e71381a1, type: 2}
   offeredSigils:
   - {fileID: 4294438173029883671}
   - {fileID: 2882250686494072417}
   - {fileID: 8797740840679178451}
+  selectedSigilDisplay: {fileID: 0}
   selectedSigil: {fileID: 0}
   cardSlotHandler: {fileID: 8822589975365160667}
   sigilSelector: {fileID: 2135296331739161471}

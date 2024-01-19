@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
   m_Name: Mouse Hunt
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  maxHealth: 8
   dialogue: {fileID: 0}
   path: Hunt
   huntAI: 1

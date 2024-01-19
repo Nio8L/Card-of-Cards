@@ -224,18 +224,25 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     #region Game Phases
     public void StartEnemyTurn()
     {
+        // This is here just in case
         if (gamePhase > 0) return;
+        // Weird event things that nio made
         EventManager.NextTurn?.Invoke();
+        // Progress the game to the nexr phase
         gamePhase = 1;
 
+        // Close the active ability menu
         ActiveAbilityManager.activeAbilityManager.Deselect();
 
+        // Force draw all cards that are still in draw animation and discard all cards
         deck.ForceDraw();
         deck.DiscardHand();
 
+        // The enemy draws cards
         enemyDeck.DiscardHand();
         enemyDeck.DrawCard(5);
 
+        // The enemy starts its turn
         enemy.StartTurn();
 
         startCombatPhase = true;
@@ -244,10 +251,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartCombatPhase()
     {
-        // If this is a hunt save the current enemy combat slots in hunt manager
-        if (enemy.huntAI) enemy.GetScriptedEnemy().currentPacingObject.GetComponent<HuntManager>().GetEnemyCards();
-
-
         //Debug.Log("Start combat");
         for (int i = 0; i < 5; i++)
         {
@@ -276,8 +279,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         if (enemy.huntAI)
         {
-            // The enemy plays cards where the player hit it
-            enemy.GetScriptedEnemy().PlayTurn(enemy.currentPacingObject.GetComponent<HuntManager>().PlayStrongCards());
             if (round == enemy.huntRounds + 1){
                 GameObject.Find("EndTurnButton").SetActive(false);
                 Invoke("WinGame", 2f);

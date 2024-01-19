@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
   m_Name: Borke Hunt
   m_EditorClassIdentifier: 
-  maxHealth: 25
+  maxHealth: 15
   dialogue: {fileID: 11400000, guid: 68f0e382c6615f342a747dd164557bf9, type: 2}
   path: Hunt
   huntAI: 1
