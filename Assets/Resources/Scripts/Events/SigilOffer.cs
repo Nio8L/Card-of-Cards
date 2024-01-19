@@ -26,10 +26,33 @@ public class SigilOffer : MonoBehaviour
         }
 
         for(int i = 0; i < offeredSigils.Length; i++){
-            Sigil newOfferedSigil = possibleSigilOffers[Random.Range(0, possibleSigilOffers.Length)];
+            Sigil newOfferedSigil;
+
+            //Select a random sigil
+            //If the sigil has already been offered generate a new sigil
+            do
+            {
+                newOfferedSigil = PickSigil();
+            }while(AlreadyOffered(newOfferedSigil));
 
             offeredSigils[i].SetSigilDisplay(newOfferedSigil);
         }
+    }
+
+    //Picks a random sigil
+    private Sigil PickSigil(){
+        return possibleSigilOffers[Random.Range(0, possibleSigilOffers.Length)];
+    }
+
+    //Returns true if the given sigil has already been picked
+    private bool AlreadyOffered(Sigil sigil){
+        for(int i = 0; i < offeredSigils.Length; i++){
+            if(offeredSigils[i].sigil != null && sigil == offeredSigils[i].sigil){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void SelectSigil(SigilDisplay sigilDisplay){

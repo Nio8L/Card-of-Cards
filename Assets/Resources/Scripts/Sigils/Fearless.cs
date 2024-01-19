@@ -16,6 +16,7 @@ public class Fearless : Sigil
             canRevive = false;
             GameObject effect = Instantiate(visualEffect, card.transform.position, Quaternion.identity);
             effect.transform.SetParent(card.transform);
+            SoundManager.soundManager.Play("Fearless");
         }
     }
 
