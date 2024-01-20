@@ -22,15 +22,6 @@ public class CardInCombat : MonoBehaviour
     public bool playerCard = true;
     public int slot = 0;
     public int direction = 1;
-
-    Vector3 startPosition;
-    Vector3 endPosition;
-    float currentAnimationTime = -0.5f;
-    float maxAnimationTime;
-
-    bool updatedAfterReturnAnimation;
-    bool returnMovement;
-
     public float animationStartDelay;
 
     GameObject bloodSplat;
@@ -47,34 +38,7 @@ public class CardInCombat : MonoBehaviour
     private void Update()
     {
 
-        if (returnMovement && currentAnimationTime > -0.5f)
-        {
-            if (animationStartDelay > 0){
-                animationStartDelay -= Time.deltaTime;
-            }else{
-                currentAnimationTime -= Time.deltaTime;
-            }
-            transform.position = Vector3.Lerp(endPosition, startPosition, Mathf.Abs(currentAnimationTime) * 2);
-
-            if (currentAnimationTime < 0f)
-            {
-                if (!updatedAfterReturnAnimation){
-                    deck.UpdateCardAppearance(transform, card);
-                    updatedAfterReturnAnimation = true;
-                    SoundManager.soundManager.Play("CardCombat");
-                }
-            }
-        }
-        else if (returnMovement && currentAnimationTime <= -0.5 && updatedAfterReturnAnimation) 
-        {
-            updatedAfterReturnAnimation = false;
-        }
-        else if (!returnMovement && currentAnimationTime > 0f)
-        {
-            currentAnimationTime -= Time.deltaTime;
-            transform.position = Vector3.Lerp(endPosition, startPosition, currentAnimationTime * (1 / maxAnimationTime));
-        }
-        else if (card.health <= 0)
+        if (card.health <= 0 && !AnimationUtilities.CheckForAnimation(gameObject))
         {
             OnDeath();
         }
@@ -98,7 +62,6 @@ public class CardInCombat : MonoBehaviour
 
         
     }
-
     public void CallBenchOrUnbench(){
         // Unity event trigger crashes if BenchOrUnbench gets called directly...
         BenchOrUnbench(true, false);
@@ -117,7 +80,7 @@ public class CardInCombat : MonoBehaviour
         // Benching
         if (playerCard && ((CombatManager.combatManager.gamePhase == 0 && playerInput) || force)){
             // Player card
-            if (rightClickedRecently || !ActiveAbilityManager.activeAbilityManager.cardsCanBench || currentAnimationTime > 0.4f) return false;
+            if (rightClickedRecently || !ActiveAbilityManager.activeAbilityManager.cardsCanBench) return false;
             
             benched = !benched;
             SoundManager.soundManager.Play("CardSlide");
@@ -181,13 +144,13 @@ public class CardInCombat : MonoBehaviour
     }
     public void MoveAnimationStarter(float time, Vector3 end, bool returnMove, float startDelay)
     {
-        maxAnimationTime = time;
-        currentAnimationTime = time;
-        endPosition = end;
-        startPosition = transform.position;
-        returnMovement = returnMove;
-
-        animationStartDelay = startDelay;
+        Invoke("CallUpdateCardAppearance", time + startDelay);
+        if (!returnMove){
+            AnimationUtilities.MoveToPoint(transform, time, startDelay, end);
+        }else{
+            AnimationUtilities.ReturnMoveToPoint(transform, time, startDelay, end);
+            Invoke("CallUpdateCardAppearance", (time+startDelay)/2);
+        }
     }
     public void OnDeath()
     {
@@ -345,5 +308,9 @@ public class CardInCombat : MonoBehaviour
             if (benched) return CombatManager.combatManager.enemyBenchSlots  [slot].GetComponent<CardSlot>();
             else         return CombatManager.combatManager.enemyCombatSlots [slot].GetComponent<CardSlot>();
         }
+    }
+
+    void CallUpdateCardAppearance(){
+        deck.UpdateCardAppearance(transform, card);
     }
 }
