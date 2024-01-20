@@ -7,8 +7,6 @@ public class EnemyBase : ScriptableObject
 {
     public int maxHealth;
 
-    public Dialogue dialogue;
-
     public string path = "";
 
     [Header("Hunt settings")]
@@ -29,10 +27,6 @@ public class EnemyBase : ScriptableObject
     public virtual void Initialize()
     {
         CombatManager.combatManager.enemyHealth = maxHealth;
-        if (dialogue != null) dialogue.Initialize();
-
-        if (dialogue != null && dialogue.StartOnLoad) dialogue.StartDialogue();
-        else GameObject.Find("DialogueBox").SetActive(false);
 
         if (pacingObject != null)
         {
@@ -41,7 +35,7 @@ public class EnemyBase : ScriptableObject
     }   
     public virtual void StartTurn()
     {
-        if (dialogue != null && dialogue.NextLineAtStartOfTurn) dialogue.StartDialogue();
+        
     }
     public void PlayCard(Card card, int slotNumber, bool benched)
     {

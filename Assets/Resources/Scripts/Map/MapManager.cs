@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class MapManager : MonoBehaviour, IDataPersistence
 {
+    public Notification notification;
+
     public GameObject nodeObject;
     public GameObject lineObject;
     public static MapManager mapManager;
@@ -57,6 +59,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
+        NotificationManager.notificationManager.Notify(notification);
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         eventCanvas = GameObject.Find("EventCanvas").transform;
         threeChoice = Resources.Load<GameObject>("Prefabs/Events/ThreeCardChoice");
