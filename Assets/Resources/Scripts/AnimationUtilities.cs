@@ -12,6 +12,12 @@ public class AnimationUtilities : MonoBehaviour{
 
     List<AnimationInstance> allAnimations = new List<AnimationInstance>();
     void Start(){
+        // Destroy this object if an AnimationUtilities manager already exists
+        if(animationUtilities != null){
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
         animationUtilities = this;
     }
 

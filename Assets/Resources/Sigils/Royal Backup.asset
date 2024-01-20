@@ -15,7 +15,7 @@ MonoBehaviour:
   sigilName: Royal Backup
   negative: 0
   image: {fileID: 21300000, guid: 4c1210abb8adeb240b3e4dd364a0af2f, type: 3}
-  description: Upon death add a random ant to your draw pile
+  description: Upon death add a random ant to your draw pile.
   cardsToGive:
   - {fileID: 11400000, guid: a44469202caecbf4992051ff0ca21721, type: 2}
   - {fileID: 11400000, guid: 8dd720278f60df54c9b6056c4b0cd7b0, type: 2}

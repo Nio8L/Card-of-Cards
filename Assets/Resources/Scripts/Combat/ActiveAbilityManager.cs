@@ -27,8 +27,6 @@ public class ActiveAbilityManager : MonoBehaviour
 
     float activateBenchingTimer;
     public bool cardsCanBench = true;
-
-    float vignetteAlphaTimer = 0;
     public Image vignette;
 
     //Used for registering a click on a card in hand
@@ -55,9 +53,6 @@ public class ActiveAbilityManager : MonoBehaviour
         if (selectedCard != null){
             activateBenchingTimer = 0.5f;
             cardsCanBench = false;
-
-
-            if (vignetteAlphaTimer < 1f) vignetteAlphaTimer += Time.deltaTime;
 
             if (selectedSigil.canBeUsed){
                 if (Input.GetMouseButtonDown(0)){
@@ -116,12 +111,7 @@ public class ActiveAbilityManager : MonoBehaviour
             if (Input.GetMouseButtonDown(1)){
                 Deselect();
             }
-        }else{
-            if (vignetteAlphaTimer > 0f) vignetteAlphaTimer -= Time.deltaTime;
         }
-
-        vignetteAlphaTimer = Math.Clamp(vignetteAlphaTimer, 0f, 1f);
-        vignette.color = new Color(1, 1, 1, vignetteAlphaTimer);
     }
     public void SelectCard(CardInCombat card){
         if (selectedCard != null){
@@ -140,6 +130,8 @@ public class ActiveAbilityManager : MonoBehaviour
         abilityInterface.SetActive(true);
 
         cardsCanBench = false;
+
+        AnimationUtilities.ChangeAlpha(vignette.transform, 0.5f, 0, 1);
 
         SetupSigilIcons(GetUsableAbility());
     }
@@ -161,6 +153,8 @@ public class ActiveAbilityManager : MonoBehaviour
         selectedSigil = null;
 
         abilityInterface.SetActive(false);
+
+        AnimationUtilities.ChangeAlpha(vignette.transform, 0.5f, 0, 0);
 
         RemoveHighlight();
         CombatManager.combatManager.deck.TidyHand();

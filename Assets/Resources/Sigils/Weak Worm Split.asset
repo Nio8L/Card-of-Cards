@@ -15,7 +15,6 @@ MonoBehaviour:
   sigilName: Weak Worm Split
   negative: 0
   image: {fileID: 21300000, guid: cd847440ee3b2fe40bb89eed37e9820d, type: 3}
-  description: Split into 2 weaker cards.
-  canUseAbility: 0
+  description: Split into 2 weaker cards on death.
   splittedCard: {fileID: 11400000, guid: 9c5cf1c5a4c5b634fa26247290e16d29, type: 2}
   coppiesToAdd: 2
