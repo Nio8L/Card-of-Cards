@@ -11,7 +11,6 @@ using Mono.Cecil;
 
 public class CombatManager : MonoBehaviour, IDataPersistence
 {
-    public Notification notification;
     public static CombatManager combatManager;
 
     public bool inCombat;
@@ -91,8 +90,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         Time.timeScale = 0;
         inCombat = false;
-
-        NotificationManager.notificationManager.Notify(notification);
 
         StartGame();
     }

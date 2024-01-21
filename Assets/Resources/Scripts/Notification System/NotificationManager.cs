@@ -10,7 +10,7 @@ public class NotificationManager : MonoBehaviour
     public int currentLineIndex = 0;
 
     public GameObject notificationObject;
-    public TextMeshProUGUI notificationText;
+    private TextMeshProUGUI notificationText;
 
     private GameObject notificationUI;
     private Button nextLineButton;
@@ -40,6 +40,16 @@ public class NotificationManager : MonoBehaviour
 
         //Set the notification
         SetNotification(notification);
+    }
+
+    //Automatically closes the notification window after the given duration
+    public void NotifyAutoEnd(Notification notification, float duration){
+        Notify(notification);
+
+        CanvasGroup canvas = notificationUI.GetComponentInChildren<CanvasGroup>();
+
+        AnimationUtilities.ChangeCanvasAlpha(canvas.transform, duration, 0, 0);
+        Invoke(nameof(CloseNotificationWindow), duration);
     }
 
     //Changes the currently shown notification

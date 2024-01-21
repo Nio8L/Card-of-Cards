@@ -80,6 +80,8 @@ public class AnimationUtilities : MonoBehaviour{
                 ChangeAlphaInst();
             }else if (animation == "ReturnMoveToPoint"){
                 ReturnMoveToPointInst();
+            }else if(animation == "ChangeCanvasAlpha"){
+                ChangeCanvasAlphaInst();
             }
 
             // Return true if the animation is complete
@@ -103,6 +105,16 @@ public class AnimationUtilities : MonoBehaviour{
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
             }
         }
+
+        void ChangeCanvasAlphaInst(){
+            float alpha = Mathf.Lerp(values[0], values[1], 1 - timeLeft / totalTime);
+
+            CanvasGroup canvas = target.GetComponent<CanvasGroup>();
+            if(canvas != null){
+                canvas.alpha = alpha;
+            }
+        }
+
         void ReturnMoveToPointInst(){
             // Move to a point, then return
             Vector3 newPosition = Vector3.Lerp(points[0], points[1], 1 - timeLeft/totalTime);
@@ -155,6 +167,20 @@ public class AnimationUtilities : MonoBehaviour{
             newAnimation.AddValue(spriteRenderer.color.a);
         }else{
             newAnimation.AddValue(target.GetComponent<Image>().color.a);
+        }
+
+        newAnimation.AddValue(alpha);
+
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
+
+    public static void ChangeCanvasAlpha(Transform target, float time, float delay, float alpha){
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeCanvasAlpha");
+        newAnimation.SetDelay(delay);
+
+        CanvasGroup canvas = target.GetComponent<CanvasGroup>();
+        if(canvas != null){
+            newAnimation.AddValue(canvas.alpha);
         }
 
         newAnimation.AddValue(alpha);
