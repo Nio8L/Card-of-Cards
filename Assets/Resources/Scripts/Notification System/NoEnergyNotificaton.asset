@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NoEnergyNotificaton
   m_EditorClassIdentifier: 
   lines:
-  - Not enough energy to play this card...
+  - "Not enough energy \nto play this card..."
