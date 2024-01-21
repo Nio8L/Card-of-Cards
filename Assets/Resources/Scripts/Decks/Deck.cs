@@ -64,6 +64,9 @@ public class Deck : MonoBehaviour, IDataPersistence
     float drawTime = 0.2f;
     float drawT = 0.1f;
 
+    [Header("Notifications")]
+    public Notification noEnergyNotification;
+
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){

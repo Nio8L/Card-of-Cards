@@ -48,8 +48,8 @@ public class NotificationManager : MonoBehaviour
 
         CanvasGroup canvas = notificationUI.GetComponentInChildren<CanvasGroup>();
 
-        AnimationUtilities.ChangeCanvasAlpha(canvas.transform, duration, 0, 0);
-        Invoke(nameof(CloseNotificationWindow), duration);
+        AnimationUtilities.ChangeCanvasAlpha(canvas.transform, duration, 1, 0);
+        Invoke(nameof(CloseNotificationWindow), duration + 1);
     }
 
     //Changes the currently shown notification

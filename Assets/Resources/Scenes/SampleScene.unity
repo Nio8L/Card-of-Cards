@@ -2268,6 +2268,7 @@ MonoBehaviour:
   deathMarkPoison: {fileID: 0}
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
+  noEnergyNotification: {fileID: 11400000, guid: 2c97cedfb47bdb14f93a5c54a1bbd6a4, type: 2}
 --- !u!4 &769775201
 Transform:
   m_ObjectHideFlags: 0
@@ -4597,7 +4598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8920dcbd911f9c40bf5e52f6872d33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 11400000, guid: 50f4f8788dc9a7c49b57956ef84b67d0, type: 2}
   inCombat: 0
   enemy: {fileID: 11400000, guid: 86fb60a307a9ef04a863a4dcfd7ef770, type: 2}
   gamePhase: 0
@@ -5582,6 +5582,7 @@ MonoBehaviour:
   deathMarkPoison: {fileID: 0}
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
+  noEnergyNotification: {fileID: 0}
 --- !u!4 &1537027588
 Transform:
   m_ObjectHideFlags: 0
