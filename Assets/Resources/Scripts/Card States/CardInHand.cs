@@ -160,7 +160,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
             }else{
                 if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
                     SoundManager.soundManager.Play("CardRetract");
-                    NotificationManager.notificationManager.NotifyAutoEnd(deck.noEnergyNotification, 2f);
+                    NotificationManager.notificationManager.NotifyAutoEnd(deck.noEnergyNotification, 2f, new Vector3(-700, 0, 0));
                 }
             }
         }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class NotificationManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class NotificationManager : MonoBehaviour
     private GameObject notificationUI;
     private Button nextLineButton;
 
+    private BoxCollider2D hitBox;
+
     private void Awake() {
         if(notificationManager == null){
             notificationManager = this;
@@ -24,6 +27,8 @@ public class NotificationManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
+        hitBox = GetComponent<BoxCollider2D>();
     }
 
     //Displays the given notification
@@ -40,11 +45,41 @@ public class NotificationManager : MonoBehaviour
 
         //Set the notification
         SetNotification(notification);
+
+        hitBox.enabled = true;
+    }
+
+    public void Notify(Notification notification, Vector3 position){
+        //Instantiate the UI
+        notificationUI = Instantiate(notificationObject, transform.position, Quaternion.identity);
+
+        notificationUI.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().localPosition = position;
+
+        //Get the text and button
+        notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
+        nextLineButton = notificationUI.GetComponentInChildren<Button>();
+        
+        //Add the OnClick function to the button
+        nextLineButton.onClick.AddListener(OnClick);
+
+        //Set the notification
+        SetNotification(notification);
+
+        hitBox.enabled = true;
     }
 
     //Automatically closes the notification window after the given duration
     public void NotifyAutoEnd(Notification notification, float duration){
         Notify(notification);
+
+        CanvasGroup canvas = notificationUI.GetComponentInChildren<CanvasGroup>();
+
+        AnimationUtilities.ChangeCanvasAlpha(canvas.transform, duration, 1, 0);
+        Invoke(nameof(CloseNotificationWindow), duration + 1);
+    }
+
+    public void NotifyAutoEnd(Notification notification, float duration, Vector3 position){
+        Notify(notification, position);
 
         CanvasGroup canvas = notificationUI.GetComponentInChildren<CanvasGroup>();
 
@@ -83,6 +118,11 @@ public class NotificationManager : MonoBehaviour
 
         currentLineIndex = 0;
         currentNotification = null;
+
+        //Disable the hitbox
+        hitBox.enabled = false;
+        
+        CancelInvoke(nameof(CloseNotificationWindow));
     }
 
     //This function is called when the button from the NotificationUI is pressed
