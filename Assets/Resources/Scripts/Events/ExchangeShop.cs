@@ -30,7 +30,7 @@ public class ExchangeShop : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             Card card = PickCard(i);
-            CardDisplay cardDisplay = transform.GetChild(1).GetChild(i).GetComponent<CardDisplay>();
+            CardDisplay cardDisplay = transform.GetChild(2).GetChild(i).GetComponent<CardDisplay>();
             cardDisplay.card = card;
             cardDisplay.UpdateCardAppearance();
 
