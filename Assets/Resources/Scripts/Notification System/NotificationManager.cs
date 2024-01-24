@@ -1,22 +1,101 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Scene = UnityEngine.SceneManagement.Scene;
 
 public class NotificationManager : MonoBehaviour
 {
     public static NotificationManager notificationManager;
 
-    public Notification currentNotification;
-    public int currentLineIndex = 0;
-
     public GameObject notificationObject;
-    private TextMeshProUGUI notificationText;
 
-    private GameObject notificationUI;
-    private Button nextLineButton;
+    public List<NotificationWindow> notifications;
 
-    private BoxCollider2D hitBox;
+    public class NotificationWindow{
+        private Notification currentNotification;
+        private int currentLineIndex;
+        private GameObject notificationUI;
+        private TextMeshProUGUI notificationText;
+        private Button nextLineButton;
+
+        public NotificationWindow(Notification notification){
+            //Instantiate the UI
+            notificationUI = Instantiate(notificationManager.notificationObject, Vector3.zero, Quaternion.identity);
+            notificationUI.transform.SetParent(notificationManager.transform);
+
+            //Get the notification text and button
+            notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
+            nextLineButton = notificationUI.GetComponentInChildren<Button>();
+
+            //Attach OnClick to the button
+            nextLineButton.onClick.AddListener(OnClick);
+
+            //Set the notification
+            SetNotification(notification);
+        }
+
+        public NotificationWindow(Notification notification, Vector3 position){
+            //Instantiate the UI
+            notificationUI = Instantiate(notificationManager.notificationObject, Vector3.zero, Quaternion.identity);
+            notificationUI.transform.SetParent(notificationManager.transform);
+
+            //Gets the Background (which is a child of the Canvas) and sets its position
+            notificationUI.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().localPosition = position;
+
+            //Get the notification text and button
+            notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
+            nextLineButton = notificationUI.GetComponentInChildren<Button>();
+
+            //Attach OnClick to the button
+            nextLineButton.onClick.AddListener(OnClick);
+
+            //Set the notification
+            SetNotification(notification);
+        }
+
+        public Notification GetNotification(){
+            return currentNotification;
+        }
+
+        //Go to the next line in the notification
+        public void NextLine(){
+            currentLineIndex++;
+
+            SetLine(currentLineIndex);
+        }
+
+        //Set the notification
+        public void SetNotification(Notification notification){
+            currentNotification = notification;
+
+            currentLineIndex = 0;
+
+            SetLine(currentLineIndex);
+        }
+
+        //Set the line to the given index
+        public void SetLine(int index){
+            notificationText.text = currentNotification.lines[index];
+        }
+
+        //Close this notification
+        public void CloseNotificationWindow(){
+            Destroy(notificationUI);
+        }
+
+        //This function is called when the button on the notificationUI is pressed
+        public void OnClick(){
+            //Close the notification if this was the last line, otherwise go to the next line
+            if(currentLineIndex == currentNotification.lines.Count - 1){
+                CloseNotificationWindow();
+            }else{
+                NextLine();
+            }
+        }
+    };
 
     private void Awake() {
         if(notificationManager == null){
@@ -28,110 +107,48 @@ public class NotificationManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        hitBox = GetComponent<BoxCollider2D>();
+        notifications = new();
     }
 
     //Displays the given notification
     public void Notify(Notification notification){
-        //Instantiate the UI
-        notificationUI = Instantiate(notificationObject, transform.position, Quaternion.identity);
-
-        //Get the text and button
-        notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
-        nextLineButton = notificationUI.GetComponentInChildren<Button>();
+        NotificationWindow newNotification = new NotificationWindow(notification);
         
-        //Add the OnClick function to the button
-        nextLineButton.onClick.AddListener(OnClick);
-
-        //Set the notification
-        SetNotification(notification);
-
-        hitBox.enabled = true;
+        notifications.Add(newNotification);
     }
 
     public void Notify(Notification notification, Vector3 position){
-        //Instantiate the UI
-        notificationUI = Instantiate(notificationObject, transform.position, Quaternion.identity);
+        NotificationWindow newNotification = new NotificationWindow(notification, position);
 
-        notificationUI.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().localPosition = position;
-
-        //Get the text and button
-        notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
-        nextLineButton = notificationUI.GetComponentInChildren<Button>();
-        
-        //Add the OnClick function to the button
-        nextLineButton.onClick.AddListener(OnClick);
-
-        //Set the notification
-        SetNotification(notification);
-
-        hitBox.enabled = true;
-    }
-
-    //Automatically closes the notification window after the given duration
-    public void NotifyAutoEnd(Notification notification, float duration){
-        Notify(notification);
-
-        CanvasGroup canvas = notificationUI.GetComponentInChildren<CanvasGroup>();
-
-        AnimationUtilities.ChangeCanvasAlpha(canvas.transform, duration, 1, 0);
-        Invoke(nameof(CloseNotificationWindow), duration + 1);
-    }
-
-    public void NotifyAutoEnd(Notification notification, float duration, Vector3 position){
-        Notify(notification, position);
-
-        CanvasGroup canvas = notificationUI.GetComponentInChildren<CanvasGroup>();
-
-        AnimationUtilities.ChangeCanvasAlpha(canvas.transform, duration, 1, 0);
-        Invoke(nameof(CloseNotificationWindow), duration + 1);
-    }
-
-    //Changes the currently shown notification
-    public void SetNotification(Notification notification){
-        //Set the new notification
-        currentNotification = notification;
-        
-        //Reset the current line back to 0
-        currentLineIndex = 0;
-        
-        //Display the first line from the notification
-        SetLine(currentLineIndex);
-    }
-
-    //Changes which line from the current notification is displayed
-    public void SetLine(int index){
-        notificationText.text = currentNotification.lines[index];
+        notifications.Add(newNotification);
     }
 
     //Goes to the next line of the notification
-    public void NextLine(){
-        currentLineIndex++;
-        
-        notificationText.text = currentNotification.lines[currentLineIndex];
+    public void NextLine(int index){
+        notifications[index].NextLine();
     }
 
-    //Closes the notification and resets all the components
-    public void CloseNotificationWindow(){
-        notificationText = null;
-        Destroy(notificationUI);
-
-        currentLineIndex = 0;
-        currentNotification = null;
-
-        //Disable the hitbox
-        hitBox.enabled = false;
-        
-        CancelInvoke(nameof(CloseNotificationWindow));
+    //Closes the notification
+    public void CloseNotificationWindow(int index){
+        notifications[index].CloseNotificationWindow();
+        notifications.RemoveAt(index);
     }
 
-    //This function is called when the button from the NotificationUI is pressed
-    public void OnClick(){
-        //Close the notification if this is the last line, otherwise display the next line
-        if(currentLineIndex == currentNotification.lines.Count - 1){
-            CloseNotificationWindow();
-        }else{
-            NextLine();
+    //Close all the notifications if they shouldn't persist between scenes
+    public void SceneChange(Scene scene, LoadSceneMode mode){
+        foreach (NotificationWindow notificationWindow in notifications)
+        {
+            if(!notificationWindow.GetNotification().persistBetweenScenes){
+                notificationWindow.CloseNotificationWindow();
+            }
         }
+    }
+
+    private void OnEnable() {
+        SceneManager.sceneLoaded += SceneChange;
+    }
+
+    private void OnDisable() {
+        SceneManager.sceneLoaded -= SceneChange;
     }
 }

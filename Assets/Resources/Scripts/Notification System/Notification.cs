@@ -7,4 +7,6 @@ public class Notification : ScriptableObject
 {
     [Multiline]
     public List<string> lines;
+
+    public bool persistBetweenScenes = false;
 }
