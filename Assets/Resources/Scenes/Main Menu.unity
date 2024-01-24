@@ -2177,19 +2177,19 @@ PrefabInstance:
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCombats.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 00c1334a629709e45af36eddac0a7b7a, type: 2}
+      objectReference: {fileID: 11400000, guid: fc8a7c18f16cbd9489f53657d4bef3e3, type: 2}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCombats.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 16d94e2ebd08d2f4d8a9c0148380b3d4, type: 2}
+      objectReference: {fileID: 11400000, guid: db07d940b2ff7c54a8e287b4683db79b, type: 2}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCombats.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 302c9773d1fee2044a855d62979b0945, type: 2}
+      objectReference: {fileID: 11400000, guid: c0900a06ae344194cb5a2afa84bfe014, type: 2}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCombats.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 9e755af8db3a0974da877b3616c95526, type: 2}
+      objectReference: {fileID: 11400000, guid: d1a0468de3efe914f9e4ef19cd5ca686, type: 2}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialDecks.Array.data[0].list.Array.size
       value: 2
@@ -3944,10 +3944,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1929760794}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: StartTutorial
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c3564adf09d713e4fa656210cbfba50f, type: 2}
-          m_ObjectArgumentAssemblyTypeName: EnemyBase, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

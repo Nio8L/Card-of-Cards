@@ -61,7 +61,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         
         if(DataPersistenceManager.DataManager.inTutorial)
         {
-            Debug.Log(DataPersistenceManager.DataManager.tutorialCombats[DataPersistenceManager.DataManager.tutorialStage].ReturnPath());
             DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + DataPersistenceManager.DataManager.tutorialCombats[DataPersistenceManager.DataManager.tutorialStage].ReturnPath());
 
             deck.cards.AddRange(DataPersistenceManager.DataManager.tutorialDeck);
@@ -70,7 +69,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
             foreach (string card in tutorialDeckToLoad.list)
             {
-                Debug.Log("loading " + card);
                 Card cardToAdd = Instantiate(Resources.Load<Card>("Cards/" + card)).ResetCard();
                 cardToAdd.name = card;
                 deck.cards.Add(cardToAdd);
@@ -102,7 +100,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         inCombat = true;
         Time.timeScale = 1;
 
-        Invoke("StartHunt", 1f);
+        Invoke("TurnZero", 1f);
     }
 
     public void EndGame()
@@ -597,9 +595,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    void StartHunt(){
-        if (enemy.huntAI){
-            ScriptedEnemy scriptedEnemy = enemy.GetScriptedEnemy();
+    void TurnZero(){
+        ScriptedEnemy scriptedEnemy = enemy.GetScriptedEnemy();
+        if (scriptedEnemy != null){
             if (scriptedEnemy.turnZero){
                 scriptedEnemy.PlayTurn(scriptedEnemy.turns[0]);
             }

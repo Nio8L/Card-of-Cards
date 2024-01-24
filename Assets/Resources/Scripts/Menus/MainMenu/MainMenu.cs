@@ -64,7 +64,7 @@ public class MainMenu : MonoBehaviour
         gameObject.SetActive(false);
     } 
 
-    public void StartTutorial(EnemyBase enemy)
+    public void StartTutorial()
     {
         DataPersistenceManager.DataManager.inTutorial = true;
         //DataPersistenceManager.DataManager.currentCombatAI = enemy;

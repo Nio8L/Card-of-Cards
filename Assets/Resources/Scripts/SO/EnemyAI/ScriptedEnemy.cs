@@ -37,8 +37,7 @@ public class ScriptedEnemy : EnemyBase
         if (turnZero) bonusForZeroTurn = 1;
 
         int turnNumber = CombatManager.combatManager.round-1 + bonusForZeroTurn;
-        if (turns.Length <= turnNumber) return;
-
+        if (turns.Length-1 <= turnNumber) return;
         // Find the current turn
         Turn currentTurn = turns[CombatManager.combatManager.round-1 + bonusForZeroTurn];
 
