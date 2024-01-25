@@ -37,15 +37,15 @@ public class ScriptedEnemy : EnemyBase
         if (turnZero) bonusForZeroTurn = 1;
 
         int turnNumber = CombatManager.combatManager.round-1 + bonusForZeroTurn;
-        if (turns.Length-1 <= turnNumber) return;
+        if (turns.Length-1 < turnNumber) return;
         // Find the current turn
         Turn currentTurn = turns[CombatManager.combatManager.round-1 + bonusForZeroTurn];
 
         // Push bench
         if (currentTurn.pushBench) Bench();
 
-        // The enemy plays cards where the player hit it
-        PlayTurn(currentPacingObject.GetComponent<HuntManager>().PlayStrongCards());
+        // The enemy plays cards where the player hit it if it's a hunt
+        if (huntAI) PlayTurn(currentPacingObject.GetComponent<HuntManager>().PlayStrongCards());
 
         // Play cards
         if (currentTurn != null)
