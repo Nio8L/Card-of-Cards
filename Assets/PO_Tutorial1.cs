@@ -144,7 +144,7 @@ public class PO_Tutorial1 : MonoBehaviour
     }
 
     void ChangeStageAfterTextIsGone(int newStage){
-        if (NotificationManager.notificationManager.currentNotification == null){
+        if (NotificationManager.notificationManager.notifications.Count == 0){
             ChangeStage(newStage);
         }
     }

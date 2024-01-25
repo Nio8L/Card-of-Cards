@@ -84,6 +84,7 @@ public class NotificationManager : MonoBehaviour
         //Close this notification
         public void CloseNotificationWindow(){
             Destroy(notificationUI);
+            notificationManager.notifications.Remove(this);
         }
 
         //This function is called when the button on the notificationUI is pressed
