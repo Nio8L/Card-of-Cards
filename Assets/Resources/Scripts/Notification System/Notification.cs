@@ -9,4 +9,6 @@ public class Notification : ScriptableObject
     public List<string> lines;
 
     public bool persistBetweenScenes = false;
+
+    public bool closable = true;
 }

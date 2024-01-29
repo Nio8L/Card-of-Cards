@@ -60,31 +60,11 @@ public class PO_Tutorial1 : MonoBehaviour
 
             cardShowcaseInstance.GetComponent<DestroyTimer>().enabled = true;
         }else if (stage == 7){
-            // Spawn slot arrows and show combat slots
-            slotArrowsInstance = Instantiate(slotArrowsPrefab, GameObject.Find("Canvas").transform);
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(1), 0.5f, 0, 1);
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(2), 0.5f, 0, 1);
+            checkIfNotificationIsGone = false;
 
             NotificationManager.notificationManager.Notify(notifications[7], new Vector3(0, -200, 0));
-        }else if (stage == 8){
-            // Show bench slots
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(0), 0.5f, 0, 1);
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(3), 0.5f, 0, 1);
-
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(1), 0.5f, 0, 0);
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(2), 0.5f, 0, 0);
-
-            NotificationManager.notificationManager.Notify(notifications[8], new Vector3(0, -200, 0));
-        }else if (stage == 9){
-            // Begin playing phase
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(0), 0.5f, 0, 0);
-            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(3), 0.5f, 0, 0);
-
-            checkIfNotificationIsGone = false;
-            NotificationManager.notificationManager.Notify(notifications[9], new Vector3(0, -200, 0));
             ChangeStage(stage+1);
-
-        }else if (stage == 10){
+        }else if (stage == 8){
             // Keep checking until a card is found
             stageExecuted = false;
             
@@ -100,6 +80,7 @@ public class PO_Tutorial1 : MonoBehaviour
                 {
                     cardToTrack = CombatManager.combatManager.playerBenchCards[i];
                     result = true;
+                    NotificationManager.notificationManager.CloseNotificationWindow(0);
                     break;
                 }
             }
@@ -107,8 +88,27 @@ public class PO_Tutorial1 : MonoBehaviour
                 boolCheck = cardToTrack.benched;
                 ChangeStage(stage+1);
             }
+        }else if (stage == 9){
+            // Spawn slot arrows and show combat slots
+            checkIfNotificationIsGone = true;
+
+            slotArrowsInstance = Instantiate(slotArrowsPrefab, GameObject.Find("Canvas").transform);
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(1), 0.5f, 0, 1);
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(2), 0.5f, 0, 1);
+
+            NotificationManager.notificationManager.Notify(notifications[8], new Vector3(0, -200, 0));
+        }else if (stage == 10){
+            // Show bench slots
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(0), 0.5f, 0, 1);
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(3), 0.5f, 0, 1);
+
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(1), 0.5f, 0, 0);
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(2), 0.5f, 0, 0);
+
+            NotificationManager.notificationManager.Notify(notifications[9], new Vector3(0, -200, 0));
         }else if (stage == 11){
             // Benching
+            checkIfNotificationIsGone = false;
             NotificationManager.notificationManager.Notify(notifications[10], new Vector3(0, -200, 0));
             ChangeStage(stage+1);
         }else if (stage == 12){
@@ -116,6 +116,7 @@ public class PO_Tutorial1 : MonoBehaviour
             stageExecuted = false;
             if (cardToTrack.benched != boolCheck){
                 ChangeStage(stage+1);
+                NotificationManager.notificationManager.CloseNotificationWindow(0);
             }
         }else if (stage == 13){
             // Move the card to a combat slot

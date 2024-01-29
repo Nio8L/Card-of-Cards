@@ -13,8 +13,9 @@ public class NotificationManager : MonoBehaviour
 
     public GameObject notificationObject;
 
+    [SerializeField]
     public List<NotificationWindow> notifications;
-
+    [SerializeField]
     public class NotificationWindow{
         private Notification currentNotification;
         private int currentLineIndex;
@@ -33,6 +34,8 @@ public class NotificationManager : MonoBehaviour
 
             //Attach OnClick to the button
             nextLineButton.onClick.AddListener(OnClick);
+
+            nextLineButton.gameObject.SetActive(notification.closable);
 
             //Set the notification
             SetNotification(notification);
@@ -53,6 +56,8 @@ public class NotificationManager : MonoBehaviour
             //Attach OnClick to the button
             nextLineButton.onClick.AddListener(OnClick);
 
+            nextLineButton.gameObject.SetActive(notification.closable);
+
             //Set the notification
             SetNotification(notification);
         }
@@ -71,6 +76,8 @@ public class NotificationManager : MonoBehaviour
 
             //Attach OnClick to the button
             nextLineButton.onClick.AddListener(OnClick);
+
+            nextLineButton.gameObject.SetActive(notification.closable);
 
             //Set the notification
             SetNotification(notification);
@@ -176,7 +183,6 @@ public class NotificationManager : MonoBehaviour
     //Closes the notification
     public void CloseNotificationWindow(int index){
         notifications[index].CloseNotificationWindow();
-        notifications.RemoveAt(index);
     }
 
     //Close all the notifications if they shouldn't persist between scenes

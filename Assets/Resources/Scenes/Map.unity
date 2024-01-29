@@ -3541,13 +3541,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4b4a2682cdfe848ad5faa26b732a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notification: {fileID: 11400000, guid: 3ee28f4fcce9c0a459eb76a4d51aad96, type: 2}
   nodeObject: {fileID: 8456520580759990429, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
   currentNode: {fileID: 0}
   numOfLayers: 12
   isGenerating: 1
-  chanceForRooms: 140000000a000000140000000f00000023000000
+  chanceForRooms: 190000000a000000190000001400000014000000
   nodesAvaliable: []
   lastLayer: {fileID: 0}
   mapDeck: {fileID: 0}
