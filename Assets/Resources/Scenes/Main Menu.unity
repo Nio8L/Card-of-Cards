@@ -1527,8 +1527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78827cecc703a29489d95aad7e22bd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentNotification: {fileID: 0}
-  currentLineIndex: 0
   notificationObject: {fileID: 1616269090269085216, guid: d041d70c4c6cacf48ac361854be4172c, type: 3}
 --- !u!4 &794234792
 Transform:

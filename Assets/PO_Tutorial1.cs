@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PO_Tutorial1 : MonoBehaviour
 {
@@ -13,8 +14,13 @@ public class PO_Tutorial1 : MonoBehaviour
     public GameObject slotArrowsPrefab;
     GameObject cardShowcaseInstance;
     GameObject slotArrowsInstance;
+
+    Button endTurnButton;
     bool boolCheck;
     CardInCombat cardToTrack;
+    void Start(){
+        endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
+    }
     void Update()
     {
         if (checkIfNotificationIsGone) ChangeStageAfterTextIsGone(stage+1);
@@ -25,6 +31,7 @@ public class PO_Tutorial1 : MonoBehaviour
 
         if (stage == 0){
             // Say welcome
+            ChangeEndTurnButton();
             NotificationManager.notificationManager.Notify(notifications[0], new Vector3(0, -200, 0));
             checkIfNotificationIsGone = true;
         }else if (stage == 1){
@@ -80,11 +87,12 @@ public class PO_Tutorial1 : MonoBehaviour
                 {
                     cardToTrack = CombatManager.combatManager.playerBenchCards[i];
                     result = true;
-                    NotificationManager.notificationManager.CloseNotificationWindow(0);
                     break;
                 }
             }
             if (result){
+                NotificationManager.notificationManager.CloseNotificationWindow(0);
+                Debug.Log(notifications[0].lines[0]);
                 boolCheck = cardToTrack.benched;
                 ChangeStage(stage+1);
             }
@@ -108,6 +116,9 @@ public class PO_Tutorial1 : MonoBehaviour
             NotificationManager.notificationManager.Notify(notifications[9], new Vector3(0, -200, 0));
         }else if (stage == 11){
             // Benching
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(0), 0.5f, 0, 0);
+            AnimationUtilities.ChangeAlpha(slotArrowsInstance.transform.GetChild(3), 0.5f, 0, 0);
+
             checkIfNotificationIsGone = false;
             NotificationManager.notificationManager.Notify(notifications[10], new Vector3(0, -200, 0));
             ChangeStage(stage+1);
@@ -130,11 +141,27 @@ public class PO_Tutorial1 : MonoBehaviour
             // Move the card to a combat slot
             stageExecuted = false;
             if (!cardToTrack.benched){
+                NotificationManager.notificationManager.CloseNotificationWindow(0);
                 ChangeStage(stage+1);
             }
         }else if (stage == 15){
-            //
+            // End turn
+            ChangeEndTurnButton();
             NotificationManager.notificationManager.Notify(notifications[12], new Vector3(0, -200, 0));
+            ChangeStage(stage + 1);
+        }else if (stage == 16){
+            stageExecuted = false;
+            if (CombatManager.combatManager.round != 1){
+                ChangeStage(stage + 1);
+            }
+        }else if (stage == 17){
+            // Show combat text
+            NotificationManager.notificationManager.CloseNotificationWindow(0);
+            checkIfNotificationIsGone = true;
+            NotificationManager.notificationManager.Notify(notifications[13], new Vector3(0, -200, 0));
+        }else if (stage == 18){
+            // Show final text
+            NotificationManager.notificationManager.Notify(notifications[14], new Vector3(0, -200, 0));
         }
     }
 
@@ -148,5 +175,13 @@ public class PO_Tutorial1 : MonoBehaviour
         if (NotificationManager.notificationManager.notifications.Count == 0){
             ChangeStage(newStage);
         }
+    }
+
+    void ChangeEndTurnButton(){
+        endTurnButton.interactable = !endTurnButton.interactable;
+    }
+
+    void ChangeEndTurnButton(bool usable){
+        endTurnButton.interactable = usable;
     }
 }

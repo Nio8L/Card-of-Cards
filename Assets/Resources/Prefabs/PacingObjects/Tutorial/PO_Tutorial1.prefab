@@ -58,6 +58,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cffcf2436d825c5458fd69ce89d8025f, type: 2}
   - {fileID: 11400000, guid: 092c1d13fae336341b9e9f06f6f6c6c1, type: 2}
   - {fileID: 11400000, guid: 715ed09087320f74f9d76c6d09febf36, type: 2}
+  - {fileID: 11400000, guid: da6b8e724e389b54baf5094c20fbec6d, type: 2}
+  - {fileID: 11400000, guid: c89939dea4c14af4ea16897ce6ee17a0, type: 2}
   stage: 0
   cardShowCasePrefab: {fileID: 9048466918789952585, guid: 9c840b1dac7f8f344a78364b2712da5a, type: 3}
   slotArrowsPrefab: {fileID: 2852792538213253465, guid: 9bab1093b36c5cd469f02ea5bb6495b1, type: 3}

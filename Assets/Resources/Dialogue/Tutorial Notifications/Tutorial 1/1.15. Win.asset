@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e0bb5f836244bf4e98646d6c4df3b8a, type: 3}
-  m_Name: 1.12. Unbench
+  m_Name: 1.15. Win
   m_EditorClassIdentifier: 
   lines:
-  - Great! Now move it back to a combat slot.
+  - Now try to win the fight by attacking your enemy.
   persistBetweenScenes: 0
   closable: 0
