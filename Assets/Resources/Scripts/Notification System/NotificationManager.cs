@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -56,6 +57,26 @@ public class NotificationManager : MonoBehaviour
             SetNotification(notification);
         }
 
+        public NotificationWindow(Notification notification, Vector3 position, float duration){
+            //Instantiate the UI
+            notificationUI = Instantiate(notificationManager.notificationObject, Vector3.zero, Quaternion.identity);
+            notificationUI.transform.SetParent(notificationManager.transform);
+
+            //Gets the Background (which is a child of the Canvas) and sets its position
+            notificationUI.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().localPosition = position;
+
+            //Get the notification text and button
+            notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
+            nextLineButton = notificationUI.GetComponentInChildren<Button>();
+
+            //Attach OnClick to the button
+            nextLineButton.onClick.AddListener(OnClick);
+
+            //Set the notification
+            SetNotification(notification);
+            Animate(duration, 1);
+        }
+
         public Notification GetNotification(){
             return currentNotification;
         }
@@ -79,6 +100,11 @@ public class NotificationManager : MonoBehaviour
         //Set the line to the given index
         public void SetLine(int index){
             notificationText.text = currentNotification.lines[index];
+        }
+
+        public void Animate(float duration, float delay){
+            CanvasGroup canvas = notificationUI.GetComponentInChildren<CanvasGroup>();
+            AnimationUtilities.ChangeCanvasAlpha(canvas.transform, duration, delay, 0);
         }
 
         //Close this notification
@@ -118,10 +144,28 @@ public class NotificationManager : MonoBehaviour
         notifications.Add(newNotification);
     }
 
+    //Displays a given notification with a position
     public void Notify(Notification notification, Vector3 position){
         NotificationWindow newNotification = new NotificationWindow(notification, position);
 
         notifications.Add(newNotification);
+    }
+
+    //Displays a notificaton and automatically closes it after a given duration
+    public void NotifyAutoEnd(Notification notification, Vector3 position, float duration){
+        NotificationWindow newNotification = new NotificationWindow(notification, position, duration);
+
+        notifications.Add(newNotification);
+        
+        //Close the notification after the given duration
+        StartCoroutine(AutoCloseNotification(newNotification, duration));
+    }
+
+    //Closes the notification after a given delay
+    public IEnumerator AutoCloseNotification(NotificationWindow notification, float delay){
+        yield return new WaitForSeconds(delay);
+
+        notification.CloseNotificationWindow();
     }
 
     //Goes to the next line of the notification
