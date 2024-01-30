@@ -64,6 +64,7 @@ public class AnimationUtilities : MonoBehaviour{
         public bool Call(){
             // Called every frame from Update
 
+            // If the target object no longer exist return true removing this animation from the list
             if (target == null) return true;
 
             // Apply delay
@@ -80,8 +81,10 @@ public class AnimationUtilities : MonoBehaviour{
                 ChangeAlphaInst();
             }else if (animation == "ReturnMoveToPoint"){
                 ReturnMoveToPointInst();
-            }else if(animation == "ChangeCanvasAlpha"){
+            }else if (animation == "ChangeCanvasAlpha"){
                 ChangeCanvasAlphaInst();
+            }else if (animation == "DestroyAfter"){
+                DestroyAfterInst();
             }
 
             // Return true if the animation is complete
@@ -107,6 +110,7 @@ public class AnimationUtilities : MonoBehaviour{
         }
 
         void ChangeCanvasAlphaInst(){
+            // Change the alpha of a canvas
             float alpha = Mathf.Lerp(values[0], values[1], 1 - timeLeft / totalTime);
 
             CanvasGroup canvas = target.GetComponent<CanvasGroup>();
@@ -129,11 +133,18 @@ public class AnimationUtilities : MonoBehaviour{
                 bools.Add(true);
             }
         }
+
+        void DestroyAfterInst(){
+            // Destroy a target
+            Destroy(target);
+        }
         public Transform GetTarget(){
+            // Return this animationInstances target
             return target;
         }
     }
     public static bool CheckForAnimation(GameObject gameObject){
+        // Returns if the given GameObject has active animations
         for (int i = 0; i < animationUtilities.allAnimations.Count; i++){
             AnimationInstance animationInstance = animationUtilities.allAnimations[i];
             if (animationInstance.GetTarget() == gameObject.transform){
@@ -143,6 +154,7 @@ public class AnimationUtilities : MonoBehaviour{
         return false;
     }
     public static void MoveToPoint(Transform target, float time, float delay, Vector3 point){
+        // Move a given target to a point in a certain time after a delay
         AnimationInstance newAnimation = new AnimationInstance(target, time, "MoveToPoint");
         newAnimation.SetDelay(delay);
 
@@ -151,6 +163,7 @@ public class AnimationUtilities : MonoBehaviour{
         animationUtilities.allAnimations.Add(newAnimation);
     }
     public static void ReturnMoveToPoint(Transform target, float time, float delay, Vector3 point){
+        // Move a given target to a point in a certain time after a delay and then return back
         AnimationInstance newAnimation = new AnimationInstance(target, time, "ReturnMoveToPoint");
         newAnimation.SetDelay(delay);
 
@@ -159,6 +172,7 @@ public class AnimationUtilities : MonoBehaviour{
         animationUtilities.allAnimations.Add(newAnimation);
     }
     public static void ChangeAlpha(Transform target, float time, float delay, float alpha){
+        // Change the alpha of an object
         AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeAlpha");
         newAnimation.SetDelay(delay);
 
@@ -173,8 +187,8 @@ public class AnimationUtilities : MonoBehaviour{
 
         animationUtilities.allAnimations.Add(newAnimation);
     }
-
     public static void ChangeCanvasAlpha(Transform target, float time, float delay, float alpha){
+        // Change the alpha of a canvas
         AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeCanvasAlpha");
         newAnimation.SetDelay(delay);
 
@@ -187,5 +201,13 @@ public class AnimationUtilities : MonoBehaviour{
 
         animationUtilities.allAnimations.Add(newAnimation);
     }
+    public static void DestroyAfter(Transform target, float delay){
+        // Start a destroy timer
+        AnimationInstance newAnimation = new AnimationInstance(target, 0, "DestroyAfter");
+        newAnimation.SetDelay(delay);
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
+
+
 }
     

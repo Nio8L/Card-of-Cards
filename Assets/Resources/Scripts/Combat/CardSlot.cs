@@ -60,7 +60,13 @@ public class CardSlot : MonoBehaviour
         }
         
         CardInCombat cardInCombat = CombatManager.combatManager.GetCardAtSlot(this);
-        if (cardInCombat != null) cardInCombat.card.health--;
+        if (cardInCombat != null)
+        {
+             cardInCombat.card.health--;
+             GameObject fireExplosion = Instantiate(CombatManager.combatManager.fireExplosionPrefab, transform);
+             fireExplosion.transform.localScale = Vector3.one;
+             AnimationUtilities.ChangeAlpha(fireExplosion.transform, 0.6f, 0.8f, 0f);
+        }
 
         turnsIgnited--;
     }

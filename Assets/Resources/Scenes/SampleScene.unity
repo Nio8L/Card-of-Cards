@@ -2269,7 +2269,6 @@ MonoBehaviour:
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
   noEnergyNotification: {fileID: 11400000, guid: 2c97cedfb47bdb14f93a5c54a1bbd6a4, type: 2}
-  test: {fileID: 11400000, guid: 1e9026e44d11ad445b95b9a2fe45522d, type: 2}
 --- !u!4 &769775201
 Transform:
   m_ObjectHideFlags: 0
@@ -4671,6 +4670,7 @@ MonoBehaviour:
   combatUI: {fileID: 527115434}
   playerCardsLost: 0
   round: 1
+  fireExplosionPrefab: {fileID: 2358329753112103490, guid: 50dcdf2437ce66a479b80855f247dccd, type: 3}
 --- !u!1 &1264100468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5585,7 +5585,6 @@ MonoBehaviour:
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
   noEnergyNotification: {fileID: 0}
-  test: {fileID: 0}
 --- !u!4 &1537027588
 Transform:
   m_ObjectHideFlags: 0

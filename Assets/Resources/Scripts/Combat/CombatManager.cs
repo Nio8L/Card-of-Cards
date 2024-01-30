@@ -55,6 +55,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public int playerCardsLost = 0;
     public int round = 1;
 
+    public GameObject fireExplosionPrefab;
+
 
     void Awake(){
         combatManager = this;
