@@ -187,10 +187,9 @@ public class NotificationManager : MonoBehaviour
 
     //Close all the notifications if they shouldn't persist between scenes
     public void SceneChange(Scene scene, LoadSceneMode mode){
-        foreach (NotificationWindow notificationWindow in notifications)
-        {
-            if(!notificationWindow.GetNotification().persistBetweenScenes){
-                notificationWindow.CloseNotificationWindow();
+        for(int i = 0; i < notifications.Count; i++){
+            if(!notifications[i].GetNotification().persistBetweenScenes){
+                notifications[i].CloseNotificationWindow();
             }
         }
     }

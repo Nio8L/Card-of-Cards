@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: 1.7. Playing phase
   m_EditorClassIdentifier: 
   lines:
-  - Now that you know what everything on the cards means its time for you to see
-    the game board.
+  - 'Now that you know what everything on the card means
+
+    it''s time for you
+    to see the game board.'
   - As you can see there are 4 rows.
-  - The bottom 2 rows are your cards slot and the top 2 are your enemies slots.
+  - 'The bottom 2 rows are your cards slot
+
+    and the top 2 are your enemies slots.'
+  persistBetweenScenes: 0
+  closable: 1

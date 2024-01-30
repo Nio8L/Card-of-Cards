@@ -13,7 +13,6 @@ public class MapScroller : MonoBehaviour
     Vector3 startPosition;
     float animationTime;
     float animationSpeed = 1;
-
     private void Start()
     {
         SetUpCameraPosition();
@@ -28,7 +27,8 @@ public class MapScroller : MonoBehaviour
                 if (animationTime > 0f){
                     animationSpeed = 4f;
                 }else{
-                    LeanTween.moveY(gameObject, mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity, 0.25f);
+                    float newCameraY = mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+                    AnimationUtilities.MoveToPoint(mapCamera.transform, 0.25f, 0, new Vector3(0, Math.Clamp(newCameraY, 0, startPosition.y), -10));
                 }
             }
         }
