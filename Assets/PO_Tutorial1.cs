@@ -92,7 +92,6 @@ public class PO_Tutorial1 : MonoBehaviour
             }
             if (result){
                 NotificationManager.notificationManager.CloseNotificationWindow(0);
-                Debug.Log(notifications[0].lines[0]);
                 boolCheck = cardToTrack.benched;
                 ChangeStage(stage+1);
             }
