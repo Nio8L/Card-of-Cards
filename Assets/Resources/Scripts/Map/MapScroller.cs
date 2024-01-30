@@ -27,8 +27,9 @@ public class MapScroller : MonoBehaviour
                 if (animationTime > 0f){
                     animationSpeed = 4f;
                 }else{
+                    float limitTop = MapManager.mapManager.transform.GetChild(MapManager.mapManager.transform.childCount-1).transform.position.y;
                     float newCameraY = mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-                    AnimationUtilities.MoveToPoint(mapCamera.transform, 0.25f, 0, new Vector3(0, Math.Clamp(newCameraY, 0, startPosition.y), -10));
+                    AnimationUtilities.MoveToPoint(mapCamera.transform, 0.25f, 0, new Vector3(0, Math.Clamp(newCameraY, 0, limitTop), -10));
                 }
             }
         }

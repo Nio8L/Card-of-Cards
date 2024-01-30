@@ -8,7 +8,9 @@ public class Card : ScriptableObject
     public int maxHealth;
     [HideInInspector]
     public int health;
+    [HideInInspector]
     public int attack;
+    public int defaultAttack;
     public int cost;
     public Sprite image;
     [HideInInspector]
@@ -157,8 +159,13 @@ public class Card : ScriptableObject
         health = maxHealth;
     }
 
+    public void ResetAttack(){
+        attack = defaultAttack;
+    }
+
     public Card ResetCard()
     {
+        ResetAttack();
         ResetHP();
         for (int i = 0; i < sigils.Count; i++)
         {

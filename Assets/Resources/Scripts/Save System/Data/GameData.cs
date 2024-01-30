@@ -44,7 +44,6 @@ public class GameData
 
     public List<string> cardNames;
     public List<int> cardAttacks;
-    //public List<int> cardHealths;
     public List<int> cardMaxHealths;
     public List<int> cardCosts;
     public List<string> cardImages;
@@ -64,7 +63,6 @@ public class GameData
 
         cardNames = new();
         cardAttacks = new();
-        //scardHealths = new();
         cardMaxHealths = new();
         cardCosts = new();
         cardImages = new();

@@ -80,8 +80,8 @@ public class Deck : MonoBehaviour, IDataPersistence
 
             AddCard(newCard);
             cards[^1].name = data.cardNames[i];
-            cards[^1].attack = data.cardAttacks[i];
-            //cards[^1].health = data.cardHealths[i];
+            cards[^1].defaultAttack = data.cardAttacks[i];
+            cards[^1].attack = cards[^1].defaultAttack;
             cards[^1].maxHealth = data.cardMaxHealths[i];
             cards[^1].health = cards[^1].maxHealth;
             cards[^1].cost = data.cardCosts[i];
@@ -119,8 +119,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         for(int i = 0; i < cards.Count; i++){
             data.cardNames.Add(cards[i].name);
-            data.cardAttacks.Add(cards[i].attack);
-            //data.cardHealths.Add(cards[i].health);
+            data.cardAttacks.Add(cards[i].defaultAttack);
             data.cardMaxHealths.Add(cards[i].maxHealth);
             data.cardCosts.Add(cards[i].cost);
             data.cardImages.Add(cards[i].image.name);

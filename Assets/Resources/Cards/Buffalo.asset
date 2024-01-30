@@ -15,6 +15,7 @@ MonoBehaviour:
   maxHealth: 3
   health: 3
   attack: 1
+  defaultAttack: 1
   cost: 2
   image: {fileID: 21300000, guid: 1d47a39cc6c08ea41bc3045d0df7ae91, type: 3}
   canRevive: 1
