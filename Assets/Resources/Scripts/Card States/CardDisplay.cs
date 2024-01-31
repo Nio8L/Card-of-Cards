@@ -138,16 +138,19 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
                             MapManager.mapManager.currentNode.used = true;
                             MapManager.mapManager.deckDisplay.canClose = true;
-                            LeanTween.delayedCall(2, () => {
-
-                                MapManager.mapManager.deckDisplay.ShowDeck(5, 250);
-                            });
+                            StartCoroutine(DisplayDeck(2, 5, 250));
                         }
                     }
                 }
             }
         }
         UpdateCardAppearance();
+    }
+
+    public IEnumerator DisplayDeck(float delay, int cardsPerRow, int xDisplacement){
+        yield return new WaitForSeconds(delay);
+
+        MapManager.mapManager.deckDisplay.ShowDeck(cardsPerRow, xDisplacement);
     }
 
     public void PickCard()

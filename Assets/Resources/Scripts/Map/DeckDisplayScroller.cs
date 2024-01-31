@@ -20,7 +20,7 @@ public class DeckDisplayScroller : MonoBehaviour
         if(Input.GetAxis("Mouse ScrollWheel") != 0f){
            if (deckDisplay.cardDisplays.Count > 15){
                 if(rectTransform.localPosition.y <= deckDisplay.cardDisplays.Count / 15 * 770 && rectTransform.localPosition.y >= 0){
-                    LeanTween.moveY(gameObject, deckDisplayObject.transform.position.y - Input.GetAxis("Mouse ScrollWheel") * sensitivity, 0.5f);
+                    AnimationUtilities.MoveToPoint(transform, 0.25f, 0, new Vector3(deckDisplayObject.transform.position.x, deckDisplayObject.transform.position.y - Input.GetAxis("Mouse ScrollWheel") * sensitivity, deckDisplayObject.transform.position.z));
                 }
            }
         }

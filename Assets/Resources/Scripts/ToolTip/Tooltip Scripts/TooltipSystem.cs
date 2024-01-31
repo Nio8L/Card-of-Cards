@@ -34,7 +34,7 @@ public class TooltipSystem : MonoBehaviour
             tooltipSystem.tooltip.SetText(content, header);
             tooltipSystem.tooltip.gameObject.SetActive(true);
         }
-        LeanTween.alphaCanvas(tooltipSystem.canvasGroup, 1f, 0.3f);
+        AnimationUtilities.ChangeCanvasAlpha(tooltipSystem.transform, 0.3f, 0, 1);
     }
 
     public static void QuickHide(){
@@ -43,11 +43,15 @@ public class TooltipSystem : MonoBehaviour
 
     public static void Hide(){
         if(tooltipSystem.canvasGroup != null){
-            LeanTween.alphaCanvas(tooltipSystem.canvasGroup, 0f, 0.1f);
-            LeanTween.delayedCall(0.1f, () => {
-                tooltipSystem.tooltip.gameObject.SetActive(false);
-            });
+            AnimationUtilities.ChangeCanvasAlpha(tooltipSystem.transform, 0.1f, 0, 0);
+            tooltipSystem.StartCoroutine(CloseTooltip(0.1f));
         }
+    }
+
+    private static IEnumerator CloseTooltip(float delay){
+        yield return new WaitForSeconds(delay);
+
+        tooltipSystem.tooltip.gameObject.SetActive(false);
     }
 
     private void OnSceneChange(Scene current, Scene next)

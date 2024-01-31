@@ -94,4 +94,8 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             cardInHand.OnStopDrag();
         }
     }
+
+    private void OnEnable() {
+        gameObject.GetComponent<Image>().raycastTarget = true;
+    }
 }

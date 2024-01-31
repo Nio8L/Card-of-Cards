@@ -51,9 +51,7 @@ public class DeckDisplay : MonoBehaviour
             {
                 if (cardDisplays.Count != deck.cards.Count)
                 {
-                    LeanTween.delayedCall(0.4f, () => {
-                        ShowDeck(defaultNumberOfCardsInARow, defaultDisplacement);
-                    });
+                    StartCoroutine(ShowDisplay(0.4f, "deck", numOfCardsInARow, xDisplacement));
                 }
             }
             else if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
@@ -61,21 +59,9 @@ public class DeckDisplay : MonoBehaviour
                 graveyardText.SetActive(false);
             }
 
-            LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
+            AnimationUtilities.ChangeCanvasAlpha(transform.parent, 0.3f, 0, 0);
 
-            LeanTween.delayedCall(0.3f, () => {
-                deckDisplay.SetActive(false);
-
-                if (cardDisplays.Count > 0)
-                {
-                    foreach (GameObject cardDisplay in cardDisplays)
-                    {
-                        Destroy(cardDisplay);
-                    }
-                }
-
-                cardDisplays.Clear();
-            });
+            StartCoroutine(CloseDisplay(0.3f));
 
         }
         else
@@ -110,7 +96,7 @@ public class DeckDisplay : MonoBehaviour
             }
 
             deckDisplay.SetActive(true);
-            LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
+            AnimationUtilities.ChangeCanvasAlpha(transform.parent, 0.3f, 0, 1);
         }
     }
 
@@ -152,23 +138,12 @@ public class DeckDisplay : MonoBehaviour
             if(deckDisplay.activeSelf){
                 
                 if(cardDisplays.Count != deck.drawPile.Count){
-                    LeanTween.delayedCall(0.4f, () => {
-                        ShowDrawPile();
-                    });
+                    StartCoroutine(ShowDisplay(0.4f, "draw", 0, 0));
                 }
 
-                LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
+                AnimationUtilities.ChangeCanvasAlpha(transform.parent, 0.3f, 0, 0);
 
-                LeanTween.delayedCall(0.3f, () => {
-                    deckDisplay.SetActive(false);
-                    
-                    if(cardDisplays.Count > 0){
-                        foreach(GameObject cardDisplay in cardDisplays){
-                            Destroy(cardDisplay);
-                        }
-                    }   
-                    cardDisplays.Clear();
-                });
+                StartCoroutine(CloseDisplay(0.3f));
             }
             else
             {
@@ -182,7 +157,7 @@ public class DeckDisplay : MonoBehaviour
                     cardDisplays.Add(newCardDisplay);
                 }
                 deckDisplay.SetActive(true);
-                LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
+                AnimationUtilities.ChangeCanvasAlpha(transform.parent, 0.3f, 0, 1);
             }
         }
     }
@@ -193,23 +168,12 @@ public class DeckDisplay : MonoBehaviour
             if(deckDisplay.activeSelf){
                 
                 if(cardDisplays.Count != deck.discardPile.Count){
-                    LeanTween.delayedCall(0.4f, () => {
-                        ShowDiscardPile();
-                    });
+                    StartCoroutine(ShowDisplay(0.4f, "discard", 0, 0));
                 }
 
-                LeanTween.alphaCanvas(canvasGroup, 0f, 0.3f);
+                AnimationUtilities.ChangeCanvasAlpha(transform.parent, 0.3f, 0, 0);
 
-                LeanTween.delayedCall(0.3f, () => {
-                    deckDisplay.SetActive(false);
-                    
-                    if(cardDisplays.Count > 0){
-                        foreach(GameObject cardDisplay in cardDisplays){
-                            Destroy(cardDisplay);
-                        }
-                    }   
-                    cardDisplays.Clear();
-                });
+                StartCoroutine(CloseDisplay(0.3f));
             }else{
                 foreach (Card card in deck.discardPile)
                 {   
@@ -221,8 +185,33 @@ public class DeckDisplay : MonoBehaviour
                     cardDisplays.Add(newCardDisplay);
                 }
             deckDisplay.SetActive(true);
-            LeanTween.alphaCanvas(canvasGroup, 1f, 0.3f);
+            AnimationUtilities.ChangeCanvasAlpha(transform.parent, 0.3f, 0, 1);
             }
         }
     }
+
+    private IEnumerator CloseDisplay(float delay){
+        yield return new WaitForSeconds(delay);
+        deckDisplay.SetActive(false);
+        
+        if(cardDisplays.Count > 0){
+            foreach(GameObject cardDisplay in cardDisplays){
+                Destroy(cardDisplay);
+            }
+        }   
+        cardDisplays.Clear();
+    }
+
+    private IEnumerator ShowDisplay(float delay, string type, int numOfCardsInARow, float xDisplacement){
+        yield return new WaitForSeconds(delay);
+
+        if(type == "deck"){
+            ShowDeck(numOfCardsInARow, xDisplacement);
+        }else if(type == "draw"){
+            ShowDrawPile();
+        }else{
+            ShowDiscardPile();
+        }
+    }
+
 }
