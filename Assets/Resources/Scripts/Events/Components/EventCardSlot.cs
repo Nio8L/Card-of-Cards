@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Unity.VisualStudio.Editor;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,6 +38,13 @@ public class EventCardSlot : MonoBehaviour
         MapManager.mapManager.mapDeck.RemoveCard(cardToAdd);
 
         MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250); 
+
+        if(card.name == "LostSoul"){
+            IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
+            foreach(IEvent ievent in events){
+                ievent.LostSoulCase();
+            }
+        }
     }
 
     //Removes the card from the slot
@@ -49,9 +57,18 @@ public class EventCardSlot : MonoBehaviour
 
     //Removes the card from the slot and returns it to the deck
     public void RemoveCard(){
+        if(card == null) return;
+
         MapManager.mapManager.mapDeck.AddCard(card);
         MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250); 
         
+        if(card.name == "LostSoul"){
+            IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
+            foreach(IEvent ievent in events){
+                ievent.RevertLostSoulCase();
+            }
+        }
+
         DropCard();
     }
 }
