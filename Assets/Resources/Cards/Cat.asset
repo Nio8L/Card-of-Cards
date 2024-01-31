@@ -22,5 +22,5 @@ MonoBehaviour:
   captain: 0
   typeOfDamage: 2
   sigils:
-  - {fileID: 11400000, guid: 56218e4288590f24f89903ea0ec81850, type: 2}
+  - {fileID: 11400000, guid: 657d71182421d424599013b15394461e, type: 2}
   injuries: 

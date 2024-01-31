@@ -33,6 +33,11 @@ public class CardSlot : MonoBehaviour
     }
 
     public void ResetSlot(){
+        if (spriteRenderer == null){
+            Debug.Log("It broke again");
+            return;
+        }
+
         status = Status.Normal;
         spriteRenderer.color = Color.white;
 
