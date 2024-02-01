@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SigilOffer : MonoBehaviour
+public class SigilOffer : MonoBehaviour, IEvent
 {
     public Sigil[] possibleSigilOffers;
 
@@ -15,6 +16,10 @@ public class SigilOffer : MonoBehaviour
     public EventCardSlotHandler cardSlotHandler;
 
     public GameObject sigilSelector;
+
+    [Header("Buttons")]
+    public Button infuseButton;
+    public Button regenerateButton;
     
     private void Start() {
         //Reposition the deck display and open it
@@ -25,6 +30,10 @@ public class SigilOffer : MonoBehaviour
             MapManager.mapManager.deckDisplay.deckDisplay.GetComponent<RectTransform>().localPosition = new Vector3(400, 0, 0);
         }
 
+        GenerateOffers();
+    }
+
+    private void GenerateOffers(){
         for(int i = 0; i < offeredSigils.Length; i++){
             Sigil newOfferedSigil;
 
@@ -37,6 +46,14 @@ public class SigilOffer : MonoBehaviour
 
             offeredSigils[i].SetSigilDisplay(newOfferedSigil);
         }
+    }
+
+    public void RegenerateOffers(){
+        //Generate new offers
+        GenerateOffers();
+
+        //Remove the Lost Soul
+        cardSlotHandler.cardSlots[0].DropCard();
     }
 
     //Picks a random sigil
@@ -98,5 +115,18 @@ public class SigilOffer : MonoBehaviour
         MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
         
         Destroy(gameObject);
+    }
+
+    public void LostSoulCase()
+    {
+        infuseButton.gameObject.SetActive(false);
+        regenerateButton.gameObject.SetActive(true);
+
+    }
+
+    public void RevertLostSoulCase()
+    {
+        infuseButton.gameObject.SetActive(true);
+        regenerateButton.gameObject.SetActive(false);
     }
 }

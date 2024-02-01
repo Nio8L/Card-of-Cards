@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ExchangeShop : MonoBehaviour
+public class ExchangeShop : MonoBehaviour, IEvent
 {   
     public Card[] price1Choices;
     public Card[] price2Choices;
@@ -15,6 +16,10 @@ public class ExchangeShop : MonoBehaviour
     public GameObject SelectedCardBorder;
     public Card selectedCard;
     public GameObject selectedCardDisplay;
+
+    [Header("Buttons")]
+    public Button exchangeButton;
+    public Button regenerateButton;
 
     void Start()
     {
@@ -27,19 +32,32 @@ public class ExchangeShop : MonoBehaviour
         }
 
         //Generate offers
+        GenerateOffers();
+    }
+
+    public void GenerateOffers(){
         for (int i = 0; i < 3; i++)
         {
             Card card = PickCard(i);
             CardDisplay cardDisplay = transform.GetChild(2).GetChild(i).GetComponent<CardDisplay>();
             cardDisplay.card = card;
             cardDisplay.UpdateCardAppearance();
-
-            if(i == 0){
-                cardDisplay.SelectCardForSacrifice();
-            }
         }
+    }
 
+    public void RegenerateOffers(){
+        //Generate new offers
+        GenerateOffers();
 
+        //Unselect the card and disable the border
+        //This is done so when you regenerate the offers there is no selected card
+        //If there is a selected card the exchange will break
+        SelectedCardBorder.SetActive(false);
+        selectedCard = null;
+        selectedCardDisplay = null;
+
+        //Remove the Lost Soul
+        cardSlotHandler.cardSlots[1].DropCard();
     }
 
     Card PickCard(int value)
@@ -142,5 +160,25 @@ public class ExchangeShop : MonoBehaviour
         MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
         
         Destroy(gameObject);
+    }
+
+    public void LostSoulCase()
+    {
+        exchangeButton.gameObject.SetActive(false);
+        regenerateButton.gameObject.SetActive(true);
+
+        SelectExchange1();
+
+        for(int i = 0; i < MapManager.mapManager.mapDeck.cards.Count; i++){
+            if(MapManager.mapManager.mapDeck.cards[i].name == "LostSoul"){
+                cardSlotHandler.cardSlots[1].AddCard(MapManager.mapManager.mapDeck.cards[i]);
+            }
+        }
+    }
+
+    public void RevertLostSoulCase()
+    {
+        exchangeButton.gameObject.SetActive(true);
+        regenerateButton.gameObject.SetActive(false);
     }
 }
