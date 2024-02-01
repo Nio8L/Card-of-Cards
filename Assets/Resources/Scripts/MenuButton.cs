@@ -9,7 +9,7 @@ public class MenuButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TooltipSystem.tooltipSystem.gameObject.SetActive(false);
+        TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
     }
     public void ReturnToMenu()
     {

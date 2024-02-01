@@ -26,15 +26,23 @@ public class CardSlot : MonoBehaviour
 
     private void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        EventManager.CombatEnd += OnCombatEnd;
+    }
+    private void OnEnable() {
+        if(turnsIgnited > 0){
+            ignitedParticles.Play();
+        }
     }
 
-    private void OnDisable() {
+    public void OnCombatEnd(){
         EventManager.NextTurn -= ApplyIgnitedEffects;
+        EventManager.CombatEnd -= OnCombatEnd;
     }
 
     public void ResetSlot(){
         if (spriteRenderer == null){
-            Debug.Log("It broke again| slot: " + slot + " bench " + bench /*+ gameObject.name*/);
+            Debug.Log("Magnus molestus");
+            Debug.Log("slot: " + slot + " bench " + bench /*+ gameObject.name*/);
             Debug.Log(gameObject.name + " tI: " + turnsIgnited);
             Debug.Log(gameObject.name + " status: " + status.ToString());
             return;

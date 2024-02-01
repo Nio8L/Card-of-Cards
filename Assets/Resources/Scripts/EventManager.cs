@@ -12,8 +12,9 @@ public class EventManager : MonoBehaviour
 
     public static Action NextTurn;
 
+    public static Action CombatEnd;
+
     public void InvokeNextTurn(){
         NextTurn?.Invoke();
-
     }
 }

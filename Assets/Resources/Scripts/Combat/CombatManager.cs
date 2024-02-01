@@ -521,7 +521,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     #region EndConditions
     void WinGame()
     {
+        if (timerToNextTurn > resetTimerTo) return;
         timerToNextTurn = 1000f;
+
+        EventManager.CombatEnd?.Invoke();
+
         if (enemy.isTutorialEnemy) { TutorialWin(); return; }
 
         for (int i = 0; i < 5; i++)
@@ -541,8 +545,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void LoseGame()
     {
+        if (timerToNextTurn > resetTimerTo) return;
         timerToNextTurn = 1000f;
      
+        EventManager.CombatEnd?.Invoke();
+
         for (int i = 0; i < 5; i++)
         {
             if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleEndEffects(playerCombatCards[i]);
