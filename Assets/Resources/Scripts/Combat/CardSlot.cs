@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CardSlot : MonoBehaviour
 {
+    int TEMP = 0;
     public int slot = 0;
     public bool playerSlot = true;
     public bool bench;
@@ -35,19 +36,13 @@ public class CardSlot : MonoBehaviour
     }
 
     public void OnCombatEnd(){
-        EventManager.NextTurn -= ApplyIgnitedEffects;
+        if (status == Status.Ignited){
+            EventManager.NextTurn -= ApplyIgnitedEffects;
+        }
         EventManager.CombatEnd -= OnCombatEnd;
     }
 
     public void ResetSlot(){
-        if (spriteRenderer == null){
-            Debug.Log("Magnus molestus");
-            Debug.Log("slot: " + slot + " bench " + bench /*+ gameObject.name*/);
-            Debug.Log(gameObject.name + " tI: " + turnsIgnited);
-            Debug.Log(gameObject.name + " status: " + status.ToString());
-            return;
-        }
-
         status = Status.Normal;
         spriteRenderer.color = Color.white;
 
