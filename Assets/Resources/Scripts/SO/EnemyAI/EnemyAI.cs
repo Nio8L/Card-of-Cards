@@ -321,10 +321,11 @@ public class EnemyAI : EnemyBase
                 healedCard.AcceptLostSoul();
                 CombatManager.combatManager.deck.UpdateCardAppearance(card.transform, healedCard);
                 //Debug.Log("playing lost soul on " + healedCard.name);
+                /*
                 for (int i = 0; i < healedCard.sigils.Count; i++)
                 {
                     Debug.Log(healedCard.sigils[i].name);
-                }
+                }*/
 
                 CombatManager.combatManager.enemyDeck.cards.Remove(lostSoulCard);
                 CombatManager.combatManager.enemyDeck.cardsInHandAsCards.Remove(lostSoulCard);

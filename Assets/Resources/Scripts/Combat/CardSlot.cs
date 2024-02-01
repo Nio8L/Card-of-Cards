@@ -34,7 +34,9 @@ public class CardSlot : MonoBehaviour
 
     public void ResetSlot(){
         if (spriteRenderer == null){
-            Debug.Log("It broke again");
+            Debug.Log("It broke again| slot: " + slot + " bench " + bench /*+ gameObject.name*/);
+            Debug.Log(gameObject.name + " tI: " + turnsIgnited);
+            Debug.Log(gameObject.name + " status: " + status.ToString());
             return;
         }
 
