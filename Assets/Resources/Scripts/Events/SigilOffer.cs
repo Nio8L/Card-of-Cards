@@ -52,6 +52,13 @@ public class SigilOffer : MonoBehaviour, IEvent
         //Generate new offers
         GenerateOffers();
 
+        //Unselect the sigil and disable the selector
+        //This is done so when you regenerate the offers there is no selected sigil
+        //If there is a selected sigil the infusion will break
+        selectedSigilDisplay = null;
+        selectedSigil = null;
+        sigilSelector.SetActive(false);
+
         //Remove the Lost Soul
         cardSlotHandler.cardSlots[0].DropCard();
     }
