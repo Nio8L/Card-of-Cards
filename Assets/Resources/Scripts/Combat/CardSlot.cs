@@ -53,6 +53,8 @@ public class CardSlot : MonoBehaviour
     }
 
     public void IgniteSlot(int duration){
+        EventManager.NextTurn -= ApplyIgnitedEffects;
+
         status = Status.Ignited;
         turnsIgnited = duration;
         spriteRenderer.color = Color.red;
