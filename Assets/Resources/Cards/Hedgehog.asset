@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Hedgehog
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 4
   health: 3
   attack: 0
+  defaultAttack: 0
   cost: 1
   image: {fileID: 21300000, guid: 13ffcae1e885bca419ef88d899f5a104, type: 3}
   canRevive: 1
+  captain: 0
   typeOfDamage: 2
   sigils:
   - {fileID: 11400000, guid: 1a199fe5c63da104199f01d2ad280e54, type: 2}
