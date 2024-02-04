@@ -15,13 +15,19 @@ public class HealthyDiet : Sigil
         int bonusHeal = 0;
         if (card.card.captain) bonusHeal = 1;
         count++;
-        if (count >= turnToHeal && card.card.health + heal + bonusHeal <= card.card.maxHealth)
+        if (count >= turnToHeal)
         {
-            Instantiate(particles, card.transform.position, Quaternion.identity);
-            card.deck.PlaySigilAnimation(card.transform, card.card, this);
-            card.card.health += heal;
             count = 0;
+            if (card.card.health + heal + bonusHeal <= card.card.maxHealth){
+                Instantiate(particles, card.transform.position, Quaternion.identity);
+                card.deck.PlaySigilAnimation(card.transform, card.card, this);
+                card.card.health += heal;
+                
+            }else if (card.card.health < card.card.maxHealth){
+                Instantiate(particles, card.transform.position, Quaternion.identity);
+                card.deck.PlaySigilAnimation(card.transform, card.card, this);
+                card.card.health = card.card.maxHealth;
+            }
         }
-        
     }
 }
