@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Hunter1
   m_EditorClassIdentifier: 
   maxHealth: 30
-  dialogue: {fileID: 11400000, guid: 1119286b40281574b85eaebd527bf4e6, type: 2}
   path: Tier1Hunter
   huntAI: 0
   huntRounds: 0
@@ -25,15 +24,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
   - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   maxCardsPerTurn: 3
   maxEnergy: 5
   startPlayingDefensivelyAt: 15
-  startPlayingAggressivelyAt: 10
   canUseLostSoul: 1
   useKillerStrategyInstead: 0
   canSeePlayerCardsPlacedThisTurn: 0

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
-  m_Name: Worm
+  m_Name: Fire Mouse Hunt
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  maxHealth: 7
   path: Hunt
   huntAI: 1
-  huntRounds: 4
+  huntRounds: 3
   pacingObject: {fileID: 425041068175166581, guid: 8dc656d5c7feaf24b9f9b407aece9f5d, type: 3}
   isTutorialEnemy: 0
   isHunter: 0
@@ -29,11 +29,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     benchCards:
+    - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
     - {fileID: 0}
     benchCards:
     - {fileID: 0}
-    - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
+    - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
     benchColumbs: 0000000000
     forcePlace: 0
@@ -59,11 +59,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     benchCards:
-    - {fileID: 11400000, guid: f7b463f1d2b777043853cc418e61d4e8, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: fba7ad5eef31a4b438b28c126bbf023e, type: 2}
+    - {fileID: 11400000, guid: b00aa7ed5b3ad074bb2287f78586851f, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 1
@@ -74,10 +74,10 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     benchCards:
+    - {fileID: 11400000, guid: b00aa7ed5b3ad074bb2287f78586851f, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: fba7ad5eef31a4b438b28c126bbf023e, type: 2}
+    - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
     - {fileID: 0}
     benchColumbs: 0000000000
     forcePlace: 0

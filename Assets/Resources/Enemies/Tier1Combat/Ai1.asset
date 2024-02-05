@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Ai1
   m_EditorClassIdentifier: 
   maxHealth: 15
-  dialogue: {fileID: 0}
   path: Tier1Combat
   huntAI: 0
   huntRounds: 0
@@ -23,10 +22,11 @@ MonoBehaviour:
   currentPacingObject: {fileID: 0}
   cards:
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
-  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
-  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   maxCardsPerTurn: 2
   maxEnergy: 3
   startPlayingDefensivelyAt: 10

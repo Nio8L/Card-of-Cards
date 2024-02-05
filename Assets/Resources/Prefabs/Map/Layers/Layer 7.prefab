@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717549922068464284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76,7 +76,7 @@ MonoBehaviour:
     - {fileID: 6332861026914234310}
   - NodesOnConections:
     - {fileID: 5646266251895904761}
-  placeInTheArray: 1
+  placeInTheArray: 0
 --- !u!1001 &2024369537611678390
 PrefabInstance:
   m_ObjectHideFlags: 0

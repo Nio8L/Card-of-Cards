@@ -113,7 +113,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         {
             int randomRoom = 3;
             newLayer = Instantiate(allLayers[randomRoom][Random.Range(0, allLayers[randomRoom].Count)]);
-            newLayerScript = newLayerScript = newLayer.GetComponent<Layer>();
+            newLayerScript = newLayer.GetComponent<Layer>();
 
             for (int i = 0; i < 3; i++)
             {
@@ -127,7 +127,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         else
         {
             newLayer = Instantiate(allLayers[(int)typeWanted][Random.Range(0, allLayers[(int)typeWanted].Count)]);
-            newLayerScript = newLayerScript = newLayer.GetComponent<Layer>();
+            newLayerScript = newLayer.GetComponent<Layer>();
         }
 
 
