@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -112,41 +113,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         transform.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
     }
     
-    public void HealCard(){
-        if(SceneManager.GetActiveScene().name == "Map"){
-            if (MapManager.mapManager.currentNode != null){
-                if (MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used){
-                    if (card.name != "LostSoul"){
-                        if (card.injuries.Count > 0 || !MapManager.mapManager.mapDeck.HasInjuredCards())
-                        {
-                            card.AcceptLostSoul();
-                            SoundManager.soundManager.Play("LostSoul");
-
-                            GameObject soulHeartObject = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
-
-                            Instantiate(soulHeartObject, transform.position, Quaternion.identity);
-                
-                            LostSoulVisuals soulHeart;
-
-                            soulHeart = Instantiate(soulHeartObject, transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                            soulHeart.angle = 120f;
-                            soulHeart.primaryHeart = false;
-
-                            soulHeart = Instantiate(soulHeartObject, transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                            soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
-                            soulHeart.primaryHeart = false;
-
-                            MapManager.mapManager.currentNode.used = true;
-                            MapManager.mapManager.deckDisplay.canClose = true;
-                            StartCoroutine(DisplayDeck(2, 5, 250));
-                        }
-                    }
-                }
-            }
-        }
-        UpdateCardAppearance();
-    }
-
     public IEnumerator DisplayDeck(float delay, int cardsPerRow, int xDisplacement){
         yield return new WaitForSeconds(delay);
 
@@ -168,13 +134,18 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    public void SelectCardForSacrifice(){
+    public void SelectCard(){
         if(SceneManager.GetActiveScene().name == "Map"){
             if(MapManager.mapManager.currentNode != null){
                 if(MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Event){
                     //Check if this card display is displaying an offered card    
                     if(gameObject.GetComponent<CardOffered>() != null){
-                        MapManager.mapManager.currentEvent.GetComponent<ExchangeShop>().SelectOfferedCard(gameObject, card);
+                        //Find the event and select the card
+                        IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
+                        foreach(IEvent ievent in events){
+                            ievent.SelectCard(this);
+                        }
+
                     //Check if this card display is displaying a selected card
                     }else if(gameObject.GetComponent<CardSelected>() == null){
                         //Place the card on the first available sacrificial spot

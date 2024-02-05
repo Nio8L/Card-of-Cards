@@ -208,6 +208,23 @@ public class AnimationUtilities : MonoBehaviour{
         animationUtilities.allAnimations.Add(newAnimation);
     }
 
+    public static void LostSoulAnimation(Transform transform){
+        SoundManager.soundManager.Play("LostSoul");
+
+        GameObject soulHeartObject = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
+
+        Instantiate(soulHeartObject, transform.position, Quaternion.identity);
+
+        LostSoulVisuals soulHeart;
+
+        soulHeart = Instantiate(soulHeartObject, transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+        soulHeart.angle = 120f;
+        soulHeart.primaryHeart = false;
+
+        soulHeart = Instantiate(soulHeartObject, transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+        soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
+        soulHeart.primaryHeart = false;
+    }
 
 }
     

@@ -15,8 +15,6 @@ public class DeckDisplay : MonoBehaviour
 
     public bool canClose = true;
 
-    GameObject graveyardText;
-
     public List<GameObject> cardDisplays;
 
     private Deck deck;
@@ -29,8 +27,6 @@ public class DeckDisplay : MonoBehaviour
             deck = GameObject.Find("Deck").GetComponent<Deck>();
         }else if(SceneManager.GetActiveScene().name == "Map"){
             mapDeck = GameObject.Find("Deck").GetComponent<MapDeck>();
-            graveyardText = GameObject.Find("GraveyardText");
-            graveyardText.SetActive(false);
         }
     }
 
@@ -53,10 +49,6 @@ public class DeckDisplay : MonoBehaviour
                 {
                     StartCoroutine(ShowDisplay(0.4f, "deck", numOfCardsInARow, xDisplacement));
                 }
-            }
-            else if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
-            {
-                graveyardText.SetActive(false);
             }
 
             AnimationUtilities.ChangeCanvasAlpha(transform.parent, 0.3f, 0, 0);
@@ -81,9 +73,6 @@ public class DeckDisplay : MonoBehaviour
             }
             else
             {
-
-                if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used) graveyardText.SetActive(true);
-
                 foreach (Card card in mapDeck.cards)
                 {
                     GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);
@@ -119,7 +108,6 @@ public class DeckDisplay : MonoBehaviour
                 cardDisplays.Add(newCardDisplay);
             }
         }else{
-            if (MapManager.mapManager.currentNode != null && MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Graveyard && !MapManager.mapManager.currentNode.used) graveyardText.SetActive(true);
             foreach (Card card in mapDeck.cards)
             {   
                 GameObject newCardDisplay = Instantiate(cardDisplay, Vector3.zero, Quaternion.identity);

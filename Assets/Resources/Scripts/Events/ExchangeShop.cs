@@ -13,7 +13,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
 
     public EventCardSlotHandler cardSlotHandler;
 
-    public GameObject SelectedCardBorder;
+    public GameObject selectedCardBorder;
     public Card selectedCard;
     public GameObject selectedCardDisplay;
 
@@ -52,7 +52,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
         //Unselect the card and disable the border
         //This is done so when you regenerate the offers there is no selected card
         //If there is a selected card the exchange will break
-        SelectedCardBorder.SetActive(false);
+        selectedCardBorder.SetActive(false);
         selectedCard = null;
         selectedCardDisplay = null;
 
@@ -100,7 +100,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
 
         MapManager.mapManager.mapDeck.AddCard(selectedCard);
         Destroy(selectedCardDisplay);
-        SelectedCardBorder.SetActive(false);
+        selectedCardBorder.SetActive(false);
 
         selectedCard = null;
         selectedCardDisplay = null;
@@ -114,8 +114,8 @@ public class ExchangeShop : MonoBehaviour, IEvent
     }
 
     public void SelectOfferedCard(GameObject offeredCard, Card card){
-        SelectedCardBorder.transform.position = offeredCard.transform.position;
-        SelectedCardBorder.SetActive(true);
+        selectedCardBorder.transform.position = offeredCard.transform.position;
+        selectedCardBorder.SetActive(true);
 
         selectedCard = card;
         selectedCardDisplay = offeredCard;
@@ -181,4 +181,10 @@ public class ExchangeShop : MonoBehaviour, IEvent
         exchangeButton.gameObject.SetActive(true);
         regenerateButton.gameObject.SetActive(false);
     }
+
+    public void SelectCard(CardDisplay card)
+    {
+        SelectOfferedCard(card.gameObject, card.card);
+    }
+
 }

@@ -136,4 +136,9 @@ public class SigilOffer : MonoBehaviour, IEvent
         infuseButton.gameObject.SetActive(true);
         regenerateButton.gameObject.SetActive(false);
     }
+
+    public void SelectCard(CardDisplay card)
+    {
+        //This event has no selectable cards
+    }
 }

@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class MapManager : MonoBehaviour, IDataPersistence
 {
@@ -272,15 +268,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 GameObject eventUI = Instantiate(mapManager.threeChoice, eventCanvas);
                 eventUI.name = mapManager.threeChoice.name;
             }
-            else if (mapManager.currentNode.roomType == MapNode.RoomType.Graveyard)
-            {
-                if (!mapManager.deckDisplay.deckDisplay.activeSelf)
-                {
-                    mapManager.deckDisplay.ShowDeck(5, 250);
-                }
-                mapManager.deckDisplay.canClose = false;
-                DataPersistenceManager.DataManager.currentCombatAI = null;
-            }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunt)
             {
                 retry:;
@@ -321,7 +308,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     retry:;
         int randomValue = Random.Range(0, 101);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (randomValue <= chanceForRooms[i]) 
             {
@@ -345,16 +332,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
             node.roomType = MapNode.RoomType.Hunt;
         }
 
-
-        //Prevent connected rest sites and graveyards
         foreach (MapNode parentNode in node.parents)
         {
-            if(node.roomType == MapNode.RoomType.Graveyard || node.roomType == MapNode.RoomType.RestSite){
-                if (parentNode.roomType == MapNode.RoomType.Graveyard || parentNode.roomType == MapNode.RoomType.RestSite){
-                    goto retry;
-                }
-            }
-
             if(node.roomType == MapNode.RoomType.Combat && parentNode.roomType == MapNode.RoomType.Combat){
                 goto retry;
             }

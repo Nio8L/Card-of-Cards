@@ -9,8 +9,8 @@ public class MapNode : MonoBehaviour
         Combat,
         Hunt,
         RestSite,
-        Graveyard,
         Event,
+        Graveyard,
         Hunter,
         emptyRoom
     };

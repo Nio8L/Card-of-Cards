@@ -5,4 +5,6 @@ public interface IEvent
 
     //Called when a Lost Soul is removed from a card slot
     void RevertLostSoulCase();
+
+    void SelectCard(CardDisplay card);
 }
