@@ -12,6 +12,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     public Card card;
     public Deck deck;
 
+    public Notification unplayableSlotNotification;
+
     private GraphicRaycaster m_Raycaster;
     private PointerEventData m_PointerEventData;
     private EventSystem m_EventSystem;
@@ -92,6 +94,11 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
         if (cardSlot != null && cardSlot.playerSlot)
         {
+            if(!cardSlot.canBeUsed){
+                NotificationManager.notificationManager.NotifyAutoEnd(unplayableSlotNotification, new Vector3(-700, 0, 0), 2);
+                return;
+            }
+
             if (deck.energy >= card.cost)
             {
                 if(card.name != "LostSoul"){

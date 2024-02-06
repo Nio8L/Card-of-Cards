@@ -61,7 +61,7 @@ public class Graveyard : MonoBehaviour, IEvent
 
         //Generate cards
         for(int i = 0; i < 3; i++){
-            Card card = PickCard(generatedCards);
+            Card card = PickCard(generatedCards).ResetCard();
             cardOfferHolder.transform.GetChild(i).GetComponent<CardDisplay>().card = card;
             cardOfferHolder.transform.GetChild(i).GetComponent<CardDisplay>().UpdateCardAppearance();
         }
