@@ -76,6 +76,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 deck.cards.Add(cardToAdd);
             }
         }
+
+        // Give a small delay at the start of the combat to prevent early clicking on the end turn button
+        timerToNextTurn = resetTimerTo;
     }
     
     private void OnEnable() {
@@ -223,11 +226,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     #region Game Phases
     public void StartEnemyTurn()
     {
+        // Return if the end turn button is pressed too early
+        if (timerToNextTurn > 0) return;
+
         // This is here just in case
         if (gamePhase > 0) return;
-        // Weird event things that nio made
+        // Invoke the next turn event
         EventManager.NextTurn?.Invoke();
-        // Progress the game to the nexr phase
+        // Progress the game to the next phase
         gamePhase = 1;
 
         // Close the active ability menu

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Firefly
   m_EditorClassIdentifier: 
   maxHealth: 1
-  health: 0
+  health: 1
   attack: 1
   defaultAttack: 1
   cost: 2

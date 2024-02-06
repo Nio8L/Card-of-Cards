@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Red Panda
   m_EditorClassIdentifier: 
   maxHealth: 2
-  health: 0
+  health: 2
   attack: 2
   defaultAttack: 2
   cost: 1

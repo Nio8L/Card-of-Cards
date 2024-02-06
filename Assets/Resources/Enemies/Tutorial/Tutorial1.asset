@@ -179,11 +179,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     benchCards:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 1
