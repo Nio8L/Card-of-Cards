@@ -173,7 +173,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
 
         for(int i = 0; i < MapManager.mapManager.mapDeck.cards.Count; i++){
             if(MapManager.mapManager.mapDeck.cards[i].name == "LostSoul"){
-                cardSlotHandler.cardSlots[1].AddCard(MapManager.mapManager.mapDeck.cards[i]);
+                cardSlotHandler.cardSlots[1].PlaceCard(MapManager.mapManager.mapDeck.cards[i]);
                 break;
             }
         }
