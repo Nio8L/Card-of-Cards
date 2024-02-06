@@ -45,6 +45,7 @@ public class CardSlot : MonoBehaviour
     public void ResetSlot(){
         status = Status.Normal;
         spriteRenderer.color = Color.white;
+        ignitedParticles.Stop();
 
         turnsIgnited = 0;
         turnsDrenched = 0;
@@ -67,12 +68,11 @@ public class CardSlot : MonoBehaviour
     public void ApplyIgnitedEffects(){
         if(turnsIgnited == 0){
             ResetSlot();
-            ignitedParticles.Stop();
             return;
         }
         
         CardInCombat cardInCombat = CombatManager.combatManager.GetCardAtSlot(this);
-        if (cardInCombat != null)
+        if (cardInCombat != null && !cardInCombat.card.fireImmune)
         {
              cardInCombat.card.health--;
              GameObject fireExplosion = Instantiate(CombatManager.combatManager.fireExplosionPrefab, transform);

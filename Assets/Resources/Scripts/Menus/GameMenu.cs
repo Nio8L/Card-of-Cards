@@ -64,6 +64,7 @@ public class GameMenu : MonoBehaviour
     }
 
     public void OnClickMainMenu(){
+        EventManager.CombatEnd?.Invoke();
         ChangeButtonsState();
         SceneManager.LoadSceneAsync("Main Menu");
     }

@@ -17,6 +17,8 @@ public class Card : ScriptableObject
     public bool canRevive = true;
     [HideInInspector]
     public bool captain;
+    [HideInInspector]
+    public bool fireImmune;
     public enum TypeOfDamage
     {
         Poison,
@@ -165,8 +167,14 @@ public class Card : ScriptableObject
 
     public Card ResetCard()
     {
+        // Reset the card's stats to their base values
         ResetAttack();
         ResetHP();
+
+        // Remove its fire immunity
+        fireImmune = false;
+
+        // Reset its sigils so they don't use the base ones
         for (int i = 0; i < sigils.Count; i++)
         {
             string oldSigilName = sigils[i].name;
@@ -174,6 +182,7 @@ public class Card : ScriptableObject
             sigils[i].name = oldSigilName;
             captain = false;
         }
+
         return this;
     }
 }

@@ -15,5 +15,4 @@ MonoBehaviour:
   sigilName: Scales
   negative: 0
   image: {fileID: 21300000, guid: 0d46148c890ea1e4f8510cb676c27c70, type: 3}
-  description: This card is immune to fire damage.
-  canUseAbility: 0
+  description: Fire heals this card for 1 health instead of damaging it.
