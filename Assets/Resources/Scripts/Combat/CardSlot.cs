@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CardSlot : MonoBehaviour
 {
-    int TEMP = 0;
+    public bool canBeUsed = true;
     public int slot = 0;
     public bool playerSlot = true;
     public bool bench;
