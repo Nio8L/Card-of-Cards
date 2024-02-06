@@ -16,7 +16,7 @@ MonoBehaviour:
   path: Tutorial
   huntAI: 0
   huntRounds: 0
-  pacingObject: {fileID: 0}
+  pacingObject: {fileID: 7772708045455883371, guid: 56a4bda4574dc2d42b2f1d4db8c3b33b, type: 3}
   isTutorialEnemy: 1
   isHunter: 0
   currentPacingObject: {fileID: 0}

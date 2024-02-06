@@ -15,7 +15,6 @@ MonoBehaviour:
   sigilName: Endless Hunger
   negative: 0
   image: {fileID: 21300000, guid: f12e8f19df4fa4a41b0781969d083839, type: 3}
-  description: Feed this card other cards to regenerate 1 heath.
-  canUseAbility: 0
+  description: Feed this card other cards to gain 1 heath.
   cardAcceptor: {fileID: 0}
   healthToHeal: 1

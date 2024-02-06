@@ -2025,7 +2025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: 0.000061035156, y: 0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1302280097
@@ -2191,11 +2191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCardsToAdd.Array.data[0].list.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCardsToAdd.Array.data[1].list.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCardsToAdd.Array.data[2].list.Array.size
@@ -2214,12 +2214,20 @@ PrefabInstance:
       value: Mouse
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[0].list.Array.data[2]
+      value: Lazy Cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCardsToAdd.Array.data[1].list.Array.data[0]
-      value: Bat
+      value: Lazy Cat
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCardsToAdd.Array.data[1].list.Array.data[1]
-      value: Rabbit
+      value: Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
+      propertyPath: tutorialCardsToAdd.Array.data[1].list.Array.data[2]
+      value: Lazy Cat
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialCardsToAdd.Array.data[2].list.Array.data[0]
@@ -3347,10 +3355,10 @@ RectTransform:
   m_Father: {fileID: 2029507894}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -1820, y: -850}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1789738555
 MonoBehaviour:
@@ -3371,6 +3379,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
   - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
   - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
 --- !u!1 &1798329752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4241,27 +4250,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: -1820
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: -850
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_LocalPosition.x

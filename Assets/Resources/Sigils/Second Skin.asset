@@ -15,6 +15,6 @@ MonoBehaviour:
   sigilName: Second Skin
   negative: 0
   image: {fileID: 21300000, guid: 1914c4c1cf5da274ebd8bdbfb8b101da, type: 3}
-  description: When this card is about to be attack by another it moves back and
+  description: When this card is about to be attacked by another it moves back and
     summons a wool card in its place.
   cardToSpawn: {fileID: 11400000, guid: a35eeef801715bc4eafa36e6c712d99b, type: 2}

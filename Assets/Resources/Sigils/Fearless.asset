@@ -15,8 +15,5 @@ MonoBehaviour:
   sigilName: Fearless
   negative: 0
   image: {fileID: 21300000, guid: bb32c229d5d3c564097babb070d4921e, type: 3}
-  description: The first time this card is killed it is returned to max health instead
-    of dying
-  canUseAbility: 0
-  sigilNumber: 1
+  description: When this card takes lethal damage it is returned to its max health.
   visualEffect: {fileID: 5302634548882618060, guid: 29a3f8d6390305644b6d2563360fe731, type: 3}
