@@ -13,6 +13,7 @@ public class Explode : ConsumingSigil
 
     public bool splashDamage = false;
 
+    public GameObject thornsParticlesPrefab;
     public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
     {
         damageToDeal += damageIncrement;
@@ -27,10 +28,33 @@ public class Explode : ConsumingSigil
     {
         card.deck.drawPile.AddRange(cardAcceptor.cardsAccepted);
 
+        Instantiate(thornsParticlesPrefab, card.transform.position, Quaternion.identity);
+        
         if(!splashDamage){
             card.card.lastBattle.enemyCard.health -= damageToDeal;
         }else{
-            //Implement splash damage after the combat manager is turned into a proper manager.
+            // Deal damage to all non friendly cards
+            if (card.playerCard){
+                // Kill enemies
+                for (int i = 0; i < CombatManager.combatManager.enemyCombatSlots.Length; i++){
+                        if (CombatManager.combatManager.enemyCombatCards[i] != null){
+                            CombatManager.combatManager.enemyCombatCards[i].card.health -= damageToDeal;
+                        }
+                        if (CombatManager.combatManager.enemyBenchCards[i] != null){
+                            CombatManager.combatManager.enemyBenchCards[i].card.health -= damageToDeal;
+                        }
+                }
+            }else{
+                // Kill player
+                for (int i = 0; i < CombatManager.combatManager.playerCombatSlots.Length; i++){
+                    if (CombatManager.combatManager.playerCombatCards[i] != null){
+                        CombatManager.combatManager.playerCombatCards[i].card.health -= damageToDeal;
+                    }
+                    if (CombatManager.combatManager.playerBenchCards[i] != null){
+                        CombatManager.combatManager.playerBenchCards[i].card.health -= damageToDeal;
+                    }
+                }
+            }
         }
 
         damageToDeal = 0;

@@ -11,6 +11,8 @@ public class ExchangeShop : MonoBehaviour, IEvent
     public Card[] price2Choices;
     public Card[] price3Choices;
 
+    public GameObject[] shopSlots;
+
     public EventCardSlotHandler cardSlotHandler;
 
     public GameObject selectedCardBorder;
@@ -39,7 +41,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
         for (int i = 0; i < 3; i++)
         {
             Card card = PickCard(i);
-            CardDisplay cardDisplay = transform.GetChild(2).GetChild(i).GetComponent<CardDisplay>();
+            CardDisplay cardDisplay = shopSlots[i].GetComponent<CardDisplay>();
             cardDisplay.card = card;
             cardDisplay.UpdateCardAppearance();
         }
@@ -172,6 +174,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
         for(int i = 0; i < MapManager.mapManager.mapDeck.cards.Count; i++){
             if(MapManager.mapManager.mapDeck.cards[i].name == "LostSoul"){
                 cardSlotHandler.cardSlots[1].AddCard(MapManager.mapManager.mapDeck.cards[i]);
+                break;
             }
         }
     }
