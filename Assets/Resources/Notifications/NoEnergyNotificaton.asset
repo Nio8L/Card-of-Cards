@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - "Not enough energy \nto play this card..."
+  persistBetweenScenes: 0
+  closable: 0
