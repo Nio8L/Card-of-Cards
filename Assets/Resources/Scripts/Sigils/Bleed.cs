@@ -26,9 +26,16 @@ public class Bleed : Sigil
             }
             card.deck.UpdateCardAppearance(card.transform, card.card);
         }
+
+        if(turnToDealDamage - count == 1){
+            description = "Lose 1 health after " + (turnToDealDamage - count) + " turn.";
+        }else{
+            description = "Lose 1 health after " + (turnToDealDamage - count) + " turns.";
+        }
     }
     public override void OnDeadEffects(CardInCombat card)
     {
         count = 0;
+        description = "Lose 1 health after " + (turnToDealDamage - count) + " turns.";
     }
 }

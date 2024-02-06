@@ -15,9 +15,7 @@ MonoBehaviour:
   sigilName: Bleed
   negative: 1
   image: {fileID: 21300000, guid: 324f082b08f4237449564c6c684758cd, type: 3}
-  description: Lose 1 health every 2 turns.
-  canUseAbility: 0
-  sigilNumber: 2
+  description: Lose 1 health after 2 turns.
   count: 0
   turnToDealDamage: 2
   damage: 1
