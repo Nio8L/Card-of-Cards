@@ -36,7 +36,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public EnemyBase lastEnemyAI;
 
-    public GameObject threeChoice;
     static Transform eventCanvas;
 
     public GameObject[] events;
@@ -55,7 +54,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         eventCanvas = GameObject.Find("EventCanvas").transform;
-        threeChoice = Resources.Load<GameObject>("Prefabs/Events/ThreeCardChoice");
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyBase>("Enemies/Hunt");
@@ -260,13 +258,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.RestSite)
             {
-                if (mapManager.mapDeck.playerHealth < 15) mapManager.mapDeck.playerHealth += 5;
+                if (mapManager.mapDeck.playerHealth < 10) mapManager.mapDeck.playerHealth += 10;
                 else mapManager.mapDeck.playerHealth = 20;
 
                 mapManager.mapDeck.UpdateHPText();
                 DataPersistenceManager.DataManager.currentCombatAI = null;
-                GameObject eventUI = Instantiate(mapManager.threeChoice, eventCanvas);
-                eventUI.name = mapManager.threeChoice.name;
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunt)
             {
