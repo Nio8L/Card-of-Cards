@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Combat
-  content: A hard battle with no rewards
+  content: A regular fight.
 --- !u!1 &374129009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Hunt
-  content: A short battle with card rewards
+  content: A round based battle with card rewards.
 --- !u!1 &452040186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Hunter
-  content: The final and toughest battle
+  content: The final and toughest battle.
 --- !u!1 &668681718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3416,7 +3416,6 @@ MonoBehaviour:
   mapDeck: {fileID: 0}
   deckDisplay: {fileID: 0}
   lastEnemyAI: {fileID: 0}
-  threeChoice: {fileID: 4567353456648998494, guid: 3c5dbf4914c8bd341beb8bd72c8d4869, type: 3}
   events:
   - {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
@@ -4104,7 +4103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Rest Site
-  content: Heal for 5 HP and lets you pick between 3 cards to add to your deck.
+  content: Heal for 10 health.
 --- !u!1 &1866893688
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,7 +4767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Event
-  content: An unpredictable turn of events...
+  content: A random event.
 --- !u!1 &2131016435
 GameObject:
   m_ObjectHideFlags: 0
