@@ -1,12 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Data.SqlTypes;
-using Unity.VisualScripting;
-using UnityEditor.U2D.Common;
-using System;
 using UnityEngine.EventSystems;
 
 public class ActiveAbilityManager : MonoBehaviour
