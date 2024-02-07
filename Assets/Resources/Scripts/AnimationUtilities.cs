@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Mono.Cecil;
-using UnityEditor;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 
 public class AnimationUtilities : MonoBehaviour{
