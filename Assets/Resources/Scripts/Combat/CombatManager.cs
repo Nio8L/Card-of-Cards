@@ -50,24 +50,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public Deck deck;
     public Deck enemyDeck;
 
+    public CombatUI combatUI;
+
     public int playerCardsLost = 0;
     public int round = 1;
 
     public GameObject fireExplosionPrefab;
 
-
-    public GameObject endCombatMenu;
-    public TextMeshProUGUI endCombatText;
-
-    public GameObject playerHealthRect;
-    public GameObject playerHealthDash;
-    public TextMeshProUGUI playerHealthText;   
-    public GameObject enemyHealthRect;
-    public GameObject enemyHealthDash;
-    public TextMeshProUGUI enemyHealthText;
-    public TextMeshProUGUI graveText;
-    public TextMeshProUGUI roundText;
-    public TextMeshProUGUI enemyCardPileText;
 
     void Awake(){
         combatManager = this;
@@ -92,6 +81,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         timerToNextTurn = resetTimerTo;
     }
     
+    private void OnEnable() {
+        EventManager.CardDeath += CardDeath;
+    }
+
+    private void OnDisable() {
+        EventManager.CardDeath -= CardDeath;
+    }
+    
     private void Start()
     {
         Time.timeScale = 0;
@@ -102,16 +99,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public void StartGame() 
     {
-        endCombatMenu.SetActive(false);
-
-        enemyCardPileText.text = combatManager.enemyDeck.cards.Count.ToString();
-       
-        if (combatManager.enemy.huntAI)
-        {
-            roundText.text = "Round " + combatManager.round + "/" + combatManager.enemy.huntRounds;
-            for (int i = 0; i < combatManager.battleReward.Count; i++) roundText.text += "\n" + combatManager.battleReward[i].name;
-        }
-        else roundText.text = "Round " + combatManager.round;
+        combatUI.BeginCombat();
 
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = true;
@@ -124,7 +112,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = false;
-        endCombatMenu.SetActive(false);
+        combatUI.LoadOutOfCombat();
         Time.timeScale = 1;
         
         DataPersistenceManager.DataManager.currentCombatAI = null;
@@ -135,7 +123,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             DataPersistenceManager.DataManager.tutorialDeck.AddRange(deck.cards);
         }
 
-        if(endCombatText.text == "You won!") {
+        if(combatUI.endCombatText.text == "You won!") {
             if (enemy.isHunter) SceneManager.LoadSceneAsync("End Screen");
             else                SceneManager.LoadSceneAsync("Map");
         }else{
@@ -169,7 +157,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             StartPlayerTurn();
             startPlayerTurn = false;
         }
-        graveText.text = combatManager.playerCardsLost.ToString();
+        combatUI.UpdateGraveText();
         if (inCombat && cameraZoomTimer > 0)
         {
             Camera.main.orthographicSize = Mathf.Lerp(8, 5, Mathf.SmoothStep(1f, 0f, cameraZoomTimer));
@@ -292,12 +280,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         round++;
 
-        if (combatManager.enemy.huntAI)
-        {
-            roundText.text = "Round " + combatManager.round + "/" + combatManager.enemy.huntRounds;
-            for (int i = 0; i < combatManager.battleReward.Count; i++) roundText.text += "\n" + combatManager.battleReward[i].name;
-        }
-        else roundText.text = "Round " + combatManager.round;
+        combatUI.UpdateRoundText();
 
         if (enemy.huntAI)
         {
@@ -312,7 +295,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             deck.energy = 3;
             deck.DrawCard(5);
 
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < 5 ;i++)
             {
                 if (playerCombatCards[i] != null)
                 {
@@ -323,7 +306,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     playerBenchCards[i].passivesTurnedOnThisTurn = false;
                 }
             }
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < 5 ;i++)
             {
                 if (enemyBenchCards[i] != null)
                 {
@@ -374,7 +357,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     enemyNonSoulCards++;
                 }
             }
-            enemyCardPileText.text = combatManager.enemyDeck.cards.Count.ToString();
+            combatUI.UpdateEnemyCardPileText();
 
             playerCombatCards.CopyTo(playerCombatCardsAtStartOfTurn, 0);
             playerBenchCards.CopyTo(playerBenchCardsAtStartOfTurn, 0);
@@ -453,19 +436,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
         }
         // Updates the health bars
-        float playerVal = combatManager.playerHealth / 20f;
-        float enemyVal = combatManager.enemyHealth / (float)combatManager.enemy.maxHealth;
-
-        if (playerVal <= 0) playerVal = 0;
-        if (enemyVal <= 0) enemyVal = 0;
-
-        playerHealthRect.transform.localScale =    new Vector3(playerVal, 1, 1);
-        playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
-        enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
-        enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
-
-        playerHealthText.text = combatManager.playerHealth + "/" + 20;
-        enemyHealthText.text = combatManager.enemyHealth + "/" + combatManager.enemy.maxHealth;
+        combatUI.UpdateHPText();
     } 
     public void CardCombat2Attackers(CardInCombat playerCard, CardInCombat enemyCard)
     {
@@ -572,8 +543,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-        endCombatMenu.SetActive(true);
-        endCombatText.text = "You won!";
+        combatUI.EndCombat(true);
         Time.timeScale = 0;
         
         deck.cards.AddRange(battleReward);
@@ -595,8 +565,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-        endCombatMenu.SetActive(true);
-        endCombatText.text = "You lost...";
+        combatUI.EndCombat(false);
         Time.timeScale = 0;
         
     }
@@ -604,13 +573,16 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void TutorialWin()
     {
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-        endCombatMenu.SetActive(true);
-       endCombatText.text = "You beat the tutorial!";
+        combatUI.EndCombat(true);
         Time.timeScale = 0;
         
         deck.cards.AddRange(battleReward);
     }
     #endregion
+    
+    public void CardDeath(){
+        playerCardsLost++;
+    }
 
     public CardInCombat GetCardAtSlot(CardSlot slot){
         // Find cardInCombat via cardSlot

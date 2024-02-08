@@ -180,7 +180,7 @@ public class EnemyAI : EnemyBase
             do
             {
                 failEscape++;
-                targetIndex = Random.Range(0, 3);
+                targetIndex = Random.Range(0, 5);
             } while (CombatManager.combatManager.enemyBenchCards[targetIndex] != null && failEscape < 20);
 
             if (failEscape < 20)
