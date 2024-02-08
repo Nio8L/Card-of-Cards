@@ -91,7 +91,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     
     private void Start()
     {
-        Time.timeScale = 0;
         inCombat = false;
 
         StartGame();
@@ -544,8 +543,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         combatUI.EndCombat(true);
-        Time.timeScale = 0;
-        
         deck.cards.AddRange(battleReward);
     }
 
@@ -566,7 +563,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         combatUI.EndCombat(false);
-        Time.timeScale = 0;
         
     }
 
@@ -574,7 +570,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         combatUI.EndCombat(true);
-        Time.timeScale = 0;
         
         deck.cards.AddRange(battleReward);
     }
