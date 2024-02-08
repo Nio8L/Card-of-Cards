@@ -185,7 +185,18 @@ public class Deck : MonoBehaviour, IDataPersistence
                 CombatManager.combatManager.enemy = DataPersistenceManager.DataManager.currentCombatAI;
             }
             CombatManager.combatManager.enemy.Initialize();
-            CombatManager.combatManager.combatUI.UpdateHPText();
+        float playerVal = CombatManager.combatManager.playerHealth / 20f;
+        float enemyVal = CombatManager.combatManager.enemyHealth / (float)CombatManager.combatManager.enemy.maxHealth;
+
+        if (playerVal <= 0) playerVal = 0;
+        if (enemyVal <= 0) enemyVal = 0;
+
+        CombatManager.combatManager.playerHealthRect.transform.localScale =    new Vector3(playerVal, 1, 1);
+        CombatManager.combatManager.playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
+        CombatManager.combatManager.enemyHealthRect.transform.localScale =    new Vector3(enemyVal, 1, 1);
+        CombatManager.combatManager.enemyHealthDash.transform.localPosition = new Vector3(enemyVal * 200 - 150, 1, 1);
+        CombatManager.combatManager.playerHealthText.text = CombatManager.combatManager.playerHealth + "/" + 20;
+        CombatManager.combatManager.enemyHealthText.text = CombatManager.combatManager.enemyHealth + "/" + CombatManager.combatManager.enemy.maxHealth;
         }
         Shuffle();
         DrawCard(5);

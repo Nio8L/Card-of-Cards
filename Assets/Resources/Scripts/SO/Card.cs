@@ -93,8 +93,8 @@ public class Card : ScriptableObject
                 Card lostSoul = Resources.Load<Card>("Cards/LostSoul");
                 CopyFrom(lostSoul);
                 ResetCard();
-                
-                EventManager.CardDeath?.Invoke();
+
+                CombatManager.combatManager.playerCardsLost++;
 
                 return;
             }
