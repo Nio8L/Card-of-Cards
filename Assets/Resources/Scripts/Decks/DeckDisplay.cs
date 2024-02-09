@@ -39,7 +39,7 @@ public class DeckDisplay : MonoBehaviour
     }
 
     public void ShowDeck(int numOfCardsInARow, float xDisplacement)
-    {
+    {  
         SoundManager.soundManager.Play("DeckDisplaySlide");
         if (deckDisplay.activeSelf)
         {
@@ -58,6 +58,8 @@ public class DeckDisplay : MonoBehaviour
         }
         else
         {
+            Vector3 objectOffset = new Vector3(Camera.main.pixelWidth - numOfCardsInARow * 200 + xDisplacement * (numOfCardsInARow - 1), 0, 0);
+            deckDisplay.transform.localPosition = objectOffset;
             if (deck != null)
             {
 
@@ -67,7 +69,7 @@ public class DeckDisplay : MonoBehaviour
                     newCardDisplay.GetComponent<CardDisplay>().card = card;
                     newCardDisplay.transform.SetParent(deckDisplay.transform);
                     newCardDisplay.transform.localScale = Vector3.one;
-                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numOfCardsInARow * xDisplacement, -cardDisplays.Count / numOfCardsInARow * 270, transform.position.z);
+                    newCardDisplay.transform.localPosition = new Vector3(cardDisplays.Count % numOfCardsInARow * xDisplacement, -cardDisplays.Count / numOfCardsInARow * 270, transform.position.z)*0.5f;
                     cardDisplays.Add(newCardDisplay);
                 }
             }

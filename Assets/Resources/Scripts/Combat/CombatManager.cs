@@ -43,7 +43,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     float timerAfterEnemyTurn = 0f;
     float resetTimerTo = 2f;
     float resetTimerAfterEnemyTurnTo = 0.5f;
-    float cameraZoomTimer = 1f;
     bool startCombatPhase = false;
     bool startPlayerTurn = false;
 
@@ -61,24 +60,49 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void Awake(){
         combatManager = this;
         
+        // Setup tutorial
         if(DataPersistenceManager.DataManager.inTutorial)
         {
+            // Find the correct ai
             DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + DataPersistenceManager.DataManager.tutorialCombats[DataPersistenceManager.DataManager.tutorialStage].ReturnPath());
 
             deck.cards.AddRange(DataPersistenceManager.DataManager.tutorialDeck);
             
             ListWrapper tutorialDeckToLoad = DataPersistenceManager.DataManager.tutorialCardsToAdd[DataPersistenceManager.DataManager.tutorialStage];
 
-            foreach (string card in tutorialDeckToLoad.list)
-            {
+            // Load the correct deck
+            for (int i = 0; i < tutorialDeckToLoad.list.Count; i++){
+                string card = tutorialDeckToLoad.list[i];
                 Card cardToAdd = Instantiate(Resources.Load<Card>("Cards/" + card)).ResetCard();
                 cardToAdd.name = card;
                 deck.cards.Add(cardToAdd);
             }
         }
+        
+        // Find the enemy ai for this combat
+        if (DataPersistenceManager.DataManager.currentCombatAI != null)
+        {
+            enemy = DataPersistenceManager.DataManager.currentCombatAI;
+        }
+        // Initialize it
+        enemy.Initialize();
+        combatUI.UpdateHPText();
+
+        // Begin camera animation and load ui
+        AnimationUtilities.ChangeFOV(Camera.main.transform, 1f, 0, 5);
+        combatUI.BeginCombat();
 
         // Give a small delay at the start of the combat to prevent early clicking on the end turn button
         timerToNextTurn = resetTimerTo;
+
+        SoundManager.soundManager.Play("ButtonClick");
+        inCombat = true;
+        Time.timeScale = 1;
+
+        // Start the turn zero function in 1 second so the cards are placed correctly
+        Invoke("TurnZero", 1f);
+        
+        
     }
     
     private void OnEnable() {
@@ -88,25 +112,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     private void OnDisable() {
         EventManager.CardDeath -= CardDeath;
     }
-    
-    private void Start()
-    {
-        inCombat = false;
-
-        StartGame();
-    }
-
-    public void StartGame() 
-    {
-        combatUI.BeginCombat();
-
-        SoundManager.soundManager.Play("ButtonClick");
-        inCombat = true;
-        Time.timeScale = 1;
-
-        Invoke("TurnZero", 1f);
-    }
-
     public void EndGame()
     {
         SoundManager.soundManager.Play("ButtonClick");
@@ -157,17 +162,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             startPlayerTurn = false;
         }
         combatUI.UpdateGraveText();
-        if (inCombat && cameraZoomTimer > 0)
-        {
-            Camera.main.orthographicSize = Mathf.Lerp(8, 5, Mathf.SmoothStep(1f, 0f, cameraZoomTimer));
-            cameraZoomTimer -= Time.deltaTime;
-        }
-        else if (inCombat && cameraZoomTimer > -10)
-        {
-            Camera.main.orthographicSize = 5;
-            // This line is here to make it set the camera size to 5 only once 
-            cameraZoomTimer = -100;
-        }
     }
   
     public void PlayCard(Card card, CardSlot slot, bool useDeck){

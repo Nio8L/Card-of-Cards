@@ -80,6 +80,8 @@ public class AnimationUtilities : MonoBehaviour{
                 ChangeCanvasAlphaInst();
             }else if (animation == "DestroyAfter"){
                 DestroyAfterInst();
+            }else if (animation == "ChangeFOV"){
+                ChangeFOVInst();
             }
 
             // Return true if the animation is complete
@@ -103,7 +105,6 @@ public class AnimationUtilities : MonoBehaviour{
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
             }
         }
-
         void ChangeCanvasAlphaInst(){
             // Change the alpha of a canvas
             float alpha = Mathf.Lerp(values[0], values[1], 1 - timeLeft / totalTime);
@@ -113,7 +114,6 @@ public class AnimationUtilities : MonoBehaviour{
                 canvas.alpha = alpha;
             }
         }
-
         void ReturnMoveToPointInst(){
             // Move to a point, then return
             Vector3 newPosition = Vector3.Lerp(points[0], points[1], 1 - timeLeft/totalTime);
@@ -128,10 +128,16 @@ public class AnimationUtilities : MonoBehaviour{
                 bools.Add(true);
             }
         }
-
         void DestroyAfterInst(){
             // Destroy a target
             Destroy(target);
+        }
+        void ChangeFOVInst(){
+            // Changes the ortographic size of a camera attached to the target transform
+            float size = Mathf.SmoothStep(values[0], values[1], 1 - timeLeft/totalTime);
+
+            Camera camera = target.GetComponent<Camera>();
+            camera.orthographicSize = size;
         }
         public Transform GetTarget(){
             // Return this animationInstances target
@@ -202,7 +208,6 @@ public class AnimationUtilities : MonoBehaviour{
         newAnimation.SetDelay(delay);
         animationUtilities.allAnimations.Add(newAnimation);
     }
-
     public static void LostSoulAnimation(Transform transform){
         SoundManager.soundManager.Play("LostSoul");
 
@@ -220,6 +225,17 @@ public class AnimationUtilities : MonoBehaviour{
         soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
         soulHeart.primaryHeart = false;
     }
+    public static void ChangeFOV(Transform target, float time, float delay, float newSize){
+        // Changes the ortographic size of a camera attached to the target transform
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeFOV");
+        newAnimation.SetDelay(delay);
 
+        Camera camera = target.GetComponent<Camera>();
+
+        newAnimation.AddValue(camera.orthographicSize);
+        newAnimation.AddValue(newSize);
+
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
 }
     
