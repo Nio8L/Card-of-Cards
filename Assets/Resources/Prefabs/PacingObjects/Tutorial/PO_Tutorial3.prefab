@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7772708045455883371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8084791454427128069}
+  - component: {fileID: -5331278584143339472}
+  m_Layer: 0
+  m_Name: PO_Tutorial3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8084791454427128069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772708045455883371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5331278584143339472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772708045455883371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773b63b7c3a1e3e42bfce21148fb27aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notifications:
+  - {fileID: 11400000, guid: ca1aa56bd1e97dc4791c1257d804b85b, type: 2}
+  - {fileID: 11400000, guid: 1892bb11f63ee0047a9d2e762f65fb5e, type: 2}
+  - {fileID: 11400000, guid: 34c942d058ae396488d755ddc7b1b26e, type: 2}
+  - {fileID: 11400000, guid: 67c38a5c994f3a945b193c1a463a9109, type: 2}
+  - {fileID: 11400000, guid: 67fbc8e36bcf5e348bccfc9e5adf1e14, type: 2}
+  - {fileID: 11400000, guid: a29ed9cdd74d02446acafaff5342afc6, type: 2}
+  - {fileID: 11400000, guid: f5c40bccfe8e14d479804bd0ab2a3914, type: 2}
+  - {fileID: 11400000, guid: e082e0f912925c44aaa2a6c2be2c7230, type: 2}
+  stage: 0
+  cardShowCasePrefab: {fileID: 9048466918789952585, guid: 9c840b1dac7f8f344a78364b2712da5a, type: 3}
+  slotArrowsPrefab: {fileID: 2852792538213253465, guid: 9bab1093b36c5cd469f02ea5bb6495b1, type: 3}
+  injuredMouse: {fileID: 11400000, guid: a542c2e777a35ee429a722429f2686ea, type: 2}
+  lostSoul: {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}

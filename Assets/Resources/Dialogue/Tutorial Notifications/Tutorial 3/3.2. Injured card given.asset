@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0bb5f836244bf4e98646d6c4df3b8a, type: 3}
+  m_Name: 3.2. Injured card given
+  m_EditorClassIdentifier: 
+  lines:
+  - As you can see on your new card it has a bleed sigil.
+  - 'If you look at its health indicator you can see it has been injured.
+
+    Hover
+    over it to see what kind of injury it is.'
+  - "Injuries are given at the same time as bleed sigils and \ntheir type depends
+    on what killed it."
+  - 'There are 3 damage types: Scratch, Bite and Poison.'
+  - 'You can see what kind of damage type a card has if you
+
+    hover over a card''s
+    damage icon.'
+  - 'If a card dies to a creature with a damage type it has already
+
+    been injured
+    by it is replaced permanently with a "Lost soul".'
+  persistBetweenScenes: 0
+  closable: 1

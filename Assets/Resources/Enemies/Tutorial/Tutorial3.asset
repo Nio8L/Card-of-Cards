@@ -12,13 +12,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
   m_Name: Tutorial3
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 12
   path: Tutorial
   huntAI: 0
   huntRounds: 0
-  pacingObject: {fileID: 0}
+  pacingObject: {fileID: 7772708045455883371, guid: c6dafc2f84ac1bf44a742d5c01b7c79b, type: 3}
   isTutorialEnemy: 1
   isHunter: 0
   currentPacingObject: {fileID: 0}
-  turnZero: 0
-  turns: []
+  turnZero: 1
+  turns:
+  - combatCards:
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 0
+  - combatCards:
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchCards:
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1

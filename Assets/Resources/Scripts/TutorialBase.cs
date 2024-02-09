@@ -44,7 +44,7 @@ public abstract class TutorialBase : MonoBehaviour
         endTurnButton.interactable = !endTurnButton.interactable;
     }
 
-    void ChangeEndTurnButton(bool usable){
+    protected void ChangeEndTurnButton(bool usable){
         endTurnButton.interactable = usable;
     }
 }
