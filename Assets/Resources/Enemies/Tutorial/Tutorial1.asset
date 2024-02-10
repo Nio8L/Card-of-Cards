@@ -20,6 +20,7 @@ MonoBehaviour:
   isTutorialEnemy: 1
   isHunter: 0
   currentPacingObject: {fileID: 0}
+  ignoreCardDeathRules: 1
   turnZero: 1
   turns:
   - combatCards:
