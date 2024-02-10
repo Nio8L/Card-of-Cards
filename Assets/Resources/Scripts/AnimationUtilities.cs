@@ -140,8 +140,13 @@ public class AnimationUtilities : MonoBehaviour{
             camera.orthographicSize = size;
         }
         public Transform GetTarget(){
-            // Return this animationInstances target
+            // Return this animationInstance's target
             return target;
+        }
+
+        public string GetAnimation(){
+        // Return this animationInstance's animation
+        return animation;
         }
     }
     public static bool CheckForAnimation(GameObject gameObject){
@@ -149,6 +154,15 @@ public class AnimationUtilities : MonoBehaviour{
         for (int i = 0; i < animationUtilities.allAnimations.Count; i++){
             AnimationInstance animationInstance = animationUtilities.allAnimations[i];
             if (animationInstance.GetTarget() == gameObject.transform){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static bool GetTimer(GameObject gameObject){
+        for (int i = 0; i < animationUtilities.allAnimations.Count; i++){
+            AnimationInstance animationInstance = animationUtilities.allAnimations[i];
+            if (animationInstance.GetTarget() == gameObject.transform && animationInstance.GetAnimation() == "StartTimer"){
                 return true;
             }
         }
@@ -235,6 +249,10 @@ public class AnimationUtilities : MonoBehaviour{
         newAnimation.AddValue(camera.orthographicSize);
         newAnimation.AddValue(newSize);
 
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
+    public static void StartTimer(Transform target, float time){
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "StartTimer");
         animationUtilities.allAnimations.Add(newAnimation);
     }
 }

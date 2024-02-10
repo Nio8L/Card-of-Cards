@@ -58,3 +58,4 @@ MonoBehaviour:
   slotArrowsPrefab: {fileID: 2852792538213253465, guid: 9bab1093b36c5cd469f02ea5bb6495b1, type: 3}
   injuredMouse: {fileID: 11400000, guid: a542c2e777a35ee429a722429f2686ea, type: 2}
   lostSoul: {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
+  borke: {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}

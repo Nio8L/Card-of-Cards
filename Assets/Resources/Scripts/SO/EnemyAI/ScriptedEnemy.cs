@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Enemy/Scripted")]
 public class ScriptedEnemy : EnemyBase
 {
+    public bool ignoreCardDeathRules;
     public bool turnZero;
     [SerializeField]
     public Turn[] turns;

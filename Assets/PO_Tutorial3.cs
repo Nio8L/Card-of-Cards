@@ -7,6 +7,7 @@ public class PO_Tutorial3 : TutorialBase
 {
     public Card injuredMouse;
     public Card lostSoul;
+    public Card borke;
     public override void ExecuteChanges()
     {
         stageExecuted = true;
@@ -86,12 +87,18 @@ public class PO_Tutorial3 : TutorialBase
             copiedCard.name = lostSoul.name;
             CombatManager.combatManager.deck.drawPile.Add(copiedCard);
             CombatManager.combatManager.deck.DrawCard(1);
+
+            AnimationUtilities.StartTimer(transform, 1f);
+
             ChangeStage(stage + 1);
         }else if (stage == 10){
             stageExecuted = false;
+
+            if (AnimationUtilities.GetTimer(gameObject)) return;
+
             bool soulUsed = true;
             for (int i = 0; i < CombatManager.combatManager.deck.cardsInHand.Count; i++){
-                if (CombatManager.combatManager.deck.cardsInHand[i].name == lostSoul.name){
+                if (CombatManager.combatManager.deck.cardsInHandAsCards[i].name == lostSoul.name){
                     soulUsed = false;
                 }
             }
@@ -101,6 +108,12 @@ public class PO_Tutorial3 : TutorialBase
         }else if (stage == 11){
             NotificationManager.notificationManager.CloseNotificationWindow(0);
             NotificationManager.notificationManager.Notify(notifications[7], new Vector3(0, -200, 0));
+            ChangeEndTurnButton(true);
+
+            Card copiedCard = Instantiate(borke).ResetCard();
+            copiedCard.name = borke.name;
+            CombatManager.combatManager.deck.drawPile.Add(copiedCard);
+            CombatManager.combatManager.deck.DrawCard(1);
         }
     }
 }

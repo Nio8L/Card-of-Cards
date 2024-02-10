@@ -82,6 +82,16 @@ public class Card : ScriptableObject
 
     public void CreateCard(TypeOfDamage causeOfDeath)
     {
+
+        // Returns if death cards aren't used in the current fight
+        if (CombatManager.combatManager != null){
+            ScriptedEnemy scriptedEnemy = CombatManager.combatManager.enemy.GetScriptedEnemy();
+            if (scriptedEnemy != null && scriptedEnemy.ignoreCardDeathRules){
+                ResetCard();
+                return;
+            }
+        }
+
         Sigil bleed = Resources.Load<Sigil>("Sigils/Weak Bleed");
         negativeSigil = Instantiate(bleed);
         negativeSigil.name = bleed.name;
