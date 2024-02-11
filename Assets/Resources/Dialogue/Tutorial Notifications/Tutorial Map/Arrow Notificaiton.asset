@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e0bb5f836244bf4e98646d6c4df3b8a, type: 3}
-  m_Name: 1.1. Welcome
+  m_Name: Arrow Notificaiton
   m_EditorClassIdentifier: 
   lines:
-  - 'Welcome to the
-
-    combat tutorial!'
-  - In this part you will learn the basics of the game.
+  - 'Like this one!  '
   persistBetweenScenes: 0
-  closable: 1
+  closable: 0

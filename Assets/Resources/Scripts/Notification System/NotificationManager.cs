@@ -88,6 +88,10 @@ public class NotificationManager : MonoBehaviour
             return currentNotification;
         }
 
+        public int GetCurrentLineIndex(){
+            return currentLineIndex;
+        }
+
         //Go to the next line in the notification
         public void NextLine(){
             currentLineIndex++;
