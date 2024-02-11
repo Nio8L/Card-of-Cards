@@ -18,14 +18,14 @@ public class DeckDisplayScroller : MonoBehaviour
 
     private void Update() {
         if(Input.GetAxis("Mouse ScrollWheel") != 0f){
-           if (deckDisplay.cardDisplays.Count > 15){
-                if(rectTransform.localPosition.y <= deckDisplay.cardDisplays.Count / 15 * 770 && rectTransform.localPosition.y >= 0){
+           if (deckDisplay.cardDisplays.Count > 12){
+                if(rectTransform.localPosition.y <= deckDisplay.cardDisplays.Count / 12 * 770 && rectTransform.localPosition.y >= 0){
                     AnimationUtilities.MoveToPoint(transform, 0.25f, 0, new Vector3(deckDisplayObject.transform.position.x, deckDisplayObject.transform.position.y - Input.GetAxis("Mouse ScrollWheel") * sensitivity, deckDisplayObject.transform.position.z));
                 }
            }
         }
-        if(rectTransform.localPosition.y > deckDisplay.cardDisplays.Count / 15 * 770){
-            rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, deckDisplay.cardDisplays.Count / 15 * 760, 0);
+        if(rectTransform.localPosition.y > deckDisplay.cardDisplays.Count / 12 * 770){
+            rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, deckDisplay.cardDisplays.Count / 12 * 760, 0);
         }
         if(rectTransform.localPosition.y < 0){
             rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, 0, 0);

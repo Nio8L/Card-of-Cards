@@ -1655,10 +1655,10 @@ RectTransform:
   m_Father: {fileID: 1797514664}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &552172266
 MonoBehaviour:
@@ -6877,7 +6877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -500.00006, y: 250}
+  m_AnchoredPosition: {x: -500, y: 250}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1797514665
@@ -6892,7 +6892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbe44b513359b894b968bab2957e9ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultDisplacement: 250
+  defaultDisplacement: 50
+  cardWidth: 170
   defaultNumberOfCardsInARow: 5
   cardDisplay: {fileID: 1531777437509808466, guid: a3bbf4b13ad4ac34297a55974ca3d9c6, type: 3}
   deckDisplay: {fileID: 552172264}

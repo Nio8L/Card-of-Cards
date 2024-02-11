@@ -30,6 +30,7 @@ public class PO_TutorialHunt : HuntManager
         stageExecuted = true;
         if (stage == 0){
             // Say welcome
+            CombatManager.combatManager.playerHealth = 20;
             ChangeEndTurnButton();
             NotificationManager.notificationManager.Notify(notifications[0], new Vector3(0, -200, 0));
             checkIfNotificationIsGone = true;

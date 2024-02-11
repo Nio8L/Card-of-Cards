@@ -60,8 +60,6 @@ public class DeckDisplay : MonoBehaviour
         else
         {
             // Open display
-            Vector3 objectOffset = new Vector3(Camera.main.pixelWidth - numOfCardsInARow * 200 + xDisplacement * (numOfCardsInARow - 1), 0, 0);
-            deckDisplay.transform.localPosition = objectOffset;
             if (deck != null)
             {
 
