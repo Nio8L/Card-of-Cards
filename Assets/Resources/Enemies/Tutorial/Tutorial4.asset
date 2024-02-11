@@ -15,13 +15,13 @@ MonoBehaviour:
   maxHealth: 10
   path: Tutorial
   huntAI: 1
-  huntRounds: 2
+  huntRounds: 3
   pacingObject: {fileID: 2621437867445169731, guid: 3eaa1cf9000b9d94ebf5a2779c415f8d, type: 3}
   isTutorialEnemy: 1
   isHunter: 0
   currentPacingObject: {fileID: 0}
   ignoreCardDeathRules: 0
-  turnZero: 0
+  turnZero: 1
   turns:
   - combatCards:
     - {fileID: 0}
@@ -63,6 +63,36 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
     - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     benchColumbs: 0000000000

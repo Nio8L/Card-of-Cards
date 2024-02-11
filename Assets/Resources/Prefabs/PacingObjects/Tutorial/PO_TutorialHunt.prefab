@@ -48,3 +48,9 @@ MonoBehaviour:
   strongCards:
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+  notifications:
+  - {fileID: 11400000, guid: bc71ddaf7e96d6841a1e6731c3f952d4, type: 2}
+  - {fileID: 11400000, guid: 91ea2bac296b32c4dbed85a69345e733, type: 2}
+  stage: 0
+  cardShowCasePrefab: {fileID: 9048466918789952585, guid: 9c840b1dac7f8f344a78364b2712da5a, type: 3}
+  slotArrowsPrefab: {fileID: 2852792538213253465, guid: 9bab1093b36c5cd469f02ea5bb6495b1, type: 3}

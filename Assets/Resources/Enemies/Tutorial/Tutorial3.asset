@@ -68,3 +68,108 @@ MonoBehaviour:
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+    - {fileID: 11400000, guid: a542c2e777a35ee429a722429f2686ea, type: 2}
+    - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+    - {fileID: 11400000, guid: a542c2e777a35ee429a722429f2686ea, type: 2}
+    - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1

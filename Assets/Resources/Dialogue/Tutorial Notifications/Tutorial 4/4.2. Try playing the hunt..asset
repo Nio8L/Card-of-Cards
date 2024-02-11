@@ -10,19 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e0bb5f836244bf4e98646d6c4df3b8a, type: 3}
-  m_Name: 3.6. Rat ded
+  m_Name: 4.2. Try playing the hunt.
   m_EditorClassIdentifier: 
   lines:
-  - 'Your mouse was killed in combat by another mouse
-
-    so it gained a bite injury'
-  - 'If it dies again from another creature with a bite attack it will be
-
-    transformed
-    into a "Lost soul".'
-  - 'Lost soul cards can be played on top of cards with injuries
-
-    to remove them.'
-  - They are 1 time use and have some special interactions.
+  - Try to defeat the hunt.
   persistBetweenScenes: 0
-  closable: 1
+  closable: 0

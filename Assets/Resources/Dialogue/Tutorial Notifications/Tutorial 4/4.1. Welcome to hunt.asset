@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0bb5f836244bf4e98646d6c4df3b8a, type: 3}
+  m_Name: 4.1. Welcome to hunt
+  m_EditorClassIdentifier: 
+  lines:
+  - This is the last stage of the tutorial.
+  - In it you will learn about hunts.
+  - Hunts are special fight in which you can get the cards you kill.
+  - 'They end after a certain amount of rounds usually
+
+    as seen in the top left
+    corner.'
+  - 'The first 3 enemy cards that die are added to your deck after
+
+    the hunt
+    is over but they are injured.'
+  - You can see the cards you will recive at the top left corner.
+  - 'The hunt can be killed to end the fight early and still get reward
+
+    but
+    directly hitting it will cause it to spawn stronger cards.'
+  persistBetweenScenes: 0
+  closable: 1
