@@ -446,7 +446,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1464998205659586195, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2830257588851506358, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
       propertyPath: roomType

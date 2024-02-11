@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour, IDataPersistence
 {
+    public bool canTravel = true;
+    public bool canScroll = true;
     public GameObject nodeObject;
     public GameObject lineObject;
     public static MapManager mapManager;
@@ -41,7 +43,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public GameObject[] events;
     public GameObject currentEvent;
 
+    [Header("Tutorial")]
     public GameObject tutorialMap;
+    public GameObject tutorialPO;
 
     public GameObject restSiteParticles;
 
@@ -65,6 +69,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         if(DataPersistenceManager.DataManager.inTutorial){
             GenerateTutorialMap();
+
+            if (DataPersistenceManager.DataManager.tutorialStage == 0)
+            {
+                canTravel = false;
+                canScroll = false;
+                Instantiate(tutorialPO, transform.position, Quaternion.identity);
+            }
         }else if(shouldGenerate){
             Generate(0, Layer.ConectionType.None);
             Camera.main.GetComponent<MapScroller>().FirstLoadAnimation();
@@ -238,6 +249,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static void NodeClicked(MapNode node) 
     {
+        if(!mapManager.canTravel) return;
+
         if (mapManager.nodesAvaliable.Contains(node) && mapManager.deckDisplay.canClose)
         {
             if (mapManager.currentNode != null)

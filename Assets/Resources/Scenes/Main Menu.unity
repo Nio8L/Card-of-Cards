@@ -2746,7 +2746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Version: UNstable alpha 0.2
+  m_text: 'Version: stable alpha 0.2.1
 
 '
   m_isRightToLeft: 0
