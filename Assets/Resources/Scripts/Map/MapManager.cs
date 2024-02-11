@@ -43,6 +43,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public GameObject tutorialMap;
 
+    public GameObject restSiteParticles;
+
     private void Awake()
     {
         mapManager = this;
@@ -261,6 +263,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 if (mapManager.mapDeck.playerHealth < 10) mapManager.mapDeck.playerHealth += 10;
                 else mapManager.mapDeck.playerHealth = 20;
 
+                Instantiate(mapManager.restSiteParticles, eventCanvas.transform);
                 mapManager.mapDeck.UpdateHPText();
                 DataPersistenceManager.DataManager.currentCombatAI = null;
             }

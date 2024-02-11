@@ -48,8 +48,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ee620b7191e3024fb885033e06b3703, type: 2}
   - {fileID: 11400000, guid: c14e960fc0e3ae9409b9928050997c30, type: 2}
   stage: 0
-  cardShowCasePrefab: {fileID: 0}
-  slotArrowsPrefab: {fileID: 0}
+  cardShowCasePrefab: {fileID: 9048466918789952585, guid: 9c840b1dac7f8f344a78364b2712da5a, type: 3}
+  slotArrowsPrefab: {fileID: 2852792538213253465, guid: 9bab1093b36c5cd469f02ea5bb6495b1, type: 3}
   cardToAdd:
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
