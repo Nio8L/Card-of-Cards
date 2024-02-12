@@ -16,6 +16,7 @@ public class Explode : ConsumingSigil
     public GameObject thornsParticlesPrefab;
     public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
     {
+        base.OnConsumeEffects(card, consumedCard);
         damageToDeal += damageIncrement;
 
         description = "Upon death deal " + damageToDeal + " damage. Increase this damage by feeding cards.";
@@ -26,6 +27,7 @@ public class Explode : ConsumingSigil
 
     public override void OnDeadEffects(CardInCombat card)
     {
+        SoundManager.soundManager.Play("Explode");
         card.deck.drawPile.AddRange(cardAcceptor.cardsAccepted);
 
         Instantiate(thornsParticlesPrefab, card.transform.position, Quaternion.identity);

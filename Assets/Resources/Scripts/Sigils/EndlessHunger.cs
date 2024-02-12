@@ -10,6 +10,7 @@ public class EndlessHunger : ConsumingSigil
 
     public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
     {
+        base.OnConsumeEffects(card, consumedCard);
         card.card.health += healthToHeal;
 
         card.deck.UpdateCardAppearance(card.gameObject.transform, card.card);
