@@ -607,4 +607,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
         }
     }
+
+    public void DrawPileButton(){
+        DeckUtilities.SingularDisplay("deck", deck.drawPile);
+    }
+
+    public void DiscardPileButton(){
+        DeckUtilities.SingularDisplay("deck", deck.discardPile);
+    }
+
+
 }

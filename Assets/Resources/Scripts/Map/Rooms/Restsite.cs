@@ -12,13 +12,11 @@ public class Restsite : MonoBehaviour
     public GameObject background;
     EnemyAI chosenAI;
 
-    DeckDisplay deckDisplay;
     CardDisplay[] cardsPicked = new CardDisplay[3];
     Vector3[] oldPositions = new Vector3[3];
 
     public void Start() 
     {
-        deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         for (int i = 0; i < oldPositions.Length; i++)
         {
             oldPositions[i] = Vector3.one;
@@ -31,15 +29,6 @@ public class Restsite : MonoBehaviour
         background.SetActive(true);
         firstMenu.SetActive(true);
     }
-
-    public void StartHunt() 
-    {
-        //nz kvo trqbva da ima tuka
-        DataPersistenceManager.DataManager.currentCombatAI = chosenAI;
-        MapManager.mapManager.lastEnemyAI = chosenAI;
-        SceneManager.LoadSceneAsync("SampleScene");
-    }
-
     public void Heal()
     {
         if (MapManager.mapManager.mapDeck.playerHealth < 20 - healValue) MapManager.mapManager.mapDeck.playerHealth += healValue;
@@ -49,14 +38,6 @@ public class Restsite : MonoBehaviour
         DataPersistenceManager.DataManager.currentCombatAI = null;
         firstMenu.SetActive(false);
     }
-
-    public void openHuntMenu() 
-    {
-        firstMenu.SetActive(false);
-        huntMenu.SetActive(true);
-        deckDisplay.ShowDeck(3,500);
-    }
-
     public void TryToPick(CardDisplay card) 
     {
         for (int i = 0; i < 3; i++)

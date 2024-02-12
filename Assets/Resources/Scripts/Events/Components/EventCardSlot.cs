@@ -45,7 +45,10 @@ public class EventCardSlot : MonoBehaviour
 
         MapManager.mapManager.mapDeck.RemoveCard(cardToAdd);
 
-        MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250); 
+        DeckDisplay deck = DeckUtilities.GetDisplayWithName("ExchangeDeck");
+        if (deck != null){
+            deck.ShowCards(MapManager.mapManager.mapDeck.cards);
+        }
     }
 
     //Removes the card from the slot
@@ -61,7 +64,10 @@ public class EventCardSlot : MonoBehaviour
         if(card == null) return;
 
         MapManager.mapManager.mapDeck.AddCard(card);
-        MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250); 
+        DeckDisplay deck = DeckUtilities.GetDisplayWithName("ExchangeDeck");
+        if (deck != null){
+            deck.ShowCards(MapManager.mapManager.mapDeck.cards);
+        }
         
         if(card.name == "LostSoul"){
             IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();

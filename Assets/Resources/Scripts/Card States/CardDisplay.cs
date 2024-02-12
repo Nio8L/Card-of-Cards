@@ -116,7 +116,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public IEnumerator DisplayDeck(float delay, int cardsPerRow, int xDisplacement){
         yield return new WaitForSeconds(delay);
 
-        MapManager.mapManager.deckDisplay.ShowDeck(cardsPerRow, xDisplacement);
+        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     }
 
     public void PickCard()

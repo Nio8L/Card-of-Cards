@@ -22,7 +22,7 @@ public class MapScroller : MonoBehaviour
     {
         if(!MapManager.mapManager.canScroll) return;
         
-        if (!MapManager.mapManager.deckDisplay.deckDisplay.activeSelf)
+        if (true) //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         {
             if (Input.GetAxis("Mouse ScrollWheel") != 0f)
             {

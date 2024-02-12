@@ -6,7 +6,7 @@ public class AnimationUtilities : MonoBehaviour{
     public static AnimationUtilities animationUtilities;
 
     List<AnimationInstance> allAnimations = new List<AnimationInstance>();
-    void Start(){
+    void Awake(){
         // Destroy this object if an AnimationUtilities manager already exists
         if(animationUtilities != null){
             Destroy(gameObject);
@@ -130,7 +130,7 @@ public class AnimationUtilities : MonoBehaviour{
         }
         void DestroyAfterInst(){
             // Destroy a target
-            Destroy(target);
+            Destroy(target.gameObject);
         }
         void ChangeFOVInst(){
             // Changes the ortographic size of a camera attached to the target transform

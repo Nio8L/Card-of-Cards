@@ -23,15 +23,11 @@ public class ExchangeShop : MonoBehaviour, IEvent
     public Button exchangeButton;
     public Button regenerateButton;
 
+    public DeckDisplay deckDisplay;
     void Start()
     {
-        //Reposition the deck display and open it
-        if (!MapManager.mapManager.deckDisplay.deckDisplay.activeSelf)
-        {
-            MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
-            MapManager.mapManager.deckDisplay.canClose = false;
-            MapManager.mapManager.deckDisplay.deckDisplay.GetComponent<RectTransform>().localPosition = new Vector3(400, 0, 0);
-        }
+        //Add the correct cards into the deck display
+        deckDisplay.cards = CombatManager.combatManager.deck.cards;
 
         //Generate offers
         GenerateOffers();
@@ -40,6 +36,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
     public void GenerateOffers(){
         for (int i = 0; i < 3; i++)
         {
+            if (shopSlots[i] == null) continue;
             Card card = PickCard(i);
             CardDisplay cardDisplay = shopSlots[i].GetComponent<CardDisplay>();
             cardDisplay.card = card;
@@ -107,7 +104,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
         selectedCard = null;
         selectedCardDisplay = null;
 
-        MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250);
+        deckDisplay.ShowCards(MapManager.mapManager.mapDeck.cards);
 
         //Leave the event if there are no offered cards left
         if(FindObjectsOfType<CardOffered>().Length == 1){
@@ -158,8 +155,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
         }
         
         MapManager.mapManager.currentEvent = null;
-        MapManager.mapManager.deckDisplay.canClose = true;
-        MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
+        deckDisplay.CloseDisplay();
         
         Destroy(gameObject);
     }

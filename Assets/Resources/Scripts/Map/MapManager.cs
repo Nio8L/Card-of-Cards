@@ -31,9 +31,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
     static EnemyAI[] hunterEnemyAIs;
 
     public MapDeck mapDeck;
-
-    public DeckDisplay deckDisplay;
-
     private bool shouldGenerate = true;
 
     public EnemyBase lastEnemyAI;
@@ -58,7 +55,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
-        deckDisplay = GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>();
         eventCanvas = GameObject.Find("EventCanvas").transform;
 
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
@@ -251,7 +247,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         if(!mapManager.canTravel) return;
 
-        if (mapManager.nodesAvaliable.Contains(node) && mapManager.deckDisplay.canClose)
+        if (mapManager.nodesAvaliable.Contains(node))// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
         {
             if (mapManager.currentNode != null)
             {

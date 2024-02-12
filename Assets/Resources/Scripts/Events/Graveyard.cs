@@ -27,12 +27,7 @@ public class Graveyard : MonoBehaviour, IEvent
 
     private void Start() {
         //Reposition the deck display and open it
-        if (!MapManager.mapManager.deckDisplay.deckDisplay.activeSelf)
-        {
-            MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
-            MapManager.mapManager.deckDisplay.canClose = false;
-            MapManager.mapManager.deckDisplay.deckDisplay.GetComponent<RectTransform>().localPosition = new Vector3(400, 0, 0);
-        }
+        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     }
 
     public void HealCard(){
@@ -104,7 +99,7 @@ public class Graveyard : MonoBehaviour, IEvent
         Destroy(selectedCardDisplay);
         selectedCardBorder.SetActive(false);
 
-        MapManager.mapManager.deckDisplay.UpdateDisplay(4, 250);
+        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
         LeaveEvent();
     }
@@ -122,8 +117,7 @@ public class Graveyard : MonoBehaviour, IEvent
         }
         
         MapManager.mapManager.currentEvent = null;
-        MapManager.mapManager.deckDisplay.canClose = true;
-        MapManager.mapManager.deckDisplay.ShowDeck(4, 250);
+        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         
         Destroy(gameObject);
     }
