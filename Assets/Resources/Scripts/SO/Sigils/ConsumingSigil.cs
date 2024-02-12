@@ -11,4 +11,9 @@ public class ConsumingSigil : Sigil
     {
         cardAcceptor = card.gameObject.AddComponent<CardAcceptor>();
     }
+
+    public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
+    {
+        SoundManager.soundManager.Play("Consume");
+    }
 }

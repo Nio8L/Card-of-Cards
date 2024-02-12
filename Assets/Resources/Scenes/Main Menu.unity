@@ -1626,6 +1626,27 @@ MonoBehaviour:
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
+  - name: Consume
+    clip:
+    - {fileID: 8300000, guid: 33f0504e8bc89144a8603cbe9fdf3220, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 0
+    source: {fileID: 0}
+  - name: Explode
+    clip:
+    - {fileID: 8300000, guid: 181d88fd8a6355047ad609bade6e6e47, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 0
+    source: {fileID: 0}
+  - name: FireExplosion
+    clip:
+    - {fileID: 8300000, guid: b0d37410254662c42a57fc2dda4b8051, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 0
+    source: {fileID: 0}
   musics:
   - name: Theme
     clip:

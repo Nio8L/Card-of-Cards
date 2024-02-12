@@ -78,6 +78,7 @@ public class CardSlot : MonoBehaviour
              GameObject fireExplosion = Instantiate(CombatManager.combatManager.fireExplosionPrefab, transform);
              fireExplosion.transform.localScale = Vector3.one;
              AnimationUtilities.ChangeAlpha(fireExplosion.transform, 0.6f, 0.8f, 0f);
+             SoundManager.soundManager.Play("FireExplosion");
         }
 
         turnsIgnited--;
