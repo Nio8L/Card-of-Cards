@@ -3412,19 +3412,19 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   numOfLayers: 12
   isGenerating: 1
-  chanceForRooms: 1e00000014000000140000001e000000
+  chanceForRooms: 00000000000000000000000064000000
   nodesAvaliable: []
   lastLayer: {fileID: 0}
   mapDeck: {fileID: 0}
   deckDisplay: {fileID: 0}
   lastEnemyAI: {fileID: 0}
   events:
-  - {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
   - {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
+  - {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
   currentEvent: {fileID: 0}
   tutorialMap: {fileID: 8800594967174291148, guid: 3a22b466e641e664299c0857d999320f, type: 3}
-  tutorialPO: {fileID: 7178501972643789238, guid: a6284282ef809a14e8e7cc2028fb6de5, type: 3}
+  tutorialPO: {fileID: 0}
   restSiteParticles: {fileID: 1310063385754101084, guid: 253ef5d441b5d754ab9a28271df9df47, type: 3}
 --- !u!4 &1377556452
 Transform:
