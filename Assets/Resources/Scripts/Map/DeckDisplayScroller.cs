@@ -34,7 +34,7 @@ public class DeckDisplayScroller : MonoBehaviour
 
     private void OnEnable() {
         if(rectTransform != null){
-            rectTransform.localPosition = Vector3.zero;
+            //rectTransform.localPosition = Vector3.zero;
         }
     }
 }

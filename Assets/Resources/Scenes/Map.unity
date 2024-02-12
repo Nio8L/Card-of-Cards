@@ -3405,6 +3405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4b4a2682cdfe848ad5faa26b732a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canTravel: 1
+  canScroll: 1
   nodeObject: {fileID: 8456520580759990429, guid: a3f602b05b829524d9e7f24db69943a3, type: 3}
   lineObject: {fileID: 4662432116065234859, guid: 0ddf1b2dd6d0b9b478871e4a84882038, type: 3}
   currentNode: {fileID: 0}
@@ -3422,6 +3424,7 @@ MonoBehaviour:
   - {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
   currentEvent: {fileID: 0}
   tutorialMap: {fileID: 8800594967174291148, guid: 3a22b466e641e664299c0857d999320f, type: 3}
+  tutorialPO: {fileID: 7178501972643789238, guid: a6284282ef809a14e8e7cc2028fb6de5, type: 3}
   restSiteParticles: {fileID: 1310063385754101084, guid: 253ef5d441b5d754ab9a28271df9df47, type: 3}
 --- !u!4 &1377556452
 Transform:
