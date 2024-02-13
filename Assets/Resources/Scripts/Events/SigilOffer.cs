@@ -20,10 +20,13 @@ public class SigilOffer : MonoBehaviour, IEvent
     [Header("Buttons")]
     public Button infuseButton;
     public Button regenerateButton;
+    public DeckDisplay deckDisplay;
     
     private void Start() {
-        //Reposition the deck display and open it
-        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        //Add the correct cards into the deck display
+        Vector2 point = new Vector2(Camera.main.pixelWidth * 1f/4f, 0);
+        deckDisplay = DeckUtilities.CreateDisplay(point, Camera.main.pixelWidth/2, Camera.main.pixelHeight * 0.85f, "EventDisplay");
+        deckDisplay.cards = MapManager.mapManager.mapDeck.cards;
 
         GenerateOffers();
     }
@@ -113,7 +116,8 @@ public class SigilOffer : MonoBehaviour, IEvent
         }
         
         MapManager.mapManager.currentEvent = null;
-        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        MapManager.mapManager.mapLegend.SetActive(true);
+        deckDisplay.CloseDisplay();
         
         Destroy(gameObject);
     }

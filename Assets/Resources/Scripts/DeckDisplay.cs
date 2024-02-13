@@ -22,12 +22,16 @@ public class DeckDisplay : MonoBehaviour
     int maxScrollLines = 0;
     float currentScroll = 0;
     public bool placedInPrefab;
-
+    public float widthModifier;
+    public float heightModifier;
+    
+    Canvas canvas;
     CanvasScaler canvasScaler;
 
     void Start(){    
         // Setup variables
         deckHolder = transform.GetChild(0).GetComponent<RectTransform>();
+        canvas = GetComponent<Canvas>();
         canvasScaler = GetComponent<CanvasScaler>();
         DeckUtilities.AddDisplay(this);
 
@@ -49,10 +53,14 @@ public class DeckDisplay : MonoBehaviour
             // If the display is created via code ajust it
             ChangePosition(point);
         }else{
-            width  = deckHolder.rect.width;
-            height = deckHolder.rect.height;
+            widthModifier = Camera.main.pixelWidth/canvas.pixelRect.width;
+            heightModifier = Camera.main.pixelHeight/canvas.pixelRect.height;
+
+            width  = deckHolder.rect.width * widthModifier;
+            height = deckHolder.rect.height * heightModifier;
             point = deckHolder.rect.center;
             ShowCards();
+            ChangePosition(point);
         }
     }
     public void ChangePosition(Vector2 centerPoint){

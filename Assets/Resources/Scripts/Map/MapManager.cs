@@ -8,6 +8,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public bool canScroll = true;
     public GameObject nodeObject;
     public GameObject lineObject;
+    public GameObject mapLegend;
     public static MapManager mapManager;
 
     public MapNode currentNode;
@@ -247,13 +248,14 @@ public class MapManager : MonoBehaviour, IDataPersistence
     {
         if(!mapManager.canTravel) return;
 
-        if (mapManager.nodesAvaliable.Contains(node))// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+        if (mapManager.nodesAvaliable.Contains(node))
         {
             if (mapManager.currentNode != null)
             {
                 mapManager.currentNode.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
                 mapManager.currentNode.isCurrentNode = false;
             }
+
             mapManager.currentNode = node;
             node.isCurrentNode = true;
             ReverseMakeAvvNodesDifferent();
@@ -299,6 +301,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 GameObject eventUI = Instantiate(eventObject, eventCanvas);
                 eventUI.name = eventObject.name;
                 
+                mapManager.mapLegend.SetActive(false);
+
                 mapManager.currentEvent = eventUI;
                 
             }

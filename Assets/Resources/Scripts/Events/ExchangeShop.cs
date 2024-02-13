@@ -27,7 +27,9 @@ public class ExchangeShop : MonoBehaviour, IEvent
     void Start()
     {
         //Add the correct cards into the deck display
-        deckDisplay.cards = CombatManager.combatManager.deck.cards;
+        Vector2 point = new Vector2(Camera.main.pixelWidth * 1f/4f, 0);
+        deckDisplay = DeckUtilities.CreateDisplay(point, Camera.main.pixelWidth/2, Camera.main.pixelHeight * 0.85f, "EventDisplay");
+        deckDisplay.cards = MapManager.mapManager.mapDeck.cards;
 
         //Generate offers
         GenerateOffers();
@@ -155,6 +157,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
         }
         
         MapManager.mapManager.currentEvent = null;
+        MapManager.mapManager.mapLegend.SetActive(true);
         deckDisplay.CloseDisplay();
         
         Destroy(gameObject);
@@ -167,12 +170,12 @@ public class ExchangeShop : MonoBehaviour, IEvent
 
         SelectExchange1();
 
-        for(int i = 0; i < MapManager.mapManager.mapDeck.cards.Count; i++){
+        /*for(int i = 0; i < MapManager.mapManager.mapDeck.cards.Count; i++){
             if(MapManager.mapManager.mapDeck.cards[i].name == "LostSoul"){
                 cardSlotHandler.cardSlots[1].PlaceCard(MapManager.mapManager.mapDeck.cards[i]);
                 break;
             }
-        }
+        }*/
     }
 
     public void RevertLostSoulCase()

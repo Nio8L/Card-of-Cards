@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EventCardSlotHandler : MonoBehaviour
 {
     public EventCardSlot[] cardSlots;
     public EventCardSlot[] allCardSlots;
+
+    bool lostSoulCaseRepeat = true;
 
     public void AddCardOnSlot(int index, Card card){
         cardSlots[index].AddCard(card);
@@ -15,6 +18,23 @@ public class EventCardSlotHandler : MonoBehaviour
         foreach (EventCardSlot cardSlot in cardSlots)
         {
             if(cardSlot != null && cardSlot.card == null){
+                if(card.name == "LostSoul"){
+                    IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
+                    foreach(IEvent ievent in events){
+                        ievent.LostSoulCase();
+                        if (lostSoulCaseRepeat){
+                            lostSoulCaseRepeat = false;
+                            AddCardOnAvailableSlot(card);
+                            return;
+                        }
+                    }
+                }else{
+                    IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
+                    foreach(IEvent ievent in events){
+                        ievent.RevertLostSoulCase();
+                    }
+                }
+                lostSoulCaseRepeat = true;
                 cardSlot.AddCard(card);
                 return;
             }

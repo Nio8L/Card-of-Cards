@@ -30,22 +30,10 @@ public class EventCardSlot : MonoBehaviour
 
     //Takes a card from the deck and adds it to the slot
     public void AddCard(Card cardToAdd){
-        if(cardToAdd.name == "LostSoul"){
-            IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
-            foreach(IEvent ievent in events){
-                ievent.LostSoulCase();
-            }
-        }else{
-            PlaceCard(cardToAdd);
-            IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
-            foreach(IEvent ievent in events){
-                ievent.RevertLostSoulCase();
-            }
-        }
-
+        PlaceCard(cardToAdd);
         MapManager.mapManager.mapDeck.RemoveCard(cardToAdd);
 
-        DeckDisplay deck = DeckUtilities.GetDisplayWithName("ExchangeDeck");
+        DeckDisplay deck = DeckUtilities.GetDisplayWithName("EventDisplay");
         if (deck != null){
             deck.ShowCards(MapManager.mapManager.mapDeck.cards);
         }
@@ -64,7 +52,7 @@ public class EventCardSlot : MonoBehaviour
         if(card == null) return;
 
         MapManager.mapManager.mapDeck.AddCard(card);
-        DeckDisplay deck = DeckUtilities.GetDisplayWithName("ExchangeDeck");
+        DeckDisplay deck = DeckUtilities.GetDisplayWithName("EventDisplay");
         if (deck != null){
             deck.ShowCards(MapManager.mapManager.mapDeck.cards);
         }
@@ -77,5 +65,6 @@ public class EventCardSlot : MonoBehaviour
         }
 
         DropCard();
+        
     }
 }

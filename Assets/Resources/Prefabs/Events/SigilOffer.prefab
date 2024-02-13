@@ -100,7 +100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2194299603657996989}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -390.0062, y: 15, z: -0.41371864}
+  m_LocalPosition: {x: -209, y: 19, z: -0.41371864}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -280,7 +280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -643, y: -312}
+  m_AnchoredPosition: {x: -461.99377, y: -308}
   m_SizeDelta: {x: 570, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4707120056257434688
@@ -401,7 +401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4427882869145816917}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -390.0062, y: 15, z: -0.41371864}
+  m_LocalPosition: {x: -208.99997, y: 19, z: -0.41371864}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -433,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5354643178865373151}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -550, y: 250, z: 4.800528}
+  m_LocalPosition: {x: -368.99377, y: 254, z: 4.800528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -481,7 +481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -643, y: -312}
+  m_AnchoredPosition: {x: -461.99377, y: -308}
   m_SizeDelta: {x: 570, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6573964485569768299
@@ -762,7 +762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -643, y: -453}
+  m_AnchoredPosition: {x: -461.99377, y: -449}
   m_SizeDelta: {x: 570, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1660314277120508481
@@ -1247,6 +1247,7 @@ MonoBehaviour:
   sigilSelector: {fileID: 2135296331739161471}
   infuseButton: {fileID: 2728557800432495987}
   regenerateButton: {fileID: 4118068358057116966}
+  deckDisplay: {fileID: 0}
 --- !u!114 &8822589975365160667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,11 +1496,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 395710105477185799, guid: 6759e452e38611e4fb14236b9ce26e69, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -219.99377
+      value: -240
       objectReference: {fileID: 0}
     - target: {fileID: 395710105477185799, guid: 6759e452e38611e4fb14236b9ce26e69, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -130.09573
+      value: -140
       objectReference: {fileID: 0}
     - target: {fileID: 395710105477185799, guid: 6759e452e38611e4fb14236b9ce26e69, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

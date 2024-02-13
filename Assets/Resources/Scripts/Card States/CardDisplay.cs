@@ -112,12 +112,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         transform.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         transform.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
     }
-    
-    public IEnumerator DisplayDeck(float delay, int cardsPerRow, int xDisplacement){
-        yield return new WaitForSeconds(delay);
-
-        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    }
 
     public void PickCard()
     {

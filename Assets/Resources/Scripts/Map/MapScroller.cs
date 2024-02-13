@@ -22,8 +22,6 @@ public class MapScroller : MonoBehaviour
     {
         if(!MapManager.mapManager.canScroll) return;
         
-        if (true) //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        {
             if (Input.GetAxis("Mouse ScrollWheel") != 0f)
             {
                 if (animationTime > 0f){
@@ -36,7 +34,7 @@ public class MapScroller : MonoBehaviour
                     AnimationUtilities.MoveToPoint(mapCamera.transform, 0.25f, 0, new Vector3(0, Math.Clamp(newCameraY, 0, limitTop), -10));
                 }
             }
-        }
+        
         if (animationTime > 0f){
             animationTime -= Time.deltaTime * animationSpeed;
             if (animationTime <= 3f){

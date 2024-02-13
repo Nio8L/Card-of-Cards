@@ -21,13 +21,17 @@ public class Graveyard : MonoBehaviour, IEvent
     public Button getCardOffersButton;
     public Button pickCardButton;
 
+    public DeckDisplay deckDisplay;
+
 
     private bool healed = false;
     private bool canHeal = true; // Tracks whether the event can heal. The event can't heal after it has generated card offers
 
     private void Start() {
-        //Reposition the deck display and open it
-        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        //Add the correct cards into the deck display
+        Vector2 point = new Vector2(Camera.main.pixelWidth * 1f/4f, 0);
+        deckDisplay = DeckUtilities.CreateDisplay(point, Camera.main.pixelWidth/2, Camera.main.pixelHeight * 0.85f, "EventDisplay");
+        deckDisplay.cards = MapManager.mapManager.mapDeck.cards;
     }
 
     public void HealCard(){
@@ -99,7 +103,7 @@ public class Graveyard : MonoBehaviour, IEvent
         Destroy(selectedCardDisplay);
         selectedCardBorder.SetActive(false);
 
-        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        deckDisplay.ShowCards();
 
         LeaveEvent();
     }
@@ -117,7 +121,8 @@ public class Graveyard : MonoBehaviour, IEvent
         }
         
         MapManager.mapManager.currentEvent = null;
-        //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        MapManager.mapManager.mapLegend.SetActive(true);
+        deckDisplay.CloseDisplay();
         
         Destroy(gameObject);
     }
