@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 3.7. USE THE SOUL
   m_EditorClassIdentifier: 
   lines:
-  - Use the lost soul on an injured card to heal it.
+  - "Use the lost soul on an injured card \nto heal it."
   persistBetweenScenes: 0
   closable: 0

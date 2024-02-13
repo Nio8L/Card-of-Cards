@@ -16,6 +16,6 @@ MonoBehaviour:
   - 'Welcome to the
 
     combat tutorial!'
-  - In this part you will learn the basics of the game.
+  - "In this part you will learn \nthe basics of the game."
   persistBetweenScenes: 0
   closable: 1

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: 1.6. Show its sigils
   m_EditorClassIdentifier: 
   lines:
-  - And these are its sigil slots.
-  - You will learn more about them later in the tutorial.
+  - And these are it's sigil slots.
+  - "You will learn more about them \nlater in the tutorial."
+  persistBetweenScenes: 0
+  closable: 1

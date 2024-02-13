@@ -25,7 +25,8 @@ public class PO_TutorialMap : MonoBehaviour
     }
 
     private void Update() {
-        if(NotificationManager.notificationManager.notifications.Count == 0){
+        if(NotificationManager.notificationManager.notifications.Count == 0 ||
+           NotificationManager.notificationManager.notifications[0].GetCurrentLineIndex() == 6){
             MapManager.mapManager.canTravel = true;
             MapManager.mapManager.canScroll = true;
         }else if(NotificationManager.notificationManager.notifications[0].GetCurrentLineIndex() == 3){

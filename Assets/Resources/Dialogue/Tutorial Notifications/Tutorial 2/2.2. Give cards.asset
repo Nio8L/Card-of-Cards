@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 2.2. Give cards
   m_EditorClassIdentifier: 
   lines:
-  - Here try using these cards.
+  - Here - try using these cards.
   persistBetweenScenes: 0
   closable: 0

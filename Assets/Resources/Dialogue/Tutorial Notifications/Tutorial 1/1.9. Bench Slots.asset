@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: 1.9. Bench Slots
   m_EditorClassIdentifier: 
   lines:
-  - The outer rows are knows as the bench slots.
-  - There creatures can't attack or be attacked directly.
+  - "The outer rows are \nthe bench slots."
+  - "Here creatures can't attack \nor be attacked directly."
+  persistBetweenScenes: 0
+  closable: 1

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 1.10. Try playing a card
   m_EditorClassIdentifier: 
   lines:
-  - Try playing one of your cards on a slot of your choice.
+  - "Try playing one of your cards \non a slot of your choice."
   persistBetweenScenes: 0
   closable: 0

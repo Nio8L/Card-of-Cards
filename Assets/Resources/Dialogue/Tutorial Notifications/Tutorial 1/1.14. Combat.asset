@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 1.14. Combat
   m_EditorClassIdentifier: 
   lines:
-  - As you can see your card attack forward.
-  - Because there was no card blocking it damaged your enemy.
-  - You can see its health in the top right corner.
-  - When its health drops below 1 you win the fight.
+  - As you can see your card attacks forward.
+  - "Because there was no card blocking \nit damaged your enemy."
+  - "You can see it's health \nin the top right corner."
+  - "When it's health drops to 0 \nyou win the fight."
   persistBetweenScenes: 0
   closable: 1

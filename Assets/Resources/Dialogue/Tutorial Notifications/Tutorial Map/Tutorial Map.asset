@@ -17,7 +17,7 @@ MonoBehaviour:
   - 'In this part you will learn how to
 
     read and traverse the map.'
-  - "Each map consists of a \nsiries of connected rooms.\n"
+  - "Each map consists of a \nseries of connected rooms.\n"
   - 'You can travel to all rooms
 
     that have a red indicator.'

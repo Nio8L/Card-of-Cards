@@ -13,21 +13,20 @@ MonoBehaviour:
   m_Name: 4.1. Welcome to hunt
   m_EditorClassIdentifier: 
   lines:
-  - This is the last stage of the tutorial.
-  - In it you will learn about hunts.
-  - Hunts are special fight in which you can get the cards you kill.
-  - 'They end after a certain amount of rounds usually
+  - Not all combats function the same way.
+  - It's time to learn about hunts.
+  - "A hunt is a special fight \nin which you can get the \ncards you kill."
+  - 'They end after a certain amount of rounds
 
-    as seen in the top left
-    corner.'
+    as seen in the top left corner.'
   - 'The first 3 enemy cards that die are added to your deck after
 
     the hunt
     is over but they are injured.'
-  - You can see the cards you will recive at the top left corner.
-  - 'The hunt can be killed to end the fight early and still get reward
+  - "You can see the cards you will recive \nat the top left corner."
+  - 'The hunt can be killed to end the fight early and still get the rewards
 
     but
-    directly hitting it will cause it to spawn stronger cards.'
+    directly hitting it will cause it to summon stronger cards.'
   persistBetweenScenes: 0
   closable: 1

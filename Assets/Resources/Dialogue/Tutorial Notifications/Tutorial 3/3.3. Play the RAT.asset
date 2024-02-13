@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 3.3. Play the RAT
   m_EditorClassIdentifier: 
   lines:
-  - 'For now play your hurt mouse anywhere on the board
+  - 'For now play your injured mouse anywhere on the board
 
-    to see injuries in action.'
+    to see injuries in
+    action.'
   persistBetweenScenes: 0
   closable: 0

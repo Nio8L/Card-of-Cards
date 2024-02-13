@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: 2.1. Welcome2
   m_EditorClassIdentifier: 
   lines:
-  - In this part of the tutorial you will learn about sigils.
+  - "In this part of the tutorial \nyou will learn about sigils."
   - 'Sigils are a card''s abilities. '
-  - You can hover over them to see what they do.
+  - "You can hover over them \nto see what they do."
   - 'Some sigils are passive and work on their own
 
     and some are active and require
     your input.'
-  - You can use the active sigils of a card by right clicking that card
+  - "You can use the active sigils of a card \nby right clicking that card."
   persistBetweenScenes: 0
   closable: 1

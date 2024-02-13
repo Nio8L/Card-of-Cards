@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: 1.5.Show its cost
   m_EditorClassIdentifier: 
   lines:
-  - This shows how much energy this card costs to play.
+  - 'The energy icon shows
+
+    how much energy this card
+
+    costs to play.'
+  persistBetweenScenes: 0
+  closable: 1

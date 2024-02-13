@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: 3.2. Injured card given
   m_EditorClassIdentifier: 
   lines:
-  - As you can see on your new card it has a bleed sigil.
-  - 'If you look at its health indicator you can see it has been injured.
+  - "As you can see your new card \nhas been injured."
+  - 'You can hover over the health icon
 
-    Hover
-    over it to see what kind of injury it is.'
-  - "Injuries are given at the same time as bleed sigils and \ntheir type depends
-    on what killed it."
+    to see what type of injury it has.'
+  - 'The injury type depends
+
+    on what killed the card.'
   - 'There are 3 damage types: Scratch, Bite and Poison.'
   - 'You can see what kind of damage type a card has if you
 
@@ -28,6 +28,6 @@ MonoBehaviour:
   - 'If a card dies to a creature with a damage type it has already
 
     been injured
-    by it is replaced permanently with a "Lost soul".'
+    by the card will become a "Lost soul".'
   persistBetweenScenes: 0
   closable: 1

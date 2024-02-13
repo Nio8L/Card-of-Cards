@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: 3.1. Welcome
   m_EditorClassIdentifier: 
   lines:
-  - "In this last part of the basic tutorial you will learn about \ncard death."
-  - 'When you reduce a card''s health to 0 in combat it is
+  - 'It is time to learn about
 
-    returned back to
-    its owner''s deck.'
-  - 'But it will receive a new bleed sigil, which can replace
+    card death.'
+  - 'When a card''s health drops to 0 it is
 
-    existing sigils
-    if there is no space to add it.'
+    returned back to its owner''s deck.'
+  - 'The returned card will be
+
+    injured and it will gain a
+
+    bleed sigil.'
   persistBetweenScenes: 0
   closable: 1

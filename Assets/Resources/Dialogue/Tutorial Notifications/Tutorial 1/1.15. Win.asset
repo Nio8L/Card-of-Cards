@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 1.15. Win
   m_EditorClassIdentifier: 
   lines:
-  - Now try to win the fight by attacking your enemy.
+  - "Now try to win the fight \nby attacking your enemy."
   persistBetweenScenes: 0
   closable: 0

@@ -20,9 +20,9 @@ MonoBehaviour:
 
     transformed
     into a "Lost soul".'
-  - 'Lost soul cards can be played on top of cards with injuries
+  - 'Lost soul cards can be played on top of injured cards
 
-    to remove them.'
-  - They are 1 time use and have some special interactions.
+    to heal them.'
+  - "They are 1 time use \nand have some special interactions."
   persistBetweenScenes: 0
   closable: 1

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: 1.3. Show its health
   m_EditorClassIdentifier: 
   lines:
-  - The heart icon indicates this cards health.
+  - "The heart icon indicates \nthis card's health."
+  persistBetweenScenes: 0
+  closable: 1

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: 1.2. Card shows up
   m_EditorClassIdentifier: 
   lines:
-  - For starters this is a card.
-  - It is used to play creatures on the board.
+  - This is what a card looks like
+  - "It is used to summon creatures \non the board."
+  persistBetweenScenes: 0
+  closable: 1

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: 1.4. Show its attack
   m_EditorClassIdentifier: 
   lines:
-  - This icon shows the damage type of the card as well as its damage.
+  - "The damage icon shows\nthe damage type and \nthe damage amount. "
+  persistBetweenScenes: 0
+  closable: 1

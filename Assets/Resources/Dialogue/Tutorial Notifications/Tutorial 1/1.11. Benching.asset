@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: 1.11. Benching
   m_EditorClassIdentifier: 
   lines:
-  - 'Now that the card is played try clicking it to move it
-
-    between the bench
-    and the combat slots.'
+  - "Now that the card is played \ntry clicking it to move it\nto the bench slot."
   persistBetweenScenes: 0
   closable: 0
