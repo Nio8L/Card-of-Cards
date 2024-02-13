@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3765818151877959665, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3765818151877959667, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
       propertyPath: m_Name
       value: Arrow (3)
@@ -241,6 +245,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3765818151877959665, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3765818151877959667, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
       propertyPath: m_Name
       value: Arrow (2)
@@ -345,6 +353,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3765818151877959665, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3765818151877959665, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3765818151877959667, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
@@ -455,6 +467,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3765818151877959665, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3765818151877959665, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3765818151877959667, guid: c740fec42ebfdbb46af5a585e4d9c342, type: 3}
