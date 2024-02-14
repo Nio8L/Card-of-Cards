@@ -38,6 +38,8 @@ public class CardTooltipSetter : MonoBehaviour, IPointerEnterHandler
             }
 
             heart.GetComponent<TooltipTrigger>().content = tooltipText;
+        }else{
+            heart.GetComponent<TooltipTrigger>().content = "This card has no injuries.";
         }
     }
 
