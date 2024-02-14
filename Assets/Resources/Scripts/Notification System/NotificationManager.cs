@@ -22,18 +22,21 @@ public class NotificationManager : MonoBehaviour
         private GameObject notificationUI;
         private TextMeshProUGUI notificationText;
         private Button nextLineButton;
+        private Button previousLineButton;
 
         public NotificationWindow(Notification notification){
             //Instantiate the UI
             notificationUI = Instantiate(notificationManager.notificationObject, Vector3.zero, Quaternion.identity);
             notificationUI.transform.SetParent(notificationManager.transform);
 
-            //Get the notification text and button
+            //Get the notification text and buttons
             notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
-            nextLineButton = notificationUI.GetComponentInChildren<Button>();
+            nextLineButton = notificationText.transform.GetChild(0).GetComponent<Button>();
+            previousLineButton = notificationText.transform.GetChild(1).GetComponent<Button>();
 
-            //Attach OnClick to the button
-            nextLineButton.onClick.AddListener(OnClick);
+            //Attach OnClick to the buttons
+            nextLineButton.onClick.AddListener(NextLine);
+            previousLineButton.onClick.AddListener(PreviousLine);
 
             nextLineButton.gameObject.SetActive(notification.closable);
 
@@ -49,12 +52,14 @@ public class NotificationManager : MonoBehaviour
             //Gets the Background (which is a child of the Canvas) and sets its position
             notificationUI.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().localPosition = position;
 
-            //Get the notification text and button
+           //Get the notification text and buttons
             notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
-            nextLineButton = notificationUI.GetComponentInChildren<Button>();
+            nextLineButton = notificationText.transform.GetChild(0).GetComponent<Button>();
+            previousLineButton = notificationText.transform.GetChild(1).GetComponent<Button>();
 
-            //Attach OnClick to the button
-            nextLineButton.onClick.AddListener(OnClick);
+            //Attach OnClick to the buttons
+            nextLineButton.onClick.AddListener(NextLine);
+            previousLineButton.onClick.AddListener(PreviousLine);
 
             nextLineButton.gameObject.SetActive(notification.closable);
 
@@ -70,12 +75,14 @@ public class NotificationManager : MonoBehaviour
             //Gets the Background (which is a child of the Canvas) and sets its position
             notificationUI.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().localPosition = position;
 
-            //Get the notification text and button
+            //Get the notification text and buttons
             notificationText = notificationUI.GetComponentInChildren<TextMeshProUGUI>();
-            nextLineButton = notificationUI.GetComponentInChildren<Button>();
+            nextLineButton = notificationText.transform.GetChild(0).GetComponent<Button>();
+            previousLineButton = notificationText.transform.GetChild(1).GetComponent<Button>();
 
-            //Attach OnClick to the button
-            nextLineButton.onClick.AddListener(OnClick);
+            //Attach OnClick to the buttons
+            nextLineButton.onClick.AddListener(NextLine);
+            previousLineButton.onClick.AddListener(PreviousLine);
 
             nextLineButton.gameObject.SetActive(notification.closable);
 
@@ -94,7 +101,25 @@ public class NotificationManager : MonoBehaviour
 
         //Go to the next line in the notification
         public void NextLine(){
-            currentLineIndex++;
+            //Close the notification if this was the last line, otherwise go to the next line
+            if(currentLineIndex == currentNotification.lines.Count - 1){
+                CloseNotificationWindow();
+            }else{
+                currentLineIndex++;
+
+                SetLine(currentLineIndex);
+                
+                previousLineButton.gameObject.SetActive(true);
+            }
+        }
+
+        //Go to the previous line in the notification
+        public void PreviousLine(){
+            currentLineIndex--;
+
+            if(currentLineIndex == 0){
+                previousLineButton.gameObject.SetActive(false);
+            }
 
             SetLine(currentLineIndex);
         }
@@ -122,16 +147,6 @@ public class NotificationManager : MonoBehaviour
         public void CloseNotificationWindow(){
             Destroy(notificationUI);
             notificationManager.notifications.Remove(this);
-        }
-
-        //This function is called when the button on the notificationUI is pressed
-        public void OnClick(){
-            //Close the notification if this was the last line, otherwise go to the next line
-            if(currentLineIndex == currentNotification.lines.Count - 1){
-                CloseNotificationWindow();
-            }else{
-                NextLine();
-            }
         }
     };
 
