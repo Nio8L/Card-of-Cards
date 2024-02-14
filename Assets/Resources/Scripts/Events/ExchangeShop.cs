@@ -168,6 +168,8 @@ public class ExchangeShop : MonoBehaviour, IEvent
         exchangeButton.gameObject.SetActive(false);
         regenerateButton.gameObject.SetActive(true);
 
+        cardSlotHandler.DisableAllSlots();
+
         SelectExchange1();
 
         /*for(int i = 0; i < MapManager.mapManager.mapDeck.cards.Count; i++){
