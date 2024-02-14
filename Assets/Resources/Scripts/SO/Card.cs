@@ -72,7 +72,7 @@ public class Card : ScriptableObject
         name = cardToCopyFrom.name;
 
         maxHealth = cardToCopyFrom.maxHealth;
-        attack = cardToCopyFrom.attack;
+        defaultAttack = cardToCopyFrom.defaultAttack;
         cost = cardToCopyFrom.cost;
         image = cardToCopyFrom.image;
         typeOfDamage = cardToCopyFrom.typeOfDamage;
