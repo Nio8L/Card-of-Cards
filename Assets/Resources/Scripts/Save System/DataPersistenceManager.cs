@@ -42,7 +42,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public string lastEvent;
 
-        public EnemyBase lastEnemyAI;
+    public EnemyBase lastEnemyAI;
 
     private string selectedProfileId = "";
 

@@ -32,7 +32,7 @@ public class CardInCombat : MonoBehaviour
     {
         card.ActivateOnSummonEffects(this);
         deck.UpdateCardAppearance(transform, card);
-        bloodSplat = Resources.Load<GameObject>("Prefabs/BloodSplatPart");
+        bloodSplat = Resources.Load<GameObject>("Prefabs/Particles/BloodSplatPart");
         deathMark = Resources.Load<GameObject>("Prefabs/DeathMark");
     }
     private void Update()
