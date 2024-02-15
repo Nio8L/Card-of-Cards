@@ -1618,13 +1618,6 @@ MonoBehaviour:
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
-  - name: CardHit
-    clip:
-    - {fileID: 8300000, guid: 7b49f78b8b62ce44d94217961040e964, type: 3}
-    volume: 1
-    pitch: 1
-    playBetweenScenes: 0
-    source: {fileID: 0}
   - name: CardDraw
     clip:
     - {fileID: 8300000, guid: 8342d0fa77cfd4544a2eda2253cfd691, type: 3}
@@ -1644,10 +1637,17 @@ MonoBehaviour:
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
+  - name: CardHit
+    clip:
+    - {fileID: 8300000, guid: 7b49f78b8b62ce44d94217961040e964, type: 3}
+    volume: 1
+    pitch: 1
+    playBetweenScenes: 0
+    source: {fileID: 0}
   - name: CardCombat
     clip:
     - {fileID: 8300000, guid: 55ccbb07a03752b4aa3404e184cefbfb, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
