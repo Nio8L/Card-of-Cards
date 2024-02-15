@@ -455,7 +455,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuButtons: {fileID: 1979627588}
-  stuffToDisable: {fileID: 1377556450}
+  stuffToDisable:
+  - {fileID: 1377556450}
+  - {fileID: 1683274915}
+  - {fileID: 1311470026}
   settingsMenu: {fileID: 1056656128}
 --- !u!4 &320517806
 Transform:
@@ -3122,6 +3125,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7637107319591273092, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
   m_PrefabInstance: {fileID: 1311470021}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1311470026 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7637107318382034680, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+  m_PrefabInstance: {fileID: 1311470021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1356749220
 GameObject:
   m_ObjectHideFlags: 0
@@ -3194,7 +3202,7 @@ MonoBehaviour:
   nodesAvaliable: []
   lastLayer: {fileID: 0}
   mapDeck: {fileID: 0}
-  lastEnemyAI: {fileID: 0}
+  eventUsed: 0
   eventCanvas: {fileID: 455741962}
   events:
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}

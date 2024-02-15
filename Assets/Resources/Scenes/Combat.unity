@@ -944,7 +944,7 @@ RectTransform:
   m_Children:
   - {fileID: 1617953787}
   m_Father: {fileID: 929683084}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1654,10 +1654,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuButtons: {fileID: 796945409}
   settingsMenu: {fileID: 1341768273}
-  cardSlots: {fileID: 1212856396}
-  cardsInHand: {fileID: 1729705259}
-  cardsInCombat: {fileID: 743951258}
-  bench: {fileID: 291470461}
+  stuffToDisable:
+  - {fileID: 743951258}
+  - {fileID: 1729705259}
+  - {fileID: 1550067301}
+  - {fileID: 291470461}
+  - {fileID: 1212856396}
+  - {fileID: 736874936}
   aboutToOpenMenu: 0
 --- !u!4 &573670494
 Transform:
@@ -2038,7 +2041,7 @@ RectTransform:
   - {fileID: 188619946}
   - {fileID: 581765638}
   m_Father: {fileID: 929683084}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2074,7 +2077,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 929683084}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2356,7 +2359,7 @@ RectTransform:
   - {fileID: 1471435264}
   - {fileID: 90838031}
   m_Father: {fileID: 929683084}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3262,6 +3265,7 @@ RectTransform:
   m_Children:
   - {fileID: 551016139}
   - {fileID: 1550067302}
+  - {fileID: 1125958667}
   - {fileID: 796945410}
   - {fileID: 1341768272}
   - {fileID: 743951259}
@@ -3903,8 +3907,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 446892906}
-  m_Father: {fileID: 1550067302}
-  m_RootOrder: 9
+  m_Father: {fileID: 929683084}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4898,7 +4902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5587,7 +5591,6 @@ RectTransform:
   - {fileID: 1775769232}
   - {fileID: 700763870}
   - {fileID: 1896396470}
-  - {fileID: 1125958667}
   m_Father: {fileID: 929683084}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6191,7 +6194,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 929683084}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6996,7 +6999,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Round: O8y76uyt87t'
+  m_text: 'Round: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
@@ -8032,7 +8035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2852792538213253464, guid: 9bab1093b36c5cd469f02ea5bb6495b1, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2852792538213253464, guid: 9bab1093b36c5cd469f02ea5bb6495b1, type: 3}
       propertyPath: m_AnchorMax.x

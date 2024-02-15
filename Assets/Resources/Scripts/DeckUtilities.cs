@@ -28,7 +28,7 @@ public class DeckUtilities : MonoBehaviour
             List<Card> cards = new List<Card>();
 
             if      (sceneName == "Map")         cards = MapManager.mapManager.mapDeck.cards;
-            else if (sceneName == "SampleScene") cards = CombatManager.combatManager.deck.cards;
+            else if (sceneName == "Combat") cards = CombatManager.combatManager.deck.cards;
 
             if (cards.Count != 0) SingularDisplay("deck", cards);
         }

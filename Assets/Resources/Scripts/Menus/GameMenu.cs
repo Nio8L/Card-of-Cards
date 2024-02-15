@@ -11,11 +11,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
 
     [Header("Stuff to Disable")]
-    [SerializeField] private GameObject cardSlots;
-    [SerializeField] private GameObject cardsInHand;
-    [SerializeField] private GameObject cardsInCombat;
-    [SerializeField] private GameObject bench;
-    //[SerializeField] private GameObject pilesAndHp;
+    public GameObject[] stuffToDisable;
 
     public bool aboutToOpenMenu = false;
 
@@ -52,10 +48,6 @@ public class GameMenu : MonoBehaviour
         ChangeButtonsState();
     }
 
-    public void SaveGame(){
-        DataPersistenceManager.DataManager.SaveGame();
-    }
-
     public void OnClickSettings(){
         SoundManager.soundManager.Play("ButtonClick");
         DataPersistenceManager.DataManager.LoadSettings();
@@ -78,9 +70,8 @@ public class GameMenu : MonoBehaviour
     }
 
     private void ChangeUIState(){
-        cardSlots.SetActive(!cardSlots.activeSelf);
-        cardsInHand.SetActive(!cardsInHand.activeSelf);
-        cardsInCombat.SetActive(!cardsInCombat.activeSelf);
-        bench.SetActive(!bench.activeSelf);
+        for(int i = 0; i < stuffToDisable.Length; i++){
+            stuffToDisable[i].SetActive(!stuffToDisable[i].activeSelf);
+        }
     }
 }

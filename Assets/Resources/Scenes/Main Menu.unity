@@ -1647,7 +1647,7 @@ MonoBehaviour:
   - name: CardCombat
     clip:
     - {fileID: 8300000, guid: 55ccbb07a03752b4aa3404e184cefbfb, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     playBetweenScenes: 0
     source: {fileID: 0}
