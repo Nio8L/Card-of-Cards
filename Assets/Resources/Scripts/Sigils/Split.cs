@@ -18,7 +18,7 @@ public class Split : Sigil
 
             card.deck.drawPile.Add(cardToAdd);
 
-            EventManager.CardCreated?.Invoke(splittedCard, card.deck.drawPile);
+            EventManager.CardCreated?.Invoke(splittedCard, card.deck.drawPile, card.deck.playerDeck);
         }
     }
 

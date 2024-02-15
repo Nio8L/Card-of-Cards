@@ -34,7 +34,7 @@ public class SecondSkin : Sigil
         // Instantiate the card to prevent the game from overriding the original scriptable object
         Card newCard = Instantiate(cardToSpawn).ResetCard();
         newCard.name = cardToSpawn.name;
-        EventManager.CardCreated?.Invoke(cardToSpawn, card.deck.drawPile);
+        EventManager.CardCreated?.Invoke(cardToSpawn, card.deck.drawPile, card.deck.playerDeck);
 
         // Play the card
         if (card.playerCard && CombatManager.combatManager.playerBenchCards[card.slot] == null)
