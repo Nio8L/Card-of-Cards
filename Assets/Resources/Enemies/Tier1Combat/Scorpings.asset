@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
-  m_Name: WormBattle
+  m_Name: Scorpings
   m_EditorClassIdentifier: 
   maxHealth: 20
   path: Tier1Combat
@@ -21,14 +21,16 @@ MonoBehaviour:
   isHunter: 0
   currentPacingObject: {fileID: 0}
   cards:
-  - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
-  - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
-  - {fileID: 11400000, guid: ad63cf45f02d41a4a9dbd2c76ff18c38, type: 2}
+  - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+  - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+  - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
+  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
   - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-  maxCardsPerTurn: 5
-  maxEnergy: 4
-  startPlayingDefensivelyAt: 15
+  maxCardsPerTurn: 3
+  maxEnergy: 2
+  startPlayingDefensivelyAt: 0
   canUseLostSoul: 1
-  useKillerStrategyInstead: 0
+  useKillerStrategyInstead: 1
   canSeePlayerCardsPlacedThisTurn: 0
-  canHideCardsThatAreAboutToDie: 1
+  canHideCardsThatAreAboutToDie: 0

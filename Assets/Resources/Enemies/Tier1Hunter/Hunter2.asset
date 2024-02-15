@@ -28,7 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-  - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+  - {fileID: 11400000, guid: ad63cf45f02d41a4a9dbd2c76ff18c38, type: 2}
   maxCardsPerTurn: 5
   maxEnergy: 5
   startPlayingDefensivelyAt: 20

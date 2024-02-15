@@ -1329,6 +1329,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   - {fileID: 11400000, guid: cd7762a5964b23a41926fa5c87837406, type: 2}
   - {fileID: 11400000, guid: d2c5287dfa0603d4cbdaa4b6886d2a6d, type: 2}
+  - {fileID: 11400000, guid: ad63cf45f02d41a4a9dbd2c76ff18c38, type: 2}
   price3Choices:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: f7b463f1d2b777043853cc418e61d4e8, type: 2}

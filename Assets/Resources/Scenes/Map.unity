@@ -3190,11 +3190,11 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   numOfLayers: 12
   isGenerating: 1
-  chanceForRooms: 00000000000000000000000064000000
+  chanceForRooms: 1e00000014000000140000001e000000
   nodesAvaliable: []
   lastLayer: {fileID: 0}
   mapDeck: {fileID: 0}
-  lastEnemyAI: {fileID: 0}
+  eventUsed: 0
   eventCanvas: {fileID: 455741962}
   events:
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
