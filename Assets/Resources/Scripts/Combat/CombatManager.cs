@@ -59,6 +59,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     void Awake(){
         combatManager = this;
+
+        // Clear all existing displays
+        DeckUtilities.CloseAllDisplays();
         
         // Setup tutorial
         if(DataPersistenceManager.DataManager.inTutorial)
@@ -535,6 +538,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleEndEffects(enemyBenchCards[i]);
         }
 
+        // Clear all existing displays
+        DeckUtilities.CloseAllDisplays();
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         combatUI.EndCombat(true);
         deck.cards.AddRange(battleReward);
@@ -555,6 +560,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleEndEffects(enemyBenchCards[i]);
         }
 
+        // Clear all existing displays
+        DeckUtilities.CloseAllDisplays();
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         combatUI.EndCombat(false);
         
@@ -566,6 +573,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         combatUI.EndCombat(true);
         
         deck.cards.AddRange(battleReward);
+
+        // Clear all existing displays
+        DeckUtilities.CloseAllDisplays();
     }
     #endregion
     

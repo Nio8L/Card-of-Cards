@@ -20,6 +20,9 @@ public class MapScroller : MonoBehaviour
 
     private void Update()
     {
+        // Quick and ducktape-e fix to the scrolling issue
+        if (DeckUtilities.deckUtilities.activeDisplays.Count > 0) return;
+
         if(!MapManager.mapManager.canScroll) return;
         
             if (Input.GetAxis("Mouse ScrollWheel") != 0f)

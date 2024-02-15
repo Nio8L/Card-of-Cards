@@ -267,12 +267,14 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             if (mapManager.currentNode.roomType == MapNode.RoomType.Combat)
             {
+                // Click on combat node
                 EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(Random.value * tier1EnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.RestSite)
             {
+                // Click on rest site node
                 if (mapManager.mapDeck.playerHealth < 10) mapManager.mapDeck.playerHealth += 10;
                 else mapManager.mapDeck.playerHealth = 20;
 
@@ -282,6 +284,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunt)
             {
+                // Click on hunt node
                 retry:;
                 EnemyBase ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
                 if(ai == mapManager.lastEnemyAI){
@@ -293,13 +296,20 @@ public class MapManager : MonoBehaviour, IDataPersistence
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunter)
             {
+                // Click on hunter node
                 EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(Random.value * hunterEnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Event)
             {
-                GameObject eventObject = mapManager.events[Random.Range(0, mapManager.events.Length)];
+                // Click on event node
+                GameObject eventObject;
+                // Reroll the event until it picks different one from last time
+                do{
+                    eventObject = mapManager.events[Random.Range(0, mapManager.events.Length)];
+                }while (eventObject.name == mapManager.lastEvent);
+
                 GameObject eventUI = Instantiate(eventObject, mapManager.eventCanvas);
                 eventUI.name = eventObject.name;
                 
@@ -307,7 +317,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
                 mapManager.currentEvent = eventUI;
 
-                mapManager.lastEvent = eventUI.name;
+                mapManager.lastEvent = eventObject.name;
                 mapManager.eventUsed = false;
                 
             }

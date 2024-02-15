@@ -41,6 +41,8 @@ public class MapMenu : MonoBehaviour
         SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);
         SceneManager.LoadSceneAsync("Main Menu");
+        // Clear all existing displays
+        DeckUtilities.CloseAllDisplays();
     }
 
     public void ResumeGame(){

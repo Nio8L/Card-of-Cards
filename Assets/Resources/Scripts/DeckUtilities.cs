@@ -23,10 +23,14 @@ public class DeckUtilities : MonoBehaviour
 
     void Update(){
         if(Input.GetKeyUp(KeyCode.D)){
+            string sceneName = SceneManager.GetActiveScene().name;
+
             List<Card> cards = new List<Card>();
-            if      (SceneManager.GetActiveScene().name == "Map")         cards = MapManager.mapManager.mapDeck.cards;
-            else if (SceneManager.GetActiveScene().name == "SampleScene") cards = CombatManager.combatManager.deck.cards;
-            SingularDisplay("deck", cards);
+            
+            if      (sceneName == "Map")         cards = MapManager.mapManager.mapDeck.cards;
+            else if (sceneName == "SampleScene") cards = CombatManager.combatManager.deck.cards;
+
+            if (cards.Count != 0) SingularDisplay("deck", cards);
         }
     }
 
@@ -45,7 +49,11 @@ public class DeckUtilities : MonoBehaviour
 
     public static void CloseAllDisplays(){
         while (deckUtilities.activeDisplays.Count > 0){
-            deckUtilities.activeDisplays[0].CloseDisplay();
+            if (deckUtilities.activeDisplays[0] != null){
+                deckUtilities.activeDisplays[0].CloseDisplay();
+            }else{
+                deckUtilities.activeDisplays.RemoveAt(0);
+            }
         }
     }
     public static void SetActiveDisplays(bool active){

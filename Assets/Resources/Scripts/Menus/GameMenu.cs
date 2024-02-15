@@ -67,6 +67,8 @@ public class GameMenu : MonoBehaviour
         EventManager.CombatEnd?.Invoke();
         ChangeButtonsState();
         SceneManager.LoadSceneAsync("Main Menu");
+        // Clear all existing displays
+        DeckUtilities.CloseAllDisplays();
     }
 
     private void ChangeButtonsState(){
