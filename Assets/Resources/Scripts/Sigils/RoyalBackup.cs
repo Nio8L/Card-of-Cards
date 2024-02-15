@@ -17,7 +17,7 @@ public class RoyalBackup : Sigil
 
         card.deck.drawPile.Add(cardToAdd);
 
-        EventManager.CardCreated?.Invoke(chosenCard, card.deck.drawPile);
+        EventManager.CardCreated?.Invoke(chosenCard, card.deck.drawPile, card.deck.playerDeck);
     }
 
 }
