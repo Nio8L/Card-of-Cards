@@ -35,6 +35,18 @@ public class LayerClass
 }
 
 [System.Serializable]
+public class MapEvent
+{
+    public string name;
+    public bool used;
+
+    public MapEvent(){
+        name = "";
+        used = false;
+    }
+}
+
+[System.Serializable]
 public class GameData
 {
   
@@ -55,6 +67,7 @@ public class GameData
     public List<string> cardDamageType;
 
     public string enemyAI;
+    public MapEvent mapEvent;
 
     public List<LayerClass> mapLayers;
 
@@ -74,6 +87,8 @@ public class GameData
         cardDamageType = new();
         
         enemyAI = "";
+        mapEvent = new();
+
 
         mapLayers = new();
 

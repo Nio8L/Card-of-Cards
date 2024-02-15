@@ -61,7 +61,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &8183449722413203002
 MonoBehaviour:
@@ -139,13 +139,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  deckHolder: {fileID: 0}
   width: 1000
   height: 800
   cardOffset: 100
   cardWidth: 170
   cardHeight: 250
   point: {x: 0, y: 0}
+  placedInPrefab: 0
+  widthModifier: 0
+  heightModifier: 0
 --- !u!225 &3655564542104694225
 CanvasGroup:
   m_ObjectHideFlags: 0

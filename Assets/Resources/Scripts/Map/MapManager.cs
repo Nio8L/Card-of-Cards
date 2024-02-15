@@ -34,9 +34,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public MapDeck mapDeck;
     private bool shouldGenerate = true;
 
+    [Header("Tracking")]
     public EnemyBase lastEnemyAI;
 
-    static Transform eventCanvas;
+    private string lastEvent;
+    public bool eventUsed = false;
+
+    public Transform eventCanvas;
 
     public GameObject[] events;
     public GameObject currentEvent;
@@ -56,8 +60,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
-        eventCanvas = GameObject.Find("EventCanvas").transform;
-
         tier1EnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Combat");
         huntEnemyAIs = Resources.LoadAll<EnemyBase>("Enemies/Hunt");
         hunterEnemyAIs = Resources.LoadAll<EnemyAI>("Enemies/Tier1Hunter");
@@ -274,7 +276,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 if (mapManager.mapDeck.playerHealth < 10) mapManager.mapDeck.playerHealth += 10;
                 else mapManager.mapDeck.playerHealth = 20;
 
-                Instantiate(mapManager.restSiteParticles, eventCanvas.transform);
+                Instantiate(mapManager.restSiteParticles, mapManager.eventCanvas.transform);
                 mapManager.mapDeck.UpdateHPText();
                 DataPersistenceManager.DataManager.currentCombatAI = null;
             }
@@ -298,12 +300,15 @@ public class MapManager : MonoBehaviour, IDataPersistence
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Event)
             {
                 GameObject eventObject = mapManager.events[Random.Range(0, mapManager.events.Length)];
-                GameObject eventUI = Instantiate(eventObject, eventCanvas);
+                GameObject eventUI = Instantiate(eventObject, mapManager.eventCanvas);
                 eventUI.name = eventObject.name;
                 
                 mapManager.mapLegend.SetActive(false);
 
                 mapManager.currentEvent = eventUI;
+
+                mapManager.lastEvent = eventUI.name;
+                mapManager.eventUsed = false;
                 
             }
             //new curent node
@@ -407,6 +412,24 @@ public class MapManager : MonoBehaviour, IDataPersistence
             Generate(data.mapLayers);  
         }
         DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
+
+        if (currentNode != null)
+        {
+            if(currentNode.roomType == MapNode.RoomType.Event){
+                for(int i = 0; i < events.Length; i++){
+                    if(events[i].name == data.mapEvent.name && !data.mapEvent.used){
+                        GameObject eventUI = Instantiate(events[i], eventCanvas);
+                        eventUI.name = events[i].name;
+                        
+                        mapManager.mapLegend.SetActive(false);
+    
+                        mapManager.currentEvent = eventUI;
+    
+                        mapManager.lastEvent = eventUI.name;
+                    }
+                }
+            }
+        }
     }
 
     public void SaveData(GameData data)
@@ -440,5 +463,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }else{
             data.enemyAI = "";
         }
+
+        data.mapEvent.name = lastEvent;
+        data.mapEvent.used = eventUsed;
     }
 }

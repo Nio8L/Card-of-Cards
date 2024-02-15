@@ -17,9 +17,11 @@ public class MapMenu : MonoBehaviour
             if(!settingsMenu.gameObject.activeSelf){
                 menuButtons.SetActive(!menuButtons.activeSelf);
                 stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+                DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
             }else{
                 settingsMenu.DeactivateMenu();
                 stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+                DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
             }
         }
     }
@@ -45,6 +47,7 @@ public class MapMenu : MonoBehaviour
         SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);
         stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+        DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
     }
 
     public void OnClickSettings(){

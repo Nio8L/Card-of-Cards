@@ -16,6 +16,8 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] public float audioLevel = 0;
     [SerializeField] public float musicLevel = 0;
 
+
+    [Header("Between scenes tracking")]
     public EnemyBase currentCombatAI;
     public List<Card> playerDeck;
 

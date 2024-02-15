@@ -18,6 +18,7 @@ public class DeckUtilities : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         deckUtilities = this;
+        activeDisplays = new();
     }
 
     void Update(){
@@ -47,13 +48,24 @@ public class DeckUtilities : MonoBehaviour
             deckUtilities.activeDisplays[0].CloseDisplay();
         }
     }
+    public static void SetActiveDisplays(bool active){
+        for(int i = 0; i < deckUtilities.activeDisplays.Count; i++){
+            if (deckUtilities.activeDisplays[i] != null)
+            {
+                deckUtilities.activeDisplays[i].gameObject.SetActive(active);
+            }
+        }
+    }
 
     public static DeckDisplay GetDisplayWithName(string name){
         DeckDisplay deck = null;
 
         for (int i = 0; i < deckUtilities.activeDisplays.Count; i++){
-            if (deckUtilities.activeDisplays[i].name == name){
-                deck = deckUtilities.activeDisplays[i];
+            if (deckUtilities.activeDisplays[i] != null)
+            {
+                if (deckUtilities.activeDisplays[i].name == name){
+                    deck = deckUtilities.activeDisplays[i];
+                }
             }
         }
         return deck;
@@ -68,4 +80,5 @@ public class DeckUtilities : MonoBehaviour
             deck.CloseDisplay();
         }
     }
+
 }
