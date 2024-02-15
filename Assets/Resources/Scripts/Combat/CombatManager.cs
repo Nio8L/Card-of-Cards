@@ -625,6 +625,4 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public void DiscardPileButton(){
         DeckUtilities.SingularDisplay("deck", deck.discardPile);
     }
-
-
 }

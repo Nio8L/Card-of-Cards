@@ -24,6 +24,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
     public Button regenerateButton;
 
     public DeckDisplay deckDisplay;
+
     void Start()
     {
         //Add the correct cards into the deck display
@@ -33,6 +34,8 @@ public class ExchangeShop : MonoBehaviour, IEvent
 
         //Generate offers
         GenerateOffers();
+        //Auto select offer 1
+        SelectOfferedCard(shopSlots[0], shopSlots[0].GetComponent<CardDisplay>().card);
     }
 
     public void GenerateOffers(){

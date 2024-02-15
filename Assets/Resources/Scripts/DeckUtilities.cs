@@ -26,7 +26,7 @@ public class DeckUtilities : MonoBehaviour
             string sceneName = SceneManager.GetActiveScene().name;
 
             List<Card> cards = new List<Card>();
-            
+
             if      (sceneName == "Map")         cards = MapManager.mapManager.mapDeck.cards;
             else if (sceneName == "SampleScene") cards = CombatManager.combatManager.deck.cards;
 
@@ -35,6 +35,7 @@ public class DeckUtilities : MonoBehaviour
     }
 
     public static DeckDisplay CreateDisplay(Vector2 position, float width, float height, string name){
+        // Creates a display via code and returns it
         DeckDisplay display = Instantiate(deckUtilities.deckDisplay, Vector3.zero, Quaternion.identity).GetComponent<DeckDisplay>();
         display.point = position;
         display.width = width;
@@ -46,8 +47,8 @@ public class DeckUtilities : MonoBehaviour
         // Add a display to the list
         deckUtilities.activeDisplays.Add(newDisplay);
     }
-
     public static void CloseAllDisplays(){
+        // Closes all displays
         while (deckUtilities.activeDisplays.Count > 0){
             if (deckUtilities.activeDisplays[0] != null){
                 deckUtilities.activeDisplays[0].CloseDisplay();
@@ -57,6 +58,7 @@ public class DeckUtilities : MonoBehaviour
         }
     }
     public static void SetActiveDisplays(bool active){
+        // makes all displays active or inactive
         for(int i = 0; i < deckUtilities.activeDisplays.Count; i++){
             if (deckUtilities.activeDisplays[i] != null)
             {
@@ -64,7 +66,6 @@ public class DeckUtilities : MonoBehaviour
             }
         }
     }
-
     public static DeckDisplay GetDisplayWithName(string name){
         DeckDisplay deck = null;
 
@@ -78,7 +79,6 @@ public class DeckUtilities : MonoBehaviour
         }
         return deck;
     }
-
     public static void SingularDisplay(string name, List<Card> cards){
         DeckDisplay deck = GetDisplayWithName(name);
         if (deck == null){

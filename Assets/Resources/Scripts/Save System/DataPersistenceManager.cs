@@ -40,6 +40,9 @@ public class DataPersistenceManager : MonoBehaviour
     private FileDataHandler dataHandler;
     private FileDataHandler settingsHandler;
 
+    public string lastEvent;
+
+        public EnemyBase lastEnemyAI;
 
     private string selectedProfileId = "";
 

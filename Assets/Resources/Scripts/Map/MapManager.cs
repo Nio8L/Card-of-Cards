@@ -35,9 +35,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     private bool shouldGenerate = true;
 
     [Header("Tracking")]
-    public EnemyBase lastEnemyAI;
 
-    private string lastEvent;
     public bool eventUsed = false;
 
     public Transform eventCanvas;
@@ -287,11 +285,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 // Click on hunt node
                 retry:;
                 EnemyBase ai = huntEnemyAIs[Mathf.FloorToInt(Random.value * huntEnemyAIs.Length)];
-                if(ai == mapManager.lastEnemyAI){
+                if(ai == DataPersistenceManager.DataManager.lastEnemyAI){
                     goto retry;
                 }
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
-                mapManager.lastEnemyAI = ai;
+                DataPersistenceManager.DataManager.lastEnemyAI = ai;
                 SceneManager.LoadSceneAsync("SampleScene");
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunter)
@@ -308,7 +306,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 // Reroll the event until it picks different one from last time
                 do{
                     eventObject = mapManager.events[Random.Range(0, mapManager.events.Length)];
-                }while (eventObject.name == mapManager.lastEvent);
+                }while (eventObject.name == DataPersistenceManager.DataManager.lastEvent);
 
                 GameObject eventUI = Instantiate(eventObject, mapManager.eventCanvas);
                 eventUI.name = eventObject.name;
@@ -317,7 +315,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
                 mapManager.currentEvent = eventUI;
 
-                mapManager.lastEvent = eventObject.name;
+                DataPersistenceManager.DataManager.lastEvent = eventObject.name;
                 mapManager.eventUsed = false;
                 
             }
@@ -435,7 +433,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     
                         mapManager.currentEvent = eventUI;
     
-                        mapManager.lastEvent = eventUI.name;
+                        DataPersistenceManager.DataManager.lastEvent = eventUI.name;
                     }
                 }
             }
@@ -474,7 +472,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             data.enemyAI = "";
         }
 
-        data.mapEvent.name = lastEvent;
+        data.mapEvent.name = DataPersistenceManager.DataManager.lastEvent;
         data.mapEvent.used = eventUsed;
     }
 }

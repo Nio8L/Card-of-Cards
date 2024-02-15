@@ -150,6 +150,7 @@ public class CardInCombat : MonoBehaviour
         }else{
             AnimationUtilities.ReturnMoveToPoint(transform, time, startDelay, end);
             Invoke("CallUpdateCardAppearance", (time+startDelay)/2);
+            Invoke("PlayCombatSound", (time+startDelay)/1.25f);
         }
     }
     public void OnDeath()
@@ -309,7 +310,9 @@ public class CardInCombat : MonoBehaviour
             else         return CombatManager.combatManager.enemyCombatSlots [slot].GetComponent<CardSlot>();
         }
     }
-
+    public void PlayCombatSound(){
+        SoundManager.soundManager.Play("CardCombat");
+    }
     void CallUpdateCardAppearance(){
         deck.UpdateCardAppearance(transform, card);
     }
