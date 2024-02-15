@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MapMenu : MonoBehaviour
 {
     public GameObject menuButtons;
-    public GameObject stuffToDisable;
+    public GameObject[] stuffToDisable;
     public SettingsMenu settingsMenu;
 
     // Update is called once per frame
@@ -16,13 +16,18 @@ public class MapMenu : MonoBehaviour
             SoundManager.soundManager.Play("ButtonClick");
             if(!settingsMenu.gameObject.activeSelf){
                 menuButtons.SetActive(!menuButtons.activeSelf);
-                stuffToDisable.SetActive(!stuffToDisable.activeSelf);
-                DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
             }else{
                 settingsMenu.DeactivateMenu();
-                stuffToDisable.SetActive(!stuffToDisable.activeSelf);
-                DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
             }
+            SetActiveObjects();
+            DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
+            TooltipSystem.QuickHide();
+        }
+    }
+
+    private void SetActiveObjects(){
+        for(int i = 0; i < stuffToDisable.Length; i++){
+            stuffToDisable[i].SetActive(!stuffToDisable[i].activeSelf);
         }
     }
 
@@ -30,11 +35,13 @@ public class MapMenu : MonoBehaviour
         SoundManager.soundManager.Play("ButtonClick");
         if(!settingsMenu.gameObject.activeSelf){
             menuButtons.SetActive(!menuButtons.activeSelf);
-            stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+            SetActiveObjects();
         }else{
             settingsMenu.DeactivateMenu();
-            stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+            SetActiveObjects();
         }
+        DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
+        TooltipSystem.QuickHide();
     }
 
     public void OnClickMainMenu(){
@@ -48,7 +55,7 @@ public class MapMenu : MonoBehaviour
     public void ResumeGame(){
         SoundManager.soundManager.Play("ButtonClick");
         menuButtons.SetActive(!menuButtons.activeSelf);
-        stuffToDisable.SetActive(!stuffToDisable.activeSelf);
+        SetActiveObjects();
         DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
     }
 

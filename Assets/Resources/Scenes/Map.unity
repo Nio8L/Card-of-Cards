@@ -455,7 +455,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuButtons: {fileID: 1979627588}
-  stuffToDisable: {fileID: 1377556450}
+  stuffToDisable:
+  - {fileID: 1377556450}
+  - {fileID: 1683274915}
+  - {fileID: 1311470026}
   settingsMenu: {fileID: 1056656128}
 --- !u!4 &320517806
 Transform:
@@ -3120,6 +3123,11 @@ GameObject:
 --- !u!1 &1311470025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7637107319591273092, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
+  m_PrefabInstance: {fileID: 1311470021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1311470026 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7637107318382034680, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
   m_PrefabInstance: {fileID: 1311470021}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1356749220

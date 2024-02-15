@@ -97,7 +97,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }
         
         if(DataPersistenceManager.DataManager.currentCombatAI != null){
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Combat");
         }
 
         if (currentNode != null)nodesAvaliable = currentNode.children;
@@ -268,7 +268,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 // Click on combat node
                 EnemyAI ai = tier1EnemyAIs[Mathf.FloorToInt(Random.value * tier1EnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
-                SceneManager.LoadSceneAsync("SampleScene");
+                SceneManager.LoadSceneAsync("Combat");
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.RestSite)
             {
@@ -290,14 +290,14 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 }
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
                 DataPersistenceManager.DataManager.lastEnemyAI = ai;
-                SceneManager.LoadSceneAsync("SampleScene");
+                SceneManager.LoadSceneAsync("Combat");
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Hunter)
             {
                 // Click on hunter node
                 EnemyAI ai = hunterEnemyAIs[Mathf.FloorToInt(Random.value * hunterEnemyAIs.Length)];
                 DataPersistenceManager.DataManager.currentCombatAI = ai;
-                SceneManager.LoadSceneAsync("SampleScene");
+                SceneManager.LoadSceneAsync("Combat");
             }
             else if (mapManager.currentNode.roomType == MapNode.RoomType.Event)
             {
