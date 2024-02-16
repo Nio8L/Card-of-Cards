@@ -469,6 +469,7 @@ MonoBehaviour:
   card: {fileID: 0}
   deck: {fileID: 0}
   unplayableSlotNotification: {fileID: 11400000, guid: a7605c30378681b43beaa049a79ff84f, type: 2}
+  notInjuredNotification: {fileID: 11400000, guid: 2cea1665324571742a3d1ed544c47b29, type: 2}
   tiltAngle: 0
   dontTidy: 1
   discarding: 0

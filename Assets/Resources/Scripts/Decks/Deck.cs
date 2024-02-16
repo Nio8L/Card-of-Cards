@@ -313,7 +313,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     }
 
 
-    // Teglene na karti v //  
+    // Drawing cards  
     public void DrawCard()
     {
         if (drawPile.Count == 0)

@@ -22,6 +22,7 @@ public class MapMenu : MonoBehaviour
             SetActiveObjects();
             DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
             TooltipSystem.QuickHide();
+            MapManager.mapManager.canScroll = !MapManager.mapManager.canScroll;
         }
     }
 
@@ -42,6 +43,7 @@ public class MapMenu : MonoBehaviour
         }
         DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
         TooltipSystem.QuickHide();
+        MapManager.mapManager.canScroll = !MapManager.mapManager.canScroll;
     }
 
     public void OnClickMainMenu(){
@@ -57,6 +59,7 @@ public class MapMenu : MonoBehaviour
         menuButtons.SetActive(!menuButtons.activeSelf);
         SetActiveObjects();
         DeckUtilities.SetActiveDisplays(!menuButtons.activeSelf);
+        MapManager.mapManager.canScroll = !MapManager.mapManager.canScroll;
     }
 
     public void OnClickSettings(){
@@ -64,9 +67,5 @@ public class MapMenu : MonoBehaviour
         DataPersistenceManager.DataManager.LoadSettings();
         menuButtons.SetActive(!menuButtons.activeSelf);
         settingsMenu.ActivateMenu();
-    }
-
-    public void SaveGame(){
-        DataPersistenceManager.DataManager.SaveGame();
     }
 }

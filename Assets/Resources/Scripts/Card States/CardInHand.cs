@@ -13,6 +13,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     public Deck deck;
 
     public Notification unplayableSlotNotification;
+    public Notification notInjuredNotification;
 
     private GraphicRaycaster m_Raycaster;
     private PointerEventData m_PointerEventData;
@@ -207,33 +208,38 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         foreach (RaycastResult result in results)
         {
             //Check if the card on which we play "Lost Soul" is in combat and if it's a player's card and not an enemy's card and if the card has any injuries
-            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().playerCard && result.gameObject.GetComponent<CardInCombat>().card.injuries.Count > 0){
-                SoundManager.soundManager.Play("LostSoul");
-                Card healedCard = result.gameObject.GetComponent<CardInCombat>().card;
-
-                healedCard.AcceptLostSoul();
-                deck.UpdateCardAppearance(result.gameObject.transform, healedCard);
-
-                // Visual effect v
-                Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity);
-                
-                LostSoulVisuals soulHeart;
-
-                soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                soulHeart.angle = 120f;
-                soulHeart.primaryHeart = false;
-
-                soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
-                soulHeart.primaryHeart = false;
-                //               ^
-
-                deck.cards.Remove(card);
-                //GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>().cards.Remove(card);
-
-                if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
-                if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
-                Destroy(gameObject);
+            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().playerCard){
+                if (result.gameObject.GetComponent<CardInCombat>().card.injuries.Count > 0)
+                {
+                    SoundManager.soundManager.Play("LostSoul");
+                    Card healedCard = result.gameObject.GetComponent<CardInCombat>().card;
+    
+                    healedCard.AcceptLostSoul();
+                    deck.UpdateCardAppearance(result.gameObject.transform, healedCard);
+    
+                    // Visual effect v
+                    Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity);
+                    
+                    LostSoulVisuals soulHeart;
+    
+                    soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                    soulHeart.angle = 120f;
+                    soulHeart.primaryHeart = false;
+    
+                    soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
+                    soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
+                    soulHeart.primaryHeart = false;
+                    //               ^
+    
+                    deck.cards.Remove(card);
+                    //GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>().cards.Remove(card);
+    
+                    if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
+                    if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
+                    Destroy(gameObject);
+                }else{
+                    NotificationManager.notificationManager.NotifyAutoEnd(notInjuredNotification, new Vector3(-700, 0, 0), 2);
+                }
             }
         }
     }
@@ -297,6 +303,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         deck.cardsInHand.Remove(gameObject);
         deck.cardsInHandAsCards.Remove(card);
         Destroy(gameObject);
+        deck.TidyHand();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

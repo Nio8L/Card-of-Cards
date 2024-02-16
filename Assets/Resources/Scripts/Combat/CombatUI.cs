@@ -68,7 +68,12 @@ public class CombatUI : MonoBehaviour
     public void UpdateRoundText(){
         if (CombatManager.combatManager.enemy.huntAI)
         {
-            roundText.text = "Round " + CombatManager.combatManager.round + "/" + CombatManager.combatManager.enemy.huntRounds;
+            if (CombatManager.combatManager.round == CombatManager.combatManager.enemy.huntRounds + 1)
+            {
+                roundText.text = "Round " + (CombatManager.combatManager.round - 1) + "/" + CombatManager.combatManager.enemy.huntRounds;
+            }else{
+                roundText.text = "Round " + CombatManager.combatManager.round + "/" + CombatManager.combatManager.enemy.huntRounds;
+            }
             for (int i = 0; i < CombatManager.combatManager.battleReward.Count; i++) roundText.text += "\n" + CombatManager.combatManager.battleReward[i].name;
         }
         else roundText.text = "Round " + CombatManager.combatManager.round;

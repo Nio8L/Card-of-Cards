@@ -235,6 +235,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // Close the active ability menu
         ActiveAbilityManager.activeAbilityManager.Deselect();
 
+        //Close all open displays
+        DeckUtilities.CloseAllDisplays();
+
         // Force draw all cards that are still in draw animation and discard all cards
         deck.ForceDraw();
         deck.DiscardHand();
