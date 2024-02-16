@@ -9,11 +9,14 @@ using UnityEngine.EventSystems;
 public class ActiveAbilityManager : MonoBehaviour
 {
     public static ActiveAbilityManager activeAbilityManager;
+    
+    [Header("Visuals")]
     public Transform selectedCardSpot;
     public CardInCombat selectedCard;
     Transform sigilMenu;
     public GameObject abilityInterface;
     public TextMeshProUGUI namePlate;
+    public Button activateButton;
 
     public List<CardSlot> targetableSlots;
     public List<CardInHand> targetableCardsInHand;
@@ -52,6 +55,16 @@ public class ActiveAbilityManager : MonoBehaviour
             cardsCanBench = false;
 
             if (selectedSigil.canBeUsed){
+                
+                if(selectedSigil.targetType == ActiveSigil.TargetType.None){
+                    //Enable the active button
+                    activateButton.gameObject.SetActive(true);
+                    RemoveHighlight();
+                }else{
+                    //Disable the activate button
+                    activateButton.gameObject.SetActive(false);
+                }
+
                 if (Input.GetMouseButtonDown(0)){
                     //Slot case
                     if (selectedSigil.targetType == ActiveSigil.TargetType.Slot)
@@ -81,6 +94,7 @@ public class ActiveAbilityManager : MonoBehaviour
                         }
                     //Card in hand case
                     }else if(selectedSigil.targetType == ActiveSigil.TargetType.Hand){
+                        //Check for card in hand
                         CardInHand newTarget = CheckForCardInHand();
                         if(newTarget != null){
                             
@@ -245,9 +259,12 @@ public class ActiveAbilityManager : MonoBehaviour
     public void UseSigil(){
         // Activate the sigil
         if(selectedSigil.targetType == ActiveSigil.TargetType.Hand){
-            selectedSigil.ActivateEffect(selectedCard, selectedCardsInHand);
-        }else{
+            selectedSigil.ActiveEffect(selectedCard, selectedCardsInHand);
+        }else if(selectedSigil.targetType == ActiveSigil.TargetType.Slot){
             selectedSigil.ActiveEffect(selectedCard, selectedSlots);
+        }else if(selectedSigil.targetType == ActiveSigil.TargetType.None){
+            selectedSigil.ActiveEffect(selectedCard);
+            activateButton.gameObject.SetActive(false);
         }
         selectedCard.ShowSigilStars();
         Deselect();

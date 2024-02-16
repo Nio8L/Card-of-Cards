@@ -15,7 +15,7 @@ public class Discard : ActiveSigil
         canBeUsed = true;
     }
 
-    public override void ActivateEffect(CardInCombat card, List<CardInHand> targets)
+    public override void ActiveEffect(CardInCombat card, List<CardInHand> targets)
     {
         card.deck.DiscardCard(targets[0]);
         canBeUsed = false;

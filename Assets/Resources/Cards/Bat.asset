@@ -20,6 +20,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 2e7f1014815418d40af24985e2e48be1, type: 3}
   canRevive: 1
   captain: 0
+  fireImmune: 0
   typeOfDamage: 0
   sigils:
   - {fileID: 11400000, guid: 5ea4fec66d7a4d3458a82d34a40b5a41, type: 2}

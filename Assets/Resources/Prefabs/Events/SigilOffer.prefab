@@ -1240,6 +1240,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a5255f6c7969d145918cdb7eacb8539, type: 2}
   - {fileID: 11400000, guid: be1652e94d28ef04da53a4d5eb4d81b6, type: 2}
   - {fileID: 11400000, guid: f1efb2a8b94740642a1e09c61c9266c2, type: 2}
+  - {fileID: 11400000, guid: d047d9af4e2832c4da620121d89332e7, type: 2}
   offeredSigils:
   - {fileID: 4294438173029883671}
   - {fileID: 2882250686494072417}

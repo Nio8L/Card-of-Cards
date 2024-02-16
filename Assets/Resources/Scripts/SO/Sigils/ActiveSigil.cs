@@ -12,7 +12,8 @@ public class ActiveSigil : Sigil
     public enum TargetType
     {
         Slot,
-        Hand
+        Hand,
+        None
     }
 
     public TargetType targetType;
@@ -26,11 +27,17 @@ public class ActiveSigil : Sigil
         //Active effect should be here
     }
 
-    public virtual void ActivateEffect(CardInCombat card, List<CardInHand> targets){
+    public virtual void ActiveEffect(CardInCombat card, List<CardInHand> targets){
         /*
             CardInCombat card is the card object this sigil is attached to
             CardInHand[] targets are the cards in hand which this active effect will affect (found using GetCardInHandTargets())
         */
+        //Active effect should be here
+    }
+
+    public virtual void ActiveEffect(CardInCombat card){
+        //CardInCombat card is the card object this sigil is attached to
+
         //Active effect should be here
     }
 

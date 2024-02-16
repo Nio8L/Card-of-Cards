@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c770bfbe6e27d45819ebf970c97a5e, type: 3}
+  m_Name: Death Clock
+  m_EditorClassIdentifier: 
+  sigilName: Death Clock
+  negative: 0
+  image: {fileID: 21300000, guid: bf52a3002f85f7447a11fb13a558b2c5, type: 3}
+  description: Rotate this card's injuries clockwise.
+  canBeUsed: 0
+  neededTargets: 0
+  targetType: 2
