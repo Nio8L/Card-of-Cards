@@ -89,7 +89,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
         // Initialize it
         enemy.Initialize();
-        combatUI.UpdateHPText();
 
         // Begin camera animation and load ui
         AnimationUtilities.ChangeFOV(Camera.main.transform, 1f, 0, 5);
@@ -102,12 +101,23 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         inCombat = true;
         Time.timeScale = 1;
 
+        
+        
         // Start the turn zero function in 1 second so the cards are placed correctly
         Invoke("TurnZero", 1f);
-        
-        
     }
-    
+    void Start(){
+        // Use start if something needs to know the players hp
+
+        // Update the hp text
+        combatUI.UpdateHPText();
+
+        // Check if the player has died
+        if (playerHealth <= 0){
+            LoseGame();
+            return;
+        }
+    }
     private void OnEnable() {
         EventManager.CardDeath += CardDeath;
     }
@@ -255,7 +265,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartCombatPhase()
     {
-        //Debug.Log("Start combat");
+        // Activate pre battle sigils
         for (int i = 0; i < 5; i++)
         {
             if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleStartEffects(playerCombatCards[i]);
@@ -264,7 +274,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleStartEffects(enemyBenchCards[i]);
         }
 
+        // Switch the game phase
         gamePhase = 2;
+
+        // Start card combat
         for (int i = 0; i < 5; i++)
         {
             if (playerCombatCards[i] != null && enemyCombatCards[i] != null) CardCombat2Attackers(playerCombatCards[i], enemyCombatCards[i]);
@@ -272,15 +285,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             else if (enemyCombatCards[i] != null) DirectHit(enemyCombatCards[i]);
         }
 
+        // Start the next turn timer
         timerToNextTurn = resetTimerTo;
         startPlayerTurn = true;
     }
     void StartPlayerTurn()
     {
+        // Increase the round
         round++;
-
         combatUI.UpdateRoundText();
 
+        // End the combat if its a hunt and the round limit has been reached
         if (enemy.huntAI)
         {
             if (round == enemy.huntRounds + 1){
@@ -289,13 +304,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
         }
 
+        // Start the turn
         if (gamePhase == 2)
         {
+            // Reset the players energy and draw cards
             deck.energy = 3;
             deck.DrawCard(5);
 
+            // Reset the passive text
             for(int i = 0; i < 5 ;i++)
             {
+                // Player
                 if (playerCombatCards[i] != null)
                 {
                     playerCombatCards[i].passivesTurnedOnThisTurn = false;
@@ -307,6 +326,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
             for(int i = 0; i < 5 ;i++)
             {
+                // Enemy
                 if (enemyBenchCards[i] != null)
                 {
                     enemyBenchCards[i].passivesTurnedOnThisTurn = false;
@@ -317,8 +337,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 }
             }
 
+            // Activate passive sigils
             for (int i = 0; i < 5; i++)
             {
+                // Player
                 if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false && playerBenchCards[i].card.health > 0f) 
                 {
                     playerBenchCards[i].passivesTurnedOnThisTurn = true;
@@ -334,6 +356,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
             for (int i = 0; i < 5; i++)
             {
+                // Enemy
                 if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false && enemyBenchCards[i].card.health > 0f)
                 {
                     enemyBenchCards[i].passivesTurnedOnThisTurn = true;
@@ -348,6 +371,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 }
             }
 
+            // Find the non lost soul cards in the enemies deck
             int enemyNonSoulCards = 0;
             for (int i = 0; i < enemyDeck.cards.Count; i++)
             {
@@ -357,39 +381,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 }
             }
             combatUI.UpdateEnemyCardPileText();
-
+            
+            // Find the board state of the player and pre turn 
             playerCombatCards.CopyTo(playerCombatCardsAtStartOfTurn, 0);
             playerBenchCards.CopyTo(playerBenchCardsAtStartOfTurn, 0);
+
+            // Switch the phase
             gamePhase = 0;
-
-            //Activate end of turn effects
-
-            for (int i = 0; i < 5; i++)
-            {
-                if (playerBenchCards[i] != null && playerBenchCards[i].card.health > 0f) 
-                {
-                    playerBenchCards[i].card.ActivaeOnEndOfTurnEffects(playerBenchCards[i]);
-                    deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
-                }
-                if(playerCombatCards[i] != null && playerCombatCards[i].card.health > 0f)
-                {
-                    playerCombatCards[i].card.ActivaeOnEndOfTurnEffects(playerCombatCards[i]);
-                    deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
-                }
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                if (enemyBenchCards[i] != null && enemyBenchCards[i].card.health > 0f)
-                {
-                    enemyBenchCards[i].card.ActivaeOnEndOfTurnEffects(enemyBenchCards[i]);
-                    deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
-                }
-                if (enemyCombatCards[i] != null && enemyCombatCards[i].card.health > 0f)
-                {
-                    enemyCombatCards[i].card.ActivaeOnEndOfTurnEffects(enemyCombatCards[i]);
-                    deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
-                }
-            }
         }
     }
     #endregion
@@ -439,18 +437,25 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     } 
     public void CardCombat2Attackers(CardInCombat playerCard, CardInCombat enemyCard)
     {
+        /*
+            Used to start a fight between 2 cards (both cards attack)
+        */
+
+        // If neither of the cards has damage return, if only 1 of them has call CardCOmbat1Attacker instead
         if (playerCard.card.attack == 0 && enemyCard.card.attack == 0) return;
         else if (playerCard.card.attack == 0) {CardCombat1Attacker(enemyCard , playerCard, enemyCard.card.attack ); return;}
         else if (enemyCard.card.attack == 0)  {CardCombat1Attacker(playerCard, enemyCard , playerCard.card.attack); return;}
 
+        // Save the old health of the cards
         int oldPlayerHp = playerCard.card.health;
         int oldEnemyHp = enemyCard.card.health;
 
+        // Check if the cards are benched, if only 1 of them is call DirectHit with it
         if (playerCard.benched && enemyCard.benched) return;
         else if (playerCard.benched) { DirectHit(enemyCard ); return;}
         else if (enemyCard.benched)  { DirectHit(playerCard); return;}
 
-
+        // Reduce health of cards and switch lastTypeOfDamage with the attacker's attack type
         playerCard.card.health -= enemyCard.card.attack;
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
        
@@ -461,6 +466,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
         enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 
+        // Activate OnTakeDamageEffects
         playerCard.card.ActivateOnTakeDamageEffects(playerCard);
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
 
@@ -468,19 +474,24 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
         enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
 
+        // Activate OnHitEffects
         playerCard.card.ActivateOnHitEffects(playerCard);
         enemyCard.card.ActivateOnHitEffects(enemyCard);
 
-        if(playerCard.PerformAtackAnimation) playerCard.MoveAnimationStarter(0.5f, new Vector3(playerCard.transform.position.x, 1f, 0f), true, playerCard.slot * 0.2f);
-        if(enemyCard.PerformAtackAnimation)  enemyCard. MoveAnimationStarter(0.5f, new Vector3(enemyCard .transform.position.x, 1f, 0f), true, enemyCard.slot  * 0.2f);
-
-        enemyCard.PerformAtackAnimation = true;
-        playerCard.PerformAtackAnimation = true;
+        // Start the attack animation for the cards
+        playerCard.MoveAnimationStarter(0.5f, new Vector3(playerCard.transform.position.x, 1f, 0f), true, playerCard.slot * 0.2f);
+        enemyCard. MoveAnimationStarter(0.5f, new Vector3(enemyCard .transform.position.x, 1f, 0f), true, enemyCard.slot  * 0.2f);
     } 
     public void CardCombat1Attacker(CardInCombat attacker, CardInCombat defender, int damage){
+        /*
+           Used when 1 cards has to attack another (only 1 card attacks not both)
+        */
+
+        // Save the old health of the cards
         int oldAttackerHp = attacker.card.health;
         int oldDefenderHp = defender.card.health;
        
+       // Reduce health of defender and switch lastTypeOfDamage with the attacker's attack type
         defender.card.health     -= damage;
         defender.lastTypeOfDamage = attacker.card.typeOfDamage;
 
@@ -488,17 +499,18 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp);
         defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp);
 
+        // Activate OnTakeDamageEffects
         defender.card.ActivateOnTakeDamageEffects(defender);
 
         // Generate accurate battle data
         attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp);
         defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp);
 
+        // Activate OnHitEffects
         attacker.card.ActivateOnHitEffects(attacker);
 
-        if(attacker.PerformAtackAnimation) attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.transform.position.x, 1f, 0f), true, attacker.slot * 0.2f);
-
-        attacker.PerformAtackAnimation = true;
+        // Start the attack animation for the attacker
+        attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.transform.position.x, 1f, 0f), true, attacker.slot * 0.2f);
     }
     #endregion
 
@@ -598,6 +610,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
 
     public void SetCardAtSlot(CardSlot slot, CardInCombat cardInCombat){
+        // Sets a card to be in a slot
         if (cardInCombat != null){
             cardInCombat.slot    = slot.slot;
             cardInCombat.benched = slot.bench;
@@ -613,6 +626,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
 
     void TurnZero(){
+        // Turn zero is used by scripted enemies to play a turn before the next turn button is clicked by the player
         ScriptedEnemy scriptedEnemy = enemy.GetScriptedEnemy();
         if (scriptedEnemy != null){
             if (scriptedEnemy.turnZero){

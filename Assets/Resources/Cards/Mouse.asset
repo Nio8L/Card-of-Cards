@@ -22,6 +22,5 @@ MonoBehaviour:
   captain: 0
   fireImmune: 0
   typeOfDamage: 1
-  sigils:
-  - {fileID: 0}
+  sigils: []
   injuries: 
