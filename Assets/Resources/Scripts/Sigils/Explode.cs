@@ -27,8 +27,8 @@ public class Explode : ConsumingSigil
 
     public override void OnDeadEffects(CardInCombat card)
     {
+        base.OnDeadEffects(card);
         SoundManager.soundManager.Play("Explode");
-        card.deck.drawPile.AddRange(cardAcceptor.cardsAccepted);
 
         Instantiate(thornsParticlesPrefab, card.transform.position, Quaternion.identity);
         

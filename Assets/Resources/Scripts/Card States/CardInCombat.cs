@@ -290,7 +290,7 @@ public class CardInCombat : MonoBehaviour
         }
     }
     public void TryToSelectForActiveAbility(){
-        if (!playerCard || !rightClickedRecently) return;
+        if (!playerCard || !rightClickedRecently || CombatManager.combatManager.gamePhase != 0) return;
 
         for (int i = 0; i < card.sigils.Count; i++){
             if (card.sigils[i].GetActiveSigil() != null){

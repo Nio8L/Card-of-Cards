@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Hippo
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
   health: 0
   attack: 2
   defaultAttack: 2
@@ -20,6 +20,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 06a593cfe09c21241ace176afcbd5875, type: 3}
   canRevive: 1
   captain: 0
+  fireImmune: 0
   typeOfDamage: 1
   sigils:
   - {fileID: 11400000, guid: 406336c7aaa0bcd4fadfadd56e1066e6, type: 2}

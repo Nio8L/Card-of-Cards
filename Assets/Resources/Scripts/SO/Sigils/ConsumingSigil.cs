@@ -10,7 +10,13 @@ public class ConsumingSigil : Sigil
 
     public override void OnSummonEffects(CardInCombat card)
     {
-        cardAcceptor = card.gameObject.AddComponent<CardAcceptor>();
+        CardAcceptor hasAcceptor = card.GetComponent<CardAcceptor>();
+        if (hasAcceptor == null){
+            cardAcceptor = card.gameObject.AddComponent<CardAcceptor>();
+        }else{
+            cardAcceptor = hasAcceptor;
+        }
+        
     }
 
     public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
@@ -20,5 +26,10 @@ public class ConsumingSigil : Sigil
         if (consumeParticles != null){
             Instantiate(consumeParticles, card.transform.position, Quaternion.identity);
         }
+    }
+
+    public override void OnDeadEffects(CardInCombat card)
+    {
+        cardAcceptor.ReturnCards(card.deck.discardPile);
     }
 }

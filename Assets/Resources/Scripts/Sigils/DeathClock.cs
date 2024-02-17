@@ -7,44 +7,43 @@ public class DeathClock : ActiveSigil
 {
     public override void OnSummonEffects(CardInCombat card)
     {
-        if(card.card.injuries.Count == 3) return;
-
         canBeUsed = true;
     }
 
-    public override void ActiveEffect(CardInCombat card)
+    public override void ActiveEffect(CardInCombat card, List<CardSlot> targets)
     {
-        if(card.card.injuries.Count == 1){
+        CardInCombat target = CombatManager.combatManager.GetCardAtSlot(targets[0]);
+        if(target.card.injuries.Count == 1){
             
-            if(card.card.injuries[0] == Card.TypeOfDamage.Poison){
+            if(target.card.injuries[0] == Card.TypeOfDamage.Poison){
                 
-                card.card.injuries.Add(Card.TypeOfDamage.Scratch);
+                target.card.injuries.Add(Card.TypeOfDamage.Scratch);
             
-            }else if(card.card.injuries[0] == Card.TypeOfDamage.Scratch){
+            }else if(target.card.injuries[0] == Card.TypeOfDamage.Scratch){
                 
-                card.card.injuries.Add(Card.TypeOfDamage.Bite);
+                target.card.injuries.Add(Card.TypeOfDamage.Bite);
             
             }else{
                 
-                card.card.injuries.Add(Card.TypeOfDamage.Poison);
+                target.card.injuries.Add(Card.TypeOfDamage.Poison);
             }
-            card.card.injuries.RemoveAt(0);
+            target.card.injuries.RemoveAt(0);
         
-        }else if(card.card.injuries.Count == 2){
-            if(card.card.injuries.Contains(Card.TypeOfDamage.Poison) && card.card.injuries.Contains(Card.TypeOfDamage.Scratch)){
-                card.card.injuries = new()
+        }else if(target.card.injuries.Count == 2){
+            if(target.card.injuries.Contains(Card.TypeOfDamage.Poison) && card.card.injuries.Contains(Card.TypeOfDamage.Scratch)){
+                target.card.injuries = new()
                 {
                     Card.TypeOfDamage.Scratch,
                     Card.TypeOfDamage.Bite
                 };
-            }else if(card.card.injuries.Contains(Card.TypeOfDamage.Poison) && card.card.injuries.Contains(Card.TypeOfDamage.Bite)){
-                card.card.injuries = new()
+            }else if(target.card.injuries.Contains(Card.TypeOfDamage.Poison) && card.card.injuries.Contains(Card.TypeOfDamage.Bite)){
+                target.card.injuries = new()
                 {
                     Card.TypeOfDamage.Scratch,
                     Card.TypeOfDamage.Poison
                 };
             }else{
-                card.card.injuries = new()
+                target.card.injuries = new()
                 {
                     Card.TypeOfDamage.Bite,
                     Card.TypeOfDamage.Poison
@@ -54,15 +53,39 @@ public class DeathClock : ActiveSigil
 
         SoundManager.soundManager.Play("DeathClock");
 
-        card.deck.UpdateCardAppearance(card.transform, card.card);
+        target.deck.UpdateCardAppearance(target.transform, target.card);
 
         canBeUsed = false;
     }
 
-    public override void PasiveEffect(CardInCombat card)
+    public override List<CardSlot> GetPossibleTargets(CardInCombat card)
     {
-        if(card.card.injuries.Count == 3) return;
+        List<CardSlot> targets = new List<CardSlot>();
 
-        canBeUsed = true;
+        for (int i = 0; i < CombatManager.combatManager.playerCombatSlots.Length; i++){
+            if (card.playerCard){
+                if (CombatManager.combatManager.playerBenchCards[i] != null){
+                    if (CombatManager.combatManager.playerBenchCards[i].GetComponent<CardInCombat>().card.injuries.Count > 0){
+                        targets.Add(CombatManager.combatManager.playerBenchSlots [i].GetComponent<CardSlot>());
+                    }
+                }
+                if (CombatManager.combatManager.playerCombatCards[i] != null){
+                    if (CombatManager.combatManager.playerCombatCards[i].GetComponent<CardInCombat>().card.injuries.Count > 0){
+                        targets.Add(CombatManager.combatManager.playerCombatSlots[i].GetComponent<CardSlot>());
+                    }
+                }
+                if (CombatManager.combatManager.enemyBenchCards[i] != null){
+                    if (CombatManager.combatManager.enemyBenchCards[i].GetComponent<CardInCombat>().card.injuries.Count > 0){
+                        targets.Add(CombatManager.combatManager.enemyBenchSlots  [i].GetComponent<CardSlot>());
+                    }
+                }
+                if (CombatManager.combatManager.enemyCombatCards[i] != null){
+                    if (CombatManager.combatManager.enemyCombatCards[i].GetComponent<CardInCombat>().card.injuries.Count > 0){
+                        targets.Add(CombatManager.combatManager.enemyCombatSlots [i].GetComponent<CardSlot>());
+                    }
+                } 
+            }
+        }
+        return targets;
     }
 }
