@@ -88,4 +88,9 @@ public class DeathClock : ActiveSigil
         }
         return targets;
     }
+
+    public override void PasiveEffect(CardInCombat card)
+    {
+        canBeUsed = true;
+    }
 }
