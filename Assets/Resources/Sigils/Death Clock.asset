@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sigilName: Death Clock
   negative: 0
-  image: {fileID: 21300000, guid: bf52a3002f85f7447a11fb13a558b2c5, type: 3}
+  image: {fileID: 21300000, guid: 3c06fd21eb8ccc5458a957d005a099f6, type: 3}
   description: Rotate this card's injuries clockwise.
   canBeUsed: 0
   neededTargets: 0
