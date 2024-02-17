@@ -15,8 +15,7 @@ MonoBehaviour:
   sigilName: Endless Hunger
   negative: 0
   image: {fileID: 21300000, guid: f12e8f19df4fa4a41b0781969d083839, type: 3}
-  description: Feed this card other cards to gain 1 heath. Returns consumed cards
-    after the battle is over.
+  description: Feed this card other cards to gain 1 heath.
   cardAcceptor: {fileID: 0}
   consumeParticles: {fileID: 8753074680907212074, guid: 929b6f3b1a34d024f9132276d09bcd24, type: 3}
   healthToHeal: 1
