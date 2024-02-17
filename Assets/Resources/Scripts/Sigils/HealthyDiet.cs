@@ -13,7 +13,6 @@ public class HealthyDiet : Sigil
     {
         if (!card.benched) return;
         int bonusHeal = 0;
-        if (card.card.captain) bonusHeal = 1;
         count++;
         if (count >= turnToHeal)
         {

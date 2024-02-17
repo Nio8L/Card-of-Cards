@@ -14,7 +14,6 @@ public class Predator : Sigil
             Instantiate(particles, card.transform.position, Quaternion.identity);
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.health += 2;
-            if (card.card.captain) card.card.health += 1;
             if (card.card.health > card.card.maxHealth) card.card.health = card.card.maxHealth;
         }
 

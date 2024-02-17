@@ -15,4 +15,4 @@ MonoBehaviour:
   lines:
   - Here - try using these cards.
   persistBetweenScenes: 0
-  closable: 0
+  closable: 1

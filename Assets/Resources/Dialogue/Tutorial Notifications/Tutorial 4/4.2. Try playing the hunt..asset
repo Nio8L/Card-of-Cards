@@ -15,4 +15,4 @@ MonoBehaviour:
   lines:
   - Try to complete the hunt.
   persistBetweenScenes: 0
-  closable: 0
+  closable: 1

@@ -32,6 +32,7 @@ public class DeckUtilities : MonoBehaviour
 
             if (cards.Count != 0) SingularDisplay("deck", cards);
         }
+        if (Input.GetKey(KeyCode.Escape)) CloseAllDisplays();
     }
 
     public static DeckDisplay CreateDisplay(Vector2 position, float width, float height, string name){

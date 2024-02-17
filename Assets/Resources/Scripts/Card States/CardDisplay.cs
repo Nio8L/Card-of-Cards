@@ -33,9 +33,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Image injury2;
     public Image injury3;
 
-    [Header("Crown")]
-    public Image crown;
-
     [Header("Injury Icons")]
     public Sprite biteDamageIcon;
     public Sprite scrachDamageIcon;
@@ -61,16 +58,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         cardCost.text = card.cost.ToString();
         cardHealth.text = card.health.ToString();
         cardAttack.text = card.attack.ToString();
-
-        if (card.captain)
-        {
-            crown.gameObject.SetActive(true);
-        }
-        else
-        {
-            crown.gameObject.SetActive(false);
-        }
-
 
         sigil1.color = new Color(1, 1, 1, 0);
         sigil2.color = new Color(1, 1, 1, 0);

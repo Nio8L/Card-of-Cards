@@ -11,7 +11,6 @@ public class Overwhelm : Sigil
         if (activatedThisTurn) return;
 
         int bonusDamage = 0;
-        if (card.card.captain) bonusDamage = 1;
 
         BattleData battle = card.card.lastBattle;
 

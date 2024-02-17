@@ -205,18 +205,18 @@ public class CardInCombat : MonoBehaviour
 
             if (card.sigils[0] == sigil)
             {
-                transform.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-                transform.GetChild(14).GetComponent<Image>().sprite = deck.activeStar;
+                transform.GetChild(13).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+                transform.GetChild(13).GetComponent<Image>().sprite = deck.activeStar;
             }
             else if (card.sigils[1] == sigil)
             {
-                transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-                transform.GetChild(15).GetComponent<Image>().sprite = deck.activeStar;
+                transform.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+                transform.GetChild(14).GetComponent<Image>().sprite = deck.activeStar;
             }
             else
             {
-                transform.GetChild(16).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-                transform.GetChild(16).GetComponent<Image>().sprite = deck.activeStar;
+                transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
+                transform.GetChild(15).GetComponent<Image>().sprite = deck.activeStar;
             }
         }
     }
@@ -229,15 +229,15 @@ public class CardInCombat : MonoBehaviour
 
         if (card.sigils[0] == sigil)
         {
-            transform.GetChild(14).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(13).GetComponent<Image>().sprite = spriteToUse;
         }
         else if (card.sigils[1] == sigil)
         {
-            transform.GetChild(15).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(14).GetComponent<Image>().sprite = spriteToUse;
         }
         else
         {
-            transform.GetChild(16).GetComponent<Image>().sprite = spriteToUse;
+            transform.GetChild(15).GetComponent<Image>().sprite = spriteToUse;
         }
     }
     public void RemoveCardFromCardCollections() 

@@ -2193,7 +2193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeck: 1
   energy: 3
-  hasCaptain: 1
+  hasCaptain: 0
   cardsToBeAdded: []
   cards: []
   drawPile: []

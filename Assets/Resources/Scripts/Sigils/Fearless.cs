@@ -12,7 +12,6 @@ public class Fearless : Sigil
         if (canRevive && card.card.health <= 0)
         {
             card.card.ResetHP();
-            if (card.card.captain) card.card.health += 1;
             canRevive = false;
             GameObject effect = Instantiate(visualEffect, card.transform.position, Quaternion.identity);
             effect.transform.SetParent(card.transform);

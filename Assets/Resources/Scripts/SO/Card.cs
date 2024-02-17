@@ -16,8 +16,6 @@ public class Card : ScriptableObject
     [HideInInspector]
     public bool canRevive = true;
     [HideInInspector]
-    public bool captain;
-    [HideInInspector]
     public bool fireImmune;
     public enum TypeOfDamage
     {
@@ -186,7 +184,6 @@ public class Card : ScriptableObject
             string oldSigilName = sigils[i].name;
             sigils[i] = Instantiate(sigils[i]);
             sigils[i].name = oldSigilName;
-            captain = false;
         }
 
         return this;

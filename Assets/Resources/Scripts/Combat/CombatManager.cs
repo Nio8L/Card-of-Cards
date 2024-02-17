@@ -338,39 +338,40 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             }
 
             // Activate passive sigils
-            for (int i = 0; i < 5; i++)
-            {
-                // Player
-                if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false && playerBenchCards[i].card.health > 0f) 
+            if (enemyHealth > 0 && (!enemy.huntAI || round <= enemy.huntRounds)){
+                for (int i = 0; i < 5; i++)
                 {
-                    playerBenchCards[i].passivesTurnedOnThisTurn = true;
-                    playerBenchCards[i].card.ActivatePasiveEffects(playerBenchCards[i]);
-                    deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
+                    // Player
+                    if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false && playerBenchCards[i].card.health > 0f) 
+                    {
+                        playerBenchCards[i].passivesTurnedOnThisTurn = true;
+                        playerBenchCards[i].card.ActivatePasiveEffects(playerBenchCards[i]);
+                        deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
+                    }
+                    if(playerCombatCards[i] != null && playerCombatCards[i].passivesTurnedOnThisTurn == false && playerCombatCards[i].card.health > 0f)
+                    {
+                        playerCombatCards[i].passivesTurnedOnThisTurn = true;
+                        playerCombatCards[i].card.ActivatePasiveEffects(playerCombatCards[i]);
+                        deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
+                    }
                 }
-                if(playerCombatCards[i] != null && playerCombatCards[i].passivesTurnedOnThisTurn == false && playerCombatCards[i].card.health > 0f)
+                for (int i = 0; i < 5; i++)
                 {
-                    playerCombatCards[i].passivesTurnedOnThisTurn = true;
-                    playerCombatCards[i].card.ActivatePasiveEffects(playerCombatCards[i]);
-                    deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
+                    // Enemy
+                    if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false && enemyBenchCards[i].card.health > 0f)
+                    {
+                        enemyBenchCards[i].passivesTurnedOnThisTurn = true;
+                        enemyBenchCards[i].card.ActivatePasiveEffects(enemyBenchCards[i]);
+                        deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
+                    }
+                    if (enemyCombatCards[i] != null && enemyCombatCards[i].passivesTurnedOnThisTurn == false && enemyCombatCards[i].card.health > 0f)
+                    {
+                        enemyCombatCards[i].passivesTurnedOnThisTurn = true;
+                        enemyCombatCards[i].card.ActivatePasiveEffects(enemyCombatCards[i]);
+                        deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
+                    }
                 }
             }
-            for (int i = 0; i < 5; i++)
-            {
-                // Enemy
-                if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false && enemyBenchCards[i].card.health > 0f)
-                {
-                    enemyBenchCards[i].passivesTurnedOnThisTurn = true;
-                    enemyBenchCards[i].card.ActivatePasiveEffects(enemyBenchCards[i]);
-                    deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
-                }
-                if (enemyCombatCards[i] != null && enemyCombatCards[i].passivesTurnedOnThisTurn == false && enemyCombatCards[i].card.health > 0f)
-                {
-                    enemyCombatCards[i].passivesTurnedOnThisTurn = true;
-                    enemyCombatCards[i].card.ActivatePasiveEffects(enemyCombatCards[i]);
-                    deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
-                }
-            }
-
             // Find the non lost soul cards in the enemies deck
             int enemyNonSoulCards = 0;
             for (int i = 0; i < enemyDeck.cards.Count; i++)
@@ -455,9 +456,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         else if (playerCard.benched) { DirectHit(enemyCard ); return;}
         else if (enemyCard.benched)  { DirectHit(playerCard); return;}
 
-        // Reduce health of cards and switch lastTypeOfDamage with the attacker's attack type
+        // Reduce health of cards
         playerCard.card.health -= enemyCard.card.attack;
-        playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
        
         enemyCard.card.health -= playerCard.card.attack;
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
@@ -470,10 +470,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerCard.card.ActivateOnTakeDamageEffects(playerCard);
         enemyCard.card.ActivateOnTakeDamageEffects(enemyCard);
 
+        // Switch lastTypeOfDamage with the attacker's attack type
+        playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
+
         // Generate accurate battle data
         playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
         enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
-
+        
         // Activate OnHitEffects
         playerCard.card.ActivateOnHitEffects(playerCard);
         enemyCard.card.ActivateOnHitEffects(enemyCard);

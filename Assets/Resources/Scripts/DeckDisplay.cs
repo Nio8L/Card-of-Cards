@@ -24,6 +24,10 @@ public class DeckDisplay : MonoBehaviour
     public bool placedInPrefab;
     public float widthModifier;
     public float heightModifier;
+
+    Vector3 dragStart = Vector3.one * 10000;
+    float deckStartY;
+    float savedIncrease;
     
     Canvas canvas;
     CanvasScaler canvasScaler;
@@ -44,6 +48,7 @@ public class DeckDisplay : MonoBehaviour
     void Update(){
         // Check if the player is trying to scroll
         Scroll();
+        
     }
     public void ShowDisplay(){
         // Show the display
@@ -97,8 +102,8 @@ public class DeckDisplay : MonoBehaviour
         ClearCards();
         int cardsPerLine = Mathf.RoundToInt(width/(cardWidth + cardOffset));
         int pixelsPerCard = Mathf.RoundToInt((width - 0.5f * (cardWidth - cardOffset))/cardsPerLine);
-        int lines = newCards.Count/cardsPerLine;
-        int maxLines = Mathf.FloorToInt(height/cardHeight);
+        int lines = Mathf.CeilToInt(newCards.Count/(float)cardsPerLine);
+        int maxLines = Mathf.FloorToInt(height/Mathf.RoundToInt(cardHeight));
 
         // Calculate if scrolling is needed
         if (lines > maxLines){
@@ -119,23 +124,23 @@ public class DeckDisplay : MonoBehaviour
         }
     }
     public void Scroll(){
+        float scrollBy = 0;
         // Scrolling
         if (Input.GetAxis("Mouse ScrollWheel") != 0f){
             // See how much it has to scroll
-            float scrollBy = -Input.GetAxis("Mouse ScrollWheel") * 350;
-
-            // Calculate if it can scroll
-            float oldScroll = currentScroll;
-            currentScroll += scrollBy;
-            currentScroll = Mathf.Clamp(currentScroll, 0, maxScrollLines * cardHeight);
-            scrollBy = currentScroll - oldScroll;
-
-            // Ajust all cards
-            for (int i = 0; i < deckHolder.childCount; i++){
-                Transform cardToMove = deckHolder.GetChild(i).transform;
-                cardToMove.localPosition += new Vector3(0, scrollBy, 0);
-            }
+            scrollBy = -Input.GetAxis("Mouse ScrollWheel") * 350;
         }
-            
+        
+        // Calculate if it can scroll
+        float oldScroll = currentScroll;
+        currentScroll += scrollBy;
+        currentScroll = Mathf.Clamp(currentScroll, 0, maxScrollLines * cardHeight);
+        scrollBy = currentScroll - oldScroll;
+
+        // Ajust all cards
+        for (int i = 0; i < deckHolder.childCount; i++){
+            Transform cardToMove = deckHolder.GetChild(i).transform;
+            cardToMove.localPosition += new Vector3(0, scrollBy, 0);
+        }
     }
 }

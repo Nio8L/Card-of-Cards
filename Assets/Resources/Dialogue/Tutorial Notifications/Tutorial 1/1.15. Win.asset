@@ -15,4 +15,4 @@ MonoBehaviour:
   lines:
   - "Now try to win the fight \nby attacking your enemy."
   persistBetweenScenes: 0
-  closable: 0
+  closable: 1

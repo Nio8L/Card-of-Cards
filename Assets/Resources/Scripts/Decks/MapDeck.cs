@@ -40,7 +40,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data){
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
-            Card newCard = new();
+            Card newCard = ScriptableObject.CreateInstance<Card>();;
 
             AddCard(newCard);
 
