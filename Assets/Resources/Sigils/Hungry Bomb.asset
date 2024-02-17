@@ -15,8 +15,7 @@ MonoBehaviour:
   sigilName: Hungry Bomb
   negative: 0
   image: {fileID: 21300000, guid: 39e2e5f35426c11459b364305300f808, type: 3}
-  description: Upon death deal 0 damage. Increase this damage by feeding cards. Returns
-    consumed cards after the card dies.
+  description: Upon death deal 0 damage. Increase damage by feeding it other cards.
   cardAcceptor: {fileID: 0}
   consumeParticles: {fileID: 8753074680907212074, guid: 929b6f3b1a34d024f9132276d09bcd24, type: 3}
   damageIncrement: 1
