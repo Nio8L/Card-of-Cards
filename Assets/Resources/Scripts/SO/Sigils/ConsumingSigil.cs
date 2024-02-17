@@ -6,6 +6,7 @@ using UnityEngine;
 public class ConsumingSigil : Sigil
 {
     public CardAcceptor cardAcceptor;
+    public GameObject consumeParticles;
 
     public override void OnSummonEffects(CardInCombat card)
     {
@@ -15,5 +16,9 @@ public class ConsumingSigil : Sigil
     public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
     {
         SoundManager.soundManager.Play("Consume");
+
+        if (consumeParticles != null){
+            Instantiate(consumeParticles, card.transform.position, Quaternion.identity);
+        }
     }
 }

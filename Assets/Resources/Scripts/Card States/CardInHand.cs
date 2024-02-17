@@ -90,6 +90,13 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
         CardSlot cardSlot = CheckForSlot();
         
+
+        //Check if the selected card is a "Lost Soul" 
+        if (deck.selectedCard == transform && card.name == "LostSoul")
+        {
+            PlayLostSoul();
+        }
+
         deck.selectedCard = null;
         deck.TidyHand();
 
@@ -177,14 +184,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
             if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
                 SoundManager.soundManager.Play("CardRetract");
             }
-        }
-
-        //Check if the card to which this script is attached is a "Lost Soul"
-        //Check if we have selected a card
-        //Check if the selected card is a "Lost Soul" 
-        if (card.name == "LostSoul")
-        {
-            PlayLostSoul();
         }
     }
     //--------------------------------//

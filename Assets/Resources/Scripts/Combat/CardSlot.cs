@@ -66,10 +66,8 @@ public class CardSlot : MonoBehaviour
     }
 
     public void ApplyIgnitedEffects(){
-        if(turnsIgnited == 0){
-            ResetSlot();
-            return;
-        }
+        turnsIgnited--;
+
         
         CardInCombat cardInCombat = CombatManager.combatManager.GetCardAtSlot(this);
         if (cardInCombat != null && !cardInCombat.card.fireImmune)
@@ -81,7 +79,9 @@ public class CardSlot : MonoBehaviour
              SoundManager.soundManager.Play("FireExplosion");
         }
 
-        turnsIgnited--;
+        if(turnsIgnited == 0){
+            ResetSlot();
+        }
     }
 
     public void DrenchSlot(int duration){
