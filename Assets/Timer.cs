@@ -3,10 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Timer : MonoBehaviour
+public class Timer : MonoBehaviour, IDataPersistence
 {
     public static Timer timer;
-    public float time;
+    public float time = 0;
+
+    public void LoadData(GameData data)
+    {
+        time = data.runTime;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.runTime = time;
+    }
+
+
     void Start()
     {
         if(timer != null){

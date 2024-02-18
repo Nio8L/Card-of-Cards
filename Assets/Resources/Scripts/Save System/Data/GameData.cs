@@ -52,6 +52,8 @@ public class GameData
   
     public long lastSaved;
 
+    public float runTime;
+
     public int playerHealth;
 
     public List<string> cardNames;
@@ -72,6 +74,8 @@ public class GameData
     public List<LayerClass> mapLayers;
 
     public GameData(){
+        runTime = 0;
+
         playerHealth = 20;
 
         cardNames = new();
