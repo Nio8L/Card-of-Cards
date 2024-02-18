@@ -35,6 +35,6 @@ public class Timer : MonoBehaviour, IDataPersistence
         string sceneName = SceneManager.GetActiveScene().name;
 
         if (sceneName == "Map" || sceneName == "Combat") time += Time.deltaTime;
-        if (sceneName == "Main Menu") time = 0;
+        //if (sceneName == "Main Menu") time = 0;
     }
 }

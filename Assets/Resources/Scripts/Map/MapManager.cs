@@ -74,6 +74,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 Instantiate(tutorialPO, transform.position, Quaternion.identity);
             }
         }else if(shouldGenerate){
+            Timer.timer.time = 0;
             Generate(0, Layer.ConectionType.None);
             Camera.main.GetComponent<MapScroller>().FirstLoadAnimation();
 
