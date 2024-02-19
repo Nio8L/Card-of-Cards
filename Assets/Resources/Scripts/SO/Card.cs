@@ -34,7 +34,7 @@ public class Card : ScriptableObject
 
     public BattleData lastBattle;
 
-    public Card Copy() 
+    /*public Card Copy() 
     {
         return new Card()
         {
@@ -46,7 +46,7 @@ public class Card : ScriptableObject
             sigils = sigils,
             injuries = injuries
         };
-    }
+    }*/
 
     public void AcceptLostSoul(){
         RemoveNegativeSigils();
@@ -90,17 +90,22 @@ public class Card : ScriptableObject
             }
         }
 
+
+        // Find bleed sigil
         Sigil bleed = Resources.Load<Sigil>("Sigils/Weak Bleed");
         negativeSigil = Instantiate(bleed);
         negativeSigil.name = bleed.name;
 
+        // Check injuries
         foreach (TypeOfDamage type in injuries)
         {
             if (type == causeOfDeath)
             {
-                Card lostSoul = Resources.Load<Card>("Cards/LostSoul");
-                CopyFrom(lostSoul);
-                ResetCard();
+                Card lostSoulBase = Resources.Load<Card>("Cards/Lost Soul");
+                Card lostSoulToCopy = Instantiate(lostSoulBase).ResetCard();
+                lostSoulToCopy.name = lostSoulBase.name;
+
+                CopyFrom(lostSoulToCopy);
                 
                 EventManager.CardDeath?.Invoke();
 
@@ -125,50 +130,48 @@ public class Card : ScriptableObject
     // Effects v
     public void ActivateOnHitEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.ApplyOnHitEffect(card);
+        foreach (Sigil sigil in sigils) sigil.OnHitEffect(card);
     }
 
-    public void ActivatePasiveEffects(CardInCombat card) 
+    public void ActivateOnTurnStartEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.PasiveEffect(card);
+        foreach (Sigil sigil in sigils) sigil.OnTurnStartEffect(card);
     }
-
     public void ActivateOnTakeDamageEffects(CardInCombat card)
     {
         foreach (Sigil sigil in sigils) sigil.OnTakeDamageEffect(card);
     }
-
     public void ActivateOnSummonEffects(CardInCombat card) 
     {
-        foreach(Sigil sigil in sigils)sigil.OnSummonEffects(card);
+        foreach(Sigil sigil in sigils)sigil.OnSummonEffect(card);
     }
-
     public void ActivateOnDeadEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.OnDeadEffects(card);
+        foreach (Sigil sigil in sigils) sigil.OnDeadEffect(card);
     }  
-
     public void ActivateOnConsumeEffects(CardInCombat card, Card consumedCard){
-        foreach (Sigil sigil in sigils) sigil.OnConsumeEffects(card, consumedCard);
+        foreach (Sigil sigil in sigils) sigil.OnConsumeEffect(card, consumedCard);
     }
-    public void ActivateOnBattleStartEffects(CardInCombat card) 
+    public void ActivateOnFightStartEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.OnBattleStartEffects(card);
+        foreach (Sigil sigil in sigils) sigil.OnFightStartEffect(card);
     }
-
     public void ActivateOnBattleEndEffects(CardInCombat card){
-        foreach (Sigil sigil in sigils) sigil.OnBattleEndEffects(card);
+        foreach (Sigil sigil in sigils) sigil.OnBattleEndEffect(card);
     }
-
+    public void ActivateOnDrawEffects(){
+        foreach (Sigil sigil in sigils) sigil.OnDrawEffect(this);
+    }
+    public void ActivateOnDiscardEffects(){
+        foreach (Sigil sigil in sigils) sigil.OnDiscardEffect(this);
+    }
     public void ResetHP() 
     {
         health = maxHealth;
     }
-
     public void ResetAttack(){
         attack = defaultAttack;
     }
-
     public Card ResetCard()
     {
         // Reset the card's stats to their base values

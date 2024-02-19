@@ -31,12 +31,12 @@ public class Ignite : ActiveSigil
         return targets;
     }
 
-    public override void OnSummonEffects(CardInCombat card)
+    public override void OnSummonEffect(CardInCombat card)
     {
         canBeUsed = true;
     }
 
-    public override void PasiveEffect(CardInCombat card)
+    public override void OnTurnStartEffect(CardInCombat card)
     {
         canBeUsed = true;
     }

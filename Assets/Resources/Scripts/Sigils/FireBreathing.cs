@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/FireBreathing")]
+[CreateAssetMenu(menuName = "Sigil/Fire Breathing")]
 public class FireBreathing : Sigil
 {
     public int ignitionDuration = 1;
 
-    public override void ApplyOnHitEffect(CardInCombat card)
+    public override void OnHitEffect(CardInCombat card)
     {
         BattleData battleData = card.card.lastBattle;
-
+        
         if(battleData.enemyCardOldHp <= card.card.attack){
-            CombatManager.combatManager.enemyCombatSlots[card.slot].GetComponent<CardSlot>().IgniteSlot(ignitionDuration);
-            card.deck.PlaySigilAnimation(card.transform, card.card, this);
+            if (card.playerCard){
+                CombatManager.combatManager.enemyCombatSlots[card.slot].GetComponent<CardSlot>().IgniteSlot(ignitionDuration);
+                CombatManager.combatManager.enemyBenchSlots[card.slot] .GetComponent<CardSlot>().IgniteSlot(ignitionDuration);
+            }else{
+                CombatManager.combatManager.playerCombatSlots[card.slot].GetComponent<CardSlot>().IgniteSlot(ignitionDuration);
+                CombatManager.combatManager.playerBenchSlots[card.slot] .GetComponent<CardSlot>().IgniteSlot(ignitionDuration);
+            }
+        card.deck.PlaySigilAnimation(card.transform, card.card, this);
         }
     }
 }
+

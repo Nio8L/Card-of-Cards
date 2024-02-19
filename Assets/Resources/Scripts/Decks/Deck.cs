@@ -238,14 +238,12 @@ public class Deck : MonoBehaviour, IDataPersistence
         cards.Remove(card);
         UpdatePileNumbers();
     }
-
     public void RemoveCard(){
         drawPile.RemoveAt(drawPile.Count - 1);
         cards.RemoveAt(cards.Count - 1);
         PrintDeck();
         UpdatePileNumbers();
     }
-
     public void PrintDeck(){
         string cardsInDeck = "";
         foreach (Card card in cards)
@@ -260,7 +258,6 @@ public class Deck : MonoBehaviour, IDataPersistence
             cardsInDeck += ", ";
         }
     }
-
     public void TidyHand()
     {
         for (int i = 0; i < cardsInHand.Count; i++)
@@ -310,7 +307,6 @@ public class Deck : MonoBehaviour, IDataPersistence
         
     }
 
-
     // Drawing cards  
     public void DrawCard()
     {
@@ -342,6 +338,8 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         cardsInHandAsCards.Add(drawPile[0]);
         
+        drawPile[0].ActivateOnDrawEffects();
+
         drawPile.RemoveAt(0);
         TidyHand();
         UpdatePileNumbers();
@@ -380,6 +378,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         for (int i = 0; i < cardsInHandAsCards.Count; i++)
         {
             discardPile.Add(cardsInHandAsCards[i]);
+            cardsInHandAsCards[i].ActivateOnDiscardEffects();
 
             if (playerDeck)
             {
@@ -405,6 +404,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardsInHandAsCards.Remove(card.card);
         
         discardPile.Add(card.card);
+        card.card.ActivateOnDiscardEffects();
 
         if(playerDeck){
             GameObject cardObject = card.gameObject;

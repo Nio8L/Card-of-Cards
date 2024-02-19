@@ -6,7 +6,7 @@ using UnityEngine;
 public class HopefulLight : Sigil
 {
     public int energyPerTurn = 1;
-    public override void PasiveEffect(CardInCombat card)
+    public override void OnTurnStartEffect(CardInCombat card)
     {
         card.deck.energy += energyPerTurn;
     }

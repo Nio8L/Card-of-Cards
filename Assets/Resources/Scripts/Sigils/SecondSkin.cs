@@ -7,13 +7,13 @@ public class SecondSkin : Sigil
 {
     bool hasASkin = true;
     public Card cardToSpawn;
-    public override void OnDeadEffects(CardInCombat card) 
+    public override void OnDeadEffect(CardInCombat card) 
     {
         // Make it so this effect can be used the next time this card is played
         hasASkin = true;
     }
 
-    public override void OnBattleStartEffects(CardInCombat card)
+    public override void OnFightStartEffect(CardInCombat card)
     {
         // Return if this sigil has already been used 
         if (!hasASkin) return;

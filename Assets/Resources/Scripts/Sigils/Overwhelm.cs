@@ -6,7 +6,7 @@ using UnityEngine;
 public class Overwhelm : Sigil
 {
     bool activatedThisTurn = false;
-    public override void ApplyOnHitEffect(CardInCombat card)
+    public override void OnHitEffect(CardInCombat card)
     {
         if (activatedThisTurn) return;
 
@@ -38,7 +38,7 @@ public class Overwhelm : Sigil
         
     }
 
-    public override void OnBattleStartEffects(CardInCombat card)
+    public override void OnFightStartEffect(CardInCombat card)
     {
         activatedThisTurn = false;
     }

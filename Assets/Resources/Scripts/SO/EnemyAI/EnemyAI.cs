@@ -217,7 +217,7 @@ public class EnemyAI : EnemyBase
             for (int i = 0; i < CombatManager.combatManager.enemyDeck.cardsInHandAsCards.Count; i++)
             {
                 Card cardInHand = CombatManager.combatManager.enemyDeck.cardsInHandAsCards[i];
-                if (cardInHand.name == "LostSoul") UseLostSoul(cardInHand);
+                if (cardInHand.name == "Lost Soul") UseLostSoul(cardInHand);
             }
         }
 
@@ -297,7 +297,7 @@ public class EnemyAI : EnemyBase
 
         if (cardToPick != null)
         {
-            if (cardToPick.name == "LostSoul") return null;
+            if (cardToPick.name == "Lost Soul") return null;
             else if (useTypeOfDamageToDecideCard && (currentStrategy == Strategy.Defensive || currentStrategy == Strategy.Killer))
             {
                 foreach (Card.TypeOfDamage injury in cardToPick.injuries)

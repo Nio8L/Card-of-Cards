@@ -57,7 +57,7 @@ public class EventCardSlot : MonoBehaviour
             deck.ShowCards(MapManager.mapManager.mapDeck.cards);
         }
         
-        if(card.name == "LostSoul"){
+        if(card.name == "Lost Soul"){
             IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
             foreach(IEvent ievent in events){
                 ievent.RevertLostSoulCase();

@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Scales")]
 public class Scales : Sigil
 {
-    public override void OnSummonEffects(CardInCombat card)
+    public override void OnSummonEffect(CardInCombat card)
     {
         // Give this card fire immunity
         card.card.fireImmune = true;
     }
-    public override void PasiveEffect(CardInCombat card)
+    public override void OnTurnStartEffect(CardInCombat card)
     {   
         // Check if the card is standing on a fire and heal it if it is
         if(card.playerCard){

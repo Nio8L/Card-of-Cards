@@ -168,6 +168,16 @@ public class AnimationUtilities : MonoBehaviour{
         }
         return false;
     }
+
+    public static void CancelAnimations(GameObject gameObject){
+        for (int i = 0; i < animationUtilities.allAnimations.Count; i++){
+            AnimationInstance animationInstance = animationUtilities.allAnimations[i];
+            if (animationInstance.GetTarget() == gameObject.transform){
+                animationUtilities.allAnimations.RemoveAt(i);
+                i--;
+            }
+        }
+    }
     public static void MoveToPoint(Transform target, float time, float delay, Vector3 point){
         // Move a given target to a point in a certain time after a delay
         AnimationInstance newAnimation = new AnimationInstance(target, time, "MoveToPoint");
@@ -255,5 +265,8 @@ public class AnimationUtilities : MonoBehaviour{
         AnimationInstance newAnimation = new AnimationInstance(target, time, "StartTimer");
         animationUtilities.allAnimations.Add(newAnimation);
     }
+
+
+
 }
     

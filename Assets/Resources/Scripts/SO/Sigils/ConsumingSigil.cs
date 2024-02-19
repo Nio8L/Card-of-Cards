@@ -8,7 +8,7 @@ public class ConsumingSigil : Sigil
     public CardAcceptor cardAcceptor;
     public GameObject consumeParticles;
 
-    public override void OnSummonEffects(CardInCombat card)
+    public override void OnSummonEffect(CardInCombat card)
     {
         CardAcceptor hasAcceptor = card.GetComponent<CardAcceptor>();
         if (hasAcceptor == null){
@@ -19,7 +19,7 @@ public class ConsumingSigil : Sigil
         
     }
 
-    public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
+    public override void OnConsumeEffect(CardInCombat card, Card consumedCard)
     {
         SoundManager.soundManager.Play("Consume");
 
@@ -28,7 +28,7 @@ public class ConsumingSigil : Sigil
         }
     }
 
-    public override void OnDeadEffects(CardInCombat card)
+    public override void OnDeadEffect(CardInCombat card)
     {
         cardAcceptor.ReturnCards(card.deck.discardPile);
     }

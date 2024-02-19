@@ -6,7 +6,7 @@ using UnityEngine;
 public class Predator : Sigil
 {
     public GameObject particles;
-    public override void ApplyOnHitEffect(CardInCombat card)
+    public override void OnHitEffect(CardInCombat card)
     {
         BattleData battle = card.card.lastBattle;
         if (battle.enemyCard.health <= 0 && card.card.health > 0)

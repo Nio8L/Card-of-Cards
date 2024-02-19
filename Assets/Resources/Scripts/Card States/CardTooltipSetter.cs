@@ -24,7 +24,7 @@ public class CardTooltipSetter : MonoBehaviour, IPointerEnterHandler
     }
 
     public void UpdateHeartTooltip(){
-        if(card.name == "LostSoul"){
+        if(card.name == "Lost Soul"){
             heart.GetComponent<TooltipTrigger>().content = "A soul can't be injured...";
             return;
         }

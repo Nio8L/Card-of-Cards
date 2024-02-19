@@ -16,10 +16,11 @@ public class Fearless : Sigil
             GameObject effect = Instantiate(visualEffect, card.transform.position, Quaternion.identity);
             effect.transform.SetParent(card.transform);
             SoundManager.soundManager.Play("Fearless");
+            description = "When this card takes lethal damage it is returned to its max health. (Used)";
         }
     }
 
-    public override void OnDeadEffects(CardInCombat card) 
+    public override void OnDeadEffect(CardInCombat card) 
     {
         if(canRevive)
         {
@@ -29,6 +30,8 @@ public class Fearless : Sigil
             canRevive = false;
             return;
         }
+
         canRevive = true;
+        description = "When this card takes lethal damage it is returned to its max health. (Unused)";
     }
 }

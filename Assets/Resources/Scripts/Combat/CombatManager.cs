@@ -265,13 +265,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartCombatPhase()
     {
-        // Activate pre battle sigils
+        // Activate pre fight sigils
         for (int i = 0; i < 5; i++)
         {
-            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleStartEffects(playerCombatCards[i]);
-            if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleStartEffects(playerBenchCards[i]);
-            if (enemyCombatCards[i] != null) enemyCombatCards[i].card.ActivateOnBattleStartEffects(enemyCombatCards[i]);
-            if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleStartEffects(enemyBenchCards[i]);
+            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnFightStartEffects(playerCombatCards[i]);
+            if (playerBenchCards [i] != null) playerBenchCards [i].card.ActivateOnFightStartEffects(playerBenchCards [i]);
+            if (enemyCombatCards [i] != null) enemyCombatCards [i].card.ActivateOnFightStartEffects(enemyCombatCards [i]);
+            if (enemyBenchCards  [i] != null) enemyBenchCards  [i].card.ActivateOnFightStartEffects(enemyBenchCards  [i]);
         }
 
         // Switch the game phase
@@ -345,13 +345,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     if (playerBenchCards[i] != null && playerBenchCards[i].passivesTurnedOnThisTurn == false && playerBenchCards[i].card.health > 0f) 
                     {
                         playerBenchCards[i].passivesTurnedOnThisTurn = true;
-                        playerBenchCards[i].card.ActivatePasiveEffects(playerBenchCards[i]);
+                        playerBenchCards[i].card.ActivateOnTurnStartEffects(playerBenchCards[i]);
                         deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
                     }
                     if(playerCombatCards[i] != null && playerCombatCards[i].passivesTurnedOnThisTurn == false && playerCombatCards[i].card.health > 0f)
                     {
                         playerCombatCards[i].passivesTurnedOnThisTurn = true;
-                        playerCombatCards[i].card.ActivatePasiveEffects(playerCombatCards[i]);
+                        playerCombatCards[i].card.ActivateOnTurnStartEffects(playerCombatCards[i]);
                         deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
                     }
                 }
@@ -361,13 +361,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     if (enemyBenchCards[i] != null && enemyBenchCards[i].passivesTurnedOnThisTurn == false && enemyBenchCards[i].card.health > 0f)
                     {
                         enemyBenchCards[i].passivesTurnedOnThisTurn = true;
-                        enemyBenchCards[i].card.ActivatePasiveEffects(enemyBenchCards[i]);
+                        enemyBenchCards[i].card.ActivateOnTurnStartEffects(enemyBenchCards[i]);
                         deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
                     }
                     if (enemyCombatCards[i] != null && enemyCombatCards[i].passivesTurnedOnThisTurn == false && enemyCombatCards[i].card.health > 0f)
                     {
                         enemyCombatCards[i].passivesTurnedOnThisTurn = true;
-                        enemyCombatCards[i].card.ActivatePasiveEffects(enemyCombatCards[i]);
+                        enemyCombatCards[i].card.ActivateOnTurnStartEffects(enemyCombatCards[i]);
                         deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
                     }
                 }
@@ -376,7 +376,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             int enemyNonSoulCards = 0;
             for (int i = 0; i < enemyDeck.cards.Count; i++)
             {
-                if (enemyDeck.cards[i].name != "LostSoul")
+                if (enemyDeck.cards[i].name != "Lost Soul")
                 {
                     enemyNonSoulCards++;
                 }

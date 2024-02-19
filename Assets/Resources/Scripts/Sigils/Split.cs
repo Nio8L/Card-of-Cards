@@ -9,7 +9,7 @@ public class Split : Sigil
 
     public int coppiesToAdd = 2;
 
-    public override void OnDeadEffects(CardInCombat card)
+    public override void OnDeadEffect(CardInCombat card)
     {
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
         for(int i = 0; i < coppiesToAdd; i++){

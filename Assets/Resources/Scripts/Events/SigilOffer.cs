@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,9 @@ public class SigilOffer : MonoBehaviour, IEvent
     public Sigil[] possibleSigilOffers;
 
     public SigilDisplay[] offeredSigils;
+
+    List<Sigil> rerolledSigils = new List<Sigil>();
+    
 
     public GameObject selectedSigilDisplay;
     public Sigil selectedSigil;
@@ -33,17 +37,31 @@ public class SigilOffer : MonoBehaviour, IEvent
 
     private void GenerateOffers(){
         for(int i = 0; i < offeredSigils.Length; i++){
-            Sigil newOfferedSigil;
+            Sigil newOfferedSigil = possibleSigilOffers[0];
 
             //Select a random sigil
             //If the sigil has already been offered generate a new sigil
+            if (possibleSigilOffers.Length - rerolledSigils.Count < 3) rerolledSigils.Clear();
+
             do
             {
                 newOfferedSigil = PickSigil();
             }while(AlreadyOffered(newOfferedSigil));
 
+            rerolledSigils.Add(newOfferedSigil);
             offeredSigils[i].SetSigilDisplay(newOfferedSigil);
         }
+    }
+
+    //Returns true if the given sigil has already been picked
+    private bool AlreadyOffered(Sigil sigil){
+        for(int i = 0; i < rerolledSigils.Count; i++){
+            if(sigil == rerolledSigils[i]){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void RegenerateOffers(){
@@ -64,17 +82,6 @@ public class SigilOffer : MonoBehaviour, IEvent
     //Picks a random sigil
     private Sigil PickSigil(){
         return possibleSigilOffers[Random.Range(0, possibleSigilOffers.Length)];
-    }
-
-    //Returns true if the given sigil has already been picked
-    private bool AlreadyOffered(Sigil sigil){
-        for(int i = 0; i < offeredSigils.Length; i++){
-            if(offeredSigils[i].sigil != null && sigil == offeredSigils[i].sigil){
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public void SelectSigil(SigilDisplay sigilDisplay){

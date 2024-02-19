@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Sigil/HealthyDiet")]
+[CreateAssetMenu(menuName = "Sigil/Healthy Diet")]
 public class HealthyDiet : Sigil
 {
     public GameObject particles;
     public int count = 0;
     public int turnToHeal;
     public int heal;
-    public override void PasiveEffect(CardInCombat card)
+    public override void OnTurnStartEffect(CardInCombat card)
     {
         if (!card.benched) return;
         int bonusHeal = 0;

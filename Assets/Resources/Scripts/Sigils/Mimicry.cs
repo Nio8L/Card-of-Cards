@@ -8,17 +8,17 @@ public class Mimicry : Sigil
 {
     bool playerCard;
 
-    public override void OnSummonEffects(CardInCombat card)
+    public override void OnSummonEffect(CardInCombat card)
     {
         EventManager.CardCreated += CopyCard;
         playerCard = card.deck.playerDeck;
     }
 
-    public override void OnDeadEffects(CardInCombat card) {
+    public override void OnDeadEffect(CardInCombat card) {
         EventManager.CardCreated -= CopyCard;
     }
 
-    public override void OnBattleEndEffects(CardInCombat card)
+    public override void OnBattleEndEffect(CardInCombat card)
     {
         EventManager.CardCreated -= CopyCard;
     }

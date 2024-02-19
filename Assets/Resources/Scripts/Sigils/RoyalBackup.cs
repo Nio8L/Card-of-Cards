@@ -7,7 +7,7 @@ public class RoyalBackup : Sigil
 {
     public Card[] cardsToGive;
 
-    public override void OnDeadEffects(CardInCombat card)
+    public override void OnDeadEffect(CardInCombat card)
     {
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
 

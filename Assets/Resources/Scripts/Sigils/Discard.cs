@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Active Sigil/Discard")]
 public class Discard : ActiveSigil
 {
-    public override void OnSummonEffects(CardInCombat card)
+    public override void OnSummonEffect(CardInCombat card)
     {
         canBeUsed = true;
     }
 
-    public override void PasiveEffect(CardInCombat card)
+    public override void OnTurnStartEffect(CardInCombat card)
     {
         canBeUsed = true;
     }

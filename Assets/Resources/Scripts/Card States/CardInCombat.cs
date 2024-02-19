@@ -190,6 +190,8 @@ public class CardInCombat : MonoBehaviour
             GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
             deathMarkObject.GetComponent<SpriteRenderer>().sprite = markSprite;
             GetComponent<DestroyTimer>().enabled = true;
+
+            AnimationUtilities.CancelAnimations(gameObject);
         }
     }
     private void OnDestroy() {

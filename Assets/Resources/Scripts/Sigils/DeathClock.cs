@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Active Sigil/Death Clock")]
 public class DeathClock : ActiveSigil
 {
-    public override void OnSummonEffects(CardInCombat card)
+    public override void OnSummonEffect(CardInCombat card)
     {
         canBeUsed = true;
     }
@@ -89,7 +89,7 @@ public class DeathClock : ActiveSigil
         return targets;
     }
 
-    public override void PasiveEffect(CardInCombat card)
+    public override void OnTurnStartEffect(CardInCombat card)
     {
         canBeUsed = true;
     }

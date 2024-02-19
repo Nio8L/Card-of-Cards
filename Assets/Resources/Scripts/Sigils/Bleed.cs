@@ -10,7 +10,7 @@ public class Bleed : Sigil
     public int damage;
 
     public GameObject bloodSplatParticles;
-    public override void PasiveEffect(CardInCombat card)
+    public override void OnTurnStartEffect(CardInCombat card)
     {
         count++;
         if (count >= turnToDealDamage)
@@ -33,7 +33,7 @@ public class Bleed : Sigil
             description = "Lose 1 health after " + (turnToDealDamage - count) + " turns.";
         }
     }
-    public override void OnDeadEffects(CardInCombat card)
+    public override void OnDeadEffect(CardInCombat card)
     {
         count = 0;
         description = "Lose 1 health after " + (turnToDealDamage - count) + " turns.";

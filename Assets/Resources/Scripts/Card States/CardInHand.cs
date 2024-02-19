@@ -92,7 +92,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         
 
         //Check if the selected card is a "Lost Soul" 
-        if (deck.selectedCard == transform && card.name == "LostSoul")
+        if (deck.selectedCard == transform && card.name == "Lost Soul")
         {
             PlayLostSoul();
         }
@@ -109,7 +109,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
             if (deck.energy >= card.cost)
             {
-                if(card.name != "LostSoul"){
+                if(card.name != "Lost Soul"){
                     // Trying to play a card in a bench slot
                     if(cardSlot.bench)
                     {

@@ -11,23 +11,26 @@ public class Explode : ConsumingSigil
 
     public int damageToDeal = 0;
 
+    public int cardsPerDamageIncrement = 1;
+
     public bool splashDamage = false;
 
     public GameObject thornsParticlesPrefab;
-    public override void OnConsumeEffects(CardInCombat card, Card consumedCard)
+    public override void OnConsumeEffect(CardInCombat card, Card consumedCard)
     {
-        base.OnConsumeEffects(card, consumedCard);
-        damageToDeal += damageIncrement;
-
-        description = "Upon death deal " + damageToDeal + " damage. Increase this damage by feeding cards.";
+        base.OnConsumeEffect(card, consumedCard);
+        
 
         cardAcceptor.AcceptCard(consumedCard);
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
+
+        damageToDeal = damageIncrement * (cardAcceptor.cardsAccepted.Count / cardsPerDamageIncrement);
+        description = "Upon death deal " + damageToDeal + " damage. Increase this damage by feeding cards. (" + cardAcceptor.cardsAccepted.Count % cardsPerDamageIncrement + "/" + cardsPerDamageIncrement + ")";
     }
 
-    public override void OnDeadEffects(CardInCombat card)
+    public override void OnDeadEffect(CardInCombat card)
     {
-        base.OnDeadEffects(card);
+        base.OnDeadEffect(card);
         SoundManager.soundManager.Play("Explode");
 
         Instantiate(thornsParticlesPrefab, card.transform.position, Quaternion.identity);
@@ -61,7 +64,7 @@ public class Explode : ConsumingSigil
 
         damageToDeal = 0;
 
-        description = "Upon death deal " + damageToDeal + " damage. Increase this damage by feeding cards.";
+        description = "Upon death deal " + damageToDeal + " damage. Increase this damage by feeding cards. (" + cardAcceptor.cardsAccepted.Count % cardsPerDamageIncrement + "/" + cardsPerDamageIncrement + ")";
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }
 }

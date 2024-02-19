@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Fire Thrower")]
 public class FireThrower : Sigil
 {
-    public override void ApplyOnHitEffect(CardInCombat card)
+    public override void OnHitEffect(CardInCombat card)
     {
         if (card.playerCard)
         {

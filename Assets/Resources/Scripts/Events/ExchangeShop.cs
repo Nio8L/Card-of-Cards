@@ -11,6 +11,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
     public Card[] price2Choices;
     public Card[] price3Choices;
 
+    public List<Card> rerolledCards = new List<Card>();
     public GameObject[] shopSlots;
 
     public EventCardSlotHandler cardSlotHandler;
@@ -39,6 +40,10 @@ public class ExchangeShop : MonoBehaviour, IEvent
     }
 
     public void GenerateOffers(){
+        //Clear the list of rerolled cards
+        int lowestAmount = Math.Min(Math.Min(price1Choices.Length, price2Choices.Length), price3Choices.Length);
+        if (lowestAmount - rerolledCards.Count / 3 < 1) rerolledCards.Clear();
+
         for (int i = 0; i < 3; i++)
         {
             if (shopSlots[i] == null) continue;
@@ -46,6 +51,8 @@ public class ExchangeShop : MonoBehaviour, IEvent
             CardDisplay cardDisplay = shopSlots[i].GetComponent<CardDisplay>();
             cardDisplay.card = card;
             cardDisplay.UpdateCardAppearance();
+
+            rerolledCards.Add(card);
         }
     }
 
@@ -67,15 +74,25 @@ public class ExchangeShop : MonoBehaviour, IEvent
     Card PickCard(int value)
     {
         Card cardToAdd;
-        if (value == 0)      cardToAdd = price1Choices[UnityEngine.Random.Range(0, price1Choices.Length)];
-        else if (value == 1) cardToAdd = price2Choices[UnityEngine.Random.Range(0, price2Choices.Length)];
-        else                 cardToAdd = price3Choices[UnityEngine.Random.Range(0, price3Choices.Length)];
 
+        do{
+            if (value == 0)      cardToAdd = price1Choices[UnityEngine.Random.Range(0, price1Choices.Length)];
+            else if (value == 1) cardToAdd = price2Choices[UnityEngine.Random.Range(0, price2Choices.Length)];
+            else                 cardToAdd = price3Choices[UnityEngine.Random.Range(0, price3Choices.Length)];
+        }while(AlreadyOffered(cardToAdd));
 
         string cardName = cardToAdd.name;
         cardToAdd = Instantiate(cardToAdd).ResetCard();
         cardToAdd.name = cardName;
         return cardToAdd;
+    }
+    bool AlreadyOffered(Card card){
+        for(int i = 0; i < rerolledCards.Count; i++){
+            if(card.name == rerolledCards[i].name){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void Exchange(){
@@ -177,7 +194,7 @@ public class ExchangeShop : MonoBehaviour, IEvent
         SelectExchange1();
 
         /*for(int i = 0; i < MapManager.mapManager.mapDeck.cards.Count; i++){
-            if(MapManager.mapManager.mapDeck.cards[i].name == "LostSoul"){
+            if(MapManager.mapManager.mapDeck.cards[i].name == "Lost Soul"){
                 cardSlotHandler.cardSlots[1].PlaceCard(MapManager.mapManager.mapDeck.cards[i]);
                 break;
             }
