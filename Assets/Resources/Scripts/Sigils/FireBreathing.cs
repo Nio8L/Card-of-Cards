@@ -11,7 +11,7 @@ public class FireBreathing : Sigil
     {
         BattleData battleData = card.card.lastBattle;
         
-        if(battleData.enemyCardOldHp <= card.card.attack){
+        if(battleData.enemyCard.health <= 0){
             if (card.playerCard){
                 CombatManager.combatManager.enemyCombatSlots[card.slot].GetComponent<CardSlot>().IgniteSlot(ignitionDuration);
                 CombatManager.combatManager.enemyBenchSlots[card.slot] .GetComponent<CardSlot>().IgniteSlot(ignitionDuration);

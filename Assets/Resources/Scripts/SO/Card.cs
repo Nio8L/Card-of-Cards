@@ -71,6 +71,7 @@ public class Card : ScriptableObject
 
         maxHealth = cardToCopyFrom.maxHealth;
         defaultAttack = cardToCopyFrom.defaultAttack;
+        attack = cardToCopyFrom.attack;
         cost = cardToCopyFrom.cost;
         image = cardToCopyFrom.image;
         typeOfDamage = cardToCopyFrom.typeOfDamage;
@@ -115,12 +116,15 @@ public class Card : ScriptableObject
 
         injuries.Add(causeOfDeath);
         health = maxHealth;
-        for (int i = 0; i < sigils.Count && sigils.Count == 3; i++)
-        {
-            if (!sigils[i].negative)
+        
+        if (sigils.Count == 3){
+            for (int i = sigils.Count-1; i >= 0; i--)
             {
-                sigils.RemoveAt(i);
-                break;
+                if (!sigils[i].negative)
+                {
+                    sigils.RemoveAt(i);
+                    break;
+                }
             }
         }
 
@@ -164,6 +168,9 @@ public class Card : ScriptableObject
     }
     public void ActivateOnDiscardEffects(){
         foreach (Sigil sigil in sigils) sigil.OnDiscardEffect(this);
+    }
+    public void ActivateOnNotDrawnEffects(){
+        foreach (Sigil sigil in sigils) sigil.OnNotDrawn(this);
     }
     public void ResetHP() 
     {

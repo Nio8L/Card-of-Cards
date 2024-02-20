@@ -22,6 +22,7 @@ public class ShortFuse : Sigil
             onFire = true;
             card.card.attack += onFireBonus;
             card.deck.UpdateCardAppearance(card.transform, card.card);
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
         }
     }
 
@@ -38,6 +39,7 @@ public class ShortFuse : Sigil
     {
         card.card.attack -= normalBonus;
         if (onFire){
+            onFire = false;
             card.card.attack -= onFireBonus;
         }
     }

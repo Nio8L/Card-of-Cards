@@ -255,6 +255,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // The enemy draws cards
         enemyDeck.DiscardHand();
         enemyDeck.DrawCard(5);
+        
+        // Activate OnNotDrawn Effects
+        for (int i = 0; i < deck.drawPile.Count; i++){
+            Card target = deck.drawPile[i];
+            target.ActivateOnNotDrawnEffects();
+        }
 
         // The enemy starts its turn
         enemy.StartTurn();
@@ -310,6 +316,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             // Reset the players energy and draw cards
             deck.energy = 3;
             deck.DrawCard(5);
+
+            // Activate OnNotDrawn Effects
+            for (int i = 0; i < deck.drawPile.Count; i++){
+                Card target = deck.drawPile[i];
+                target.ActivateOnNotDrawnEffects();
+            }
 
             // Reset the passive text
             for(int i = 0; i < 5 ;i++)

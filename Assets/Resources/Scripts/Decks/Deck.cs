@@ -179,6 +179,12 @@ public class Deck : MonoBehaviour, IDataPersistence
         
         Shuffle();
         DrawCard(5);
+        
+        // Activate OnNotDrawn Effects
+        for (int i = 0; i < drawPile.Count; i++){
+            Card target = drawPile[i];
+            target.ActivateOnNotDrawnEffects();
+        }
     }
 
     private void Update()

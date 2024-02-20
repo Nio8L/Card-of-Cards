@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Mouse
+  m_Name: Tiger
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  health: 1
-  attack: 1
-  defaultAttack: 1
-  cost: 0
-  image: {fileID: 21300000, guid: 99aff79ce12a6ec428370403e97f083b, type: 3}
+  maxHealth: 3
+  health: 0
+  attack: 0
+  defaultAttack: 2
+  cost: 3
+  image: {fileID: 21300000, guid: d11182a4744e23e4fb52c3ecefff2c58, type: 3}
   canRevive: 1
   fireImmune: 0
   typeOfDamage: 1
-  sigils: []
+  sigils:
+  - {fileID: 11400000, guid: 876284141274f094caf3b348ed70d661, type: 2}
+  - {fileID: 11400000, guid: f1efb2a8b94740642a1e09c61c9266c2, type: 2}
   injuries: 

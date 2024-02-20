@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
   m_Name: Hunter2
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 25
   path: Tier1Hunter
   huntAI: 0
   huntRounds: 0

@@ -1336,6 +1336,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
+  - {fileID: 11400000, guid: 005b63b7f15b4a740ac7c84c83d53d3e, type: 2}
+  rerolledCards: []
   shopSlots:
   - {fileID: 7201072741586152704}
   - {fileID: 3968368756769746567}

@@ -65,10 +65,16 @@ public class Sigil : ScriptableObject
             Triggers when discarded (This is used before the card is even played)
         */
     }
+    public virtual void OnNotDrawn(Card card){
+        /*
+           Triggers whenever this card is in the draw pile and it is not drawn.
+        */
+    }
     public virtual ActiveSigil GetActiveSigil(){
         /*
             Ignore this unless you are working with active sigils 
         */
         return null;
     }
+
 }
