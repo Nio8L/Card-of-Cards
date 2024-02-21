@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
-  m_Name: Borke Hunt
+  m_Name: Moving Hunt
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 7
   path: Hunt
   huntAI: 1
-  huntRounds: 4
+  huntRounds: 3
   pacingObject: {fileID: 425041068175166581, guid: 8dc656d5c7feaf24b9f9b407aece9f5d, type: 3}
   isTutorialEnemy: 0
   isHunter: 0
@@ -31,10 +31,10 @@ MonoBehaviour:
     - {fileID: 0}
     benchCards:
     - {fileID: 0}
+    - {fileID: 11400000, guid: 326f5f86760b25848b7da29bc2951f65, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     benchCards:
     - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 326f5f86760b25848b7da29bc2951f65, type: 2}
     - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
     benchColumbs: 0000000000
@@ -61,9 +61,9 @@ MonoBehaviour:
     - {fileID: 0}
     benchCards:
     - {fileID: 0}
-    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
+    - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
     benchColumbs: 0000000000
     forcePlace: 0
@@ -75,26 +75,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     benchCards:
+    - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-    - {fileID: 0}
-    benchColumbs: 0000000000
-    forcePlace: 0
-    pushBench: 1
-  - combatCards:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    benchCards:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+    - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 1

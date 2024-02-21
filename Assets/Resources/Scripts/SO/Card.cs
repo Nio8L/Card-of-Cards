@@ -93,7 +93,8 @@ public class Card : ScriptableObject
 
 
         // Find bleed sigil
-        Sigil bleed = Resources.Load<Sigil>("Sigils/Weak Bleed");
+        string bleedName = "Bleed " + causeOfDeath.ToString();
+        Sigil bleed = Resources.Load<Sigil>("Sigils/" + bleedName);
         negativeSigil = Instantiate(bleed);
         negativeSigil.name = bleed.name;
 
