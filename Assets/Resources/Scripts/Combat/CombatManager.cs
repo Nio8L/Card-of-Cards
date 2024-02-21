@@ -317,12 +317,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             deck.energy = 3;
             deck.DrawCard(5);
 
-            // Activate OnNotDrawn Effects
-            for (int i = 0; i < deck.drawPile.Count; i++){
-                Card target = deck.drawPile[i];
-                target.ActivateOnNotDrawnEffects();
-            }
-
             // Reset the passive text
             for(int i = 0; i < 5 ;i++)
             {
@@ -384,6 +378,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     }
                 }
             }
+
+            // Activate OnNotDrawn Effects
+            for (int i = 0; i < deck.drawPile.Count; i++){
+                Card target = deck.drawPile[i];
+                target.ActivateOnNotDrawnEffects();
+            }
+
             // Find the non lost soul cards in the enemies deck
             int enemyNonSoulCards = 0;
             for (int i = 0; i < enemyDeck.cards.Count; i++)
