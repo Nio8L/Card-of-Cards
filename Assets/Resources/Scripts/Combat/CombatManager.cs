@@ -476,8 +476,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         enemyCard.lastTypeOfDamage = playerCard.card.typeOfDamage;
 
         // Generate inaccurate battle data
-        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
-        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp, enemyCard);
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp, playerCard);
 
         // Activate OnTakeDamageEffects
         playerCard.card.ActivateOnTakeDamageEffects(playerCard);
@@ -487,8 +487,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         playerCard.lastTypeOfDamage = enemyCard.card.typeOfDamage;
 
         // Generate accurate battle data
-        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp);
-        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp);
+        playerCard.card.lastBattle = new BattleData(playerCard.card, enemyCard.card, oldPlayerHp, oldEnemyHp, enemyCard);
+        enemyCard.card.lastBattle = new BattleData(enemyCard.card, playerCard.card, oldEnemyHp, oldPlayerHp, playerCard);
         
         // Activate OnHitEffects
         playerCard.card.ActivateOnHitEffects(playerCard);
@@ -512,15 +512,15 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         defender.lastTypeOfDamage = attacker.card.typeOfDamage;
 
         // Generate inaccurate battle data
-        attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp);
-        defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp);
+        attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp, defender);
+        defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp, attacker);
 
         // Activate OnTakeDamageEffects
         defender.card.ActivateOnTakeDamageEffects(defender);
 
         // Generate accurate battle data
-        attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp);
-        defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp);
+        attacker.card.lastBattle = new BattleData(attacker.card, defender.card, oldAttackerHp, oldDefenderHp, defender);
+        defender.card.lastBattle = new BattleData(defender.card, attacker.card, oldDefenderHp, oldAttackerHp, attacker);
 
         // Activate OnHitEffects
         attacker.card.ActivateOnHitEffects(attacker);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bleed Poison
   m_EditorClassIdentifier: 
   sigilName: Poison bleed
-  negative: 0
+  negative: 1
   image: {fileID: 21300000, guid: f6c636490acc76e4382ae8e720352b0b, type: 3}
   description: Lose 1 health after 1 turn.
   count: 0
