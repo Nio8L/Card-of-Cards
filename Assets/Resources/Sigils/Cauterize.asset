@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sigilName: Cauterize
   negative: 0
-  image: {fileID: 21300000, guid: 79ef1a94bf5b0b74582206d9a7920861, type: 3}
+  image: {fileID: 21300000, guid: f4bd2895fc0c03149894eaf3cf8f6753, type: 3}
   description: Heal 2 health. Ignite the slot underneath.
   canBeUsed: 0
   neededTargets: 0
