@@ -195,7 +195,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                 deck.cardsInHandAsCards.Remove(card);
             }else{
                 enemyDeck.energy -= card.cost;
-            enemyDeck.cardsInHandAsCards.Remove(card);
+                enemyDeck.cardsInHandAsCards.Remove(card);
             }
         }
 
@@ -215,6 +215,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // Find the card's owner's deck so it has a reference to it
         if (slot.playerSlot) cardInCombat.deck = deck;
         else                 cardInCombat.deck = enemyDeck;
+
+        card.playerCard = cardInCombat.deck.playerDeck;
 
         // Place the card in the correct list of cards so the Combat Manager (this) can track it
         if (slot.bench)

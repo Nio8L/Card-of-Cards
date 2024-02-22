@@ -165,18 +165,30 @@ public class CardInCombat : MonoBehaviour
             if (playerCard)
             {
                 RemoveCardFromCardCollections();
-                if (card.canRevive) deck.discardPile.Add(card);
+                if (card.canRevive) {
+                    deck.discardPile.Add(card);
+                }else{
+                    EventManager.CardDeath?.Invoke(card, true);
+                }
             }
             else
             {
                 RemoveCardFromCardCollections();
                 if (!CombatManager.combatManager.enemy.huntAI)
                 {
-                    if (card.canRevive) CombatManager.combatManager.enemyDeck.discardPile.Add(card);
+                    if (card.canRevive) {
+                        CombatManager.combatManager.enemyDeck.discardPile.Add(card);
+                    }else{
+                        EventManager.CardDeath?.Invoke(card, false);
+                    }
                 }
                 else if (CombatManager.combatManager.battleReward.Count < 3)
                 {
-                    if (card.canRevive) CombatManager.combatManager.battleReward.Add(card);
+                    if (card.canRevive) {
+                        CombatManager.combatManager.battleReward.Add(card);
+                    }else{
+                        EventManager.CardDeath?.Invoke(card, false);
+                    }
                 }
 
             }
@@ -265,17 +277,29 @@ public class CardInCombat : MonoBehaviour
 
             if (playerCard)
             {
-                if (card.canRevive) deck.discardPile.Add(card);
+                if (card.canRevive) {
+                    deck.discardPile.Add(card);
+                }else{
+                    EventManager.CardDeath?.Invoke(card, true);
+                }
             }
             else
             {
                 if (!CombatManager.combatManager.enemy.huntAI)
                 {
-                    if (card.canRevive) CombatManager.combatManager.enemyDeck.discardPile.Add(card);
+                    if (card.canRevive) {
+                        CombatManager.combatManager.enemyDeck.discardPile.Add(card);
+                    }else{
+                        EventManager.CardDeath?.Invoke(card, false);
+                    }
                 }
                 else if (CombatManager.combatManager.battleReward.Count < 3)
                 {
-                    if (card.canRevive) CombatManager.combatManager.battleReward.Add(card);
+                    if (card.canRevive) {
+                        CombatManager.combatManager.battleReward.Add(card);
+                    }else{
+                        EventManager.CardDeath?.Invoke(card, false);
+                    }
                 }
 
             }

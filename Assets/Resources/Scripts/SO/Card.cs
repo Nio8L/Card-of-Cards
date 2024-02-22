@@ -34,6 +34,8 @@ public class Card : ScriptableObject
 
     public BattleData lastBattle;
 
+    public bool playerCard = true;
+
     /*public Card Copy() 
     {
         return new Card()
@@ -68,6 +70,8 @@ public class Card : ScriptableObject
     public void CopyFrom(Card cardToCopyFrom)
     {
         name = cardToCopyFrom.name;
+
+        playerCard = cardToCopyFrom.playerCard;
 
         maxHealth = cardToCopyFrom.maxHealth;
         defaultAttack = cardToCopyFrom.defaultAttack;
@@ -107,7 +111,7 @@ public class Card : ScriptableObject
                 Card lostSoulToCopy = Instantiate(lostSoulBase).ResetCard();
                 lostSoulToCopy.name = lostSoulBase.name;
 
-                EventManager.CardDeath?.Invoke(this, !lastBattle.enemy.deck.playerDeck);
+                EventManager.CardDeath?.Invoke(this, playerCard);
                 
                 CopyFrom(lostSoulToCopy);
 
