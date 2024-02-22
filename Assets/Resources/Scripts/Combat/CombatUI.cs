@@ -62,7 +62,7 @@ public class CombatUI : MonoBehaviour
     }
 
     public void UpdateGraveText(){
-        graveText.text = CombatManager.combatManager.playerCardsLost.ToString();
+        graveText.text = CombatManager.combatManager.playerCardsLost.Count.ToString();
     }
 
     public void UpdateRoundText(){

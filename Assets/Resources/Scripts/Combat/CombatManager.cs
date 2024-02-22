@@ -51,11 +51,15 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public CombatUI combatUI;
 
-    public int playerCardsLost = 0;
+    public List<Card> playerCardsLost;
     public int round = 1;
 
     public GameObject fireExplosionPrefab;
 
+    [Header("Notifications")]
+    public Notification noDrawNotification;
+    public Notification noDiscardNotification;
+    public Notification noGraveNotification;
 
     void Awake(){
         combatManager = this;
@@ -610,8 +614,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     #endregion
     
-    public void CardDeath(){
-        playerCardsLost++;
+    public void CardDeath(Card card, bool playerCard){
+        if (playerCard)
+        {
+           Card deadCard = ScriptableObject.CreateInstance<Card>();
+           deadCard.CopyFrom(card);
+           deadCard.ResetCard(); 
+           playerCardsLost.Add(deadCard);
+        }
     }
 
     public CardInCombat GetCardAtSlot(CardSlot slot){
@@ -652,10 +662,26 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
 
     public void DrawPileButton(){
-        DeckUtilities.SingularDisplay("deck", deck.drawPile);
+        if (deck.drawPile.Count != 0 || DeckUtilities.GetDisplayWithName("deck") != null){
+            DeckUtilities.SingularDisplay("deck", deck.drawPile);
+        }else{
+            NotificationManager.notificationManager.NotifyAutoEnd(noDrawNotification, new Vector3(-700, -90, 0), 2);
+        }
     }
 
     public void DiscardPileButton(){
-        DeckUtilities.SingularDisplay("deck", deck.discardPile);
+        if (deck.discardPile.Count != 0 || DeckUtilities.GetDisplayWithName("deck") != null){
+            DeckUtilities.SingularDisplay("deck", deck.discardPile);
+        }else{
+            NotificationManager.notificationManager.NotifyAutoEnd(noDiscardNotification, new Vector3(-700, -90, 0), 2);
+        }
+    }
+
+    public void GraveButton(){
+        if (playerCardsLost.Count != 0 || DeckUtilities.GetDisplayWithName("deck") != null){
+            DeckUtilities.SingularDisplay("deck", playerCardsLost);
+        }else{
+            NotificationManager.notificationManager.NotifyAutoEnd(noGraveNotification, new Vector3(765, -190, 0), 2);
+        }
     }
 }

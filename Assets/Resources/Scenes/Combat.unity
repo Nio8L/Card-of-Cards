@@ -4456,9 +4456,12 @@ MonoBehaviour:
   deck: {fileID: 769775200}
   enemyDeck: {fileID: 1537027587}
   combatUI: {fileID: 527115434}
-  playerCardsLost: 0
+  playerCardsLost: []
   round: 1
   fireExplosionPrefab: {fileID: 2358329753112103490, guid: 50dcdf2437ce66a479b80855f247dccd, type: 3}
+  noDrawNotification: {fileID: 11400000, guid: edcc05000f7204d409a033ff428cdadd, type: 2}
+  noDiscardNotification: {fileID: 11400000, guid: 4f2ce7311a7075740bdd2a7684fccbbe, type: 2}
+  noGraveNotification: {fileID: 11400000, guid: bec424548e87a7e4da9493439b8d60c7, type: 2}
 --- !u!1 &1264100468
 GameObject:
   m_ObjectHideFlags: 0
@@ -4525,6 +4528,7 @@ GameObject:
   - component: {fileID: 1274311608}
   - component: {fileID: 1274311607}
   - component: {fileID: 1274311609}
+  - component: {fileID: 1274311610}
   m_Layer: 5
   m_Name: Grave
   m_TagString: Untagged
@@ -4605,6 +4609,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: Grave
   content: Cards go here after their soul is lost.
+--- !u!114 &1274311610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274311605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1262811047}
+          m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
+          m_MethodName: GraveButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1286149667
 PrefabInstance:
   m_ObjectHideFlags: 0
