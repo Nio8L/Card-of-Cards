@@ -23,7 +23,7 @@ public class Rekindle : Sigil
             Card cardToAdd = Instantiate(emberCardBase).ResetCard();
             string nameToCopy = emberCardBase.name;
             cardToAdd.name = nameToCopy;
-            card.deck.discardPile.Add(cardToAdd);
+            card.deck.drawPile.Add(cardToAdd);
         }
         
         if (cards > 0) card.deck.PlaySigilAnimation(card.transform, card.card, this);

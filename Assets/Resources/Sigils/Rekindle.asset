@@ -19,4 +19,4 @@ MonoBehaviour:
     are on fire.
   emberCardBase: {fileID: 11400000, guid: a9a529a43b59df9459361024426ef138, type: 2}
   limit: 10
-  firesPerCard: 1
+  firesPerCard: 2
