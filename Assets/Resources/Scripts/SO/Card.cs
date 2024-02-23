@@ -111,7 +111,7 @@ public class Card : ScriptableObject
                 Card lostSoulToCopy = Instantiate(lostSoulBase).ResetCard();
                 lostSoulToCopy.name = lostSoulBase.name;
 
-                EventManager.CardDeath?.Invoke(this, playerCard);
+                EventManager.CardDeath?.Invoke(this);
                 
                 CopyFrom(lostSoulToCopy);
 

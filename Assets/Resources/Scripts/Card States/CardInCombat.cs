@@ -168,7 +168,7 @@ public class CardInCombat : MonoBehaviour
                 if (card.canRevive) {
                     deck.discardPile.Add(card);
                 }else{
-                    EventManager.CardDeath?.Invoke(card, true);
+                    EventManager.CardDeath?.Invoke(card);
                 }
             }
             else
@@ -179,7 +179,7 @@ public class CardInCombat : MonoBehaviour
                     if (card.canRevive) {
                         CombatManager.combatManager.enemyDeck.discardPile.Add(card);
                     }else{
-                        EventManager.CardDeath?.Invoke(card, false);
+                        EventManager.CardDeath?.Invoke(card);
                     }
                 }
                 else if (CombatManager.combatManager.battleReward.Count < 3)
@@ -187,7 +187,7 @@ public class CardInCombat : MonoBehaviour
                     if (card.canRevive) {
                         CombatManager.combatManager.battleReward.Add(card);
                     }else{
-                        EventManager.CardDeath?.Invoke(card, false);
+                        EventManager.CardDeath?.Invoke(card);
                     }
                 }
 
@@ -280,7 +280,7 @@ public class CardInCombat : MonoBehaviour
                 if (card.canRevive) {
                     deck.discardPile.Add(card);
                 }else{
-                    EventManager.CardDeath?.Invoke(card, true);
+                    EventManager.CardDeath?.Invoke(card);
                 }
             }
             else
@@ -290,7 +290,7 @@ public class CardInCombat : MonoBehaviour
                     if (card.canRevive) {
                         CombatManager.combatManager.enemyDeck.discardPile.Add(card);
                     }else{
-                        EventManager.CardDeath?.Invoke(card, false);
+                        EventManager.CardDeath?.Invoke(card);
                     }
                 }
                 else if (CombatManager.combatManager.battleReward.Count < 3)
@@ -298,7 +298,7 @@ public class CardInCombat : MonoBehaviour
                     if (card.canRevive) {
                         CombatManager.combatManager.battleReward.Add(card);
                     }else{
-                        EventManager.CardDeath?.Invoke(card, false);
+                        EventManager.CardDeath?.Invoke(card);
                     }
                 }
 

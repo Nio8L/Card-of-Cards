@@ -8,7 +8,7 @@ public class EventManager : MonoBehaviour
 {
     public static Action<Card, List<Card>, bool> CardCreated;
 
-    public static Action<Card, bool> CardDeath;
+    public static Action<Card> CardDeath;
 
     public static Action NextTurn;
 

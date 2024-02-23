@@ -616,8 +616,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     #endregion
     
-    public void CardDeath(Card card, bool playerCard){
-        if (playerCard)
+    public void CardDeath(Card card){
+        if (card.playerCard)
         {
            Card deadCard = ScriptableObject.CreateInstance<Card>();
            deadCard.CopyFrom(card);

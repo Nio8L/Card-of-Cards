@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Mouse
+  m_Name: Blerp
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  health: 1
-  attack: 1
+  maxHealth: 3
+  health: 0
+  attack: 0
   defaultAttack: 1
-  cost: 0
-  image: {fileID: 21300000, guid: 99aff79ce12a6ec428370403e97f083b, type: 3}
+  cost: 2
+  image: {fileID: 21300000, guid: b89363cf4e8f7d14299ee5f3d2331a2a, type: 3}
   canRevive: 1
   fireImmune: 0
-  typeOfDamage: 1
+  typeOfDamage: 0
   sigils:
-  - {fileID: 11400000, guid: 42b2090fabcd35742a86837c07801d2f, type: 2}
+  - {fileID: 11400000, guid: a1dea42d16aa4944aac2a88d4b0e88f6, type: 2}
   injuries: 
   playerCard: 1

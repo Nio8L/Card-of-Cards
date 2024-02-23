@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc771e98118cee34e8795505d3f4f007, type: 3}
+  m_Name: Grave Digger
+  m_EditorClassIdentifier: 
+  sigilName: Grave Digger
+  negative: 0
+  image: {fileID: 21300000, guid: ffb0ec7de00887c4a8beb6ee579886d0, type: 3}
+  description: At the start of your draw 1 additional card for each card that died
+    last round.
+  numberOfCardsToDraw: 0
+  playerCard: 0

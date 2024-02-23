@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Mouse
+  m_Name: Fly
   m_EditorClassIdentifier: 
   maxHealth: 1
-  health: 1
-  attack: 1
+  health: 0
+  attack: 0
   defaultAttack: 1
   cost: 0
-  image: {fileID: 21300000, guid: 99aff79ce12a6ec428370403e97f083b, type: 3}
+  image: {fileID: 21300000, guid: 83215345279043549aed97dfbee9d0dd, type: 3}
   canRevive: 1
   fireImmune: 0
-  typeOfDamage: 1
-  sigils:
-  - {fileID: 11400000, guid: 42b2090fabcd35742a86837c07801d2f, type: 2}
+  typeOfDamage: 0
+  sigils: []
   injuries: 
   playerCard: 1
