@@ -13,8 +13,9 @@ public class DataPersistenceManager : MonoBehaviour
 
     [Header("Developer Tools")]
     [SerializeField] public bool AutoSaveData = false;
-    [SerializeField] public float audioLevel = 0;
-    [SerializeField] public float musicLevel = 0;
+    public float audioLevel = 0;
+    public float musicLevel = 0;
+    public bool redMarkers = false; 
 
 
     [Header("Between scenes tracking")]

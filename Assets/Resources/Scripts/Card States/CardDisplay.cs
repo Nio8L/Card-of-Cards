@@ -34,6 +34,11 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Image injury3;
 
     [Header("Injury Icons")]
+    public Sprite[] biteInjuryIcon;
+    public Sprite[] scratchInjuryIcon;
+    public Sprite[] poisonInjuryIcon;
+
+    [Header("Damage Icons")]
     public Sprite biteDamageIcon;
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
@@ -91,9 +96,29 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         injury3.color = new Color(1, 1, 1, 0);
         foreach (Card.TypeOfDamage injury in card.injuries)
         {
-            if (injury == Card.TypeOfDamage.Bite) injury1.color = new Color(1, 1, 1, 1);
-            else if (injury == Card.TypeOfDamage.Scratch) injury2.color = new Color(1, 1, 1, 1);
-            else if (injury == Card.TypeOfDamage.Poison) injury3.color = new Color(1, 1, 1, 1);
+            if(DataPersistenceManager.DataManager.redMarkers){
+                if(injury == Card.TypeOfDamage.Bite){
+                    injury1.sprite = biteInjuryIcon[1];
+                    injury1.color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Scratch){
+                    injury2.sprite = scratchInjuryIcon[1];
+                    injury2.color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Poison){
+                    injury3.sprite = poisonInjuryIcon[1];
+                    injury3.color = new Color(1, 1, 1, 1);
+                }
+            }else{
+                if(injury == Card.TypeOfDamage.Bite){
+                    injury1.sprite = biteInjuryIcon[0];
+                    injury1.color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Scratch){
+                    injury2.sprite = scratchInjuryIcon[0];
+                    injury2.color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Poison){
+                    injury3.sprite = poisonInjuryIcon[0];
+                    injury3.color = new Color(1, 1, 1, 1);
+                }
+            }
         }
         transform.GetChild(7).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         transform.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();

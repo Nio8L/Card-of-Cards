@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 
 public class Deck : MonoBehaviour, IDataPersistence
@@ -38,21 +39,27 @@ public class Deck : MonoBehaviour, IDataPersistence
     public float spaceBetweenCardsInHand;
     [HideInInspector]
     public Transform hoveredCard;
+   
+    [Header("Card Piles")]
     public float spaceForHoveredCard;
+    public TextMeshProUGUI drawPileText;
+    public TextMeshProUGUI DiscardPileText;
 
-    [HideInInspector]
+    [Header("Damage Icons")]
     public Sprite biteDamageIcon;
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
 
-    public TextMeshProUGUI drawPileText;
-    public TextMeshProUGUI DiscardPileText;
-    [HideInInspector]
+    [Header("Death Icons")]
     public Sprite deathMarkScratch;
-    [HideInInspector]
     public Sprite deathMarkBite;
-    [HideInInspector]
     public Sprite deathMarkPoison;
+
+    [Header("Injury Icons")]
+    public Sprite[] biteInjuryIcon;
+    public Sprite[] scratchInjuryIcon; 
+    public Sprite[] poisonInjuryIcon;
+
     [HideInInspector]
     public Sprite activeStar;
     [HideInInspector]
@@ -145,14 +152,6 @@ public class Deck : MonoBehaviour, IDataPersistence
     {
         cardInHandPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInHand");
         cardInCombatPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInCombat");
-
-        biteDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeBite");
-        scrachDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypeSlash");
-        poisonDamageIcon = Resources.Load<Sprite>("Sprites/DamageTypePoison");
-
-        deathMarkScratch = Resources.Load<Sprite>("Sprites/DeathMarkScratch");
-        deathMarkBite = Resources.Load<Sprite>("Sprites/DeathMarkBite");
-        deathMarkPoison = Resources.Load<Sprite>("Sprites/DeathMarkPoison");
 
         activeStar = Resources.Load<Sprite>("Sprites/Sigils/ActiveStar");
         selectedActiveStar = Resources.Load<Sprite>("Sprites/Sigils/SelectedActiveStar");
@@ -469,9 +468,29 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         foreach (Card.TypeOfDamage injury in card.injuries)
         {
-            if (injury == Card.TypeOfDamage.Bite) cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            else if (injury == Card.TypeOfDamage.Scratch) cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            else if (injury == Card.TypeOfDamage.Poison) cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            if(DataPersistenceManager.DataManager.redMarkers){
+                if(injury == Card.TypeOfDamage.Bite){
+                    cardGameObject.GetChild(10).GetComponent<Image>().sprite = biteInjuryIcon[1];
+                    cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Scratch){
+                    cardGameObject.GetChild(11).GetComponent<Image>().sprite = scratchInjuryIcon[1];
+                    cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Poison){
+                    cardGameObject.GetChild(12).GetComponent<Image>().sprite = poisonInjuryIcon[1];
+                    cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }
+            }else{
+                if(injury == Card.TypeOfDamage.Bite){
+                    cardGameObject.GetChild(10).GetComponent<Image>().sprite = biteInjuryIcon[0];
+                    cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Scratch){
+                    cardGameObject.GetChild(11).GetComponent<Image>().sprite = scratchInjuryIcon[0];
+                    cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }else if(injury == Card.TypeOfDamage.Poison){
+                    cardGameObject.GetChild(12).GetComponent<Image>().sprite = poisonInjuryIcon[0];
+                    cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }
+            }
         }
         cardGameObject.GetChild(7).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         cardGameObject.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();

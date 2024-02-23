@@ -2075,14 +2075,23 @@ MonoBehaviour:
   spaceBetweenCardsInHand: 350
   hoveredCard: {fileID: 0}
   spaceForHoveredCard: 1
-  biteDamageIcon: {fileID: 0}
-  scrachDamageIcon: {fileID: 0}
-  poisonDamageIcon: {fileID: 0}
   drawPileText: {fileID: 857740047}
   DiscardPileText: {fileID: 1082926041}
-  deathMarkScratch: {fileID: 0}
-  deathMarkBite: {fileID: 0}
-  deathMarkPoison: {fileID: 0}
+  biteDamageIcon: {fileID: 21300000, guid: 09f8275ec0a08f24ab938ac80488dc3f, type: 3}
+  scrachDamageIcon: {fileID: 21300000, guid: ea3a24fb371f8a04b97ff0f4d8a51e02, type: 3}
+  poisonDamageIcon: {fileID: 21300000, guid: e687f1344b8491248adfb5d1ba6552c7, type: 3}
+  deathMarkScratch: {fileID: 21300000, guid: 66d5daf2f21dfef4e94340cbea073062, type: 3}
+  deathMarkBite: {fileID: 21300000, guid: 531770e54f8077d40be6b738bf200883, type: 3}
+  deathMarkPoison: {fileID: 21300000, guid: f232e170f6271d746aed3f86847f7909, type: 3}
+  biteInjuryIcon:
+  - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
+  - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
+  scratchInjuryIcon:
+  - {fileID: 21300000, guid: d783de996b55e4e4883a375e1f58d0ed, type: 3}
+  - {fileID: 21300000, guid: 73f3823764834bf47921c1a21680360d, type: 3}
+  poisonInjuryIcon:
+  - {fileID: 21300000, guid: a299490adbbfbb04eafe03099ea7f2f5, type: 3}
+  - {fileID: 21300000, guid: 8b5e7ab78a494ee449b6628139494832, type: 3}
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
   noEnergyNotification: {fileID: 11400000, guid: 2c97cedfb47bdb14f93a5c54a1bbd6a4, type: 2}
@@ -5261,14 +5270,23 @@ MonoBehaviour:
   spaceBetweenCardsInHand: 250
   hoveredCard: {fileID: 0}
   spaceForHoveredCard: 1
-  biteDamageIcon: {fileID: 0}
-  scrachDamageIcon: {fileID: 0}
-  poisonDamageIcon: {fileID: 0}
   drawPileText: {fileID: 0}
   DiscardPileText: {fileID: 0}
-  deathMarkScratch: {fileID: 0}
-  deathMarkBite: {fileID: 0}
-  deathMarkPoison: {fileID: 0}
+  biteDamageIcon: {fileID: 21300000, guid: 09f8275ec0a08f24ab938ac80488dc3f, type: 3}
+  scrachDamageIcon: {fileID: 21300000, guid: ea3a24fb371f8a04b97ff0f4d8a51e02, type: 3}
+  poisonDamageIcon: {fileID: 21300000, guid: e687f1344b8491248adfb5d1ba6552c7, type: 3}
+  deathMarkScratch: {fileID: 21300000, guid: 66d5daf2f21dfef4e94340cbea073062, type: 3}
+  deathMarkBite: {fileID: 21300000, guid: 531770e54f8077d40be6b738bf200883, type: 3}
+  deathMarkPoison: {fileID: 21300000, guid: f232e170f6271d746aed3f86847f7909, type: 3}
+  biteInjuryIcon:
+  - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
+  - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
+  scratchInjuryIcon:
+  - {fileID: 21300000, guid: d783de996b55e4e4883a375e1f58d0ed, type: 3}
+  - {fileID: 21300000, guid: 73f3823764834bf47921c1a21680360d, type: 3}
+  poisonInjuryIcon:
+  - {fileID: 21300000, guid: a299490adbbfbb04eafe03099ea7f2f5, type: 3}
+  - {fileID: 21300000, guid: 8b5e7ab78a494ee449b6628139494832, type: 3}
   activeStar: {fileID: 0}
   selectedActiveStar: {fileID: 0}
   noEnergyNotification: {fileID: 0}

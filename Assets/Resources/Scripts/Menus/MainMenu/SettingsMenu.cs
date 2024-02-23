@@ -20,13 +20,16 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [SerializeField] private TextMeshProUGUI musicSliderText;
     [SerializeField] private Button musicButton;
 
+    [SerializeField] private Button redMarksButton;
+
     [Header("Sprites")]
     public Sprite onImage;
     public Sprite offImage;
 
     public bool disableAudio = false;
-    private bool disableMusic = false;
+    public bool disableMusic = false;
 
+    public bool redMarks = false;
 
     public void SaveData(SettingsData data){
         data.audioLevel = (int)audioSlider.value;
@@ -34,6 +37,7 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
 
         data.disableAudio = disableAudio;
         data.disableMusic = disableMusic;
+        data.redMarkers = redMarks;
     }
 
     public void LoadData(SettingsData data){
@@ -56,6 +60,14 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         disableMusic = data.disableMusic;
         SoundManager.soundManager.disableMusic = data.disableMusic;
         
+        if(data.redMarkers){
+            redMarksButton.image.sprite = onImage;
+        }else{
+            redMarksButton.image.sprite = offImage;
+        }
+        DataPersistenceManager.DataManager.redMarkers = data.redMarkers;
+        redMarks = data.redMarkers;
+
     }
 
     public void OnBackClick(){
@@ -114,5 +126,16 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         SoundManager.soundManager.disableMusic = disableMusic;
         SoundManager.soundManager.StopCurrentMusic();
         SoundManager.soundManager.PlayMusic(SoundManager.soundManager.currentMusic);
+    }
+
+    public void RedMarksToggleClick(){
+        if(redMarks){
+            redMarksButton.image.sprite = offImage;
+        }else{
+            redMarksButton.image.sprite = onImage;
+        }
+
+        redMarks = !redMarks;
+        DataPersistenceManager.DataManager.redMarkers = redMarks;
     }
 }

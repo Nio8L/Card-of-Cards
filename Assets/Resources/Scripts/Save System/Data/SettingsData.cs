@@ -12,6 +12,8 @@ public class SettingsData
     public bool disableAudio;
     public bool disableMusic;
 
+    public bool redMarkers;
+
     public SettingsData(){
         audioLevel = 100;
         musicLevel = 100;
@@ -20,5 +22,7 @@ public class SettingsData
         disableMusic = false;
         
         autoSave = true;
+
+        redMarkers = false;
     }
 }
