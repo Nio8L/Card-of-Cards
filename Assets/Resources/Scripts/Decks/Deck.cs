@@ -436,6 +436,32 @@ public class Deck : MonoBehaviour, IDataPersistence
     //--------------------------------//
     #endregion
 
+    public void UpdateAllCardAppearances(){
+        //Update cards in hand
+        for(int i = 0; i < cardsInHand.Count; i++){
+            UpdateCardAppearance(cardsInHand[i].transform, cardsInHandAsCards[i]);
+        }
+
+        //Update cards in combat
+        for(int i = 0; i < 5; i++){
+            if(CombatManager.combatManager.enemyCombatCards[i] != null){
+                UpdateCardAppearance(CombatManager.combatManager.enemyCombatCards[i].transform, CombatManager.combatManager.enemyCombatCards[i].card);
+            }
+
+            if(CombatManager.combatManager.enemyBenchCards[i] != null){
+                UpdateCardAppearance(CombatManager.combatManager.enemyBenchCards[i].transform, CombatManager.combatManager.enemyBenchCards[i].card);
+            }
+
+            if(CombatManager.combatManager.playerCombatCards[i] != null){
+                UpdateCardAppearance(CombatManager.combatManager.playerCombatCards[i].transform, CombatManager.combatManager.playerCombatCards[i].card);
+            }
+
+            if(CombatManager.combatManager.playerBenchCards[i] != null){
+                UpdateCardAppearance(CombatManager.combatManager.playerBenchCards[i].transform, CombatManager.combatManager.playerBenchCards[i].card);
+            }
+        }
+    }
+
     public void UpdateCardAppearance(Transform cardGameObject, Card card)
     {
         //Debug.Log("UpdateCardAppearance " + card.name + " " + cardGameObject.name);
