@@ -143,6 +143,7 @@ public class CardInCombat : MonoBehaviour
     }
     public void MoveAnimationStarter(float time, Vector3 end, bool returnMove, float startDelay)
     {
+        AnimationUtilities.CancelAnimations(gameObject);
         Invoke("CallUpdateCardAppearance", time + startDelay);
         if (!returnMove){
             AnimationUtilities.MoveToPoint(transform, time, startDelay, end);
