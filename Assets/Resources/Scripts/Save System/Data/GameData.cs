@@ -13,36 +13,17 @@ public class ListWrapper
 }
 
 [System.Serializable]
-public class MapNodeClass
-{
-    public MapWorld.RoomType roomType;
+public class Map{
+    public int seed;
+    public int layerIndex;
+    public int nodeIndex;
+    public bool hasTraveled;
 
-    public bool used = false;
-
-    public bool isCurrentNode = false;
-}
-
-[System.Serializable]
-public class LayerClass
-{
-    public List<MapNodeClass> mapNodeClasses;
-    public int placeInTheArray;
-    public int enterConectionType;
-
-    public LayerClass(){
-        mapNodeClasses = new();
-    }
-}
-
-[System.Serializable]
-public class MapEvent
-{
-    public string name;
-    public bool used;
-
-    public MapEvent(){
-        name = "";
-        used = false;
+    public Map(){
+        seed = 0;
+        layerIndex = 0;
+        nodeIndex = 0;
+        hasTraveled = false;
     }
 }
 
@@ -69,9 +50,8 @@ public class GameData
     public List<string> cardDamageType;
 
     public string enemyAI;
-    public MapEvent mapEvent;
 
-    public List<LayerClass> mapLayers;
+    public Map map;
 
     public GameData(){
         runTime = 0;
@@ -91,12 +71,8 @@ public class GameData
         cardDamageType = new();
         
         enemyAI = "";
-        mapEvent = new();
 
-
-        mapLayers = new();
-
-        //Debug.Log(map);
+        map = new();
     }
     
 }
