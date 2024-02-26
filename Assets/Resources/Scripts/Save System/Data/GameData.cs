@@ -15,7 +15,7 @@ public class ListWrapper
 [System.Serializable]
 public class MapNodeClass
 {
-    public MapNode.RoomType roomType;
+    public MapWorld.RoomType roomType;
 
     public bool used = false;
 

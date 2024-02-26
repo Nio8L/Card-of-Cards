@@ -62,6 +62,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public Notification noGraveNotification;
 
     void Awake(){
+        Debug.Log("AWAKE");
         combatManager = this;
 
         // Clear all existing displays
@@ -89,7 +90,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // Find the enemy ai for this combat
         if (DataPersistenceManager.DataManager.currentCombatAI != null)
         {
+            Debug.Log("ENEMY FOUND");
+            Debug.Log("ENEMY: " + DataPersistenceManager.DataManager.currentCombatAI.name);
             enemy = DataPersistenceManager.DataManager.currentCombatAI;
+            Debug.Log("ENEMY2: " + enemy.name);
         }
         // Initialize it
         enemy.Initialize();
@@ -113,6 +117,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void Start(){
         // Use start if something needs to know the players hp
 
+        Debug.Log("START");
+
         // Update the hp text
         combatUI.UpdateHPText();
 
@@ -125,7 +131,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     private void OnEnable() {
         EventManager.CardDeath += CardDeath;
     }
-
     private void OnDisable() {
         EventManager.CardDeath -= CardDeath;
     }
@@ -155,7 +160,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         enemy = null;
         //END THE GAME HERE
     }
-
     private void Update()
     {
         if (timerAfterEnemyTurn > 0)
@@ -180,7 +184,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
         combatUI.UpdateGraveText();
     }
-  
     public void PlayCard(Card card, CardSlot slot, bool useDeck){
         /*
             Card card     - The card scriptable object to play the card with
@@ -233,7 +236,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             else                 enemyCombatCards[slot.slot] = cardInCombat;
         }
     }
-
 
     #region Game Phases
     public void StartEnemyTurn()
@@ -411,8 +413,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
     }
     #endregion
-
-
     #region Attacks
     public void DirectHit(CardInCombat card)
     {
@@ -536,13 +536,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     #endregion
 
-
     #region Saving system
     public void LoadData(GameData data)
     {
         playerHealth = data.playerHealth;
 
-        enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
+        // TODO: enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
     public void SaveData(GameData data)
     {

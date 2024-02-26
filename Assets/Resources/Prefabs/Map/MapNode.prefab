@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 8456520580759990403}
   - component: {fileID: 8456520580759990402}
   - component: {fileID: 488886376593276411}
-  - component: {fileID: 2830257588851506358}
   - component: {fileID: -2930835977681632172}
+  - component: {fileID: 8335101775091920107}
   m_Layer: 0
   m_Name: MapNode
   m_TagString: Untagged
@@ -188,25 +188,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2830257588851506358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8456520580759990429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf0d4fb1c9b10df418a094ec3b98d2ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parents: []
-  children: []
-  roomType: 6
-  lines: []
-  used: 0
-  indicator: {fileID: 1464998205659586195}
-  isCurrentNode: 0
 --- !u!114 &-2930835977681632172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,9 +205,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2830257588851506358}
+        - m_Target: {fileID: 8335101775091920107}
           m_TargetAssemblyTypeName: MapNode, Assembly-CSharp
-          m_MethodName: OnPointerDown
+          m_MethodName: Clicked
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -236,3 +217,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8335101775091920107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8456520580759990429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f8bc6fdfd2f904883bebcaf813bdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

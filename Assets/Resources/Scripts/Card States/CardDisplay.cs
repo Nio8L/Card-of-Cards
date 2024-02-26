@@ -124,26 +124,10 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         transform.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
         transform.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
     }
-
-    public void PickCard()
-    {
-        if (SceneManager.GetActiveScene().name == "Map")
-        {
-            if (MapManager.mapManager.currentNode != null)
-            {
-                if (MapManager.mapManager.currentNode.roomType == MapNode.RoomType.RestSite && !MapManager.mapManager.currentNode.used)
-                {
-                    MapManager.mapManager.mapDeck.cards.Add(card);
-                    Destroy(GameObject.Find("ThreeCardChoice"));
-                }
-            }
-        }
-    }
-
     public void SelectCard(){
         if(SceneManager.GetActiveScene().name == "Map"){
             if(MapManager.mapManager.currentNode != null){
-                if(MapManager.mapManager.currentNode.roomType == MapNode.RoomType.Event){
+                if(MapManager.mapManager.currentNode.GetComponent<MapNode>().thisNode.thisRoom == MapWorld.RoomType.Event){
                     //Check if this card display is displaying an offered card    
                     if(gameObject.GetComponent<CardOffered>() != null){
                         //Find the event and select the card

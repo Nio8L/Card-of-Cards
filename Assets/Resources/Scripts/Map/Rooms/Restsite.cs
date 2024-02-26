@@ -35,6 +35,7 @@ public class Restsite : MonoBehaviour
         else MapManager.mapManager.mapDeck.playerHealth = 20;
 
         MapManager.mapManager.mapDeck.UpdateHPText();
+
         DataPersistenceManager.DataManager.currentCombatAI = null;
         firstMenu.SetActive(false);
     }

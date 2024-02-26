@@ -30,19 +30,19 @@ public class MapScroller : MonoBehaviour
 
         //Scroll with the mouse wheel
         if(!MapManager.mapManager.canScroll) return;
-        
-            if (Input.GetAxis("Mouse ScrollWheel") != 0f && savedIncrease == 0)
-            {
-                if (animationTime > 0f){
-                    animationSpeed = 4f;
-                }else{
-                    float limitTop = 9f;
-                    if (!DataPersistenceManager.DataManager.inTutorial) limitTop = MapManager.mapManager.transform.GetChild(MapManager.mapManager.transform.childCount-1).transform.position.y;
 
-                    float newCameraY = mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-                    AnimationUtilities.MoveToPoint(mapCamera.transform, 0.25f, 0, new Vector3(0, Math.Clamp(newCameraY, 0, limitTop), -10));
-                }
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f && savedIncrease == 0)
+        {
+            if (animationTime > 0f){
+                animationSpeed = 4f;
+            }else{
+                float limitTop = 9f;
+                if (!DataPersistenceManager.DataManager.inTutorial) limitTop = MapManager.GetTopNode().transform.position.y;
+
+                float newCameraY = mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+                AnimationUtilities.MoveToPoint(mapCamera.transform, 0.25f, 0, new Vector3(0, Math.Clamp(newCameraY, 0, limitTop), -10));
             }
+        }
         
         if (animationTime > 0f){
             animationTime -= Time.deltaTime * animationSpeed;
@@ -63,7 +63,7 @@ public class MapScroller : MonoBehaviour
             if (Input.GetMouseButton(0)){
                 if (dragStart != Vector3.one * 10000){
                     float limitTop = 9f;
-                    if (!DataPersistenceManager.DataManager.inTutorial) limitTop = MapManager.mapManager.transform.GetChild(MapManager.mapManager.transform.childCount-1).transform.position.y;
+                    if (!DataPersistenceManager.DataManager.inTutorial) limitTop = MapManager.GetTopNode().transform.position.y;
 
                     Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     savedIncrease += dragStart.y - currentMousePosition.y;
@@ -80,13 +80,15 @@ public class MapScroller : MonoBehaviour
 
     public void SetUpCameraPosition()
     {
+
         if(MapManager.mapManager.currentNode != null){
             mapCamera.transform.position = new Vector3(0, MapManager.mapManager.currentNode.transform.position.y, -10);
         }
     }
 
     public void FirstLoadAnimation(){
-        startPosition = MapManager.mapManager.transform.GetChild(MapManager.mapManager.transform.childCount-1).transform.position;
+        MapWorld thisWorld = MapManager.mapManager.thisWorld;
+        startPosition = thisWorld.GetGameObjectFromNode(thisWorld.floor[thisWorld.floor.Length-1].nodes[0]).transform.position;
         startPosition.z = -10;
         animationTime = 4f;
     }

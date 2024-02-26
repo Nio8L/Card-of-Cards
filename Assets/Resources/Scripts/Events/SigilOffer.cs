@@ -121,10 +121,12 @@ public class SigilOffer : MonoBehaviour, IEvent
         for(int i = 0; i < cardSlotHandler.allCardSlots.Length; i++){
             cardSlotHandler.allCardSlots[i].RemoveCard();
         }
-        
         MapManager.mapManager.currentEvent = null;
         MapManager.mapManager.eventUsed = true;
+        //TODO: 
+        /*
         MapManager.mapManager.mapLegend.SetActive(true);
+        */
         deckDisplay.CloseDisplay();
         
         Destroy(gameObject);
