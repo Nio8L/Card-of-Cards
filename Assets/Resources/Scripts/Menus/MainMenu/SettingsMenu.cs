@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour, ISettingsPersistence
 {
@@ -137,5 +138,9 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
 
         redMarks = !redMarks;
         DataPersistenceManager.DataManager.redMarkers = redMarks;
+        
+        if(SceneManager.GetActiveScene().name == "Combat"){
+            CombatManager.combatManager.deck.UpdateAllCardAppearances();
+        }
     }
 }
