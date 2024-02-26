@@ -148,6 +148,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
+        DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
+
         thisWorld.randomSeed = data.map.seed;
         hasTraveled = data.map.hasTraveled;
         //Generate the world if the seed isn't new
@@ -161,10 +163,20 @@ public class MapManager : MonoBehaviour, IDataPersistence
                 
         }
 
+        if(data.enemyAI != ""){
+            SceneManager.LoadSceneAsync("Combat");
+        }
+
     }
 
     public void SaveData(GameData data)
     {
+         if(DataPersistenceManager.DataManager.currentCombatAI != null){
+            data.enemyAI = DataPersistenceManager.DataManager.currentCombatAI.ReturnPath();
+        }else{
+            data.enemyAI = "";
+        }
+
         data.map.seed = thisWorld.randomSeed;
         if(data.map.hasTraveled){
             data.map.layerIndex = currentNodeScript.thisNode.layer.index;

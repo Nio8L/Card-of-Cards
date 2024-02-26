@@ -541,7 +541,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         playerHealth = data.playerHealth;
 
-        // TODO: enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
+        enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
     public void SaveData(GameData data)
     {
