@@ -19,7 +19,10 @@ public class MapWorld : ScriptableObject
 
     public Layer[] floor;
 
-    public int randomSeed;
+    // Used only for map generation
+    public int mapSeed;
+    // Used for everything else (events, combats, etc.)
+    public int generalSeed;
 
     public enum RoomType
     {
@@ -64,7 +67,7 @@ public class MapWorld : ScriptableObject
 
     }
     public void GenerateLayout(){
-        Random.InitState(randomSeed);
+        Random.InitState(mapSeed);
 
         floor = new Layer[stages + 1];
         

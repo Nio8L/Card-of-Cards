@@ -7,6 +7,7 @@ public class Hopper : ActiveSigil
 {
     public override void ActiveEffect(CardInCombat card, List<CardSlot> targets)
     {
+        canBeUsed = false;
         CardSlot targetSlot = targets[0];
         CardSlot thisSlot = card.GetSlot();
 
@@ -16,8 +17,12 @@ public class Hopper : ActiveSigil
         if(!targetSlot.bench){
             if(card.playerCard){
                 if(CombatManager.combatManager.enemyCombatCards[card.slot] != null){
+                    AnimationUtilities.CancelAnimations(card.gameObject);
                     CombatManager.combatManager.CardCombat1Attacker(card, CombatManager.combatManager.enemyCombatCards[card.slot], card.card.attack);
                     CombatManager.combatManager.enemyCombatCards[card.slot].deck.UpdateCardAppearance(CombatManager.combatManager.enemyCombatCards[card.slot].transform, CombatManager.combatManager.enemyCombatCards[card.slot].card);
+                    if(CombatManager.combatManager.enemyCombatCards[card.slot].card.health <= 0){
+                        canBeUsed = true;
+                    }
                 }
             }else{
                 if(CombatManager.combatManager.playerCombatCards[card.slot] != null){
@@ -28,7 +33,6 @@ public class Hopper : ActiveSigil
         }
 
         SoundManager.soundManager.Play("CardSlide");
-        canBeUsed = false;
     }
 
     public override List<CardSlot> GetPossibleTargets(CardInCombat card){

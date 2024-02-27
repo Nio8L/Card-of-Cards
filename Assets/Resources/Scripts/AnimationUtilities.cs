@@ -196,6 +196,15 @@ public class AnimationUtilities : MonoBehaviour{
         newAnimation.AddPoint(point);
         animationUtilities.allAnimations.Add(newAnimation);
     }
+    public static void ReturnMoveToPoint(Transform target, float time, float delay, Vector3 startPoint, Vector3 endPoint){
+        // Move a given target to a point in a certain time after a delay and then return back
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "ReturnMoveToPoint");
+        newAnimation.SetDelay(delay);
+
+        newAnimation.AddPoint(startPoint);
+        newAnimation.AddPoint(endPoint  );
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
     public static void ChangeAlpha(Transform target, float time, float delay, float alpha){
         // Change the alpha of an object
         AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeAlpha");

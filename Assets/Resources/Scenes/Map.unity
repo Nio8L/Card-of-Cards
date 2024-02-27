@@ -3234,11 +3234,14 @@ MonoBehaviour:
   thisWorld: {fileID: 11400000, guid: 629f4c5d037757443a2798a1f1e844b8, type: 2}
   mapDeck: {fileID: 527827822}
   currentNode: {fileID: 0}
+  currentNodeScript: {fileID: 0}
   currentEvent: {fileID: 0}
   REGENERATE: 0
   canTravel: 1
   canScroll: 1
   eventUsed: 0
+  hasTraveled: 0
+  eventCanvas: {fileID: 455741962}
   selectableNodes: []
 --- !u!4 &1377556452
 Transform:
