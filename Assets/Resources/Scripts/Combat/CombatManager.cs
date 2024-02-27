@@ -532,7 +532,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         attacker.card.ActivateOnHitEffects(attacker);
 
         // Start the attack animation for the attacker
-        attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.transform.position.x, 1f, 0f), true, attacker.slot * 0.2f);
+        float animationDelay = 0.5f;
+        if (gamePhase == 2) animationDelay = attacker.slot * 0.2f;
+        attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.GetSlot().transform.position.x, 1f, 0f), true, animationDelay);
     }
     #endregion
 

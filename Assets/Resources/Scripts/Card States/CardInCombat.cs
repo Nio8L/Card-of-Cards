@@ -143,12 +143,12 @@ public class CardInCombat : MonoBehaviour
     }
     public void MoveAnimationStarter(float time, Vector3 end, bool returnMove, float startDelay)
     {
-        AnimationUtilities.CancelAnimations(gameObject);
+        //AnimationUtilities.CancelAnimations(gameObject);
         Invoke("CallUpdateCardAppearance", time + startDelay);
         if (!returnMove){
             AnimationUtilities.MoveToPoint(transform, time, startDelay, end);
         }else{
-            AnimationUtilities.ReturnMoveToPoint(transform, time, startDelay, end);
+            AnimationUtilities.ReturnMoveToPoint(transform, time, startDelay, GetSlot().transform.position, end);
             Invoke("CallUpdateCardAppearance", (time+startDelay)/2);
             Invoke("PlayCombatSound", (time+startDelay)/1.25f);
         }

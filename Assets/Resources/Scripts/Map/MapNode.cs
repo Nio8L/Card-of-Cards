@@ -36,7 +36,8 @@ public class MapNode : MonoBehaviour
         for (int i = 0; i < MapManager.mapManager.selectableNodes.Count; i++){
             if (MapManager.mapManager.selectableNodes[i] == gameObject){
                 // If it is select it
-                MapManager.SelectNode(this);
+                MapManager.SelectNode  (this);
+                MapManager.ActivateNode(this);
                 break;
             }
         }
