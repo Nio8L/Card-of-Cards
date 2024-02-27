@@ -14,21 +14,14 @@ public class MapNode : MonoBehaviour
             transform.localScale = Vector3.one * 2f;
             transform.GetChild(0).localScale = Vector3.one * 2f;
         }
-
-        if (roomType == MapWorld.RoomType.Combat){
-            enemyOnThisNode = MapManager.mapManager.thisWorld.combats[Mathf.FloorToInt(Random.value * MapManager.mapManager.thisWorld.combats.Count)];
-
-        }else if (roomType == MapWorld.RoomType.Hunt){
-            enemyOnThisNode = MapManager.mapManager.thisWorld.hunts[Mathf.FloorToInt(Random.value * MapManager.mapManager.thisWorld.hunts.Count)];
-
-        }else if (roomType == MapWorld.RoomType.Hunter){
-            enemyOnThisNode = MapManager.mapManager.thisWorld.hunters[Mathf.FloorToInt(Random.value * MapManager.mapManager.thisWorld.hunters.Count)];
-
-        }else if (roomType == MapWorld.RoomType.Event){
-            eventOnThisNode = MapManager.mapManager.thisWorld.events[Mathf.FloorToInt(Random.value * MapManager.mapManager.thisWorld.events.Count)];
-        }
     }
 
+    public void AssignEnemy(EnemyBase _enemy){
+        enemyOnThisNode = _enemy;
+    }
+    public void AssignEvent(GameObject _event){
+        eventOnThisNode = _event;
+    }
     public void Clicked(){
         if (!MapManager.mapManager.canTravel) return;
 

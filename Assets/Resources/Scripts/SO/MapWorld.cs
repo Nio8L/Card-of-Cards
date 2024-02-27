@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName="Map World")]
@@ -155,7 +156,8 @@ public class MapWorld : ScriptableObject
             Layer thisLayer = floor[layer];
             // Spawn nodes
             for (int node = 0; node < thisLayer.nodes.Length; node++){
-                GameObject newNode = Instantiate(nodeBase, new Vector3(node * 2f - thisLayer.nodes.Length + Random.value, layer * 3 + Random.value, 0), Quaternion.identity);
+                Vector3 position = new Vector3(node * 2f - thisLayer.nodes.Length + Random.value, layer * 3 + Random.value, 0);
+                GameObject newNode = Instantiate(nodeBase, position, Quaternion.identity);
                 newNode.transform.SetParent(MapManager.mapManager.transform);
                 newNode.GetComponent<MapNode>().thisNode = thisLayer.nodes[node];
 
@@ -228,11 +230,54 @@ public class MapWorld : ScriptableObject
                         if (bannedRooms[i] == roomTypeToUse) end = false;
                     }
                 }
-                // Use the selected room
-                thisLayer.nodes[node].thisRoom = RoomType.Restsite;
-                GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>().SetRoom(roomTypeToUse);
-            }
 
+                // Use the selected room
+                MapNode nodeGameObject = GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>();
+                thisLayer.nodes[node].thisRoom = roomTypeToUse;
+                nodeGameObject.SetRoom(roomTypeToUse);
+            }
+        }
+    }
+    public void AssignEncounters(){
+        // Assigns enemy ai's and events to nodes
+        EnemyBase  lastEnemy = null;
+        GameObject lastEvent = null;
+        // Go through all layers
+        for (int layer = 0; layer < floor.Length; layer++){
+            // Find this layer
+            Layer thisLayer = floor[layer];
+
+            // Go through all nodes
+            for (int node = 0; node < thisLayer.nodes.Length; node++){
+                // Find the room of this node
+                RoomType roomTypeToUse = thisLayer.nodes[node].thisRoom;
+
+                // Skip this node if it's a restsite
+                if (roomTypeToUse == RoomType.Restsite) continue;
+                
+                // Find its game object
+                MapNode nodeGameObject = GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>();
+                
+                // Select a combat
+                if (roomTypeToUse != RoomType.Event){
+                    EnemyBase enemy;
+                    do{
+                        if      (roomTypeToUse == RoomType.Combat) enemy = combats[Random.Range(0, combats.Count)];
+                        else if (roomTypeToUse == RoomType.Hunt  ) enemy = hunts  [Random.Range(0, hunts  .Count)];
+                        else                                       enemy = hunters[Random.Range(0, hunters.Count)];
+                    }while(lastEnemy == enemy);
+                    nodeGameObject.AssignEnemy(enemy);
+                }
+
+                // Select an event
+                if (roomTypeToUse == RoomType.Event){
+                    GameObject eventToUse;
+                    do{
+                        eventToUse = events[Random.Range(0, events.Count)];
+                    }while(lastEvent == eventToUse);
+                nodeGameObject.AssignEvent(eventToUse);
+                }
+            }
         }
     }
     public GameObject GetGameObjectFromNode(Node node){

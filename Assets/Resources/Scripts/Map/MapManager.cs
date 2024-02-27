@@ -28,56 +28,45 @@ public class MapManager : MonoBehaviour, IDataPersistence
         mapManager = this;
         thisWorld = Instantiate(thisWorld);
     }
-    
     void Start(){
         GenerateWorld();
+        Random.InitState(mapManager.thisWorld.generalSeed);
     }
-
     void Update(){
         if (REGENERATE){
             ClearMap();
+            GenerateWorld();
             REGENERATE = false;
         }
     }
-
     static void GenerateWorld(){
         //Prevent the map generating a world if the seed isn't new
-        if(mapManager.thisWorld.randomSeed != 0){
+        if(mapManager.thisWorld.mapSeed != 0){
             return;
         }
-
+        // Reset the timer
         Timer.timer.time = 0;
-
         // Generate a new map
-        mapManager.thisWorld.randomSeed = Mathf.FloorToInt(Random.value*10000000);
-        mapManager.thisWorld.GenerateLayout();
-        mapManager.thisWorld.GenerateNodes ();
-        mapManager.thisWorld.AssignRooms   ();
-
-        mapManager.MakeBottomLayerSelectable();
-        Debug.Log("generate " + mapManager.thisWorld.randomSeed);
+        GenerateWorld(Mathf.FloorToInt(Random.value*214783646));
     }
-
     static void GenerateWorld(int seed){
         // Generate a map with a given seed
-        mapManager.thisWorld.randomSeed = seed;
-        mapManager.thisWorld.GenerateLayout();
-        mapManager.thisWorld.GenerateNodes ();
-        mapManager.thisWorld.AssignRooms   ();
+        mapManager.thisWorld.mapSeed = seed;
+        mapManager.thisWorld.GenerateLayout  ();
+        mapManager.thisWorld.GenerateNodes   ();
+        mapManager.thisWorld.AssignRooms     ();
+        mapManager.thisWorld.AssignEncounters();
 
-        mapManager.MakeBottomLayerSelectable();
-        Debug.Log("generate with seed " + mapManager.thisWorld.randomSeed);
+        mapManager.MakeBottomLayerSelectable ();
     }
-
     static void ClearMap(){
         // Destroy all nodes and lines
         for (int i = mapManager.transform.childCount-1; i >= 0; i--){
             Destroy(mapManager.transform.GetChild(i).gameObject);
         }
         mapManager.selectableNodes.Clear();
-        GenerateWorld();
+        mapManager.thisWorld.mapSeed = 0;
     }
-
     public static void SelectNode(MapNode mapNode){
         // Change the color of the old selected node
         if (mapManager.currentNode != null) mapManager.currentNode.GetComponent<SpriteRenderer>().color = Color.white;
@@ -99,41 +88,17 @@ public class MapManager : MonoBehaviour, IDataPersistence
             GameObject targetNode = mapManager.thisWorld.GetGameObjectFromNode(connections[i]); 
             MakeNodeSelectable(targetNode);
         }
-        
-        // Active the node's room
-        ActivateNode(mapNode);
     }
-    
-    public static void SelectNodeNoActivation(MapNode mapNode){
-        // Change the color of the old selected node
-        if (mapManager.currentNode != null) mapManager.currentNode.GetComponent<SpriteRenderer>().color = Color.white;
-        
-        // Select the new node
-        mapManager.currentNode = mapNode.gameObject;
-        mapManager.currentNode.GetComponent<SpriteRenderer>().color = Color.red;
-        mapManager.currentNodeScript = mapNode;
-
-        // Clear the glow effect
-        for (int i = 0; i < mapManager.selectableNodes.Count; i++){
-            mapManager.selectableNodes[i].transform.GetChild(0).gameObject.SetActive(false);
-        }
-        mapManager.selectableNodes.Clear();
-
-        // Make the new available nodes glow
-        List<MapWorld.Node> connections = mapManager.thisWorld.GetConnectedNodes(mapNode.thisNode);
-        for (int i = 0; i < connections.Count; i++){
-            GameObject targetNode = mapManager.thisWorld.GetGameObjectFromNode(connections[i]); 
-            MakeNodeSelectable(targetNode);
-        }
-    }
-
     public static void ActivateNode(MapNode mapNode){
         if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Combat || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunt || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunter){
             // Click on combat like rooms
             EnemyBase ai = mapNode.enemyOnThisNode;
             DataPersistenceManager.DataManager.currentCombatAI = ai;
             SceneManager.LoadSceneAsync("Combat");
-        }else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Restsite){
+
+        }
+        else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Restsite)
+        {
             // Click on rest site node
             if (mapManager.mapDeck.playerHealth < 10) mapManager.mapDeck.playerHealth += 10;
             else mapManager.mapDeck.playerHealth = 20;
@@ -141,7 +106,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
             Instantiate(mapManager.restSiteParticles, mapManager.eventCanvas.transform);
             mapManager.mapDeck.UpdateHPText();
             DataPersistenceManager.DataManager.currentCombatAI = null;
-        }else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Event){
+
+        }
+        else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Event)
+        {
              // Click on event node
             GameObject eventObject;
             // Reroll the event until it picks different one from last time
@@ -158,38 +126,37 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             DataPersistenceManager.DataManager.lastEvent = eventObject.name;
             mapManager.eventUsed = false;
+
         }
+
         mapManager.hasTraveled = true;
     }
-
     public static GameObject GetTopNode(){
         return mapManager.thisWorld.GetGameObjectFromNode(mapManager.thisWorld.floor[mapManager.thisWorld.floor.Length-1].nodes[0]);
     }
-
     public void MakeBottomLayerSelectable(){
         for (int i = 0; i < thisWorld.floor[0].nodes.Length; i++){
             MakeNodeSelectable(thisWorld.GetGameObjectFromNode(thisWorld.floor[0].nodes[i]));
         }
     }
-
     static void MakeNodeSelectable(GameObject node){
         node.transform.GetChild(0).gameObject.SetActive(true);
         mapManager.selectableNodes.Add(node);
     }
-
     public void LoadData(GameData data)
     {
         DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
 
-        thisWorld.randomSeed = data.map.seed;
+        thisWorld.mapSeed = data.map.seed;
+        thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
         hasTraveled = data.map.hasTraveled;
         //Generate the world if the seed isn't new
-        if(thisWorld.randomSeed != 0){
-            GenerateWorld(thisWorld.randomSeed);
+        if(thisWorld.mapSeed != 0){
+            GenerateWorld(thisWorld.mapSeed);
             
             if (data.map.hasTraveled)
             {
-                SelectNodeNoActivation(thisWorld.GetGameObjectFromNode(thisWorld.floor[data.map.layerIndex].nodes[data.map.nodeIndex]).GetComponent<MapNode>());
+                SelectNode(thisWorld.GetGameObjectFromNode(thisWorld.floor[data.map.layerIndex].nodes[data.map.nodeIndex]).GetComponent<MapNode>());
             }
                 
         }
@@ -199,7 +166,6 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }
 
     }
-
     public void SaveData(GameData data)
     {
          if(DataPersistenceManager.DataManager.currentCombatAI != null){
@@ -208,7 +174,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             data.enemyAI = "";
         }
 
-        data.map.seed = thisWorld.randomSeed;
+        data.map.seed = thisWorld.mapSeed;
         if(data.map.hasTraveled){
             data.map.layerIndex = currentNodeScript.thisNode.layer.index;
             data.map.nodeIndex = currentNodeScript.thisNode.index;
