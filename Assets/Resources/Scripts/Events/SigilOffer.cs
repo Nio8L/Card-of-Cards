@@ -123,10 +123,7 @@ public class SigilOffer : MonoBehaviour, IEvent
         }
         MapManager.mapManager.currentEvent = null;
         MapManager.mapManager.eventUsed = true;
-        //TODO: 
-        /*
         MapManager.mapManager.mapLegend.SetActive(true);
-        */
         deckDisplay.CloseDisplay();
         
         Destroy(gameObject);

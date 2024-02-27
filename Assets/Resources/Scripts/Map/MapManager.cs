@@ -16,6 +16,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public bool canScroll;
     public bool eventUsed;
     public bool hasTraveled = false;
+    public Transform eventCanvas;
+    public GameObject mapLegend;
+    
+    // Particles and other
+    public GameObject restSiteParticles;
     
 
     public List<GameObject> selectableNodes = new List<GameObject>();
@@ -124,9 +129,35 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public static void ActivateNode(MapNode mapNode){
         if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Combat || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunt || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunter){
+            // Click on combat like rooms
             EnemyBase ai = mapNode.enemyOnThisNode;
             DataPersistenceManager.DataManager.currentCombatAI = ai;
             SceneManager.LoadSceneAsync("Combat");
+        }else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Restsite){
+            // Click on rest site node
+            if (mapManager.mapDeck.playerHealth < 10) mapManager.mapDeck.playerHealth += 10;
+            else mapManager.mapDeck.playerHealth = 20;
+
+            Instantiate(mapManager.restSiteParticles, mapManager.eventCanvas.transform);
+            mapManager.mapDeck.UpdateHPText();
+            DataPersistenceManager.DataManager.currentCombatAI = null;
+        }else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Event){
+             // Click on event node
+            GameObject eventObject;
+            // Reroll the event until it picks different one from last time
+            do{
+                eventObject = mapManager.thisWorld.events[Random.Range(0, mapManager.thisWorld.events.Count)];
+            }while (eventObject.name == DataPersistenceManager.DataManager.lastEvent);
+
+            GameObject eventUI = Instantiate(eventObject, mapManager.eventCanvas);
+            eventUI.name = eventObject.name;
+            
+            mapManager.mapLegend.SetActive(false);
+
+            mapManager.currentEvent = eventUI;
+
+            DataPersistenceManager.DataManager.lastEvent = eventObject.name;
+            mapManager.eventUsed = false;
         }
         mapManager.hasTraveled = true;
     }
