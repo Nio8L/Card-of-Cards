@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 48, y: 48, z: 48, w: 48}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2165,7 +2165,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 48, y: 48, z: 48, w: 48}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4581,7 +4581,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 48, y: 48, z: 48, w: 48}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6367,7 +6367,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 48, y: 48, z: 48, w: 48}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6403,7 +6403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Discard pile
-  content: Played and discarded cards go here.
+  content: Discarded cards go here.
 --- !u!114 &1775769236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7027,7 +7027,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 32, y: 16, z: 32, w: 16}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

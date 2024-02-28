@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     
     // Particles and other
     public GameObject restSiteParticles;
+    public GameObject mapTutorialPO;
     
 
     public List<GameObject> selectableNodes = new List<GameObject>();
@@ -32,7 +34,20 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
     void Start(){
         GenerateWorld();
-        Random.InitState(mapManager.thisWorld.generalSeed);
+
+        if (ScenePersistenceManager.scenePersistence.inTutorial){
+            if (ScenePersistenceManager.scenePersistence.tutorialStage != 0){
+                SelectNode(thisWorld.GetGameObjectFromNode(thisWorld.floor[ScenePersistenceManager.scenePersistence.tutorialStage-1].nodes[0]).GetComponent<MapNode>());
+            }else{
+                Instantiate(mapTutorialPO);
+                canTravel = false;
+                canScroll = false;
+            }
+        }else if (!hasTraveled){
+            Camera.main.GetComponent<MapScroller>().FirstLoadAnimation();
+        }
+
+
     }
     void Update(){
         if (REGENERATE){
@@ -58,16 +73,23 @@ public class MapManager : MonoBehaviour, IDataPersistence
         mapManager.thisWorld.GenerateNodes   ();
         mapManager.thisWorld.AssignRooms     ();
         mapManager.thisWorld.AssignEncounters();
+        
 
         mapManager.MakeBottomLayerSelectable ();
+        // Start using the general seed
+        Random.InitState(mapManager.thisWorld.generalSeed);
     }
     static void ClearMap(){
         // Destroy all nodes and lines
         for (int i = mapManager.transform.childCount-1; i >= 0; i--){
             Destroy(mapManager.transform.GetChild(i).gameObject);
         }
+        mapManager.thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
         mapManager.selectableNodes.Clear();
         mapManager.thisWorld.mapSeed = 0;
+        mapManager.hasTraveled = false;
+        mapManager.currentNode = null;
+        mapManager.currentNodeScript = null;
     }
     public static void SelectNode(MapNode mapNode){
         // Change the color of the old selected node
@@ -122,7 +144,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             mapManager.currentEvent = eventUI;
 
-           ScenePersistenceManager.scenePersistence.lastEvent = eventObject.name;
+            ScenePersistenceManager.scenePersistence.lastEvent = eventObject.name;
             mapManager.eventUsed = false;
 
         }
@@ -152,11 +174,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
         if(thisWorld.mapSeed != 0){
             GenerateWorld(thisWorld.mapSeed);
             
-            if (data.map.hasTraveled)
+            if (hasTraveled)
             {
                 SelectNode(thisWorld.GetGameObjectFromNode(thisWorld.floor[data.map.layerIndex].nodes[data.map.nodeIndex]).GetComponent<MapNode>());
-            }
-                
+
+            } 
         }
 
         if(data.enemyAI != ""){
@@ -174,7 +196,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         data.map.seed = thisWorld.mapSeed;
         data.map.hasTraveled = hasTraveled;
-        if(data.map.hasTraveled){
+        if(hasTraveled){
             data.map.layerIndex = currentNodeScript.thisNode.layerIndex;
             data.map.nodeIndex = currentNodeScript.thisNode.index;
         }

@@ -3244,6 +3244,7 @@ MonoBehaviour:
   eventCanvas: {fileID: 455741962}
   mapLegend: {fileID: 1683274915}
   restSiteParticles: {fileID: 1310063385754101084, guid: 253ef5d441b5d754ab9a28271df9df47, type: 3}
+  mapTutorialPO: {fileID: 7178501972643789238, guid: a6284282ef809a14e8e7cc2028fb6de5, type: 3}
   selectableNodes: []
 --- !u!4 &1377556452
 Transform:
@@ -3253,7 +3254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377556450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.90218663, y: 0.77273417, z: 0.445653}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
