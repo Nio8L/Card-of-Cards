@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 
 
 public class Deck : MonoBehaviour, IDataPersistence
@@ -75,9 +76,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
-        if (!playerDeck) {
-            return;
-        }
+        if (!playerDeck) return;
 
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
@@ -166,14 +165,18 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (playerDeck)
         {
-            if (DataPersistenceManager.DataManager.playerDeck.Count > 0 && DataPersistenceManager.DataManager.inTutorial)
+            if (ScenePersistenceManager.scenePersistence.playerDeck.Count > 0 && ScenePersistenceManager.scenePersistence.inTutorial)
             {
-                cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
-                DataPersistenceManager.DataManager.playerDeck.Clear();
+                cardsToBeAdded = CopyCardList(ScenePersistenceManager.scenePersistence.playerDeck);
+                ScenePersistenceManager.scenePersistence.playerDeck.Clear();
                 AddCard(cardsToBeAdded.Count);
                 //Debug.Log("Added deck");
             }
            
+        }
+
+        for(int i = 0; i < cards.Count; i++){
+            cards[i].playerCard = playerDeck;
         }
         
         Shuffle();
@@ -363,6 +366,12 @@ public class Deck : MonoBehaviour, IDataPersistence
                 DrawCard();
             }
         }
+    }
+
+    public void DrawCard(Card card){
+        drawPile.RemoveAt(drawPile.IndexOf(card));
+        drawPile.Insert(0, card);
+        DrawCard();
     }
 
     public void ForceDraw()

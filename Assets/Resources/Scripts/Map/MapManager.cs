@@ -26,6 +26,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public List<GameObject> selectableNodes = new List<GameObject>();
     void Awake(){
         mapManager = this;
+        
+        thisWorld = ScenePersistenceManager.scenePersistence.mapWorld;
         thisWorld = Instantiate(thisWorld);
     }
     void Start(){
@@ -93,7 +95,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Combat || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunt || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunter){
             // Click on combat like rooms
             EnemyBase ai = mapNode.enemyOnThisNode;
-            DataPersistenceManager.DataManager.currentCombatAI = ai;
+            ScenePersistenceManager.scenePersistence.currentCombatAI = ai;
             SceneManager.LoadSceneAsync("Combat");
 
         }
@@ -105,7 +107,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             Instantiate(mapManager.restSiteParticles, mapManager.eventCanvas.transform);
             mapManager.mapDeck.UpdateHPText();
-            DataPersistenceManager.DataManager.currentCombatAI = null;
+            ScenePersistenceManager.scenePersistence.currentCombatAI = null;
 
         }
         else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Event)
@@ -120,7 +122,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             mapManager.currentEvent = eventUI;
 
-            DataPersistenceManager.DataManager.lastEvent = eventObject.name;
+           ScenePersistenceManager.scenePersistence.lastEvent = eventObject.name;
             mapManager.eventUsed = false;
 
         }
@@ -141,7 +143,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
     public void LoadData(GameData data)
     {
-        DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
+        ScenePersistenceManager.scenePersistence.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
 
         thisWorld.mapSeed = data.map.seed;
         thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
@@ -164,8 +166,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
     public void SaveData(GameData data)
     {
-         if(DataPersistenceManager.DataManager.currentCombatAI != null){
-            data.enemyAI = DataPersistenceManager.DataManager.currentCombatAI.ReturnPath();
+         if(ScenePersistenceManager.scenePersistence.currentCombatAI != null){
+            data.enemyAI = ScenePersistenceManager.scenePersistence.currentCombatAI.ReturnPath();
         }else{
             data.enemyAI = "";
         }

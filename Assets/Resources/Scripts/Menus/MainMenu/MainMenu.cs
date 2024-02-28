@@ -17,15 +17,18 @@ public class MainMenu : MonoBehaviour
     public List<Card> tutorialCards = new List<Card>();
     private void Start() {
         //Reset tutorial
-        DataPersistenceManager.DataManager.inTutorial = false;
-        DataPersistenceManager.DataManager.tutorialStage = 0;
-        DataPersistenceManager.DataManager.tutorialDeck.Clear();
+        ScenePersistenceManager.scenePersistence.inTutorial = false;
+        ScenePersistenceManager.scenePersistence.tutorialStage = 0;
+        ScenePersistenceManager.scenePersistence.tutorialDeck.Clear();
 
-        DataPersistenceManager.DataManager.currentCombatAI = null;
+        ScenePersistenceManager.scenePersistence.currentCombatAI = null;
         if (!DataPersistenceManager.DataManager.HasGameData()){
             continueButton.interactable = false;
             loadButton.interactable = false;
         }
+
+        //Reset the map world
+        ScenePersistenceManager.scenePersistence.mapWorld = Resources.Load<MapWorld>("Map Worlds/Base world");
     }
 
     public void OnNewGameClick(){
@@ -66,9 +69,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartTutorial()
     {
-        DataPersistenceManager.DataManager.inTutorial = true;
-        //DataPersistenceManager.DataManager.currentCombatAI = enemy;
-        //DataPersistenceManager.DataManager.playerDeck.AddRange(tutorialCards);
+        ScenePersistenceManager.scenePersistence.inTutorial = true;
+        ScenePersistenceManager.scenePersistence.mapWorld = Resources.Load<MapWorld>("Map Worlds/Tutorial");
         SceneManager.LoadSceneAsync("Map");
     }
 }

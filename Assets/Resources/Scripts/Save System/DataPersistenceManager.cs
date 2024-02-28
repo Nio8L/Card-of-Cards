@@ -17,19 +17,6 @@ public class DataPersistenceManager : MonoBehaviour
     public float musicLevel = 0;
     public bool redMarkers = false; 
 
-
-    [Header("Between scenes tracking")]
-    public EnemyBase currentCombatAI;
-    public List<Card> playerDeck;
-
-    [Header("Tutorial tracking")]
-    public bool inTutorial;
-    public int tutorialStage = 0;
-    public List<Card> tutorialDeck;
-    //These cards are added to the tutorialDeck according to tutorialStage
-    public List<ListWrapper> tutorialCardsToAdd;
-    public List<EnemyBase> tutorialCombats;
-
     private GameData gameData;
     private SettingsData settingsData;
 
@@ -40,11 +27,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     private FileDataHandler dataHandler;
     private FileDataHandler settingsHandler;
-
-    public string lastEvent;
-
-    public EnemyBase lastEnemyAI;
-
     private string selectedProfileId = "";
 
     private void Awake() {
@@ -79,12 +61,12 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode){
         dataPersistenceObjects = FindAllDataPersistenceObjects();
-        if (!inTutorial) LoadGame();
+        if (!ScenePersistenceManager.scenePersistence.inTutorial) LoadGame();
     }
 
     public void OnSceneUnloaded(Scene scene){
         if(AutoSaveData){
-            if (!inTutorial) SaveGame();
+            if (!ScenePersistenceManager.scenePersistence.inTutorial) SaveGame();
             SaveSettings();
         }
     }
@@ -178,7 +160,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnApplicationQuit() {
         if(AutoSaveData){
-            if (!inTutorial) SaveGame();
+            if (!ScenePersistenceManager.scenePersistence.inTutorial) SaveGame();
             SaveSettings();
         }
     }

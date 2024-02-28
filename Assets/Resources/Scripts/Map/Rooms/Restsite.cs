@@ -36,7 +36,7 @@ public class Restsite : MonoBehaviour
 
         MapManager.mapManager.mapDeck.UpdateHPText();
 
-        DataPersistenceManager.DataManager.currentCombatAI = null;
+        ScenePersistenceManager.scenePersistence.currentCombatAI = null;
         firstMenu.SetActive(false);
     }
     public void TryToPick(CardDisplay card) 
