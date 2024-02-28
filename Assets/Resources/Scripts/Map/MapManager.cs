@@ -173,7 +173,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         data.map.seed = thisWorld.mapSeed;
         data.map.hasTraveled = hasTraveled;
         if(data.map.hasTraveled){
-            data.map.layerIndex = currentNodeScript.thisNode.layer.index;
+            data.map.layerIndex = currentNodeScript.thisNode.layerIndex;
             data.map.nodeIndex = currentNodeScript.thisNode.index;
         }
     }

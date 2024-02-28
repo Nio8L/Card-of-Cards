@@ -3231,7 +3231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4b4a2682cdfe848ad5faa26b732a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisWorld: {fileID: 11400000, guid: fb9dc82c774d34041ab8a00aeb4f1b1e, type: 2}
+  thisWorld: {fileID: 11400000, guid: 629f4c5d037757443a2798a1f1e844b8, type: 2}
   mapDeck: {fileID: 527827822}
   currentNode: {fileID: 0}
   currentNodeScript: {fileID: 0}

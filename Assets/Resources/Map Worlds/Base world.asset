@@ -15,6 +15,7 @@ MonoBehaviour:
   stages: 20
   minWidth: 1
   maxWidth: 3
+  spawnBoss: 1
   events:
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
   - {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}

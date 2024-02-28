@@ -44,11 +44,11 @@ public class MapWorld : ScriptableObject
         public RoomType thisRoom;
         public EnemyBase thisEnemy;
         public GameObject thisEvent;
-        public Layer layer;
+        public int layerIndex;
         public int index;
         public Node(int _index, Layer _layer){
             index = _index;
-            layer = _layer;
+            layerIndex = _layer.index;
         }
     }
     public class Connection{
@@ -90,7 +90,7 @@ public class MapWorld : ScriptableObject
             else if (minWidth != maxWidth && layer != 0){
                 do{
                     layerSize = Mathf.FloorToInt(Random.value * maxWidth + minWidth);
-                }while(layerSize == floor[layer-1].size);
+                }while(layer != 1 && layerSize == floor[layer-2].size);
             }
             
             if (spawnBoss && layer == stages) layerSize = 1;
@@ -325,7 +325,7 @@ public class MapWorld : ScriptableObject
         return null;
     }
     Node GetSuitableConnectorNode(Node startNode, Layer targetLayer){
-        Layer startLayer = startNode.layer;
+        Layer startLayer = floor[startNode.layerIndex];
 
         int connectionWindow = Mathf.CeilToInt((float)targetLayer.size/startLayer.size);
         int minConnectionIndex = startNode.index * connectionWindow;
@@ -337,7 +337,7 @@ public class MapWorld : ScriptableObject
     }
     bool ConnectionExists(Node bottomNode, Node topNode){
         // Returns true if there is a connection between the 2 given nodes
-        Layer layer = bottomNode.layer;
+        Layer layer = floor[bottomNode.layerIndex];
         for (int i = 0; i < layer.connections.Count; i++){
             Connection connection = layer.connections[i];
             if (connection.bottomNode == bottomNode && connection.topNode == topNode){
@@ -348,7 +348,7 @@ public class MapWorld : ScriptableObject
     }
     public List<Node> GetConnectedNodes(Node targetNode){
         List<Node> nodes = new List<Node>();
-        Layer thisLayer = targetNode.layer;
+        Layer thisLayer = floor[targetNode.layerIndex];
         for (int i = 0; i < thisLayer.connections.Count; i++){
             if (thisLayer.connections[i].bottomNode == targetNode){
                 nodes.Add(thisLayer.connections[i].topNode);
