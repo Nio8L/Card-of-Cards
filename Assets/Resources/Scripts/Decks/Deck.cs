@@ -76,9 +76,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     #region Saving
     //--------------------------------//
     public void LoadData(GameData data){
-        if (!playerDeck) {
-            return;
-        }
+        if (!playerDeck) return;
 
         cards.Clear();
         for(int i = 0; i < data.cardNames.Count; i++){
@@ -175,6 +173,10 @@ public class Deck : MonoBehaviour, IDataPersistence
                 //Debug.Log("Added deck");
             }
            
+        }
+
+        for(int i = 0; i < cards.Count; i++){
+            cards[i].playerCard = playerDeck;
         }
         
         Shuffle();
@@ -364,6 +366,12 @@ public class Deck : MonoBehaviour, IDataPersistence
                 DrawCard();
             }
         }
+    }
+
+    public void DrawCard(Card card){
+        drawPile.RemoveAt(drawPile.IndexOf(card));
+        drawPile.Insert(0, card);
+        DrawCard();
     }
 
     public void ForceDraw()

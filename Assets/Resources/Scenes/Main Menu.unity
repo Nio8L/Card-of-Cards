@@ -3108,6 +3108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapWorld: {fileID: 0}
+  currentCombatAI: {fileID: 0}
+  playerDeck: []
+  lastEvent: 
   inTutorial: 0
   tutorialStage: 0
   tutorialDeck: []
