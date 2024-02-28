@@ -111,11 +111,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Event)
         {
              // Click on event node
-            GameObject eventObject;
-            // Reroll the event until it picks different one from last time
-            do{
-                eventObject = mapManager.thisWorld.events[Random.Range(0, mapManager.thisWorld.events.Count)];
-            }while (eventObject.name == DataPersistenceManager.DataManager.lastEvent);
+            GameObject eventObject = mapNode.eventOnThisNode;
 
             GameObject eventUI = Instantiate(eventObject, mapManager.eventCanvas);
             eventUI.name = eventObject.name;
@@ -175,10 +171,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }
 
         data.map.seed = thisWorld.mapSeed;
+        data.map.hasTraveled = hasTraveled;
         if(data.map.hasTraveled){
             data.map.layerIndex = currentNodeScript.thisNode.layer.index;
             data.map.nodeIndex = currentNodeScript.thisNode.index;
         }
-        data.map.hasTraveled = hasTraveled;
     }
 }

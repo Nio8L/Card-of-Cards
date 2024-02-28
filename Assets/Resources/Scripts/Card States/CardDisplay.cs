@@ -139,6 +139,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     //Check if this card display is displaying a selected card
                     }else if(gameObject.GetComponent<CardSelected>() == null){
                         //Place the card on the first available sacrificial spot
+                        if(MapManager.mapManager.currentEvent == null) return;
                         MapManager.mapManager.currentEvent.GetComponent<EventCardSlotHandler>().AddCardOnAvailableSlot(card);
                     }
                 }

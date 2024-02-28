@@ -36,7 +36,7 @@ public class Graveyard : MonoBehaviour, IEvent
 
     public void HealCard(){
         //If we have already healed a card return, so we don't heal two or more cards
-        if(healed) return;
+        if(healed || cardSlotHandler.cardSlots[0].card == null) return;
         
         //Heal the card
         cardSlotHandler.cardSlots[0].card.AcceptLostSoul();

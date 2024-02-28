@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aef3f3de12ba4e47b9cf45643fd0e58, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: 
+  stages: 0
+  minWidth: 1
+  maxWidth: 1
+  events: []
+  combats: []
+  hunts: []
+  hunters:
+  - {fileID: 11400000, guid: 01ec3dad3935441419e7b95c38777b76, type: 2}
+  floor: []
+  layerBuilder:
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 1
+      thisEnemy: {fileID: 11400000, guid: fc8a7c18f16cbd9489f53657d4bef3e3, type: 2}
+      thisEvent: {fileID: 0}
+      layer:
+        size: 0
+        index: 0
+        nodes: []
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 1
+      thisEnemy: {fileID: 11400000, guid: db07d940b2ff7c54a8e287b4683db79b, type: 2}
+      thisEvent: {fileID: 0}
+      layer:
+        size: 0
+        index: 0
+        nodes: []
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 1
+      thisEnemy: {fileID: 11400000, guid: c0900a06ae344194cb5a2afa84bfe014, type: 2}
+      thisEvent: {fileID: 0}
+      layer:
+        size: 0
+        index: 0
+        nodes: []
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 2
+      thisEnemy: {fileID: 11400000, guid: d1a0468de3efe914f9e4ef19cd5ca686, type: 2}
+      thisEvent: {fileID: 0}
+      layer:
+        size: 0
+        index: 0
+        nodes: []
+      index: 0
+  mapSeed: 0
+  generalSeed: 0

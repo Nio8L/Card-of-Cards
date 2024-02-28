@@ -62,7 +62,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public Notification noGraveNotification;
 
     void Awake(){
-        Debug.Log("AWAKE");
         combatManager = this;
 
         // Clear all existing displays
@@ -90,10 +89,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // Find the enemy ai for this combat
         if (DataPersistenceManager.DataManager.currentCombatAI != null)
         {
-            Debug.Log("ENEMY FOUND");
-            Debug.Log("ENEMY: " + DataPersistenceManager.DataManager.currentCombatAI.name);
             enemy = DataPersistenceManager.DataManager.currentCombatAI;
-            Debug.Log("ENEMY2: " + enemy.name);
         }
         // Initialize it
         enemy.Initialize();
@@ -116,9 +112,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void Start(){
         // Use start if something needs to know the players hp
-
-        Debug.Log("START");
-
         // Update the hp text
         combatUI.UpdateHPText();
 

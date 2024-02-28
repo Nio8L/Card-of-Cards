@@ -13,12 +13,15 @@ public class MapWorld : ScriptableObject
     public int stages;
     public int minWidth;
     public int maxWidth;
+    public bool spawnBoss;
     public List<GameObject>    events  = new List<GameObject>();
     public List<EnemyAI>       combats = new List<EnemyAI>();
     public List<ScriptedEnemy> hunts   = new List<ScriptedEnemy>();
     public List<EnemyAI>       hunters = new List<EnemyAI>();
 
     public Layer[] floor;
+
+    public List<Layer> layerBuilder = new List<Layer>();
 
     // Used only for map generation
     public int mapSeed;
@@ -36,8 +39,11 @@ public class MapWorld : ScriptableObject
     };
 
     List<GameObject> nodesAsGameObjects = new List<GameObject>();
+    [System.Serializable]
     public class Node{
         public RoomType thisRoom;
+        public EnemyBase thisEnemy;
+        public GameObject thisEvent;
         public Layer layer;
         public int index;
         public Node(int _index, Layer _layer){
@@ -54,6 +60,7 @@ public class MapWorld : ScriptableObject
             topNode     = _topNode;
         }
     }
+    [System.Serializable]
     public class Layer{
         public int size;
         public int index;
@@ -70,19 +77,23 @@ public class MapWorld : ScriptableObject
     public void GenerateLayout(){
         Random.InitState(mapSeed);
 
-        floor = new Layer[stages + 1];
+        if (spawnBoss) floor = new Layer[stages + 1 + layerBuilder.Count];
+        else           floor = new Layer[stages + layerBuilder.Count];
         
         // Start creating layers
-        for (int layer = 0; layer < stages + 1; layer++){
+        for (int layer = 0; layer < floor.Length; layer++){
             // Generate this layers amount of nodes
             int layerSize = minWidth;
-            if (minWidth != maxWidth && layer != 0){
+            if (layer < layerBuilder.Count){
+                 layerSize = layerBuilder[layer].size;
+            }
+            else if (minWidth != maxWidth && layer != 0){
                 do{
                     layerSize = Mathf.FloorToInt(Random.value * maxWidth + minWidth);
                 }while(layerSize == floor[layer-1].size);
             }
             
-            if (layer == stages) layerSize = 1;
+            if (spawnBoss && layer == stages) layerSize = 1;
 
             // Generate this layer
             Layer thisLayer = new Layer(layerSize, layer);
@@ -181,60 +192,73 @@ public class MapWorld : ScriptableObject
     public void AssignRooms(){
         for (int layer = 0; layer < floor.Length; layer++){
             Layer thisLayer = floor[layer];
+            // Generate rooms
+            if (layer >= layerBuilder.Count){
+                List<RoomType> bannedRooms = new List<RoomType>();
+                if (layer > 1) bannedRooms = GetRoomsAtLayer(floor[layer - 2]);
 
-            List<RoomType> bannedRooms = new List<RoomType>();
-            if (layer > 1) bannedRooms = GetRoomsAtLayer(floor[layer - 2]);
-
-            // Make the first layer a hunt
-            if (layer == 0){
-                for (int node = 0; node < thisLayer.nodes.Length; node++){
-                    thisLayer.nodes[node].thisRoom = RoomType.Hunt;
-                    GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>().SetRoom(RoomType.Hunt);
-                }
-                continue;
-            }
-
-            // Make the last layer a hunter
-            if (layer == floor.Length-1){
-                for (int node = 0; node < thisLayer.nodes.Length; node++){
-                    thisLayer.nodes[node].thisRoom = RoomType.Hunt;
-                    GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>().SetRoom(RoomType.Hunter);
-                }
-                continue;
-            }
-
-            // Make the seconds to last layer a rest site
-            if (layer == floor.Length-2){
-                for (int node = 0; node < thisLayer.nodes.Length; node++){
-                    thisLayer.nodes[node].thisRoom = RoomType.Restsite;
-                    GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>().SetRoom(RoomType.Restsite);
-                }
-                continue;
-            }
-
-            // Random
-            for (int node = 0; node < thisLayer.nodes.Length; node++){
-                RoomType roomTypeToUse = RoomType.Combat;
-                bool end = false;
-                while (!end){
-                    // Pick a random room
-                    int roomToUse = Mathf.FloorToInt(Random.value * 4);
-                    if      (roomToUse == 0) roomTypeToUse = RoomType.Combat;
-                    else if (roomToUse == 1) roomTypeToUse = RoomType.Hunt;
-                    else if (roomToUse == 2) roomTypeToUse = RoomType.Restsite;
-                    else                     roomTypeToUse = RoomType.Event;
-
-                    // Check if its banned
-                    end = true;
-                    for (int i = 0; i < bannedRooms.Count; i++){
-                        if (bannedRooms[i] == roomTypeToUse) end = false;
+                // Make the first layer a hunt
+                if (layer == 0){
+                    for (int node = 0; node < thisLayer.nodes.Length; node++){
+                        thisLayer.nodes[node].thisRoom = RoomType.Hunt;
+                        GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>().SetRoom(RoomType.Hunt);
                     }
+                    continue;
                 }
 
-                // Use the selected room
-                MapNode nodeGameObject = GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>();
-                thisLayer.nodes[node].thisRoom = roomTypeToUse;
-                nodeGameObject.SetRoom(roomTypeToUse);
+                // Make the last layer a hunter
+                if (spawnBoss && layer == floor.Length-1){
+                    for (int node = 0; node < thisLayer.nodes.Length; node++){
+                        thisLayer.nodes[node].thisRoom = RoomType.Hunt;
+                        GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>().SetRoom(RoomType.Hunter);
+                    }
+                    continue;
+                }
+
+                // Make the seconds to last layer a rest site
+                if (spawnBoss && layer == floor.Length-2){
+                    for (int node = 0; node < thisLayer.nodes.Length; node++){
+                        thisLayer.nodes[node].thisRoom = RoomType.Restsite;
+                        GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>().SetRoom(RoomType.Restsite);
+                    }
+                    continue;
+                }
+
+                // Random
+                for (int node = 0; node < thisLayer.nodes.Length; node++){
+                    RoomType roomTypeToUse = RoomType.Combat;
+                    bool end = false;
+                    while (!end){
+                        // Pick a random room
+                        int roomToUse = Mathf.FloorToInt(Random.value * 4);
+                        if      (roomToUse == 0) roomTypeToUse = RoomType.Combat;
+                        else if (roomToUse == 1) roomTypeToUse = RoomType.Hunt;
+                        else if (roomToUse == 2) roomTypeToUse = RoomType.Restsite;
+                        else                     roomTypeToUse = RoomType.Event;
+
+                        // Check if its banned
+                        end = true;
+                        for (int i = 0; i < bannedRooms.Count; i++){
+                            if (bannedRooms[i] == roomTypeToUse) end = false;
+                        }
+                    }
+
+                    // Use the selected room
+                    MapNode nodeGameObject = GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>();
+                    thisLayer.nodes[node].thisRoom = roomTypeToUse;
+                    nodeGameObject.SetRoom(roomTypeToUse);
+                }
+            }else{
+                // Use prebuild
+                Layer builderLayer = layerBuilder[layer];
+                for (int node = 0; node < builderLayer.nodes.Length; node++){
+                    RoomType roomTypeToUse = builderLayer.nodes[node].thisRoom;
+
+                    // Use the selected room
+                    MapNode nodeGameObject = GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>();
+                    thisLayer.nodes[node].thisRoom = roomTypeToUse;
+                    nodeGameObject.SetRoom(roomTypeToUse);
+                }
             }
         }
     }
@@ -252,30 +276,42 @@ public class MapWorld : ScriptableObject
                 // Find the room of this node
                 RoomType roomTypeToUse = thisLayer.nodes[node].thisRoom;
 
-                // Skip this node if it's a restsite
-                if (roomTypeToUse == RoomType.Restsite) continue;
-                
                 // Find its game object
                 MapNode nodeGameObject = GetGameObjectFromNode(thisLayer.nodes[node]).GetComponent<MapNode>();
-                
-                // Select a combat
-                if (roomTypeToUse != RoomType.Event){
-                    EnemyBase enemy;
-                    do{
-                        if      (roomTypeToUse == RoomType.Combat) enemy = combats[Random.Range(0, combats.Count)];
-                        else if (roomTypeToUse == RoomType.Hunt  ) enemy = hunts  [Random.Range(0, hunts  .Count)];
-                        else                                       enemy = hunters[Random.Range(0, hunters.Count)];
-                    }while(lastEnemy == enemy);
-                    nodeGameObject.AssignEnemy(enemy);
-                }
 
-                // Select an event
-                if (roomTypeToUse == RoomType.Event){
-                    GameObject eventToUse;
-                    do{
-                        eventToUse = events[Random.Range(0, events.Count)];
-                    }while(lastEvent == eventToUse);
-                nodeGameObject.AssignEvent(eventToUse);
+                // Skip this node if it's a restsite
+                if (roomTypeToUse == RoomType.Restsite) continue;
+
+                // Generate encounter
+                if (layer >= layerBuilder.Count){
+                    // Select a combat
+                    if (roomTypeToUse != RoomType.Event){
+                        EnemyBase enemy;
+                        do{
+                            if      (roomTypeToUse == RoomType.Combat) enemy = combats[Random.Range(0, combats.Count)];
+                            else if (roomTypeToUse == RoomType.Hunt  ) enemy = hunts  [Random.Range(0, hunts  .Count)];
+                            else                                       enemy = hunters[Random.Range(0, hunters.Count)];
+                        }while(lastEnemy == enemy);
+                        nodeGameObject.AssignEnemy(enemy);
+                    }
+
+                    // Select an event
+                    if (roomTypeToUse == RoomType.Event){
+                        GameObject eventToUse;
+                        do{
+                            eventToUse = events[Random.Range(0, events.Count)];
+                        }while(lastEvent == eventToUse);
+                    nodeGameObject.AssignEvent(eventToUse);
+                    }
+                }else{
+                    // Use pre-build layers
+                    Layer builderLayer = layerBuilder[layer];
+
+                    if (roomTypeToUse != RoomType.Event){
+                        nodeGameObject.AssignEnemy(builderLayer.nodes[node].thisEnemy);
+                    }else{
+                        nodeGameObject.AssignEvent(builderLayer.nodes[node].thisEvent);
+                    }
                 }
             }
         }

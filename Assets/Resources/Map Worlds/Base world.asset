@@ -39,5 +39,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 01ec3dad3935441419e7b95c38777b76, type: 2}
   - {fileID: 11400000, guid: 27995cc155f18f64a87787e2022b876a, type: 2}
   - {fileID: 11400000, guid: 6fdd5819e190de5459f42a5a150228b1, type: 2}
+  floor: []
+  layerBuilder: []
   mapSeed: 0
   generalSeed: 0
