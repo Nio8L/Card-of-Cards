@@ -17,10 +17,10 @@ public class MapDeck : MonoBehaviour, IDataPersistence
     private List<Card> cardsToBeAdded;
 
     private void Start() {
-        if (DataPersistenceManager.DataManager.playerDeck.Count > 0)
+        if (ScenePersistenceManager.scenePersistence.playerDeck.Count > 0)
             {
-                cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
-                DataPersistenceManager.DataManager.playerDeck.Clear();
+                cardsToBeAdded = CopyCardList(ScenePersistenceManager.scenePersistence.playerDeck);
+                ScenePersistenceManager.scenePersistence.playerDeck.Clear();
                 AddCard(cardsToBeAdded.Count);
                 //Debug.Log("Added deck");
             }

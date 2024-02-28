@@ -68,14 +68,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         DeckUtilities.CloseAllDisplays();
         
         // Setup tutorial
-        if(DataPersistenceManager.DataManager.inTutorial)
+        if(ScenePersistenceManager.scenePersistence.inTutorial)
         {
             // Find the correct ai
-            DataPersistenceManager.DataManager.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + DataPersistenceManager.DataManager.tutorialCombats[DataPersistenceManager.DataManager.tutorialStage].ReturnPath());
+            ScenePersistenceManager.scenePersistence.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + ScenePersistenceManager.scenePersistence.tutorialCombats[ScenePersistenceManager.scenePersistence.tutorialStage].ReturnPath());
 
-            deck.cards.AddRange(DataPersistenceManager.DataManager.tutorialDeck);
+            deck.cards.AddRange(ScenePersistenceManager.scenePersistence.tutorialDeck);
             
-            ListWrapper tutorialDeckToLoad = DataPersistenceManager.DataManager.tutorialCardsToAdd[DataPersistenceManager.DataManager.tutorialStage];
+            ListWrapper tutorialDeckToLoad = ScenePersistenceManager.scenePersistence.tutorialCardsToAdd[ScenePersistenceManager.scenePersistence.tutorialStage];
 
             // Load the correct deck
             for (int i = 0; i < tutorialDeckToLoad.list.Count; i++){
@@ -87,9 +87,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
         
         // Find the enemy ai for this combat
-        if (DataPersistenceManager.DataManager.currentCombatAI != null)
+        if (ScenePersistenceManager.scenePersistence.currentCombatAI != null)
         {
-            enemy = DataPersistenceManager.DataManager.currentCombatAI;
+            enemy = ScenePersistenceManager.scenePersistence.currentCombatAI;
         }
         // Initialize it
         enemy.Initialize();
@@ -134,12 +134,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         combatUI.LoadOutOfCombat();
         Time.timeScale = 1;
         
-        DataPersistenceManager.DataManager.currentCombatAI = null;
+        ScenePersistenceManager.scenePersistence.currentCombatAI = null;
             
-        if(DataPersistenceManager.DataManager.inTutorial){
-            DataPersistenceManager.DataManager.tutorialStage++;
-            DataPersistenceManager.DataManager.tutorialDeck.Clear();
-            DataPersistenceManager.DataManager.tutorialDeck.AddRange(deck.cards);
+        if(ScenePersistenceManager.scenePersistence.inTutorial){
+            ScenePersistenceManager.scenePersistence.tutorialStage++;
+            ScenePersistenceManager.scenePersistence.tutorialDeck.Clear();
+            ScenePersistenceManager.scenePersistence.tutorialDeck.AddRange(deck.cards);
         }
 
         if(combatUI.endCombatText.text == "You won!") {

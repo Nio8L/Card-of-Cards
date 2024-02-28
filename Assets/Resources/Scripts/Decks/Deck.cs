@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 
 
 public class Deck : MonoBehaviour, IDataPersistence
@@ -166,10 +167,10 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         if (playerDeck)
         {
-            if (DataPersistenceManager.DataManager.playerDeck.Count > 0 && DataPersistenceManager.DataManager.inTutorial)
+            if (ScenePersistenceManager.scenePersistence.playerDeck.Count > 0 && ScenePersistenceManager.scenePersistence.inTutorial)
             {
-                cardsToBeAdded = CopyCardList(DataPersistenceManager.DataManager.playerDeck);
-                DataPersistenceManager.DataManager.playerDeck.Clear();
+                cardsToBeAdded = CopyCardList(ScenePersistenceManager.scenePersistence.playerDeck);
+                ScenePersistenceManager.scenePersistence.playerDeck.Clear();
                 AddCard(cardsToBeAdded.Count);
                 //Debug.Log("Added deck");
             }

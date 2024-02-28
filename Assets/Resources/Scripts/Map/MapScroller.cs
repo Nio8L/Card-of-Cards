@@ -37,7 +37,7 @@ public class MapScroller : MonoBehaviour
                 animationSpeed = 4f;
             }else{
                 float limitTop = 9f;
-                if (!DataPersistenceManager.DataManager.inTutorial) limitTop = MapManager.GetTopNode().transform.position.y;
+                if (!ScenePersistenceManager.scenePersistence.inTutorial) limitTop = MapManager.GetTopNode().transform.position.y;
 
                 float newCameraY = mapCamera.transform.position.y + Input.GetAxis("Mouse ScrollWheel") * sensitivity;
                 AnimationUtilities.MoveToPoint(mapCamera.transform, 0.25f, 0, new Vector3(0, Math.Clamp(newCameraY, 0, limitTop), -10));
@@ -63,7 +63,7 @@ public class MapScroller : MonoBehaviour
             if (Input.GetMouseButton(0)){
                 if (dragStart != Vector3.one * 10000){
                     float limitTop = 9f;
-                    if (!DataPersistenceManager.DataManager.inTutorial) limitTop = MapManager.GetTopNode().transform.position.y;
+                    if (!ScenePersistenceManager.scenePersistence.inTutorial) limitTop = MapManager.GetTopNode().transform.position.y;
 
                     Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     savedIncrease += dragStart.y - currentMousePosition.y;
