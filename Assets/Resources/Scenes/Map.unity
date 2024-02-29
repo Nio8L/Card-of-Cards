@@ -3039,7 +3039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: The clock
-  content: Time elapsed since the begginning of the run.
+  content: Time elapsed since the beginning of the run.
 --- !u!1 &1293588361
 GameObject:
   m_ObjectHideFlags: 0
