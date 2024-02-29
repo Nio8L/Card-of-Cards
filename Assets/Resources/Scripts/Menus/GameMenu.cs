@@ -73,5 +73,6 @@ public class GameMenu : MonoBehaviour
         for(int i = 0; i < stuffToDisable.Length; i++){
             stuffToDisable[i].SetActive(!stuffToDisable[i].activeSelf);
         }
+        GameObject.Find("NotificationManager").GetComponent<NotificationManager>().SetActiveNotificaitons(stuffToDisable[0].activeSelf);
     }
 }

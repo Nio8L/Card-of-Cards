@@ -95,6 +95,10 @@ public class NotificationManager : MonoBehaviour
             return currentNotification;
         }
 
+        public GameObject GetNotificationUI(){
+            return notificationUI;
+        }
+
         public int GetCurrentLineIndex(){
             return currentLineIndex;
         }
@@ -211,6 +215,12 @@ public class NotificationManager : MonoBehaviour
                 notifications[i].CloseNotificationWindow();
                 i--;
             }
+        }
+    }
+
+    public void SetActiveNotificaitons(bool active){
+        for(int i = 0; i < notifications.Count; i++){
+            notifications[i].GetNotificationUI().SetActive(active);
         }
     }
 
