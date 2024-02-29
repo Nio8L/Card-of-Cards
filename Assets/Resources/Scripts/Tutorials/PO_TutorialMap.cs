@@ -42,9 +42,10 @@ public class PO_TutorialMap : MonoBehaviour
                 nodeArrow.transform.SetParent(canvas.transform);
                 
                 nodeArrow.transform.localScale = new Vector3(1f, 1f, 1f);
-                nodeArrow.transform.localPosition = new Vector3(300, -325, 0);
-    
-                NotificationManager.notificationManager.Notify(arrowNotification, new Vector3(600, -325, 0));
+                nodeArrow.transform.position = MapManager.mapManager.thisWorld.GetGameObjectFromNode(MapManager.mapManager.thisWorld.floor[0].nodes[0]).transform.position;
+                nodeArrow.transform.position = new Vector3(nodeArrow.transform.position.x + 2f, nodeArrow.transform.position.y, 0);
+
+                NotificationManager.notificationManager.Notify(arrowNotification, new Vector3(nodeArrow.transform.localPosition.x + 300, nodeArrow.transform.localPosition.y, 0));
             }
         }else{
             if(nodeArrow != null){

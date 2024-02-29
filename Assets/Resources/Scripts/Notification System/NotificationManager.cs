@@ -209,6 +209,7 @@ public class NotificationManager : MonoBehaviour
         for(int i = 0; i < notifications.Count; i++){
             if(!notifications[i].GetNotification().persistBetweenScenes){
                 notifications[i].CloseNotificationWindow();
+                i--;
             }
         }
     }
