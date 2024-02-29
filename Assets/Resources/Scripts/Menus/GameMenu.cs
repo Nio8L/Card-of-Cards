@@ -34,6 +34,10 @@ public class GameMenu : MonoBehaviour
     }
 
     public void OpenMenu(){
+        // Hide opened deck displays
+        DeckUtilities.SetActiveDisplays(DeckUtilities.deckUtilities.displaysHidden);
+        DeckUtilities.deckUtilities.displaysHidden = !DeckUtilities.deckUtilities.displaysHidden;
+
         if(!settingsMenu.activeSelf){
             ChangeButtonsState();
             TooltipSystem.QuickHide();

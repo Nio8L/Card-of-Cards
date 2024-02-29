@@ -24,11 +24,6 @@ public class DeckDisplay : MonoBehaviour
     public bool placedInPrefab;
     public float widthModifier;
     public float heightModifier;
-
-    Vector3 dragStart = Vector3.one * 10000;
-    float deckStartY;
-    float savedIncrease;
-    
     Canvas canvas;
     CanvasScaler canvasScaler;
 
@@ -114,7 +109,7 @@ public class DeckDisplay : MonoBehaviour
         for (int i = 0; i < newCards.Count; i++){
             // Calculate where they have to be placed
             float cardX = (i % cardsPerLine + 0.5f) * pixelsPerCard;
-            float cardY = height - i/cardsPerLine * cardHeight - 175;
+            float cardY = height - i/cardsPerLine * cardHeight - 175 + currentScroll;
 
             // Instantiate them 
             Transform newDisplay = Instantiate(cardDisplayPrefab, deckHolder).transform;

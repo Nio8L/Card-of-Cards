@@ -10,6 +10,8 @@ public class DeckUtilities : MonoBehaviour
     public GameObject deckDisplay;
 
     public List<DeckDisplay> activeDisplays = new List<DeckDisplay>();
+
+    public bool displaysHidden = false;
     void Awake(){
         // Destroy this object if a DeckUtilities manager already exists
         if(deckUtilities != null){
@@ -22,7 +24,7 @@ public class DeckUtilities : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetKeyUp(KeyCode.D)){
+        if(Input.GetKeyUp(KeyCode.D) && !displaysHidden){
             string sceneName = SceneManager.GetActiveScene().name;
 
             List<Card> cards = new List<Card>();
@@ -32,7 +34,20 @@ public class DeckUtilities : MonoBehaviour
 
             if (cards.Count != 0) SingularDisplay("deck", cards);
         }
-        if (Input.GetKey(KeyCode.Escape)) CloseAllDisplays();
+        
+        if (Input.GetKeyUp(KeyCode.Escape)){
+            SetActiveDisplays(displaysHidden);
+            displaysHidden = !displaysHidden;
+        }
+    }
+
+    public static void UpdateAllDisplays(){
+        for (int i = 0; i < deckUtilities.activeDisplays.Count; i++){
+            DeckDisplay deckDisplay = deckUtilities.activeDisplays[i];
+            if (deckDisplay != null){
+                deckDisplay.ShowCards();
+            }
+        }
     }
 
     public static DeckDisplay CreateDisplay(Vector2 position, float width, float height, string name){
