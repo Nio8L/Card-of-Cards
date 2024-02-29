@@ -1165,7 +1165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 450902902}
-  showcase: {fileID: 11400000, guid: 978a7074e54242c4fb63514fdd1a6860, type: 2}
+  showcase: {fileID: 11400000, guid: 2c31274c4b9aed947aabb6bf7a15832a, type: 2}
 --- !u!224 &497959943 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2756242705754170249, guid: 75cff3c678712b24ba3a810c815dbcc4, type: 3}
