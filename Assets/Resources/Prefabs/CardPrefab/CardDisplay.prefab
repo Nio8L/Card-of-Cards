@@ -355,6 +355,7 @@ MonoBehaviour:
   biteDamageIcon: {fileID: 21300000, guid: 09f8275ec0a08f24ab938ac80488dc3f, type: 3}
   scrachDamageIcon: {fileID: 21300000, guid: ea3a24fb371f8a04b97ff0f4d8a51e02, type: 3}
   poisonDamageIcon: {fileID: 21300000, guid: e687f1344b8491248adfb5d1ba6552c7, type: 3}
+  heartDamageIcon: {fileID: 21300000, guid: 929f6c112a221e94988c184058470bc9, type: 3}
 --- !u!114 &3310143477785212519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,18 +373,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5632300664335945178}
-          m_TargetAssemblyTypeName: CardDisplay, Assembly-CSharp
-          m_MethodName: PickCard
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 5632300664335945178}
           m_TargetAssemblyTypeName: CardDisplay, Assembly-CSharp
           m_MethodName: SelectCard

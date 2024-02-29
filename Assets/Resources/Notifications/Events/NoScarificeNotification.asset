@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0bb5f836244bf4e98646d6c4df3b8a, type: 3}
   m_Name: NoScarificeNotification
   m_EditorClassIdentifier: 
-  lines: []
+  lines:
+  - The Watchers refuse more sacrifices.
   persistBetweenScenes: 0
-  closable: 1
+  closable: 0

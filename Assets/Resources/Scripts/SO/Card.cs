@@ -82,6 +82,11 @@ public class Card : ScriptableObject
         typeOfDamage = cardToCopyFrom.typeOfDamage;
         sigils = cardToCopyFrom.sigils;
         injuries = cardToCopyFrom.injuries;
+
+        if(cardToCopyFrom.name == "Lost Soul"){
+            maxHealth = 0;
+            health = 0;
+        }
     }
 
     public void CreateCard(TypeOfDamage causeOfDeath)

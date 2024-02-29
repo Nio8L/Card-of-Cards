@@ -42,7 +42,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Sprite biteDamageIcon;
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
-
+    public Sprite heartDamageIcon;
 
 
     private void Start() {
@@ -54,7 +54,8 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         icon.sprite = card.image;
 
         Sprite damageIcon;
-        if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
+        if(card.name == "Lost Soul") damageIcon = heartDamageIcon;
+        else if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
         else if (card.typeOfDamage == Card.TypeOfDamage.Scratch) damageIcon = scrachDamageIcon;
         else damageIcon = poisonDamageIcon;
         attackTypeIcon.sprite = damageIcon;

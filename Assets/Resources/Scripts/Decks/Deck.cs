@@ -49,6 +49,7 @@ public class Deck : MonoBehaviour, IDataPersistence
     public Sprite biteDamageIcon;
     public Sprite scrachDamageIcon;
     public Sprite poisonDamageIcon;
+    public Sprite heartDamageIcon;
 
     [Header("Death Icons")]
     public Sprite deathMarkScratch;
@@ -476,7 +477,8 @@ public class Deck : MonoBehaviour, IDataPersistence
         cardGameObject.GetChild(0).GetComponent<Image>().sprite = card.image;
 
         Sprite damageIcon;
-        if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
+        if(card.name == "Lost Soul") damageIcon = heartDamageIcon;
+        else if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
         else if (card.typeOfDamage == Card.TypeOfDamage.Scratch) damageIcon = scrachDamageIcon;
         else damageIcon = poisonDamageIcon;
         cardGameObject.GetChild(2).GetComponent<Image>().sprite = damageIcon;
