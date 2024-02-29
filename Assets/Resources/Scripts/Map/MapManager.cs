@@ -138,6 +138,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
             mapManager.mapDeck.UpdateHPText();
             ScenePersistenceManager.scenePersistence.currentCombatAI = null;
 
+            SoundManager.soundManager.Play("LostSoul");
+
         }
         else if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Event)
         {

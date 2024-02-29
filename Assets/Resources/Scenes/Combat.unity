@@ -1308,6 +1308,8 @@ MonoBehaviour:
   graveText: {fileID: 2138951667}
   roundText: {fileID: 1896396471}
   enemyCardPileText: {fileID: 1753848774}
+  drawPileText: {fileID: 857740047}
+  discardPileText: {fileID: 1082926041}
 --- !u!4 &527115435
 Transform:
   m_ObjectHideFlags: 0

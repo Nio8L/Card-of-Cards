@@ -142,5 +142,7 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         if(SceneManager.GetActiveScene().name == "Combat"){
             CombatManager.combatManager.deck.UpdateAllCardAppearances();
         }
+        
+        DeckUtilities.UpdateAllDisplays();
     }
 }

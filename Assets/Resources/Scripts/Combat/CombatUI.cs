@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CombatUI : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class CombatUI : MonoBehaviour
     public TextMeshProUGUI graveText;
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI enemyCardPileText;
+    public TextMeshProUGUI drawPileText;
+    public TextMeshProUGUI discardPileText;
 
     public void BeginCombat(){
         endCombatMenu.SetActive(false);
@@ -81,5 +84,11 @@ public class CombatUI : MonoBehaviour
 
     public void UpdateEnemyCardPileText(){
         enemyCardPileText.text = CombatManager.combatManager.enemyDeck.cards.Count.ToString();
+    }
+    
+    public void UpdatePileNumbers()
+    {
+        drawPileText.text    = CombatManager.combatManager.deck.drawPile.Count + "";
+        discardPileText.text = CombatManager.combatManager.deck.discardPile.Count + "";
     }
 }

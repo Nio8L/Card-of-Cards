@@ -170,22 +170,12 @@ public class Deck : MonoBehaviour, IDataPersistence
                 cardsToBeAdded = CopyCardList(ScenePersistenceManager.scenePersistence.playerDeck);
                 ScenePersistenceManager.scenePersistence.playerDeck.Clear();
                 AddCard(cardsToBeAdded.Count);
-                //Debug.Log("Added deck");
             }
            
         }
 
         for(int i = 0; i < cards.Count; i++){
             cards[i].playerCard = playerDeck;
-        }
-        
-        Shuffle();
-        DrawCard(5);
-        
-        // Activate OnNotDrawn Effects
-        for (int i = 0; i < drawPile.Count; i++){
-            Card target = drawPile[i];
-            target.ActivateOnNotDrawnEffects();
         }
     }
 
@@ -230,7 +220,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         cards.Add(newCard);
 
         PrintDeck();
-        UpdatePileNumbers();
+        CombatManager.combatManager.combatUI.UpdatePileNumbers();
     }
 
     public void AddCard(int numOfCards)
@@ -244,13 +234,13 @@ public class Deck : MonoBehaviour, IDataPersistence
     public void RemoveCard(Card card){
         drawPile.Remove(card);
         cards.Remove(card);
-        UpdatePileNumbers();
+        CombatManager.combatManager.combatUI.UpdatePileNumbers();
     }
     public void RemoveCard(){
         drawPile.RemoveAt(drawPile.Count - 1);
         cards.RemoveAt(cards.Count - 1);
         PrintDeck();
-        UpdatePileNumbers();
+        CombatManager.combatManager.combatUI.UpdatePileNumbers();
     }
     public void PrintDeck(){
         string cardsInDeck = "";
@@ -350,7 +340,7 @@ public class Deck : MonoBehaviour, IDataPersistence
 
         drawPile.RemoveAt(0);
         TidyHand();
-        UpdatePileNumbers();
+        CombatManager.combatManager.combatUI.UpdatePileNumbers();
     }
 
     public void DrawCard(int numOfCards)
@@ -410,7 +400,7 @@ public class Deck : MonoBehaviour, IDataPersistence
         }
         cardsInHand.Clear();
         cardsInHandAsCards.Clear();
-        UpdatePileNumbers();
+        CombatManager.combatManager.combatUI.UpdatePileNumbers();
     }
 
     public void DiscardCard(CardInHand card){
@@ -430,7 +420,7 @@ public class Deck : MonoBehaviour, IDataPersistence
             card.targetLocation = DiscardPileText.transform.parent.localPosition;
         }
 
-        UpdatePileNumbers();
+        CombatManager.combatManager.combatUI.UpdatePileNumbers();
         TidyHand();
     }
 
@@ -561,12 +551,5 @@ public class Deck : MonoBehaviour, IDataPersistence
             }
         }
         cardGameObject.GetChild(7 + index).GetComponent<AnimateSigil>().StartAnimation();
-    }
-
-    public void UpdatePileNumbers()
-    {
-        if (!playerDeck) return;
-        drawPileText.text = drawPile.Count + "";
-        DiscardPileText.text = discardPile.Count + "";
     }
 }

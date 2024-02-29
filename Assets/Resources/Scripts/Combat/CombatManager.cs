@@ -120,6 +120,16 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             LoseGame();
             return;
         }
+
+        deck.Shuffle();
+        enemyDeck.Shuffle();
+        deck.DrawCard(5);
+
+        // Activate OnNotDrawn Effects
+        for (int i = 0; i < deck.drawPile.Count; i++){
+            Card target = deck.drawPile[i];
+            target.ActivateOnNotDrawnEffects();
+        }
     }
     private void OnEnable() {
         EventManager.CardDeath += CardDeath;
