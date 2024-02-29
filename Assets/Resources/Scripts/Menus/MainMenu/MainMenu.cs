@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
         }
 
         //Reset the map world
-        ScenePersistenceManager.scenePersistence.mapWorld = Resources.Load<MapWorld>("Map Worlds/Event Testing");
+        ScenePersistenceManager.scenePersistence.mapWorld = Resources.Load<MapWorld>("Map Worlds/Base world");
     }
 
     public void OnNewGameClick(){

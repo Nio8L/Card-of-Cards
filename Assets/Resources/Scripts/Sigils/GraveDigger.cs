@@ -27,8 +27,11 @@ public class GraveDigger : Sigil
 
     public override void OnTurnStartEffect(CardInCombat card)
     {
-        if (card.playerCard)         card.deck.DrawCard(numberOfCardsToDraw);
-        else CombatManager.combatManager.enemyDeck.DrawCard(numberOfCardsToDraw);
+        if (numberOfCardsToDraw > 0){
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
+            if (card.playerCard)         card.deck.DrawCard(numberOfCardsToDraw);
+            else CombatManager.combatManager.enemyDeck.DrawCard(numberOfCardsToDraw);
+        }
         numberOfCardsToDraw = 0;
         
     }

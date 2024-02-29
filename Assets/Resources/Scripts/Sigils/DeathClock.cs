@@ -13,13 +13,28 @@ public class DeathClock : ActiveSigil
     public override void ActiveEffect(CardInCombat card, List<CardSlot> targets)
     {
         CardInCombat target = CombatManager.combatManager.GetCardAtSlot(targets[0]);
+        bool poison = false, bite = false, scratch = false;
+        for (int i = 0; i < target.card.injuries.Count; i++){
+            if(target.card.injuries[i] == Card.TypeOfDamage.Poison){
+                
+                poison = true;
+            
+            }else if(target.card.injuries[i] == Card.TypeOfDamage.Scratch){
+                
+                scratch = true;
+            
+            }else{
+                
+                bite = true;
+            }
+        }
         if(target.card.injuries.Count == 1){
             
-            if(target.card.injuries[0] == Card.TypeOfDamage.Poison){
+            if(poison){
                 
                 target.card.injuries.Add(Card.TypeOfDamage.Scratch);
             
-            }else if(target.card.injuries[0] == Card.TypeOfDamage.Scratch){
+            }else if(scratch){
                 
                 target.card.injuries.Add(Card.TypeOfDamage.Bite);
             
@@ -30,13 +45,13 @@ public class DeathClock : ActiveSigil
             target.card.injuries.RemoveAt(0);
         
         }else if(target.card.injuries.Count == 2){
-            if(target.card.injuries.Contains(Card.TypeOfDamage.Poison) && card.card.injuries.Contains(Card.TypeOfDamage.Scratch)){
+            if (poison && scratch){
                 target.card.injuries = new()
                 {
                     Card.TypeOfDamage.Scratch,
                     Card.TypeOfDamage.Bite
                 };
-            }else if(target.card.injuries.Contains(Card.TypeOfDamage.Poison) && card.card.injuries.Contains(Card.TypeOfDamage.Bite)){
+            }else if(poison && bite){
                 target.card.injuries = new()
                 {
                     Card.TypeOfDamage.Scratch,

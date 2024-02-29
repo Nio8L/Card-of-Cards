@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
+  m_Name: Bear
+  m_EditorClassIdentifier: 
+  maxHealth: 15
+  path: Hunt
+  huntAI: 1
+  huntRounds: 4
+  pacingObject: {fileID: 425041068175166581, guid: 8dc656d5c7feaf24b9f9b407aece9f5d, type: 3}
+  isTutorialEnemy: 0
+  isHunter: 0
+  currentPacingObject: {fileID: 0}
+  ignoreCardDeathRules: 0
+  turnZero: 1
+  turns:
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+    - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+    - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+    - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+    - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+    - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1

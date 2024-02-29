@@ -76,7 +76,7 @@ public class GameMenu : MonoBehaviour
     private void ChangeUIState(){
         GameObject.Find("NotificationManager").GetComponent<NotificationManager>().SetActiveNotificaitons(!stuffToDisable[0].activeSelf);
 
-        if(SceneManager.GetActiveScene().name == "Map"){
+        if(SceneManager.GetActiveScene().name == "Map" && !ScenePersistenceManager.scenePersistence.inTutorial){
             MapManager.mapManager.canScroll = !MapManager.mapManager.canScroll;
         }if(MapManager.mapManager.currentNodeScript != null){
             if(MapManager.mapManager.currentNodeScript.thisNode.thisRoom == MapWorld.RoomType.Event){

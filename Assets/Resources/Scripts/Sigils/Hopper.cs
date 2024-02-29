@@ -43,17 +43,9 @@ public class Hopper : ActiveSigil
                 if(CombatManager.combatManager.playerCombatCards[i] == null){
                     targets.Add(CombatManager.combatManager.playerCombatSlots[i].GetComponent<CardSlot>());
                 }
-
-                if(CombatManager.combatManager.playerBenchCards[i] == null){
-                    targets.Add(CombatManager.combatManager.playerBenchSlots[i].GetComponent<CardSlot>());
-                }
             }else{
                 if(CombatManager.combatManager.enemyCombatCards[i] == null){
                     targets.Add(CombatManager.combatManager.enemyCombatSlots[i].GetComponent<CardSlot>());
-                }
-
-                if(CombatManager.combatManager.enemyBenchCards[i] == null){
-                    targets.Add(CombatManager.combatManager.enemyBenchSlots[i].GetComponent<CardSlot>());
                 }
             }
         }

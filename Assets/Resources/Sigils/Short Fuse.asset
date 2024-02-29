@@ -15,6 +15,6 @@ MonoBehaviour:
   sigilName: Short Fuse
   negative: 0
   image: {fileID: 21300000, guid: 43494894d48f86c48b9d5b20b1a8b3d3, type: 3}
-  description: This card has 1 damage. If its on fire it gain 1 more damage.
+  description: This card has 1 bonus damage. If it's on fire it gains 1 more.
   normalBonus: 1
   onFireBonus: 1

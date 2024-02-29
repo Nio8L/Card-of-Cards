@@ -17,6 +17,8 @@ public class Card : ScriptableObject
     public bool canRevive = true;
     [HideInInspector]
     public bool fireImmune;
+    [HideInInspector]
+    public bool playerCard = true;
     public enum TypeOfDamage
     {
         Poison,
@@ -34,7 +36,6 @@ public class Card : ScriptableObject
 
     public BattleData lastBattle;
 
-    public bool playerCard = true;
 
     /*public Card Copy() 
     {

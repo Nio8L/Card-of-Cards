@@ -1235,18 +1235,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 429dc7dbb213ae34baa453565c94306d, type: 2}
   - {fileID: 11400000, guid: e9bddd1f38643b84f94d6483e71381a1, type: 2}
   - {fileID: 11400000, guid: 49e498f4ff76a824da4cf16f328d668e, type: 2}
-  - {fileID: 11400000, guid: 3a5255f6c7969d145918cdb7eacb8539, type: 2}
   - {fileID: 11400000, guid: f6ab41d59a109654788bf8f2dab9e20b, type: 2}
   - {fileID: 11400000, guid: 5822a764e892eeb4293c85aedb10fc96, type: 2}
   - {fileID: 11400000, guid: 1a199fe5c63da104199f01d2ad280e54, type: 2}
   - {fileID: 11400000, guid: be1652e94d28ef04da53a4d5eb4d81b6, type: 2}
   - {fileID: 11400000, guid: ce554ca54f3db4b43b8207d62746969e, type: 2}
   - {fileID: 11400000, guid: 06bde4307bad3de44bb43419e60d7d8b, type: 2}
-  fullSoulNotification: {fileID: 11400000, guid: ac0c20bd573f5bc47a668da43d54ef03, type: 2}
   offeredSigils:
   - {fileID: 4294438173029883671}
   - {fileID: 2882250686494072417}
   - {fileID: 8797740840679178451}
+  fullSoulNotification: {fileID: 11400000, guid: ac0c20bd573f5bc47a668da43d54ef03, type: 2}
   selectedSigilDisplay: {fileID: 0}
   selectedSigil: {fileID: 0}
   cardSlotHandler: {fileID: 8822589975365160667}

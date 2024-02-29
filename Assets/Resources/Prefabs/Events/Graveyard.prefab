@@ -1490,24 +1490,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offers:
-  - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
-  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-  - {fileID: 11400000, guid: 326f5f86760b25848b7da29bc2951f65, type: 2}
-  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
+  - {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
   - {fileID: 11400000, guid: b00aa7ed5b3ad074bb2287f78586851f, type: 2}
-  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
-  - {fileID: 11400000, guid: f7b463f1d2b777043853cc418e61d4e8, type: 2}
+  - {fileID: 11400000, guid: ad63cf45f02d41a4a9dbd2c76ff18c38, type: 2}
   - {fileID: 11400000, guid: cd7762a5964b23a41926fa5c87837406, type: 2}
-  - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
   - {fileID: 11400000, guid: d2c5287dfa0603d4cbdaa4b6886d2a6d, type: 2}
-  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
-  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
-  - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
   - {fileID: 11400000, guid: 005b63b7f15b4a740ac7c84c83d53d3e, type: 2}
+  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   - {fileID: 11400000, guid: 12cf04cbfd3f21045a9e9d3cdfc63fdc, type: 2}
+  - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
   cardOfferHolder: {fileID: 2946070431287014438}
   selectedCardBorder: {fileID: 3835966193412560094}
   selectedCardDisplay: {fileID: 0}

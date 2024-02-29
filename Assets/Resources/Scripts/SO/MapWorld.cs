@@ -93,7 +93,7 @@ public class MapWorld : ScriptableObject
                 }while(layer != 1 && layerSize == floor[layer-2].size);
             }
             
-            if (spawnBoss && layer == stages) layerSize = 1;
+            if (spawnBoss && layer == stages + layerBuilder.Count) layerSize = 1;
 
             // Generate this layer
             Layer thisLayer = new Layer(layerSize, layer);
