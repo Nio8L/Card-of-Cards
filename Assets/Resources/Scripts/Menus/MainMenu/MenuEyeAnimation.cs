@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MenuEyeAnimation : MonoBehaviour
+public class MenuEyeAnimation : MonoBehaviour, IPointerClickHandler
 {
     public Animator animator;
+    public MapWorld showcase;
 
     public void FinishInitialize(){
         animator.SetBool("Blink", true);
@@ -18,5 +20,11 @@ public class MenuEyeAnimation : MonoBehaviour
             yield return new WaitForSeconds(animateAfter);
 
             StartCoroutine(Blink());
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("cheating");
+        ScenePersistenceManager.scenePersistence.mapWorld = showcase;
     }
 }

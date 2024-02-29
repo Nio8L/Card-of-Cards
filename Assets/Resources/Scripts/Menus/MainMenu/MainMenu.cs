@@ -14,6 +14,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button loadButton;
 
+    public MapWorld world1;
+
     public List<Card> tutorialCards = new List<Card>();
     private void Start() {
         //Reset tutorial
@@ -28,7 +30,8 @@ public class MainMenu : MonoBehaviour
         }
 
         //Reset the map world
-        ScenePersistenceManager.scenePersistence.mapWorld = Resources.Load<MapWorld>("Map Worlds/Base world");
+        ScenePersistenceManager.scenePersistence.mapWorld = world1;
+    
     }
 
     public void OnNewGameClick(){
