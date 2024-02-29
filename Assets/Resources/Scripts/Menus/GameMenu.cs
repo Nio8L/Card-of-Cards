@@ -78,10 +78,6 @@ public class GameMenu : MonoBehaviour
 
         if(SceneManager.GetActiveScene().name == "Map" && !ScenePersistenceManager.scenePersistence.inTutorial){
             MapManager.mapManager.canScroll = !MapManager.mapManager.canScroll;
-        }if(MapManager.mapManager.currentNodeScript != null){
-            if(MapManager.mapManager.currentNodeScript.thisNode.thisRoom == MapWorld.RoomType.Event){
-                return;
-            }
         }
         
         for(int i = 0; i < stuffToDisable.Length; i++){

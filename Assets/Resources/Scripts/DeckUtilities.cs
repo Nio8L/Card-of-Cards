@@ -23,6 +23,14 @@ public class DeckUtilities : MonoBehaviour
         activeDisplays = new();
     }
 
+    void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneChange;
+    }
+
+    void OnDisable(){
+        SceneManager.sceneLoaded -= OnSceneChange;
+    }
+
     void Update(){
         if(Input.GetKeyUp(KeyCode.D) && !displaysHidden){
             string sceneName = SceneManager.GetActiveScene().name;
@@ -103,6 +111,10 @@ public class DeckUtilities : MonoBehaviour
         }else{
             deck.CloseDisplay();
         }
+    }
+
+    void OnSceneChange(Scene scene, LoadSceneMode mode){
+        displaysHidden = false;
     }
 
 }
