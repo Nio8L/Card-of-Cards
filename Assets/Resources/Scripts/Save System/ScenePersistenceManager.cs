@@ -29,4 +29,5 @@ public class ScenePersistenceManager : MonoBehaviour
         scenePersistence = this;
         DontDestroyOnLoad(gameObject);        
     }
+
 }

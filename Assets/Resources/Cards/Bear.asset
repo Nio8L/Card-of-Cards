@@ -17,7 +17,7 @@ MonoBehaviour:
   attack: 0
   defaultAttack: 3
   cost: 3
-  image: {fileID: 21300000, guid: 06a593cfe09c21241ace176afcbd5875, type: 3}
+  image: {fileID: 21300000, guid: e58cb41eddcaacf4dbd654d6a4b59ea2, type: 3}
   canRevive: 1
   fireImmune: 0
   playerCard: 1

@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aef3f3de12ba4e47b9cf45643fd0e58, type: 3}
+  m_Name: Showcase World
+  m_EditorClassIdentifier: 
+  stages: 0
+  minWidth: 0
+  maxWidth: 0
+  spawnBoss: 0
+  events: []
+  combats: []
+  hunts: []
+  hunters: []
+  floor: []
+  layerBuilder:
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 2
+      thisEnemy: {fileID: 11400000, guid: 022536443f705df478e9955ca44607c4, type: 2}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 1
+      thisEnemy: {fileID: 11400000, guid: a23c3c2abff2d00459eddbd45ebb6842, type: 2}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+  - size: 2
+    index: 0
+    nodes:
+    - thisRoom: 4
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+    - thisRoom: 4
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+  - size: 2
+    index: 0
+    nodes:
+    - thisRoom: 2
+      thisEnemy: {fileID: 11400000, guid: 17a65ea56a04b8d4398aed3aac33095c, type: 2}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 3
+    index: 0
+    nodes:
+    - thisRoom: 2
+      thisEnemy: {fileID: 11400000, guid: 33d6cd3bf7ea59c49a3e966714058de5, type: 2}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+    - thisRoom: 1
+      thisEnemy: {fileID: 11400000, guid: c728e89d446bf004b8b7da192c6bde3c, type: 2}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 2
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
+      layerIndex: 0
+      index: 0
+    - thisRoom: 2
+      thisEnemy: {fileID: 11400000, guid: 1b04825f213fff643aa33b7aef4aafcf, type: 2}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 4
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 5
+      thisEnemy: {fileID: 11400000, guid: 6fdd5819e190de5459f42a5a150228b1, type: 2}
+      thisEvent: {fileID: 0}
+      layerIndex: 0
+      index: 0
+  mapSeed: 0
+  generalSeed: 0
