@@ -9,16 +9,23 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public static MapManager mapManager;
     public MapWorld thisWorld;
     public MapDeck mapDeck;
+    
+    [Header("Developer Tools")]
+    public bool REGENERATE;
+    
+    [Header("Tracking")]
     public GameObject currentNode;
     public MapNode currentNodeScript;
     public GameObject currentEvent;
-    public bool REGENERATE;
     public bool canTravel;
     public bool canScroll;
     public bool eventUsed;
     public bool hasTraveled = false;
+
+    [Header("Objects")]
     public Transform eventCanvas;
     public GameObject mapLegend;
+    public GameObject playerHP;
     
     // Particles and other
     public GameObject restSiteParticles;
@@ -141,6 +148,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             eventUI.name = eventObject.name;
             
             mapManager.mapLegend.SetActive(false);
+            mapManager.playerHP.SetActive(false);            
 
             mapManager.currentEvent = eventUI;
 

@@ -1242,6 +1242,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be1652e94d28ef04da53a4d5eb4d81b6, type: 2}
   - {fileID: 11400000, guid: ce554ca54f3db4b43b8207d62746969e, type: 2}
   - {fileID: 11400000, guid: 06bde4307bad3de44bb43419e60d7d8b, type: 2}
+  fullSoulNotification: {fileID: 11400000, guid: ac0c20bd573f5bc47a668da43d54ef03, type: 2}
   offeredSigils:
   - {fileID: 4294438173029883671}
   - {fileID: 2882250686494072417}

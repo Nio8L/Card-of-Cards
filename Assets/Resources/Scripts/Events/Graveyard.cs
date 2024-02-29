@@ -123,6 +123,7 @@ public class Graveyard : MonoBehaviour, IEvent
         MapManager.mapManager.currentEvent = null;
         MapManager.mapManager.eventUsed = true;
         MapManager.mapManager.mapLegend.SetActive(true);
+        MapManager.mapManager.playerHP.SetActive(true);
         
         deckDisplay.CloseDisplay();
         

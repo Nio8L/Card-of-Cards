@@ -170,7 +170,6 @@ public class ExchangeShop : MonoBehaviour, IEvent
         cardSlotHandler.EnableSlot(2);
     }
 
-    //Should be moved to the MapManager so it can work for all events
     public void LeaveEvent(){
         for(int i = 0; i < cardSlotHandler.allCardSlots.Length; i++){
             cardSlotHandler.allCardSlots[i].RemoveCard();
@@ -179,6 +178,8 @@ public class ExchangeShop : MonoBehaviour, IEvent
         MapManager.mapManager.currentEvent = null;
         MapManager.mapManager.eventUsed = true;
         MapManager.mapManager.mapLegend.SetActive(true);
+        MapManager.mapManager.playerHP.SetActive(true);
+
         deckDisplay.CloseDisplay();
         
         Destroy(gameObject);

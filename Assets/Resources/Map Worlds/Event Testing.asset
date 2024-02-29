@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aef3f3de12ba4e47b9cf45643fd0e58, type: 3}
+  m_Name: Event Testing
+  m_EditorClassIdentifier: 
+  stages: 0
+  minWidth: 1
+  maxWidth: 1
+  spawnBoss: 0
+  events:
+  - {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
+  - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
+  - {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
+  combats: []
+  hunts: []
+  hunters: []
+  floor: []
+  layerBuilder:
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
+      layerIndex: 0
+      index: 0
+  mapSeed: 0
+  generalSeed: 0

@@ -9,8 +9,11 @@ public class SigilOffer : MonoBehaviour, IEvent
 {
     public Sigil[] possibleSigilOffers;
 
+
     public SigilDisplay[] offeredSigils;
 
+    public Notification fullSoulNotification;
+    
     List<Sigil> rerolledSigils = new List<Sigil>();
     
 
@@ -37,16 +40,14 @@ public class SigilOffer : MonoBehaviour, IEvent
 
     private void GenerateOffers(){
         for(int i = 0; i < offeredSigils.Length; i++){
-            Sigil newOfferedSigil = possibleSigilOffers[0];
-
             //Select a random sigil
             //If the sigil has already been offered generate a new sigil
             if (possibleSigilOffers.Length - rerolledSigils.Count < 3) rerolledSigils.Clear();
-
+            Sigil newOfferedSigil;
             do
             {
                 newOfferedSigil = PickSigil();
-            }while(AlreadyOffered(newOfferedSigil));
+            } while (AlreadyOffered(newOfferedSigil));
 
             rerolledSigils.Add(newOfferedSigil);
             offeredSigils[i].SetSigilDisplay(newOfferedSigil);
@@ -104,7 +105,10 @@ public class SigilOffer : MonoBehaviour, IEvent
         }
 
         //Prevent infusing if the selected card has no available sigil slots
-        if(cardSlotHandler.cardSlots[0].card.sigils.Count == 3) return;
+        if(cardSlotHandler.cardSlots[0].card.sigils.Count == 3){
+            NotificationManager.notificationManager.NotifyAutoEnd(fullSoulNotification, new Vector3(-700, -100, 0), 2f); 
+            return;
+        }
         
         //Remove the selected sigil and return the card
         RemoveSigil(selectedSigilDisplay);
@@ -124,6 +128,8 @@ public class SigilOffer : MonoBehaviour, IEvent
         MapManager.mapManager.currentEvent = null;
         MapManager.mapManager.eventUsed = true;
         MapManager.mapManager.mapLegend.SetActive(true);
+        MapManager.mapManager.playerHP.SetActive(true);
+        
         deckDisplay.CloseDisplay();
         
         Destroy(gameObject);
