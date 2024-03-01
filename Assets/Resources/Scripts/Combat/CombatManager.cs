@@ -188,6 +188,20 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             StartPlayerTurn();
             startPlayerTurn = false;
         }
+
+        if (gamePhase == 0 && Input.GetKeyUp(KeyCode.E) && enemy != null && (!enemy.huntAI || round <= enemy.huntRounds)){
+            StartEnemyTurn();
+        }
+        if (Input.GetKeyUp(KeyCode.A)){
+            DrawPileButton();
+        }
+        if (Input.GetKeyUp(KeyCode.S)){
+            DiscardPileButton();
+        }
+        if (Input.GetKeyUp(KeyCode.F)){
+            GraveButton();
+        }
+
         combatUI.UpdateGraveText();
     }
     public void PlayCard(Card card, CardSlot slot, bool useDeck){

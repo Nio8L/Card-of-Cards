@@ -93,6 +93,9 @@ public class DeckDisplay : MonoBehaviour
        ShowCards(cards);
     }
     public void ShowCards(List<Card> newCards){
+        // Sort the array
+        SortList();
+
         // Updates the cards shown
         ClearCards();
         int cardsPerLine = Mathf.RoundToInt(width/(cardWidth + cardOffset));
@@ -116,6 +119,26 @@ public class DeckDisplay : MonoBehaviour
             newDisplay.localScale = Vector3.one;
             newDisplay.localPosition = new Vector3(cardX, cardY, 0);
             newDisplay.GetComponent<CardDisplay>().card = newCards[i];
+        }
+    }
+
+    void SortList(){
+        // Sort the list of cards with DIRECT INSERTION
+        for (int x = 0; x < cards.Count; x++){
+            for (int y = x; y < cards.Count; y++){
+                if (cards[x].cost > cards[y].cost){
+                    Card store = cards[x];
+                    cards[x] = cards[y];
+                    cards[y] = store;
+                }
+                if (cards[x].cost == cards[y].cost){
+                    if (cards[x].name[0] > cards[y].name[0]){
+                        Card store = cards[x];
+                        cards[x] = cards[y];
+                        cards[y] = store;
+                    }
+                }
+            }
         }
     }
     public void Scroll(){
