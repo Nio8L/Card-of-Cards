@@ -156,7 +156,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             if (enemy.isHunter) SceneManager.LoadSceneAsync("End Screen");
             else                SceneManager.LoadSceneAsync("Map");
         }else{
-            DataPersistenceManager.DataManager.DeleteMostRecentProfileData();
+            if (!ScenePersistenceManager.scenePersistence.inTutorial)
+            {
+                DataPersistenceManager.DataManager.DeleteMostRecentProfileData();
+            }
             SceneManager.LoadSceneAsync("Main Menu");
         }
 
