@@ -89,18 +89,11 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
         // Return if the active manu is active
         if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
         CardSlot cardSlot = CheckForSlot();
-        
-
-        //Check if the selected card is a "Lost Soul" 
-        if (deck.selectedCard == transform && card.name == "Lost Soul")
-        {
-            PlayLostSoul();
-        }
 
         deck.selectedCard = null;
         deck.TidyHand();
 
-        if (cardSlot != null && cardSlot.playerSlot)
+        if (cardSlot != null)
         {
             if(!cardSlot.canBeUsed){
                 NotificationManager.notificationManager.NotifyAutoEnd(unplayableSlotNotification, new Vector3(-700, 0, 0), 2);
@@ -109,7 +102,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
             if (deck.energy >= card.cost)
             {
-                if(card.name != "Lost Soul"){
+                if(!card.HasSpellSigils() && cardSlot.playerSlot){
                     // Trying to play a card in a bench slot
                     if(cardSlot.bench)
                     {
@@ -168,8 +161,38 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                 }
                 else
                 {
-                    if (!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
+                    /*if (!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
                         SoundManager.soundManager.Play("CardRetract");
+                    }*/
+                    // Find if this card is playable at the seleted slot
+                    bool canBeUsed = true;
+                    for (int i = 0; i < card.sigils.Count; i++){
+                        SpellSigil thisSigil = card.sigils[i].GetSpellSigil();
+                        if (thisSigil != null){
+                            if (!thisSigil.CanBePlayed(cardSlot, card.playerCard)){
+                                canBeUsed = false;
+                                break;
+                            }
+                        }
+                    }
+                    // Use this spell card
+                    if (canBeUsed){
+                        // Activate spell sigils
+                        for (int i = 0; i < card.sigils.Count; i++){
+                            SpellSigil thisSigil = card.sigils[i].GetSpellSigil();
+                            if (thisSigil != null){
+                                thisSigil.OnPlay(cardSlot);
+                            }
+                        }
+                        
+                        // Remove this spell card from the deck
+                        deck.cards.Remove(card);
+                        if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
+                        if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
+                        Destroy(gameObject);
+
+                        // Update card tilt
+                        deck.TidyHand();
                     }
                 }
             }else{
@@ -188,60 +211,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     }
     //--------------------------------//
     #endregion
-   
-    public void PlayLostSoul(){
-        //Set up the new Pointer Event
-        m_PointerEventData = new PointerEventData(m_EventSystem)
-        {
-            //Set the Pointer Event Position to that of the mouse position
-            position = Input.mousePosition
-        };
-
-        //Create a list of Raycast Results
-        List<RaycastResult> results = new();
-
-        //Raycast using the Graphics Raycaster and mouse click position
-        m_Raycaster.Raycast(m_PointerEventData, results);
-
-        //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
-        foreach (RaycastResult result in results)
-        {
-            //Check if the card on which we play "Lost Soul" is in combat and if it's a player's card and not an enemy's card and if the card has any injuries
-            if(result.gameObject.name == "CardInCombat(Clone)" && result.gameObject.GetComponent<CardInCombat>().playerCard){
-                if (result.gameObject.GetComponent<CardInCombat>().card.injuries.Count > 0)
-                {
-                    SoundManager.soundManager.Play("LostSoul");
-                    Card healedCard = result.gameObject.GetComponent<CardInCombat>().card;
-    
-                    healedCard.AcceptLostSoul();
-                    deck.UpdateCardAppearance(result.gameObject.transform, healedCard);
-    
-                    // Visual effect v
-                    Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity);
-                    
-                    LostSoulVisuals soulHeart;
-    
-                    soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                    soulHeart.angle = 120f;
-                    soulHeart.primaryHeart = false;
-    
-                    soulHeart = Instantiate(deck.soulHeart, result.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                    soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
-                    soulHeart.primaryHeart = false;
-                    //               ^
-    
-                    deck.cards.Remove(card);
-                    //GameObject.Find("DeckDisplayManager").GetComponent<DeckDisplay>().cards.Remove(card);
-    
-                    if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
-                    if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);
-                    Destroy(gameObject);
-                }else{
-                    NotificationManager.notificationManager.NotifyAutoEnd(notInjuredNotification, new Vector3(-700, 0, 0), 2);
-                }
-            }
-        }
-    }
 
     //that is for deck.TidyHand()
     public void GetOnTop(Transform card)

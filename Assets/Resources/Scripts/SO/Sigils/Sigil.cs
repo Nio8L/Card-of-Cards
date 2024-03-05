@@ -77,4 +77,11 @@ public class Sigil : ScriptableObject
         return null;
     }
 
+    public virtual SpellSigil GetSpellSigil(){
+        /*
+            Ignore this unless you are working with spell sigils 
+        */
+        return null;
+    }
+
 }

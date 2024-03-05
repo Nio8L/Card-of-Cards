@@ -330,20 +330,7 @@ public class EnemyAI : EnemyBase
                 CombatManager.combatManager.enemyDeck.cards.Remove(lostSoulCard);
                 CombatManager.combatManager.enemyDeck.cardsInHandAsCards.Remove(lostSoulCard);
 
-                Instantiate(CombatManager.combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity);
-
-                // Visual and sound effects
-                SoundManager.soundManager.Play("LostSoul");
-
-                LostSoulVisuals soulHeart;
-
-                soulHeart = Instantiate(CombatManager.combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                soulHeart.angle = 120f;
-                soulHeart.primaryHeart = false;
-
-                soulHeart = Instantiate(CombatManager.combatManager.deck.soulHeart, card.gameObject.transform.position, Quaternion.identity).GetComponent<LostSoulVisuals>();
-                soulHeart.GetComponent<LostSoulVisuals>().angle = 240f;
-                soulHeart.primaryHeart = false;
+                AnimationUtilities.LostSoulAnimation(card.transform);
 
                 return;
             }

@@ -42,7 +42,7 @@ MonoBehaviour:
     index: 0
     nodes:
     - thisRoom: 1
-      thisEnemy: {fileID: 11400000, guid: a23c3c2abff2d00459eddbd45ebb6842, type: 2}
+      thisEnemy: {fileID: 11400000, guid: 252f86ffc6d190d479cdbe0ec0778f39, type: 2}
       thisEvent: {fileID: 0}
       layerIndex: 0
       index: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
     index: 0
     nodes:
     - thisRoom: 2
-      thisEnemy: {fileID: 11400000, guid: 17a65ea56a04b8d4398aed3aac33095c, type: 2}
+      thisEnemy: {fileID: 11400000, guid: 7b597d6ccba8b9a4a81eba4b9a7dcbee, type: 2}
       thisEvent: {fileID: 0}
       layerIndex: 0
       index: 0
@@ -75,8 +75,8 @@ MonoBehaviour:
   - size: 3
     index: 0
     nodes:
-    - thisRoom: 2
-      thisEnemy: {fileID: 11400000, guid: 33d6cd3bf7ea59c49a3e966714058de5, type: 2}
+    - thisRoom: 4
+      thisEnemy: {fileID: 0}
       thisEvent: {fileID: 0}
       layerIndex: 0
       index: 0

@@ -209,4 +209,14 @@ public class Card : ScriptableObject
 
         return this;
     }
+
+    public bool HasSpellSigils(){
+        for(int i = 0; i < sigils.Count; i++){
+            if(sigils[i].GetSpellSigil() != null){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
