@@ -2624,7 +2624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7637107318382034681, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7637107318382034681, guid: e7a4bb622fb77ef49850061df7e4316b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2773,6 +2773,7 @@ MonoBehaviour:
   eventCanvas: {fileID: 455741962}
   mapLegend: {fileID: 1683274915}
   playerHP: {fileID: 1311470026}
+  background: {fileID: 1009229253}
   restSiteParticles: {fileID: 1310063385754101084, guid: 253ef5d441b5d754ab9a28271df9df47, type: 3}
   mapTutorialPO: {fileID: 7178501972643789238, guid: a6284282ef809a14e8e7cc2028fb6de5, type: 3}
   selectableNodes: []

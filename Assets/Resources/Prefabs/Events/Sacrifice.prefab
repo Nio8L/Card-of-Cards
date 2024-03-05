@@ -1319,6 +1319,10 @@ MonoBehaviour:
     price: 13
   - card: {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
     price: 12
+  - card: {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
+    price: 11
+  - card: {fileID: 11400000, guid: f7bae259e2b6ead4d98fb3e1494316eb, type: 2}
+    price: 9
   - card: {fileID: 11400000, guid: 7d285f45f54974e429959653b7ac58e7, type: 2}
     price: 6
   - card: {fileID: 11400000, guid: a35eeef801715bc4eafa36e6c712d99b, type: 2}

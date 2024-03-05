@@ -7,6 +7,9 @@ public class ScenePersistenceManager : MonoBehaviour
     public static ScenePersistenceManager scenePersistence;
 
     public MapWorld mapWorld;
+    public List<MapWorld> stages = new List<MapWorld>();
+    public int currentStage = 0;
+    public bool resetMap;
 
     [Header("Between scenes tracking")]
     public EnemyBase currentCombatAI;

@@ -27,6 +27,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public GameObject mapLegend;
     public GameObject playerHP;
     
+    public SpriteRenderer background;
     // Particles and other
     public GameObject restSiteParticles;
     public GameObject mapTutorialPO;
@@ -36,11 +37,17 @@ public class MapManager : MonoBehaviour, IDataPersistence
     void Awake(){
         mapManager = this;
         
-        thisWorld = ScenePersistenceManager.scenePersistence.mapWorld;
+        thisWorld = ScenePersistenceManager.scenePersistence.stages[ScenePersistenceManager.scenePersistence.currentStage];
         thisWorld = Instantiate(thisWorld);
     }
     void Start(){
-        GenerateWorld();
+        if (ScenePersistenceManager.scenePersistence.resetMap){
+            ScenePersistenceManager.scenePersistence.resetMap = false;
+            ClearMap();
+            LoadWorld(ScenePersistenceManager.scenePersistence.stages[ScenePersistenceManager.scenePersistence.currentStage]);
+        }else{
+            GenerateWorld();
+        }
 
         if (ScenePersistenceManager.scenePersistence.inTutorial){
             if (ScenePersistenceManager.scenePersistence.tutorialStage != 0){
@@ -58,7 +65,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
     void Update(){
         if (REGENERATE){
-            ClearMap();
+            FullClear();
             GenerateWorld();
             REGENERATE = false;
         }
@@ -83,6 +90,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
         
 
         mapManager.MakeBottomLayerSelectable ();
+
+        mapManager.background.color = mapManager.thisWorld.backgroundColor;
         // Start using the general seed
         Random.InitState(mapManager.thisWorld.generalSeed);
     }
@@ -91,12 +100,15 @@ public class MapManager : MonoBehaviour, IDataPersistence
         for (int i = mapManager.transform.childCount-1; i >= 0; i--){
             Destroy(mapManager.transform.GetChild(i).gameObject);
         }
-        mapManager.thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
         mapManager.selectableNodes.Clear();
-        mapManager.thisWorld.mapSeed = 0;
         mapManager.hasTraveled = false;
         mapManager.currentNode = null;
         mapManager.currentNodeScript = null;
+    }
+    static void FullClear(){
+        ClearMap();
+        mapManager.thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
+        mapManager.thisWorld.mapSeed = 0;
     }
     public static void SelectNode(MapNode mapNode){
         // Change the color of the old selected node
@@ -179,7 +191,9 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         thisWorld.mapSeed = data.map.seed;
         thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
-        hasTraveled = data.map.hasTraveled;
+        if (!ScenePersistenceManager.scenePersistence.resetMap){
+            hasTraveled = data.map.hasTraveled;
+        }
         //Generate the world if the seed isn't new
         if(thisWorld.mapSeed != 0){
             GenerateWorld(thisWorld.mapSeed);
@@ -210,5 +224,16 @@ public class MapManager : MonoBehaviour, IDataPersistence
             data.map.layerIndex = currentNodeScript.thisNode.layerIndex;
             data.map.nodeIndex = currentNodeScript.thisNode.index;
         }
+    }
+
+    public static void LoadWorld(MapWorld newWorld){
+        ClearMap();
+
+        newWorld.mapSeed     = mapManager.thisWorld.mapSeed;
+        newWorld.generalSeed = mapManager.thisWorld.generalSeed;
+
+        mapManager.thisWorld = newWorld;
+
+        GenerateWorld(newWorld.mapSeed);
     }
 }
