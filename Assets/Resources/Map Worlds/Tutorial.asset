@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aef3f3de12ba4e47b9cf45643fd0e58, type: 3}
   m_Name: Tutorial
   m_EditorClassIdentifier: 
+  backgroundColor: {r: 0.4627451, g: 0.43137255, b: 0.3529412, a: 1}
   stages: 0
   minWidth: 1
   maxWidth: 1

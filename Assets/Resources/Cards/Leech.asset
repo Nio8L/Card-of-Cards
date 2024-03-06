@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Woodie
+  m_Name: Leech
   m_EditorClassIdentifier: 
   maxHealth: 2
   health: 0
   attack: 0
   defaultAttack: 1
   cost: 1
-  image: {fileID: 21300000, guid: 029f9a04da0722e44ae9fc4889aeb052, type: 3}
+  image: {fileID: 21300000, guid: 84cffe84797f6364196bd4911f161a0b, type: 3}
   canRevive: 1
   fireImmune: 0
   playerCard: 1
-  typeOfDamage: 2
+  typeOfDamage: 0
   sigils:
-  - {fileID: 11400000, guid: 06bde4307bad3de44bb43419e60d7d8b, type: 2}
+  - {fileID: 11400000, guid: 6a640789fa524ba4e9c833d32ec9eb01, type: 2}
   injuries: 

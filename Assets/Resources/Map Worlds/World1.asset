@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aef3f3de12ba4e47b9cf45643fd0e58, type: 3}
-  m_Name: Base world
+  m_Name: World1
   m_EditorClassIdentifier: 
+  backgroundColor: {r: 0.4627451, g: 0.43137255, b: 0.3529412, a: 1}
   stages: 20
   minWidth: 1
   maxWidth: 3

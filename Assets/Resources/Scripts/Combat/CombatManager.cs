@@ -153,8 +153,19 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         if(combatUI.endCombatText.text == "You won!") {
-            if (enemy.isHunter) SceneManager.LoadSceneAsync("End Screen");
-            else                SceneManager.LoadSceneAsync("Map");
+            if (enemy.isHunter){
+                // Switch floor or go to end screen
+                if (ScenePersistenceManager.scenePersistence.stages.Count - 1 == ScenePersistenceManager.scenePersistence.currentStage){
+                    SceneManager.LoadSceneAsync("End Screen");
+                }else{
+                    ScenePersistenceManager.scenePersistence.currentStage++;
+                    ScenePersistenceManager.scenePersistence.resetMap = true;
+                    SceneManager.LoadSceneAsync("Map");
+                }
+            }
+            else{
+                SceneManager.LoadSceneAsync("Map");
+            }
         }else{
             if (!ScenePersistenceManager.scenePersistence.inTutorial)
             {

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
 using Unity.VisualScripting;
@@ -10,6 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Map World")]
 public class MapWorld : ScriptableObject
 {
+    public Color backgroundColor;
     public int stages;
     public int minWidth;
     public int maxWidth;
@@ -89,7 +89,8 @@ public class MapWorld : ScriptableObject
             }
             else if (minWidth != maxWidth && layer != 0){
                 do{
-                    layerSize = Mathf.FloorToInt(Random.value * maxWidth + minWidth);
+                    layerSize = Mathf.FloorToInt(Random.value * maxWidth) + minWidth;
+                    if (layerSize > maxWidth) layerSize = maxWidth;
                 }while(layer != 1 && layerSize == floor[layer-2].size);
             }
             

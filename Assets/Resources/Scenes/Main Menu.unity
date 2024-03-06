@@ -3110,6 +3110,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapWorld: {fileID: 0}
+  stages:
+  - {fileID: 11400000, guid: 629f4c5d037757443a2798a1f1e844b8, type: 2}
+  - {fileID: 11400000, guid: 3fe192a63646f2c48a0dd0b8702caf02, type: 2}
+  currentStage: 0
+  resetMap: 0
   currentCombatAI: {fileID: 0}
   playerDeck: []
   lastEvent: 
@@ -3576,11 +3581,11 @@ MonoBehaviour:
   mainMenu: {fileID: 1929760794}
   backButton: {fileID: 81527803}
   startCards:
-  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-  - {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
-  - {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
+  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
+  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
+  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
+  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
+  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
 --- !u!1 &1798329752
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,7 +3838,7 @@ MonoBehaviour:
   settingsMenu: {fileID: 497959944}
   continueButton: {fileID: 1379767598}
   loadButton: {fileID: 1584879426}
-  world1: {fileID: 11400000, guid: 629f4c5d037757443a2798a1f1e844b8, type: 2}
+  world1: {fileID: 11400000, guid: 3fe192a63646f2c48a0dd0b8702caf02, type: 2}
   tutorialCards:
   - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
   - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}

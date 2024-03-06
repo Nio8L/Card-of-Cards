@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2623128736591186617}
   - component: {fileID: 6389948546125571359}
   m_Layer: 0
-  m_Name: RedCrossPart
+  m_Name: RedCrossParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
