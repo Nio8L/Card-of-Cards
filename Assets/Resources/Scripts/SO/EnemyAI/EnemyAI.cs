@@ -319,7 +319,7 @@ public class EnemyAI : EnemyBase
                 Card healedCard = card.card;
 
                 healedCard.AcceptLostSoul();
-                CombatManager.combatManager.deck.UpdateCardAppearance(card.transform, healedCard);
+                card.UpdateCardAppearance();
                 //Debug.Log("playing lost soul on " + healedCard.name);
                 /*
                 for (int i = 0; i < healedCard.sigils.Count; i++)

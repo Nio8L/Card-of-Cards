@@ -7,17 +7,14 @@ using UnityEngine.EventSystems;
 using Unity.Mathematics;
 
 
-public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
+public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
 {
-    public Card card;
+    [Space(20)]
+    [Header("Card In Hand")]
     public Deck deck;
 
     public Notification unplayableSlotNotification;
     public Notification notInjuredNotification;
-
-    private GraphicRaycaster m_Raycaster;
-    private PointerEventData m_PointerEventData;
-    private EventSystem m_EventSystem;
 
     [HideInInspector]
     public float tiltAngle = 0;
@@ -30,10 +27,8 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     void Start()
     {
-        deck.UpdateCardAppearance(transform, card);
+        UpdateCardAppearance();
 
-        m_Raycaster = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
-        m_EventSystem = GetComponent<EventSystem>();
         transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
     }
 
@@ -50,7 +45,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                 tiltAngle = Mathf.Lerp(0, targetAngle, 1 - travelTime / 0.5f);
                 transform.localScale = Vector3.one * scale;
                 travelTime -= Time.deltaTime;
-                UpdateTilt();
+                UpdateTilt(tiltAngle);
                 if (travelTime <= 0)
                 {
                     dontTidy = false;
@@ -64,7 +59,7 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
                 tiltAngle = Mathf.Lerp(targetAngle, 0, 1 - travelTime / 0.5f);
                 transform.localScale = Vector3.one * scale;
                 travelTime -= Time.deltaTime;
-                UpdateTilt();
+                UpdateTilt(tiltAngle);
                 if (travelTime <= 0)
                 {
                     Destroy(gameObject);
@@ -277,22 +272,6 @@ public class CardInHand : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         SoundManager.soundManager.Play("CardPickUp");
-    }
-
-    public void UpdateTilt(){
-        transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
-    }
-
-    public void UpdateCostText()
-    {
-        if (deck.energy < card.cost)
-        {
-            transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color(0.75f, 0, 0, 1);
-        }
-        else
-        {
-            transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color(0, 0, 0, 1);
-        }
     }
 
 }

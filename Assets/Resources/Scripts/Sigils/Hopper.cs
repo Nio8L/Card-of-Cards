@@ -19,7 +19,7 @@ public class Hopper : ActiveSigil
                 if(CombatManager.combatManager.enemyCombatCards[card.slot] != null){
                     AnimationUtilities.CancelAnimations(card.gameObject);
                     CombatManager.combatManager.CardCombat1Attacker(card, CombatManager.combatManager.enemyCombatCards[card.slot], card.card.attack);
-                    CombatManager.combatManager.enemyCombatCards[card.slot].deck.UpdateCardAppearance(CombatManager.combatManager.enemyCombatCards[card.slot].transform, CombatManager.combatManager.enemyCombatCards[card.slot].card);
+                    CombatManager.combatManager.enemyCombatCards[card.slot].UpdateCardAppearance();
                     if(CombatManager.combatManager.enemyCombatCards[card.slot].card.health <= 0){
                         canBeUsed = true;
                     }
@@ -27,7 +27,7 @@ public class Hopper : ActiveSigil
             }else{
                 if(CombatManager.combatManager.playerCombatCards[card.slot] != null){
                     CombatManager.combatManager.CardCombat1Attacker(card, CombatManager.combatManager.playerCombatCards[card.slot], card.card.attack);
-                    CombatManager.combatManager.playerCombatCards[card.slot].deck.UpdateCardAppearance(CombatManager.combatManager.playerCombatCards[card.slot].transform, CombatManager.combatManager.playerCombatCards[card.slot].card);
+                    CombatManager.combatManager.playerCombatCards[card.slot].UpdateCardAppearance();
                 }
             }
         }

@@ -38,7 +38,7 @@ public class Scales : Sigil
                 }
             }
         }
-        card.deck.UpdateCardAppearance(card.gameObject.transform, card.card);
+        card.UpdateCardAppearance();
     }
     void Heal(CardInCombat card){
         card.card.health += 1;

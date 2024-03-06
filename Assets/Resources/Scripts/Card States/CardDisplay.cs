@@ -10,6 +10,15 @@ using System.Linq;
 
 public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("Displaying")]
+
+    public DisplayType displayType = DisplayType.Display;
+    public enum DisplayType{
+        Display,
+        Combat,
+        Hand
+    }
+
     [Header("Displayed Card")]
     public Card card;
     
@@ -28,6 +37,13 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Image sigil2;
     public Image sigil3;
 
+    [Header("Sigil Stars")]
+    public Sprite activeStar;
+    public Sprite  selectedActiveStar;
+    public Image sigilStar1;
+    public Image sigilStar2;
+    public Image sigilStar3;
+
     [Header("Injuries")]
     public Image injury1;
     public Image injury2;
@@ -44,6 +60,10 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Sprite poisonDamageIcon;
     public Sprite heartDamageIcon;
 
+    [Header("Death Marks")]
+    public Sprite deathMarkScratch;
+    public Sprite deathMarkBite;
+    public Sprite deathMarkPoison;
 
     private void Start() {
         UpdateCardAppearance();
@@ -148,16 +168,91 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    //Update the card appearence after a delay
+    public IEnumerator DelayUpdateCardAppearence(float delay){
+        yield return new WaitForSeconds(delay);
+
+        UpdateCardAppearance();
+    }
+
+    //Update cost text
+    public void UpdateCostText(){
+        if(CombatManager.combatManager.deck.energy < card.cost){
+            cardCost.color = new Color(0.75f, 0, 0, 1);
+        }else{
+            cardCost.color = new Color(0, 0, 0, 1);
+        }
+    }
+
+    //Update tilt
+    public void UpdateTilt(float tiltAngle){
+        transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
+    }
+
+    //Show and hide the active start depending on if the sigil is active
+    public void ShowSigilStars(){
+        for (int i = 0; i < card.sigils.Count; i++){
+            Sigil sigil = card.sigils[i];
+            int alpha = 0;
+            ActiveSigil activeSigil = sigil.GetActiveSigil();
+            if (activeSigil != null && activeSigil.canBeUsed) alpha = 1;
+
+            if (card.sigils[0] == sigil)
+            {
+                sigilStar1.color = new Color(1, 1, 1, alpha);
+                sigilStar1.sprite = activeStar;
+            }
+            else if (card.sigils[1] == sigil)
+            {
+                sigilStar2.color = new Color(1, 1, 1, alpha);
+                sigilStar2.sprite = activeStar;
+            }
+            else
+            {
+                sigilStar3.color = new Color(1, 1, 1, alpha);
+                sigilStar3.sprite = activeStar;
+            }
+        }
+    }
+
+    //Set the active sigil start if the sigil can be used
+    public void SetActiveSigilStar(Sigil sigil)
+    {
+        Sprite spriteToUse;
+        ActiveSigil activeSigil = sigil.GetActiveSigil();
+        if (activeSigil != null && activeSigil.canBeUsed) spriteToUse = selectedActiveStar;
+        else                                              spriteToUse = activeStar;
+
+        if (card.sigils[0] == sigil)
+        {
+            sigilStar1.sprite = spriteToUse;
+        }
+        else if (card.sigils[1] == sigil)
+        {
+            sigilStar2.sprite = spriteToUse;
+        }
+        else
+        {
+            sigil3.sprite = spriteToUse;
+        }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        transform.SetAsLastSibling();
-        SoundManager.soundManager.Play("CardPickUp");
+        if (displayType == DisplayType.Display)
+        {
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            transform.SetAsLastSibling();
+            SoundManager.soundManager.Play("CardPickUp");
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.localScale = Vector3.one;
+        if (displayType == DisplayType.Display)
+        {
+            transform.localScale = Vector3.one;
+        }
     }
 
     private void OnDisable() {

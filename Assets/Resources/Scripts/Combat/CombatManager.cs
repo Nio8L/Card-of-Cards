@@ -380,13 +380,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     {
                         playerBenchCards[i].passivesTurnedOnThisTurn = true;
                         playerBenchCards[i].card.ActivateOnTurnStartEffects(playerBenchCards[i]);
-                        deck.UpdateCardAppearance(playerBenchCards[i].transform, playerBenchCards[i].card);
+                        playerBenchCards[i].UpdateCardAppearance();
                     }
                     if(playerCombatCards[i] != null && playerCombatCards[i].passivesTurnedOnThisTurn == false && playerCombatCards[i].card.health > 0f)
                     {
                         playerCombatCards[i].passivesTurnedOnThisTurn = true;
                         playerCombatCards[i].card.ActivateOnTurnStartEffects(playerCombatCards[i]);
-                        deck.UpdateCardAppearance(playerCombatCards[i].transform, playerCombatCards[i].card);
+                        playerCombatCards[i].UpdateCardAppearance();
                     }
                 }
                 for (int i = 0; i < 5; i++)
@@ -396,13 +396,13 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     {
                         enemyBenchCards[i].passivesTurnedOnThisTurn = true;
                         enemyBenchCards[i].card.ActivateOnTurnStartEffects(enemyBenchCards[i]);
-                        deck.UpdateCardAppearance(enemyBenchCards[i].transform, enemyBenchCards[i].card);
+                        enemyBenchCards[i].UpdateCardAppearance();
                     }
                     if (enemyCombatCards[i] != null && enemyCombatCards[i].passivesTurnedOnThisTurn == false && enemyCombatCards[i].card.health > 0f)
                     {
                         enemyCombatCards[i].passivesTurnedOnThisTurn = true;
                         enemyCombatCards[i].card.ActivateOnTurnStartEffects(enemyCombatCards[i]);
-                        deck.UpdateCardAppearance(enemyCombatCards[i].transform, enemyCombatCards[i].card);
+                        enemyBenchCards[i].UpdateCardAppearance();
                     }
                 }
             }

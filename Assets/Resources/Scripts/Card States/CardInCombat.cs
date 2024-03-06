@@ -5,11 +5,11 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class CardInCombat : MonoBehaviour
+public class CardInCombat : CardDisplay
 {
+    [Space(20)]
+    [Header("Card In Combat")]
     public bool benched = true;
-
-    public Card card;
     public Deck deck;
     public Card.TypeOfDamage lastTypeOfDamage;
 
@@ -30,7 +30,7 @@ public class CardInCombat : MonoBehaviour
     void Start()
     {
         card.ActivateOnSummonEffects(this);
-        deck.UpdateCardAppearance(transform, card);
+        UpdateCardAppearance();
         bloodSplat = Resources.Load<GameObject>("Prefabs/Particles/BloodSplatPart");
         deathMark = Resources.Load<GameObject>("Prefabs/DeathMark");
     }
@@ -144,12 +144,12 @@ public class CardInCombat : MonoBehaviour
     public void MoveAnimationStarter(float time, Vector3 end, bool returnMove, float startDelay)
     {
         //AnimationUtilities.CancelAnimations(gameObject);
-        Invoke("CallUpdateCardAppearance", time + startDelay);
+        StartCoroutine(DelayUpdateCardAppearence(time + startDelay));
         if (!returnMove){
             AnimationUtilities.MoveToPoint(transform, time, startDelay, end);
         }else{
             AnimationUtilities.ReturnMoveToPoint(transform, time, startDelay, GetSlot().transform.position, end);
-            Invoke("CallUpdateCardAppearance", (time+startDelay)/2);
+            StartCoroutine(DelayUpdateCardAppearence(time + startDelay));
             Invoke("PlayCombatSound", (time+startDelay)/1.25f);
         }
     }
@@ -195,9 +195,9 @@ public class CardInCombat : MonoBehaviour
             }
 
             Sprite markSprite;
-            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deck.deathMarkScratch;
-            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deck.deathMarkBite;
-            else markSprite = deck.deathMarkPoison;
+            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deathMarkScratch;
+            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deathMarkBite;
+            else markSprite = deathMarkPoison;
 
             Instantiate(bloodSplat, transform.position, Quaternion.identity);
             GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
@@ -210,51 +210,7 @@ public class CardInCombat : MonoBehaviour
     private void OnDestroy() {
         SoundManager.soundManager.Play("CardDeath");
     }
-    public void ShowSigilStars()
-    {
-        for (int i = 0; i < card.sigils.Count; i++){
-            Sigil sigil = card.sigils[i];
-            int alpha = 0;
-            ActiveSigil activeSigil = sigil.GetActiveSigil();
-            if (activeSigil != null && activeSigil.canBeUsed) alpha = 1;
 
-            if (card.sigils[0] == sigil)
-            {
-                transform.GetChild(13).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-                transform.GetChild(13).GetComponent<Image>().sprite = deck.activeStar;
-            }
-            else if (card.sigils[1] == sigil)
-            {
-                transform.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-                transform.GetChild(14).GetComponent<Image>().sprite = deck.activeStar;
-            }
-            else
-            {
-                transform.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, alpha);
-                transform.GetChild(15).GetComponent<Image>().sprite = deck.activeStar;
-            }
-        }
-    }
-    public void SetActiveSigilStar(Sigil sigil)
-    {
-        Sprite spriteToUse = deck.activeStar;
-        ActiveSigil activeSigil = sigil.GetActiveSigil();
-        if (activeSigil != null && activeSigil.canBeUsed) spriteToUse = deck.selectedActiveStar;
-        else                                              spriteToUse = deck.activeStar;
-
-        if (card.sigils[0] == sigil)
-        {
-            transform.GetChild(13).GetComponent<Image>().sprite = spriteToUse;
-        }
-        else if (card.sigils[1] == sigil)
-        {
-            transform.GetChild(14).GetComponent<Image>().sprite = spriteToUse;
-        }
-        else
-        {
-            transform.GetChild(15).GetComponent<Image>().sprite = spriteToUse;
-        }
-    }
     public void RemoveCardFromCardCollections() 
     {
         if (benched)
@@ -306,9 +262,9 @@ public class CardInCombat : MonoBehaviour
             }
 
             Sprite markSprite;
-            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deck.deathMarkScratch;
-            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deck.deathMarkBite;
-            else markSprite = deck.deathMarkPoison;
+            if (lastTypeOfDamage == Card.TypeOfDamage.Scratch) markSprite = deathMarkScratch;
+            else if (lastTypeOfDamage == Card.TypeOfDamage.Bite) markSprite = deathMarkBite;
+            else markSprite = deathMarkPoison;
 
             Instantiate(bloodSplat, transform.position, Quaternion.identity);
             GameObject deathMarkObject = Instantiate(deathMark, transform.position, Quaternion.identity);
@@ -338,8 +294,5 @@ public class CardInCombat : MonoBehaviour
     }
     public void PlayCombatSound(){
         SoundManager.soundManager.Play("CardCombat");
-    }
-    void CallUpdateCardAppearance(){
-        deck.UpdateCardAppearance(transform, card);
     }
 }

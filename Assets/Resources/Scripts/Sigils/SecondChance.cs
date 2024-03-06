@@ -13,7 +13,7 @@ public class SecondChance : SpellSigil
         Card healedCard = cardInCombat.card;
 
         healedCard.AcceptLostSoul();
-        CombatManager.combatManager.deck.UpdateCardAppearance(cardInCombat.transform, healedCard);
+        cardInCombat.UpdateCardAppearance();
 
         AnimationUtilities.LostSoulAnimation(cardInCombat.transform); 
     }

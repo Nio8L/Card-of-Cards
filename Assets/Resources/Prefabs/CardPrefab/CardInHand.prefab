@@ -465,7 +465,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552fea395e6769c4e8e516c697425cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayType: 2
   card: {fileID: 0}
+  icon: {fileID: 6450506570961337464}
+  cardName: {fileID: 8588948440291378114}
+  attackTypeIcon: {fileID: 8511082497978224603}
+  cardCost: {fileID: 1013382216480224605}
+  cardHealth: {fileID: 2383509288578964712}
+  cardAttack: {fileID: 78571767214573023}
+  sigil1: {fileID: 1897129377096196493}
+  sigil2: {fileID: 3613968180358876648}
+  sigil3: {fileID: 7104625870598925706}
+  activeStar: {fileID: 21300000, guid: 3420cca85f2d62343beed4a32733c069, type: 3}
+  selectedActiveStar: {fileID: 21300000, guid: 71535ccf613033c4988bcf0c5ec6656c, type: 3}
+  sigilStar1: {fileID: 0}
+  sigilStar2: {fileID: 0}
+  sigilStar3: {fileID: 0}
+  injury1: {fileID: 3557407984295226556}
+  injury2: {fileID: 7759837024472520929}
+  injury3: {fileID: 5455903208140873186}
+  biteInjuryIcon:
+  - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
+  - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
+  scratchInjuryIcon:
+  - {fileID: 21300000, guid: d783de996b55e4e4883a375e1f58d0ed, type: 3}
+  - {fileID: 21300000, guid: 73f3823764834bf47921c1a21680360d, type: 3}
+  poisonInjuryIcon:
+  - {fileID: 21300000, guid: a299490adbbfbb04eafe03099ea7f2f5, type: 3}
+  - {fileID: 21300000, guid: 8b5e7ab78a494ee449b6628139494832, type: 3}
+  biteDamageIcon: {fileID: 21300000, guid: 09f8275ec0a08f24ab938ac80488dc3f, type: 3}
+  scrachDamageIcon: {fileID: 21300000, guid: ea3a24fb371f8a04b97ff0f4d8a51e02, type: 3}
+  poisonDamageIcon: {fileID: 21300000, guid: e687f1344b8491248adfb5d1ba6552c7, type: 3}
+  heartDamageIcon: {fileID: 21300000, guid: 929f6c112a221e94988c184058470bc9, type: 3}
   deck: {fileID: 0}
   unplayableSlotNotification: {fileID: 11400000, guid: a7605c30378681b43beaa049a79ff84f, type: 2}
   notInjuredNotification: {fileID: 11400000, guid: 2cea1665324571742a3d1ed544c47b29, type: 2}
