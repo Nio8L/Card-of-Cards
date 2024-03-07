@@ -12,6 +12,8 @@ public class SpellSigil : Sigil
     }
     public TargetType targetType;
 
+    public bool disableSlotPlay = true;
+
     public virtual void OnPlay(CardSlot slot){
         /*
             Spell sigil effect goes here

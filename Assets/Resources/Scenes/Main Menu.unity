@@ -3581,11 +3581,12 @@ MonoBehaviour:
   mainMenu: {fileID: 1929760794}
   backButton: {fileID: 81527803}
   startCards:
-  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
-  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
-  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
-  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
-  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
+  - {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
+  - {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
+  - {fileID: 11400000, guid: f6d3519a8e69c3a4f92777f23a9fe716, type: 2}
+  - {fileID: 11400000, guid: f6d3519a8e69c3a4f92777f23a9fe716, type: 2}
+  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
 --- !u!1 &1798329752
 GameObject:
   m_ObjectHideFlags: 0

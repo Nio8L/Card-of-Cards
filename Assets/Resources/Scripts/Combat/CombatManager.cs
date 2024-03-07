@@ -413,7 +413,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
                     {
                         enemyCombatCards[i].passivesTurnedOnThisTurn = true;
                         enemyCombatCards[i].card.ActivateOnTurnStartEffects(enemyCombatCards[i]);
-                        enemyBenchCards[i].UpdateCardAppearance();
+                        enemyCombatCards[i].UpdateCardAppearance();
                     }
                 }
             }

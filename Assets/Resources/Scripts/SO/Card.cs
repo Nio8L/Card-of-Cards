@@ -23,7 +23,8 @@ public class Card : ScriptableObject
     {
         Poison,
         Bite,
-        Scratch
+        Scratch,
+        Heart
     };
 
     public static Sigil negativeSigil;
@@ -208,6 +209,22 @@ public class Card : ScriptableObject
         }
 
         return this;
+    }
+
+    //Used to check if the card can target a slot directly
+    //This depends on whether the card has spell sigils or no
+    //Some spell sigils deny slot targeting and some allow it
+    public bool CanTargetSlot(){
+        for(int i = 0; i < sigils.Count; i++){
+            if(sigils[i].GetSpellSigil() != null){
+                if (sigils[i].GetSpellSigil().disableSlotPlay)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public bool HasSpellSigils(){

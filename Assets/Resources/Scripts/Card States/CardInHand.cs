@@ -99,60 +99,7 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
             {
                 if(!card.HasSpellSigils() && cardSlot.playerSlot){
                     // Trying to play a card in a bench slot
-                    if(cardSlot.bench)
-                    {
-                        if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
-                        {
-                            // Play card in a bench slot
-                            PlayCard(cardSlot);
-                            SoundManager.soundManager.Play("CardPlaced");
-                        }
-                        else if(CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null)
-                        {
-                            // Use consuming sigils
-                            CardInCombat consumingCard = CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>();
-                            consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
-                            ConsumeCard();
-                            //Debug.Log(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on bench slot");
-                        }
-                        else if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
-                        {
-                            // Place a card in a filled bench slot
-                            if (!CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench(true, false)) return;
-                            PlayCard(cardSlot);
-                            SoundManager.soundManager.Play("CardPlaced");
-                        }
-                    }
-                    // Trying to play a card in a combat slot
-                    else if (!cardSlot.bench)
-                    {
-                        if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
-                        {
-                            PlayCard(cardSlot);
-                            SoundManager.soundManager.Play("CardPlaced");
-                        }
-                        
-                        else if(CombatManager.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
-                            CardInCombat consumingCard = CombatManager.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>();
-                            consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
-                            ConsumeCard();
-                            //Debug.Log(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on combat slot");
-                        }
-    
-                        else if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
-                        {
-                            if (!CombatManager.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench(true, false)) return;
-                            PlayCard(cardSlot);
-                            SoundManager.soundManager.Play("CardPlaced");
-                        }
-                    }
-                    // Trying to play a card in a bench slot
-                    else
-                    {
-                        if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
-                            SoundManager.soundManager.Play("CardRetract");
-                        }
-                    }
+                    TryToPlayCard(cardSlot);
                 }
                 else
                 {
@@ -188,6 +135,10 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
 
                         // Update card tilt
                         deck.TidyHand();
+                    }else{
+                        if(card.CanTargetSlot()){
+                            TryToPlayCard(cardSlot);
+                        }
                     }
                 }
             }else{
@@ -206,6 +157,64 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
     }
     //--------------------------------//
     #endregion
+
+    public void TryToPlayCard(CardSlot cardSlot){
+        // Trying to play a card in a bench slot
+        if(cardSlot.bench)
+        {
+            if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
+            {
+                // Play card in a bench slot
+                PlayCard(cardSlot);
+                SoundManager.soundManager.Play("CardPlaced");
+            }
+            else if(CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardAcceptor>() != null)
+            {
+                // Use consuming sigils
+                CardInCombat consumingCard = CombatManager.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>();
+                consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
+                ConsumeCard();
+                //Debug.Log(deck.combatManager.playerBenchCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on bench slot");
+            }
+            else if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
+            {
+                // Place a card in a filled bench slot
+                if (!CombatManager.combatManager.playerBenchCards[cardSlot.slot].BenchOrUnbench(true, false)) return;
+                PlayCard(cardSlot);
+                SoundManager.soundManager.Play("CardPlaced");
+            }
+        }
+        // Trying to play a card in a combat slot
+        else if (!cardSlot.bench)
+        {
+            if (CombatManager.combatManager.playerCombatCards[cardSlot.slot] == null)
+            {
+                PlayCard(cardSlot);
+                SoundManager.soundManager.Play("CardPlaced");
+            }
+            
+            else if(CombatManager.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardAcceptor>() != null){
+                CardInCombat consumingCard = CombatManager.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>();
+                consumingCard.card.ActivateOnConsumeEffects(consumingCard, card);
+                ConsumeCard();
+                //Debug.Log(deck.combatManager.playerCombatCards[cardSlot.slot].GetComponent<CardInCombat>().card.name + " accepting " + card.name + " on combat slot");
+            }
+
+            else if (CombatManager.combatManager.playerBenchCards[cardSlot.slot] == null)
+            {
+                if (!CombatManager.combatManager.playerCombatCards[cardSlot.slot].BenchOrUnbench(true, false)) return;
+                PlayCard(cardSlot);
+                SoundManager.soundManager.Play("CardPlaced");
+            }
+        }
+        // Trying to play a card in a bench slot
+        else
+        {
+            if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
+                SoundManager.soundManager.Play("CardRetract");
+            }
+        }
+    }
 
     //that is for deck.TidyHand()
     public void GetOnTop(Transform card)

@@ -74,7 +74,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         icon.sprite = card.image;
 
         Sprite damageIcon;
-        if(card.name == "Lost Soul") damageIcon = heartDamageIcon;
+        if(card.typeOfDamage == Card.TypeOfDamage.Heart) damageIcon = heartDamageIcon;
         else if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
         else if (card.typeOfDamage == Card.TypeOfDamage.Scratch) damageIcon = scrachDamageIcon;
         else damageIcon = poisonDamageIcon;

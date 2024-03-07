@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
+  m_Name: Empty Husk
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  health: 0
+  attack: 0
+  defaultAttack: 0
+  cost: 0
+  image: {fileID: 21300000, guid: 9f99a658639851b4fb821e7ee57f3ef1, type: 3}
+  canRevive: 1
+  fireImmune: 0
+  playerCard: 1
+  typeOfDamage: 0
+  sigils:
+  - {fileID: 11400000, guid: ee2a8210733cbd540adb230387c24844, type: 2}
+  - {fileID: 11400000, guid: 1ef9ee7d9a318f94ab15f5cc2d8bff77, type: 2}
+  injuries: 
