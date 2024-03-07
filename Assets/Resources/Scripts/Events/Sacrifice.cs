@@ -9,7 +9,10 @@ public class Sacrifice : MonoBehaviour, IEvent
 
     public List<Offer> offers;
 
+    public Sigil blessSigil;
+
     public Notification eventUsedNotification;
+    public Notification fullSoulNotification;
 
     public DeckDisplay deckDisplay;
 
@@ -50,6 +53,12 @@ public class Sacrifice : MonoBehaviour, IEvent
             //Prevent sacrificing if there are no cards on the slot or the offer is still displayed
             if(cardSlotHandler.cardSlots[0].card == null || offeredCard.activeSelf) return;
             
+            if(cardSlotHandler.cardSlots[0].card.name == "Lost Soul"){
+                cardSlotHandler.cardSlots[0].DropCard();
+                ActivateLostSoulButtons();
+                return;
+            }
+
             int value = CalculateCardWorth(cardSlotHandler.cardSlots[0].card);
         
             //Get the worst offer and give it to the player if the value isn't 
@@ -135,16 +144,34 @@ public class Sacrifice : MonoBehaviour, IEvent
         Destroy(gameObject);
     }
 
-    public void LostSoulCase()
-    {
+    public void Bless(){
+        Card blessedCard = cardSlotHandler.cardSlots[0].card;
+        
+        if(blessedCard == null) return;
+
+        if(blessedCard.sigils.Count == 3) {
+            NotificationManager.notificationManager.NotifyAutoEnd(fullSoulNotification, new Vector3(-470, 250, 0), 2f);
+            return;
+        }
+        blessedCard.sigils.Add(blessSigil);
+        cardSlotHandler.cardSlots[0].RemoveCard();
+
+        StartCoroutine(DelayedLeave(1f));
+    }
+
+    private void ActivateLostSoulButtons(){
         sacrificeButton.gameObject.SetActive(false);
         regenerateButton.gameObject.SetActive(true);
     }
 
+    public void LostSoulCase()
+    {
+        //This event implements the lost soul case by submitting a lost soul card
+    }
+
     public void RevertLostSoulCase()
     {
-        sacrificeButton.gameObject.SetActive(true);
-        regenerateButton.gameObject.SetActive(false);
+        //This event doesn't implement the revert lost soul case
     }
 
     public void SelectCard(CardDisplay card)
