@@ -159,6 +159,8 @@ public class CardInCombat : CardDisplay
             card.ActivateOnDeadEffects(this);
 
             if (card.health > 0) return;
+
+            EventManager.CardInjured?.Invoke(card);
             
             card.CreateCard(lastTypeOfDamage);
 

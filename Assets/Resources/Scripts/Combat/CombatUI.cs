@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class CombatUI : MonoBehaviour
 {
@@ -77,7 +78,9 @@ public class CombatUI : MonoBehaviour
             }else{
                 roundText.text = "Round " + CombatManager.combatManager.round + "/" + CombatManager.combatManager.enemy.huntRounds;
             }
-            for (int i = 0; i < CombatManager.combatManager.battleReward.Count; i++) roundText.text += "\n" + CombatManager.combatManager.battleReward[i].name;
+            for (int i = 0; i < CombatManager.combatManager.battleReward.Count; i++){
+                roundText.text += "\n" + CombatManager.combatManager.battleReward[i].name;
+            }
         }
         else roundText.text = "Round " + CombatManager.combatManager.round;
     }
@@ -85,10 +88,22 @@ public class CombatUI : MonoBehaviour
     public void UpdateEnemyCardPileText(){
         enemyCardPileText.text = CombatManager.combatManager.enemyDeck.cards.Count.ToString();
     }
+
+    public void UpdateHuntText(Card card){
+        UpdateRoundText();
+    }
     
     public void UpdatePileNumbers()
     {
         drawPileText.text    = CombatManager.combatManager.deck.drawPile.Count + "";
         discardPileText.text = CombatManager.combatManager.deck.discardPile.Count + "";
+    }
+
+    void OnEnable(){
+        EventManager.CardInjured += UpdateHuntText;
+    }
+
+    void OnDisable(){
+        EventManager.CardInjured -= UpdateHuntText;
     }
 }

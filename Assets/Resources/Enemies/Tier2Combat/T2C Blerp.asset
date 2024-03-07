@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
+  m_Name: T2C Blerp
+  m_EditorClassIdentifier: 
+  maxHealth: 22
+  path: Tier2Combat
+  huntAI: 0
+  huntRounds: 0
+  pacingObject: {fileID: 0}
+  isTutorialEnemy: 0
+  isHunter: 0
+  currentPacingObject: {fileID: 0}
+  canUseActiveAbilities: 1
+  cards:
+  - {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
+  - {fileID: 11400000, guid: ad63cf45f02d41a4a9dbd2c76ff18c38, type: 2}
+  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
+  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  maxCardsPerTurn: 5
+  maxEnergy: 2
+  startPlayingDefensivelyAt: 7
+  canUseLostSoul: 1
+  useKillerStrategyInstead: 1
+  canSeePlayerCardsPlacedThisTurn: 0
+  canHideCardsThatAreAboutToDie: 0

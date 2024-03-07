@@ -23,6 +23,7 @@ public class EnemyBase : ScriptableObject
 
     [HideInInspector]
     protected bool useDeck;
+    [Header("General Settings")]
     public bool canUseActiveAbilities = false;
 
     public virtual void Initialize()
