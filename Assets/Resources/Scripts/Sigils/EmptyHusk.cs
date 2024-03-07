@@ -20,4 +20,9 @@ public class EmptyHusk : ConsumingSigil
         card.deck.discardPile.Add(consumedCard);
         CombatManager.combatManager.combatUI.UpdatePileNumbers();
     }
+
+    public override void OnDrawEffect(Card card)
+    {
+        card.ResetCard();
+    }
 }
