@@ -23,6 +23,7 @@ public class EnemyBase : ScriptableObject
 
     [HideInInspector]
     protected bool useDeck;
+    public bool canUseActiveAbilities = false;
 
     public virtual void Initialize()
     {
@@ -53,6 +54,10 @@ public class EnemyBase : ScriptableObject
     }
 
     public virtual ScriptedEnemy GetScriptedEnemy(){
+        return null;
+    }
+
+    public virtual EnemyAI GetEnemyAI(){
         return null;
     }
 }

@@ -8,6 +8,7 @@ public class ActiveSigil : Sigil
     [Header("Active Sigil")]
     public bool canBeUsed;
     public int neededTargets;
+    public Decider enemyDecider;
 
     public enum TargetType
     {

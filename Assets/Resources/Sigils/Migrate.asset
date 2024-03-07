@@ -18,4 +18,5 @@ MonoBehaviour:
   description: 'Can be used to move to a space or swap cards. '
   canBeUsed: 0
   neededTargets: 1
+  enemyDecider: {fileID: 11400000, guid: c3e9055f1b3b6654c83bf985ca5e8884, type: 2}
   targetType: 0

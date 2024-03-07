@@ -34,3 +34,4 @@ MonoBehaviour:
   useKillerStrategyInstead: 1
   canSeePlayerCardsPlacedThisTurn: 0
   canHideCardsThatAreAboutToDie: 1
+  canUseActiveAbilities: 1

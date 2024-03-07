@@ -6,7 +6,7 @@ public class ScenePersistenceManager : MonoBehaviour
 {
     public static ScenePersistenceManager scenePersistence;
 
-    public MapWorld mapWorld;
+    //[HideInInspector]
     public List<MapWorld> stages = new List<MapWorld>();
     public int currentStage = 0;
     public bool resetMap;

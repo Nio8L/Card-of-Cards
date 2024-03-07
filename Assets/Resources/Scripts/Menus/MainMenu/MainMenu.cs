@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button loadButton;
 
-    public MapWorld world1;
+    public List<MapWorld> baseGameStages = new List<MapWorld>();
 
     public List<Card> tutorialCards = new List<Card>();
     private void Start() {
@@ -29,8 +29,9 @@ public class MainMenu : MonoBehaviour
             loadButton.interactable = false;
         }
 
+        ScenePersistenceManager.scenePersistence.stages.Clear();
         //Reset the map world
-        ScenePersistenceManager.scenePersistence.mapWorld = world1;
+        ScenePersistenceManager.scenePersistence.stages = baseGameStages;
     
     }
 
@@ -73,7 +74,11 @@ public class MainMenu : MonoBehaviour
     public void StartTutorial()
     {
         ScenePersistenceManager.scenePersistence.inTutorial = true;
-        ScenePersistenceManager.scenePersistence.mapWorld = Resources.Load<MapWorld>("Map Worlds/Tutorial");
+        MapWorld tutorial = Resources.Load<MapWorld>("Map Worlds/Tutorial");
+
+        ScenePersistenceManager.scenePersistence.stages.Clear();
+        ScenePersistenceManager.scenePersistence.stages.Add(tutorial);
+
         SceneManager.LoadSceneAsync("Map");
     }
 }

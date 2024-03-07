@@ -29,7 +29,7 @@ public class EnemyAI : EnemyBase
 
     bool[] savedLastRound;
     CardInCombat[] playerCards;
-    CardInCombat[] playerBenchedCards;
+    bool addedTimeToTurnTimer = false;
 
     Strategy currentStrategy;
     enum Strategy
@@ -66,14 +66,14 @@ public class EnemyAI : EnemyBase
         if (canSeePlayerCardsPlacedThisTurn)
         {
             playerCards = CombatManager.combatManager.playerCombatCards;
-            playerBenchedCards = CombatManager.combatManager.playerBenchCards;
         }
         else 
         { 
             playerCards = CombatManager.combatManager.playerCombatCardsAtStartOfTurn;
-            playerBenchedCards = CombatManager.combatManager.playerBenchCardsAtStartOfTurn; 
         }
         
+        addedTimeToTurnTimer = false;
+
         MoveCardsForward();
         Think();
     }
@@ -227,7 +227,9 @@ public class EnemyAI : EnemyBase
             thinkLimit--;
             Think();
         }
-        else if (canHideCardsThatAreAboutToDie) TryToSaveCards();
+        else{
+            if (canHideCardsThatAreAboutToDie) TryToSaveCards();
+        } 
     }
     Strategy PickStrategy()
     {
@@ -397,5 +399,46 @@ public class EnemyAI : EnemyBase
                 }
             }
         }
+    }
+    public IEnumerator CheckForActiveSigils(){
+        yield return new WaitForSeconds(0.5f);
+        // Try to find enemies with active abilities
+        for (int i = 0; i < 5; i++){
+            
+            // Bench cards
+            CardInCombat bench = CombatManager.combatManager.enemyBenchCards[i];
+            if (bench != null){
+                for (int sigil = 0; sigil < bench.card.sigils.Count; sigil++){
+                    ActiveSigil abilityToUse = bench.card.sigils[sigil].GetActiveSigil();
+                    if (abilityToUse != null && abilityToUse.canBeUsed) UseActiveAbility(bench,  abilityToUse); 
+                }
+            }
+            // Combat cards
+            CardInCombat combat = CombatManager.combatManager.enemyCombatCards[i];
+            if (combat != null){
+                for (int sigil = 0; sigil < combat.card.sigils.Count; sigil++){
+                    ActiveSigil abilityToUse = combat.card.sigils[sigil].GetActiveSigil();
+                    if (abilityToUse != null && abilityToUse.canBeUsed) UseActiveAbility(combat, abilityToUse); 
+                }
+            }
+
+        }
+    }
+
+    void UseActiveAbility(CardInCombat cardInCombat, ActiveSigil activeSigil){
+        // Try to activate an active ability
+        List<CardSlot> targets = activeSigil.enemyDecider.GetSlots(activeSigil.neededTargets);
+
+        if (targets != null){
+            activeSigil.ActiveEffect(cardInCombat, targets);
+            if (!addedTimeToTurnTimer){
+                CombatManager.combatManager.timerAfterEnemyTurn += 1f;
+                addedTimeToTurnTimer = true;
+            }
+        }
+    }
+
+    public override EnemyAI GetEnemyAI(){
+        return this;
     }
 }

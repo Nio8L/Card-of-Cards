@@ -18,6 +18,7 @@ MonoBehaviour:
   description: Heal 2 health and ignite this slot.
   canBeUsed: 0
   neededTargets: 0
+  enemyDecider: {fileID: 0}
   targetType: 2
   heal: 2
   turnsToIgnite: 2

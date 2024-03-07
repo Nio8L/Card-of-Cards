@@ -29,7 +29,6 @@ public class CardInCombat : MonoBehaviour
     float rightClickTimer;
     void Start()
     {
-        card.ActivateOnSummonEffects(this);
         deck.UpdateCardAppearance(transform, card);
         bloodSplat = Resources.Load<GameObject>("Prefabs/Particles/BloodSplatPart");
         deathMark = Resources.Load<GameObject>("Prefabs/DeathMark");

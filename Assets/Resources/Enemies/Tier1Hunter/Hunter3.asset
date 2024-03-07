@@ -24,7 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 005b63b7f15b4a740ac7c84c83d53d3e, type: 2}
   - {fileID: 11400000, guid: 005b63b7f15b4a740ac7c84c83d53d3e, type: 2}
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: 326f5f86760b25848b7da29bc2951f65, type: 2}
+  - {fileID: 11400000, guid: b00aa7ed5b3ad074bb2287f78586851f, type: 2}
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
   - {fileID: 11400000, guid: d2c5287dfa0603d4cbdaa4b6886d2a6d, type: 2}
@@ -36,3 +36,4 @@ MonoBehaviour:
   useKillerStrategyInstead: 1
   canSeePlayerCardsPlacedThisTurn: 0
   canHideCardsThatAreAboutToDie: 0
+  canUseActiveAbilities: 0

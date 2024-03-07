@@ -19,17 +19,20 @@ public class Hopper : ActiveSigil
                 if(CombatManager.combatManager.enemyCombatCards[card.slot] != null){
                     AnimationUtilities.CancelAnimations(card.gameObject);
                     CombatManager.combatManager.CardCombat1Attacker(card, CombatManager.combatManager.enemyCombatCards[card.slot], card.card.attack);
-                    CombatManager.combatManager.enemyCombatCards[card.slot].deck.UpdateCardAppearance(CombatManager.combatManager.enemyCombatCards[card.slot].transform, CombatManager.combatManager.enemyCombatCards[card.slot].card);
                     if(CombatManager.combatManager.enemyCombatCards[card.slot].card.health <= 0){
                         canBeUsed = true;
                     }
                 }
             }else{
+                card.MoveAnimationStarter(0.5f, targetSlot.transform.position, false, 0f);
                 if(CombatManager.combatManager.playerCombatCards[card.slot] != null){
                     CombatManager.combatManager.CardCombat1Attacker(card, CombatManager.combatManager.playerCombatCards[card.slot], card.card.attack);
-                    CombatManager.combatManager.playerCombatCards[card.slot].deck.UpdateCardAppearance(CombatManager.combatManager.playerCombatCards[card.slot].transform, CombatManager.combatManager.playerCombatCards[card.slot].card);
+                    if(CombatManager.combatManager.playerCombatCards[card.slot].card.health <= 0){
+                        canBeUsed = true;
+                    }
                 }
             }
+            CombatManager.combatManager.enemyCombatCards[card.slot].deck.UpdateCardAppearance(card.transform, card.card);
         }
 
         SoundManager.soundManager.Play("CardSlide");

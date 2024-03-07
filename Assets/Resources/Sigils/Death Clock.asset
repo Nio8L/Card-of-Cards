@@ -18,4 +18,5 @@ MonoBehaviour:
   description: Rotate a selected card's injuries clockwise.
   canBeUsed: 0
   neededTargets: 1
+  enemyDecider: {fileID: 0}
   targetType: 0

@@ -15,7 +15,11 @@ public class Migrate : ActiveSigil
         CombatManager.combatManager.SetCardAtSlot(targetSlot, card);
         CombatManager.combatManager.SetCardAtSlot(thisSlot  , targetCard);
 
-        if (targetCard != null) targetCard.MoveAnimationStarter(0.5f, thisSlot.transform.position, false, 0f);
+        if (!card.playerCard) card.MoveAnimationStarter(0.5f, targetSlot.transform.position, false, 0f);
+        if (targetCard != null){
+            AnimationUtilities.CancelAnimations(targetCard.gameObject);
+            targetCard.MoveAnimationStarter(0.5f, thisSlot.transform.position, false, 0f);
+        }
 
         SoundManager.soundManager.Play("CardSlide");
         canBeUsed = false;

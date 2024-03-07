@@ -25,6 +25,7 @@ public class MenuEyeAnimation : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("cheating");
-        ScenePersistenceManager.scenePersistence.mapWorld = showcase;
+        ScenePersistenceManager.scenePersistence.stages.Clear();
+        ScenePersistenceManager.scenePersistence.stages.Add(showcase);
     }
 }

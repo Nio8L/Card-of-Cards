@@ -18,5 +18,6 @@ MonoBehaviour:
   description: Ignite a selected slot.
   canBeUsed: 0
   neededTargets: 1
+  enemyDecider: {fileID: 11400000, guid: a7b53ade8f66e8b4e9ff45bb6a3c8edd, type: 2}
   targetType: 0
   ignitionDuration: 2

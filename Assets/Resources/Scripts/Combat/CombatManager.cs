@@ -40,9 +40,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     public List<Card> battleReward = new List<Card>();
 
     float timerToNextTurn = 0f;
-    float timerAfterEnemyTurn = 0f;
+    public float timerAfterEnemyTurn = 0f;
     float resetTimerTo = 2f;
-    float resetTimerAfterEnemyTurnTo = 0.5f;
+    float resetTimerAfterEnemyTurnTo = 0.75f;
     bool startCombatPhase = false;
     bool startPlayerTurn = false;
 
@@ -266,6 +266,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             if (slot.playerSlot) playerCombatCards[slot.slot] = cardInCombat;
             else                 enemyCombatCards[slot.slot] = cardInCombat;
         }
+
+        cardInCombat.card.ActivateOnSummonEffects(cardInCombat);
     }
 
     #region Game Phases
@@ -303,10 +305,12 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         // The enemy starts its turn
         enemy.StartTurn();
+        timerAfterEnemyTurn = 0;
+        // Check for active abilities
+        if (enemy.canUseActiveAbilities) StartCoroutine(enemy.GetEnemyAI().CheckForActiveSigils());
 
         startCombatPhase = true;
-        timerAfterEnemyTurn = resetTimerAfterEnemyTurnTo;
-
+        timerAfterEnemyTurn += resetTimerAfterEnemyTurnTo;
     }
     void StartCombatPhase()
     {
