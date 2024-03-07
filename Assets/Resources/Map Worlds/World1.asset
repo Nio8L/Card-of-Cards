@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: World1
   m_EditorClassIdentifier: 
   backgroundColor: {r: 0.4627451, g: 0.43137255, b: 0.3529412, a: 1}
-  stages: 15
+  stages: 20
   minWidth: 1
   maxWidth: 3
   spawnBoss: 1
