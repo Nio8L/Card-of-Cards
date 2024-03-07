@@ -266,4 +266,12 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void OnDisable() {
         transform.localScale = Vector3.one;
     }
+
+    private void OnEnable() {
+        //Prevent scaling issues when opening and closing the menu
+        if (displayType == DisplayType.Combat)
+        {
+            transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        }
+    }
 }

@@ -52,6 +52,20 @@ public class Card : ScriptableObject
         };
     }*/
 
+    public bool CanHeal(){
+        for(int i = 0; i < sigils.Count; i++){
+            if(sigils[i].negative){
+                return true;
+            }
+        }
+
+        if(injuries.Count > 0){
+            return true;
+        }
+
+        return false;
+    }
+
     public void AcceptLostSoul(){
         RemoveNegativeSigils();
         RemoveInjuries();
@@ -146,43 +160,98 @@ public class Card : ScriptableObject
     // Effects v
     public void ActivateOnHitEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.OnHitEffect(card);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnHitEffect(card);
+        }
+
     }
 
     public void ActivateOnTurnStartEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.OnTurnStartEffect(card);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnTurnStartEffect(card);
+        }
+
     }
     public void ActivateOnTakeDamageEffects(CardInCombat card)
     {
-        foreach (Sigil sigil in sigils) sigil.OnTakeDamageEffect(card);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnTakeDamageEffect(card);
+        }
+
     }
     public void ActivateOnSummonEffects(CardInCombat card) 
     {
-        foreach(Sigil sigil in sigils)sigil.OnSummonEffect(card);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnSummonEffect(card);
+        }
+
     }
     public void ActivateOnDeadEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.OnDeadEffect(card);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnDeadEffect(card);
+        }
+
     }  
     public void ActivateOnConsumeEffects(CardInCombat card, Card consumedCard){
-        foreach (Sigil sigil in sigils) sigil.OnConsumeEffect(card, consumedCard);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnConsumeEffect(card, consumedCard);
+        }
+
     }
     public void ActivateOnFightStartEffects(CardInCombat card) 
     {
-        foreach (Sigil sigil in sigils) sigil.OnFightStartEffect(card);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnFightStartEffect(card);
+        }
+
     }
     public void ActivateOnBattleEndEffects(CardInCombat card){
-        foreach (Sigil sigil in sigils) sigil.OnBattleEndEffect(card);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnBattleEndEffect(card);
+        }
+
     }
     public void ActivateOnDrawEffects(){
-        foreach (Sigil sigil in sigils) sigil.OnDrawEffect(this);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnDrawEffect(this);
+        }
+
     }
     public void ActivateOnDiscardEffects(){
-        foreach (Sigil sigil in sigils) sigil.OnDiscardEffect(this);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnDiscardEffect(this);
+        }
+
     }
     public void ActivateOnNotDrawnEffects(){
-        foreach (Sigil sigil in sigils) sigil.OnNotDrawn(this);
+        for (int i = 0; i < sigils.Count; i++)
+        {
+            Sigil sigil = sigils[i];
+            sigil.OnNotDrawn(this);
+        }
+
     }
     public void ResetHP() 
     {

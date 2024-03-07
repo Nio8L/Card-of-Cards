@@ -316,7 +316,7 @@ public class EnemyAI : EnemyBase
         //Debug.Log("Trying to play lost soul");
         foreach (CardInCombat card in CombatManager.combatManager.enemyCombatCards)
         {
-            if (card != null && card.card.injuries.Count > 0)
+            if (card != null && card.card.CanHeal())
             {
                 Card healedCard = card.card;
 

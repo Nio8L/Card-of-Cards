@@ -24,7 +24,7 @@ public class SecondChance : SpellSigil
 
         if (slot.playerSlot != player) return false;
 
-        if (target != null && target.card.injuries.Count > 0){
+        if (target != null && target.card.CanHeal()){
             return true;
         }
         NotificationManager.notificationManager.NotifyAutoEnd(notInjuredNotification, new Vector3(-700, 0, 0), 2);
