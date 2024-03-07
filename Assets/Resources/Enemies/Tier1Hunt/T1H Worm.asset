@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
-  m_Name: Scorpion
+  m_Name: T1H Worm
   m_EditorClassIdentifier: 
-  maxHealth: 6
-  path: Hunt
+  maxHealth: 9
+  path: Tier1Hunt
   huntAI: 1
-  huntRounds: 3
+  huntRounds: 4
   pacingObject: {fileID: 425041068175166581, guid: 8dc656d5c7feaf24b9f9b407aece9f5d, type: 3}
   isTutorialEnemy: 0
   isHunter: 0
   currentPacingObject: {fileID: 0}
+  canUseActiveAbilities: 0
+  ignoreCardDeathRules: 0
   turnZero: 1
   turns:
   - combatCards:
@@ -29,11 +31,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     benchCards:
-    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+    - {fileID: 0}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 0
@@ -45,10 +47,10 @@ MonoBehaviour:
     - {fileID: 0}
     benchCards:
     - {fileID: 0}
+    - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+    - {fileID: 0}
     - {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-    - {fileID: 0}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 1
@@ -59,11 +61,11 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     benchCards:
-    - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
+    - {fileID: 11400000, guid: f7b463f1d2b777043853cc418e61d4e8, type: 2}
     - {fileID: 0}
     - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
     benchColumbs: 0000000000
     forcePlace: 0
     pushBench: 1
@@ -75,10 +77,25 @@ MonoBehaviour:
     - {fileID: 0}
     benchCards:
     - {fileID: 0}
-    - {fileID: 11400000, guid: 065d291398207c6428ef00f49293d177, type: 2}
-    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
     - {fileID: 0}
     - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
     benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000001
     forcePlace: 0
     pushBench: 1

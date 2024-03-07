@@ -37,7 +37,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 17a65ea56a04b8d4398aed3aac33095c, type: 2}
   - {fileID: 11400000, guid: d75b85dbfe25da5489bb28e1e0aafb0a, type: 2}
   - {fileID: 11400000, guid: 1b04825f213fff643aa33b7aef4aafcf, type: 2}
-  - {fileID: 11400000, guid: f3bfe9d271ea25b4081bb94b5112cd6d, type: 2}
   hunters:
   - {fileID: 11400000, guid: 01ec3dad3935441419e7b95c38777b76, type: 2}
   - {fileID: 11400000, guid: 27995cc155f18f64a87787e2022b876a, type: 2}
