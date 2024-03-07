@@ -21,7 +21,7 @@ MonoBehaviour:
   canRevive: 1
   fireImmune: 0
   playerCard: 1
-  typeOfDamage: 0
+  typeOfDamage: 3
   sigils:
   - {fileID: 11400000, guid: e188bd892986bda4dbf12e575746eae1, type: 2}
   - {fileID: 11400000, guid: c2b1fa6c37757484b80e575309edc523, type: 2}
