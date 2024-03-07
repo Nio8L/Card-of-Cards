@@ -13,7 +13,7 @@ public class EndlessHunger : ConsumingSigil
         base.OnConsumeEffect(card, consumedCard);
         card.card.health += healthToHeal;
 
-        card.deck.UpdateCardAppearance(card.gameObject.transform, card.card);
+        card.UpdateCardAppearance();
 
         cardAcceptor.AcceptCard(consumedCard);
         card.deck.PlaySigilAnimation(card.transform, card.card, this);

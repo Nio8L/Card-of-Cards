@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: Lost Soul
+  m_Name: Empty Husk
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 1
   health: 0
   attack: 0
   defaultAttack: 0
   cost: 0
-  image: {fileID: 21300000, guid: e91981cfd938f884497596d00090ad32, type: 3}
+  image: {fileID: 21300000, guid: 6043aa87c52ff9244a35c698685dc176, type: 3}
   canRevive: 1
   fireImmune: 0
   playerCard: 1
   typeOfDamage: 3
   sigils:
-  - {fileID: 11400000, guid: e188bd892986bda4dbf12e575746eae1, type: 2}
-  - {fileID: 11400000, guid: c2b1fa6c37757484b80e575309edc523, type: 2}
+  - {fileID: 11400000, guid: ee2a8210733cbd540adb230387c24844, type: 2}
+  - {fileID: 11400000, guid: 1ef9ee7d9a318f94ab15f5cc2d8bff77, type: 2}
   injuries: 

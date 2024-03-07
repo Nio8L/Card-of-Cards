@@ -32,7 +32,7 @@ public class Hopper : ActiveSigil
                     }
                 }
             }
-            CombatManager.combatManager.enemyCombatCards[card.slot].deck.UpdateCardAppearance(card.transform, card.card);
+            CombatManager.combatManager.playerCombatCards[card.slot].UpdateCardAppearance();
         }
 
         SoundManager.soundManager.Play("CardSlide");

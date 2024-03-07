@@ -68,7 +68,7 @@ public class DeathClock : ActiveSigil
 
         SoundManager.soundManager.Play("DeathClock");
 
-        target.deck.UpdateCardAppearance(target.transform, target.card);
+        target.UpdateCardAppearance();
 
         canBeUsed = false;
     }

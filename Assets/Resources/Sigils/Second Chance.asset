@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674b659cbefbc4c4ab04ede08a43d74f, type: 3}
+  m_Script: {fileID: 11500000, guid: e4e9937edf81fd44799da6ebc68c79aa, type: 3}
   m_Name: Second Chance
   m_EditorClassIdentifier: 
   sigilName: Second Chance
   negative: 0
   image: {fileID: 21300000, guid: 2b364a1ef889fb042b8e5d5b23d0b53a, type: 3}
   description: Play this card on another to heal their injuries.
+  targetType: 0
+  notInjuredNotification: {fileID: 11400000, guid: 2cea1665324571742a3d1ed544c47b29, type: 2}

@@ -26,7 +26,7 @@ public class Fearless : Sigil
         {
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.ResetHP();
-            card.deck.UpdateCardAppearance(card.transform, card.card);
+            card.UpdateCardAppearance();
             canRevive = false;
             return;
         }

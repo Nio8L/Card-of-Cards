@@ -26,7 +26,7 @@ public class Bleed : Sigil
                 //Debug.Log("died From Bleed");
                 card.card.lastBattle = null;
             }
-            card.deck.UpdateCardAppearance(card.transform, card.card);
+            card.UpdateCardAppearance();
         }
 
         if(turnToDealDamage - count == 1){

@@ -21,7 +21,7 @@ public class ShortFuse : Sigil
         if (!onFire && card.GetSlot().status == CardSlot.Status.Ignited){
             onFire = true;
             card.card.attack += onFireBonus;
-            card.deck.UpdateCardAppearance(card.transform, card.card);
+            card.UpdateCardAppearance();
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
         }
     }
@@ -31,7 +31,7 @@ public class ShortFuse : Sigil
         if (onFire && card.GetSlot().status != CardSlot.Status.Ignited){
             onFire = false;
             card.card.attack -= onFireBonus;
-            card.deck.UpdateCardAppearance(card.transform, card.card);
+            card.UpdateCardAppearance();
         }
     }
 

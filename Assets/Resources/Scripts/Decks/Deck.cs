@@ -45,27 +45,6 @@ public class Deck : MonoBehaviour, IDataPersistence
     public TextMeshProUGUI drawPileText;
     public TextMeshProUGUI DiscardPileText;
 
-    [Header("Damage Icons")]
-    public Sprite biteDamageIcon;
-    public Sprite scrachDamageIcon;
-    public Sprite poisonDamageIcon;
-    public Sprite heartDamageIcon;
-
-    [Header("Death Icons")]
-    public Sprite deathMarkScratch;
-    public Sprite deathMarkBite;
-    public Sprite deathMarkPoison;
-
-    [Header("Injury Icons")]
-    public Sprite[] biteInjuryIcon;
-    public Sprite[] scratchInjuryIcon; 
-    public Sprite[] poisonInjuryIcon;
-
-    [HideInInspector]
-    public Sprite activeStar;
-    [HideInInspector]
-    public Sprite selectedActiveStar;
-
     int drawLeft = 0;
     float drawTime = 0.2f;
     float drawT = 0.1f;
@@ -151,9 +130,6 @@ public class Deck : MonoBehaviour, IDataPersistence
     {
         cardInHandPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInHand");
         cardInCombatPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab/CardInCombat");
-
-        activeStar = Resources.Load<Sprite>("Sprites/Sigils/ActiveStar");
-        selectedActiveStar = Resources.Load<Sprite>("Sprites/Sigils/SelectedActiveStar");
 
         soulHeart = Resources.Load<GameObject>("Prefabs/LostSoulHeart");
 
@@ -273,15 +249,16 @@ public class Deck : MonoBehaviour, IDataPersistence
                 //Tilt cards so they form //|\\
                 cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
                 targetCard.tiltAngle = (cardsInHand.Count / 2 - i) * 10;
-                targetCard.UpdateTilt();
+                targetCard.UpdateTilt(targetCard.tiltAngle);
             }
         }
 
         //Update tilt so there are 2 center cards if there is an even amount of cards in hand
         if(cardsInHand.Count % 2 == 0){
             for(int i = 0; i < cardsInHand.Count / 2; i++){
-                cardsInHand[i].GetComponent<CardInHand>().tiltAngle -= 10;
-                cardsInHand[i].GetComponent<CardInHand>().UpdateTilt();
+                CardInHand cardInHand = cardsInHand[i].GetComponent<CardInHand>();
+                cardInHand.tiltAngle -= 10;
+                cardInHand.UpdateTilt(cardInHand.tiltAngle);
             }
         }
 
@@ -438,106 +415,30 @@ public class Deck : MonoBehaviour, IDataPersistence
     public void UpdateAllCardAppearances(){
         //Update cards in hand
         for(int i = 0; i < cardsInHand.Count; i++){
-            UpdateCardAppearance(cardsInHand[i].transform, cardsInHandAsCards[i]);
+            cardsInHand[i].GetComponent<CardInHand>().UpdateCardAppearance();
         }
 
         //Update cards in combat
         for(int i = 0; i < 5; i++){
             if(CombatManager.combatManager.enemyCombatCards[i] != null){
-                UpdateCardAppearance(CombatManager.combatManager.enemyCombatCards[i].transform, CombatManager.combatManager.enemyCombatCards[i].card);
+                CombatManager.combatManager.enemyCombatCards[i].UpdateCardAppearance();
             }
 
             if(CombatManager.combatManager.enemyBenchCards[i] != null){
-                UpdateCardAppearance(CombatManager.combatManager.enemyBenchCards[i].transform, CombatManager.combatManager.enemyBenchCards[i].card);
+                CombatManager.combatManager.enemyBenchCards[i].UpdateCardAppearance();
             }
 
             if(CombatManager.combatManager.playerCombatCards[i] != null){
-                UpdateCardAppearance(CombatManager.combatManager.playerCombatCards[i].transform, CombatManager.combatManager.playerCombatCards[i].card);
+                CombatManager.combatManager.playerCombatCards[i].UpdateCardAppearance();
             }
 
             if(CombatManager.combatManager.playerBenchCards[i] != null){
-                UpdateCardAppearance(CombatManager.combatManager.playerBenchCards[i].transform, CombatManager.combatManager.playerBenchCards[i].card);
+                CombatManager.combatManager.playerBenchCards[i].UpdateCardAppearance();
             }
         }
     }
 
-    public void UpdateCardAppearance(Transform cardGameObject, Card card)
-    {
-        //Debug.Log("UpdateCardAppearance " + card.name + " " + cardGameObject.name);
-        cardGameObject.GetChild(0).GetComponent<Image>().sprite = card.image;
-
-        Sprite damageIcon;
-        if(card.name == "Lost Soul") damageIcon = heartDamageIcon;
-        else if (card.typeOfDamage == Card.TypeOfDamage.Bite) damageIcon = biteDamageIcon;
-        else if (card.typeOfDamage == Card.TypeOfDamage.Scratch) damageIcon = scrachDamageIcon;
-        else damageIcon = poisonDamageIcon;
-        cardGameObject.GetChild(2).GetComponent<Image>().sprite = damageIcon;
-
-        cardGameObject.GetChild(3).GetComponent<TextMeshProUGUI>().text = card.name;
-        cardGameObject.GetChild(4).GetComponent<TextMeshProUGUI>().text = card.cost.ToString();
-        cardGameObject.GetChild(5).GetComponent<TextMeshProUGUI>().text = card.health.ToString();
-        cardGameObject.GetChild(6).GetComponent<TextMeshProUGUI>().text = card.attack.ToString();
-
-
-        cardGameObject.GetChild(7).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        cardGameObject.GetChild(8).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        cardGameObject.GetChild(9).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        // Set sigil sprites
-        for (int i = 0; i < card.sigils.Count; i++){
-            cardGameObject.GetChild(7+i).GetComponent<Image>().sprite = card.sigils[i].image;
-            cardGameObject.GetChild(7+i).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        }
-        
-        // Set injury marks
-        cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        foreach (Card.TypeOfDamage injury in card.injuries)
-        {
-            if(DataPersistenceManager.DataManager.redMarkers){
-                if(injury == Card.TypeOfDamage.Bite){
-                    cardGameObject.GetChild(10).GetComponent<Image>().sprite = biteInjuryIcon[1];
-                    cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                }else if(injury == Card.TypeOfDamage.Scratch){
-                    cardGameObject.GetChild(11).GetComponent<Image>().sprite = scratchInjuryIcon[1];
-                    cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                }else if(injury == Card.TypeOfDamage.Poison){
-                    cardGameObject.GetChild(12).GetComponent<Image>().sprite = poisonInjuryIcon[1];
-                    cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                }
-            }else{
-                if(injury == Card.TypeOfDamage.Bite){
-                    cardGameObject.GetChild(10).GetComponent<Image>().sprite = biteInjuryIcon[0];
-                    cardGameObject.GetChild(10).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                }else if(injury == Card.TypeOfDamage.Scratch){
-                    cardGameObject.GetChild(11).GetComponent<Image>().sprite = scratchInjuryIcon[0];
-                    cardGameObject.GetChild(11).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                }else if(injury == Card.TypeOfDamage.Poison){
-                    cardGameObject.GetChild(12).GetComponent<Image>().sprite = poisonInjuryIcon[0];
-                    cardGameObject.GetChild(12).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-                }
-            }
-        }
-        cardGameObject.GetChild(7).GetComponent<SigilTooltip>().UpdateSigilTooltip();
-        cardGameObject.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
-        cardGameObject.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
-
-        CardInCombat combatCard = cardGameObject.GetComponent<CardInCombat>();
-        CardInHand handCard = cardGameObject.GetComponent<CardInHand>();
-
-
-        if (combatCard != null)
-        {
-            cardGameObject.GetChild(13).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            cardGameObject.GetChild(14).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            cardGameObject.GetChild(15).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            combatCard.ShowSigilStars();
-        }
-        else if (handCard)
-        {
-            handCard.UpdateCostText();
-        }
-    }
+    
 
     public void PlaySigilAnimation(Transform cardGameObject, Card card, Sigil sigilToAnimate)
     {
