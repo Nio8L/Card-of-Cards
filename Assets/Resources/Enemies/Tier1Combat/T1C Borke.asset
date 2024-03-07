@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
-  m_Name: Firefly
+  m_Name: T1C Borke
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  maxHealth: 20
   path: Tier1Combat
   huntAI: 0
   huntRounds: 0
@@ -21,14 +21,15 @@ MonoBehaviour:
   isHunter: 0
   currentPacingObject: {fileID: 0}
   cards:
-  - {fileID: 11400000, guid: b00aa7ed5b3ad074bb2287f78586851f, type: 2}
-  - {fileID: 11400000, guid: b00aa7ed5b3ad074bb2287f78586851f, type: 2}
+  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}
-  - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
   maxCardsPerTurn: 2
-  maxEnergy: 4
-  startPlayingDefensivelyAt: 15
+  maxEnergy: 3
+  startPlayingDefensivelyAt: 0
   canUseLostSoul: 1
   useKillerStrategyInstead: 0
   canSeePlayerCardsPlacedThisTurn: 0

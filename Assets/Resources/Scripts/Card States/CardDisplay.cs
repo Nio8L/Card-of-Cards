@@ -141,9 +141,17 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 }
             }
         }
-        transform.GetChild(7).GetComponent<SigilTooltip>().UpdateSigilTooltip();
-        transform.GetChild(8).GetComponent<SigilTooltip>().UpdateSigilTooltip();
-        transform.GetChild(9).GetComponent<SigilTooltip>().UpdateSigilTooltip();
+        sigil1.transform.GetComponent<SigilTooltip>().UpdateSigilTooltip();
+        sigil2.transform.GetComponent<SigilTooltip>().UpdateSigilTooltip();
+        sigil3.transform.GetComponent<SigilTooltip>().UpdateSigilTooltip();
+
+        if (displayType == DisplayType.Combat)
+        {
+            sigilStar1.color = new Color(1, 1, 1, 0);
+            sigilStar2.color = new Color(1, 1, 1, 0);
+            sigilStar3.color = new Color(1, 1, 1, 0);
+            ShowSigilStars();
+        }
     }
     public void SelectCard(){
         if(SceneManager.GetActiveScene().name == "Map"){

@@ -8,7 +8,7 @@ public class Ignite : ActiveSigil
     public int ignitionDuration;
     public override void ActiveEffect(CardInCombat card, List<CardSlot> targets)
     {
-        for (int i = 0; i < targets.Count; i++){
+        for (int i = 0; i < neededTargets; i++){
             CardSlot targetSlot = targets[i];
 
             targetSlot.IgniteSlot(ignitionDuration);

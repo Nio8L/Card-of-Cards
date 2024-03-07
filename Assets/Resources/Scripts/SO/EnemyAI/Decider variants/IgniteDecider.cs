@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/Active Decider/Health Check")]
-public class PlayerSlotsHealthCheck : Decider
+[CreateAssetMenu(menuName = "Enemy/Active Decider/Ignite")]
+public class IgniteDecider : Decider
 {
     public override List<CardSlot> GetSlots(int neededTargets)
     {
         List<CardInCombat> targets = new List<CardInCombat>();
         for (int i = 0; i < 5; i++){
             CardInCombat bench = CombatManager.combatManager.playerBenchCards[i];
-            if (bench != null){
+            if (bench != null && bench.GetSlot().status != CardSlot.Status.Ignited){
                 targets.Add(bench);
             }
             CardInCombat combat = CombatManager.combatManager.playerCombatCards[i];
-            if (combat != null){
+            if (combat != null && combat.GetSlot().status != CardSlot.Status.Ignited){
                 targets.Add(combat);
             }
         }

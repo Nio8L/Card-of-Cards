@@ -314,6 +314,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartCombatPhase()
     {
+        // Invoke Next Turn
+        EventManager.NextTurn?.Invoke();
+
         // Activate pre fight sigils
         for (int i = 0; i < 5; i++)
         {

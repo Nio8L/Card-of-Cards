@@ -14,7 +14,5 @@ public class EventManager : MonoBehaviour
 
     public static Action CombatEnd;
 
-    public void InvokeNextTurn(){
-        NextTurn?.Invoke();
-    }
+    public static Action<Card> CardInjured;
 }

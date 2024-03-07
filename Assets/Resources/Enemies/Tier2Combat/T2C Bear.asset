@@ -10,28 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
-  m_Name: Ai3
+  m_Name: T2C Bear
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  path: Tier1Combat
+  maxHealth: 25
+  path: 
   huntAI: 0
   huntRounds: 0
   pacingObject: {fileID: 0}
   isTutorialEnemy: 0
   isHunter: 0
   currentPacingObject: {fileID: 0}
+  canUseActiveAbilities: 0
   cards:
-  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-  - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
-  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
+  - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+  - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
   - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
   - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
   - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: f7bae259e2b6ead4d98fb3e1494316eb, type: 2}
+  - {fileID: 11400000, guid: f7bae259e2b6ead4d98fb3e1494316eb, type: 2}
   maxCardsPerTurn: 2
-  maxEnergy: 3
-  startPlayingDefensivelyAt: 0
+  maxEnergy: 4
+  startPlayingDefensivelyAt: 10
   canUseLostSoul: 1
-  useKillerStrategyInstead: 0
+  useKillerStrategyInstead: 1
   canSeePlayerCardsPlacedThisTurn: 0
   canHideCardsThatAreAboutToDie: 1
-  canUseActiveAbilities: 1
