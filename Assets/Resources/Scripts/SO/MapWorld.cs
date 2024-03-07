@@ -293,7 +293,9 @@ public class MapWorld : ScriptableObject
                             else if (roomTypeToUse == RoomType.Hunt  ) enemy = hunts  [Random.Range(0, hunts  .Count)];
                             else                                       enemy = hunters[Random.Range(0, hunters.Count)];
                         }while(lastEnemy == enemy);
+                        
                         nodeGameObject.AssignEnemy(enemy);
+                        lastEnemy = enemy;
                     }
 
                     // Select an event
@@ -302,7 +304,9 @@ public class MapWorld : ScriptableObject
                         do{
                             eventToUse = events[Random.Range(0, events.Count)];
                         }while(lastEvent == eventToUse);
-                    nodeGameObject.AssignEvent(eventToUse);
+
+                        nodeGameObject.AssignEvent(eventToUse);
+                        lastEvent = eventToUse;
                     }
                 }else{
                     // Use pre-build layers

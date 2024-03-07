@@ -10,28 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8285a24a18ef3744d974dcb7a5d9305f, type: 3}
-  m_Name: Hunter2
+  m_Name: T2B Blerp
   m_EditorClassIdentifier: 
-  maxHealth: 25
-  path: Tier1Hunter
+  maxHealth: 30
+  path: Tier2Hunter
   huntAI: 0
   huntRounds: 0
   pacingObject: {fileID: 0}
   isTutorialEnemy: 0
   isHunter: 1
   currentPacingObject: {fileID: 0}
+  canUseActiveAbilities: 1
   cards:
-  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
-  - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
-  - {fileID: 11400000, guid: 90db95e03e0d3724d9aeb85d743294b7, type: 2}
+  - {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
+  - {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
+  - {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
+  - {fileID: 11400000, guid: f7b463f1d2b777043853cc418e61d4e8, type: 2}
+  - {fileID: 11400000, guid: f7bae259e2b6ead4d98fb3e1494316eb, type: 2}
+  - {fileID: 11400000, guid: f7bae259e2b6ead4d98fb3e1494316eb, type: 2}
+  - {fileID: 11400000, guid: f7bae259e2b6ead4d98fb3e1494316eb, type: 2}
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
-  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-  - {fileID: 11400000, guid: 7b8d11853356c394cb07147244086660, type: 2}
-  - {fileID: 11400000, guid: ad63cf45f02d41a4a9dbd2c76ff18c38, type: 2}
+  - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   maxCardsPerTurn: 5
-  maxEnergy: 5
-  startPlayingDefensivelyAt: 20
+  maxEnergy: 4
+  startPlayingDefensivelyAt: 15
   canUseLostSoul: 1
   useKillerStrategyInstead: 1
   canSeePlayerCardsPlacedThisTurn: 0
