@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,15 @@ public class DeckDisplay : MonoBehaviour
 {
     public GameObject cardDisplayPrefab;
     public List<Card> cards = new List<Card>();
+    [Space(10)]
+    [Header("Display name")]
+    public TextMeshProUGUI deckName;
+    public GameObject nameplate;
+    
     RectTransform deckHolder;
+    
+    [Space(10)]
+    [Header("Positioning")]
     public float width;
     public float height;
 
@@ -120,6 +129,10 @@ public class DeckDisplay : MonoBehaviour
             newDisplay.localPosition = new Vector3(cardX, cardY, 0);
             newDisplay.GetComponent<CardDisplay>().card = newCards[i];
         }
+    }
+
+    public void RepositionNameplate(Vector3 position){
+        nameplate.transform.localPosition = position;
     }
 
     void SortList(){

@@ -704,7 +704,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public void DrawPileButton(){
         if (deck.drawPile.Count != 0 || DeckUtilities.GetDisplayWithName("deck") != null){
-            DeckUtilities.SingularDisplay("deck", deck.drawPile);
+            DeckUtilities.SingularDisplay("deck", deck.drawPile, "Draw Pile");
         }else{
             NotificationManager.notificationManager.NotifyAutoEnd(noDrawNotification, new Vector3(-700, -90, 0), 2);
         }
@@ -712,7 +712,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public void DiscardPileButton(){
         if (deck.discardPile.Count != 0 || DeckUtilities.GetDisplayWithName("deck") != null){
-            DeckUtilities.SingularDisplay("deck", deck.discardPile);
+            DeckUtilities.SingularDisplay("deck", deck.discardPile, "Discard Pile");
         }else{
             NotificationManager.notificationManager.NotifyAutoEnd(noDiscardNotification, new Vector3(-700, -90, 0), 2);
         }
@@ -720,7 +720,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
     public void GraveButton(){
         if (playerCardsLost.Count != 0 || DeckUtilities.GetDisplayWithName("deck") != null){
-            DeckUtilities.SingularDisplay("deck", playerCardsLost);
+            DeckUtilities.SingularDisplay("deck", playerCardsLost, "Grave");
         }else{
             NotificationManager.notificationManager.NotifyAutoEnd(noGraveNotification, new Vector3(765, -190, 0), 2);
         }
