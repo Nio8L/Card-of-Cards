@@ -239,7 +239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Regenerate offers
+  m_text: Bless
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
   m_sharedMaterial: {fileID: -1087877107468255476, guid: c8f2ade2eb7f01441839a9e68ae4a8a3, type: 2}
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 1228665461526631874}
   - component: {fileID: 8756974184896581781}
   m_Layer: 5
-  m_Name: RegenerateButton
+  m_Name: BlessButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -699,21 +699,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ExchangeShop, Assembly-CSharp
-        m_MethodName: RegenerateOffers
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ExchangeShop, Assembly-CSharp
-        m_MethodName: RevertLostSoulCase
+      - m_Target: {fileID: 31672353043845026}
+        m_TargetAssemblyTypeName: Sacrifice, Assembly-CSharp
+        m_MethodName: Bless
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1327,7 +1315,9 @@ MonoBehaviour:
     price: 6
   - card: {fileID: 11400000, guid: a35eeef801715bc4eafa36e6c712d99b, type: 2}
     price: 4
+  blessSigil: {fileID: 11400000, guid: 182004fb735f7e0469c240da51d4aef9, type: 2}
   eventUsedNotification: {fileID: 11400000, guid: 2ca72248c8c493f48bfe7fa6dfed05a3, type: 2}
+  fullSoulNotification: {fileID: 11400000, guid: ac0c20bd573f5bc47a668da43d54ef03, type: 2}
   deckDisplay: {fileID: 0}
   offeredCard: {fileID: 3968368756769746567}
   sacrificeButton: {fileID: 137151218574068271}

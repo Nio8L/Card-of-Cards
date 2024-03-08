@@ -40,7 +40,7 @@ public class DeckUtilities : MonoBehaviour
             if      (sceneName == "Map")    cards = MapManager.mapManager.mapDeck.cards;
             else if (sceneName == "Combat") cards = CombatManager.combatManager.deck.cards;
 
-            if (cards.Count != 0) SingularDisplay("deck", cards);
+            if (cards.Count != 0) SingularDisplay("deck", cards, "Default Deck");
         }
         
         if (Input.GetKeyUp(KeyCode.Escape)){
@@ -58,13 +58,14 @@ public class DeckUtilities : MonoBehaviour
         }
     }
 
-    public static DeckDisplay CreateDisplay(Vector2 position, float width, float height, string name){
+    public static DeckDisplay CreateDisplay(Vector2 position, float width, float height, string name, string id){
         // Creates a display via code and returns it
         DeckDisplay display = Instantiate(deckUtilities.deckDisplay, Vector3.zero, Quaternion.identity).GetComponent<DeckDisplay>();
         display.point = position;
         display.width = width;
         display.height = height;
-        display.name = name;
+        display.deckName.text = name;
+        display.name = id;
         return display;
     }
     public static void AddDisplay(DeckDisplay newDisplay){
@@ -103,10 +104,10 @@ public class DeckUtilities : MonoBehaviour
         }
         return deck;
     }
-    public static void SingularDisplay(string name, List<Card> cards){
-        DeckDisplay deck = GetDisplayWithName(name);
+    public static void SingularDisplay(string id, List<Card> cards, string name){
+        DeckDisplay deck = GetDisplayWithName(id);
         if (deck == null){
-            deck = CreateDisplay(Vector2.zero, Camera.main.pixelWidth*(2f/3f), Camera.main.pixelHeight*(2f/3f), name);
+            deck = CreateDisplay(Vector2.zero, Camera.main.pixelWidth*(2f/3f), Camera.main.pixelHeight*(2f/3f), name, id);
             deck.cards = cards;
         }else{
             deck.CloseDisplay();
