@@ -245,6 +245,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         cardInCombat.card = card;
         cardInCombat.slot = slot.slot;
         cardInCombat.playerCard = slot.playerSlot;
+        cardInCombat.summonedOnRound = round;
         
         // Find the card's owner's deck so it has a reference to it
         if (slot.playerSlot) cardInCombat.deck = deck;
@@ -314,9 +315,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     void StartCombatPhase()
     {
-        // Invoke Next Turn
-        EventManager.NextTurn?.Invoke();
-
         // Activate pre fight sigils
         for (int i = 0; i < 5; i++)
         {

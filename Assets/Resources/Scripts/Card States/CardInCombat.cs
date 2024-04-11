@@ -20,8 +20,7 @@ public class CardInCombat : CardDisplay
     public bool canBeBenched = true;
     public bool playerCard = true;
     public int slot = 0;
-    public int direction = 1;
-    public float animationStartDelay;
+    public int summonedOnRound;
 
     GameObject bloodSplat;
     GameObject deathMark;

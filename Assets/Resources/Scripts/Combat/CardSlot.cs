@@ -18,6 +18,8 @@ public class CardSlot : MonoBehaviour
 
     [SerializeField]
     ParticleSystem ignitedParticles;
+    [SerializeField]
+    ParticleSystem smokeParticles;
 
     [HideInInspector]
     public int turnsIgnited;
@@ -46,6 +48,7 @@ public class CardSlot : MonoBehaviour
         status = Status.Normal;
         spriteRenderer.color = Color.white;
         ignitedParticles.Stop();
+        smokeParticles.Stop();
 
         turnsIgnited = 0;
         turnsDrenched = 0;
@@ -81,6 +84,8 @@ public class CardSlot : MonoBehaviour
 
         if(turnsIgnited == 0){
             ResetSlot();
+        }else if (turnsIgnited == 1){
+            smokeParticles.Play();
         }
     }
 

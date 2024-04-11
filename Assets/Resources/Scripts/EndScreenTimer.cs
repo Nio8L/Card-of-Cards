@@ -9,7 +9,7 @@ public class EndScreenTimer : MonoBehaviour
     void Update()
     {
         int hours   = Mathf.FloorToInt(Timer.timer.time / 3600);
-        int minutes = Mathf.FloorToInt(Timer.timer.time / 60  );
+        int minutes = Mathf.FloorToInt(Timer.timer.time % 3600/60  );
         int seconds = Mathf.FloorToInt(Timer.timer.time % 60  );
 
         string hoursZero   = "0";

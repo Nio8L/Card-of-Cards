@@ -25,6 +25,7 @@ public class EnemyBase : ScriptableObject
     protected bool useDeck;
     [Header("General Settings")]
     public bool canUseActiveAbilities = false;
+    public float chanceToUseActiveAbilities; // from 0 to 1
 
     public virtual void Initialize()
     {

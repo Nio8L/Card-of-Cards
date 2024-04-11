@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Enemy/AI")]
@@ -411,10 +412,13 @@ public class EnemyAI : EnemyBase
 
         }
     }
-
     void UseActiveAbility(CardInCombat cardInCombat, ActiveSigil activeSigil){
         // Try to activate an active ability
         List<CardSlot> targets = activeSigil.enemyDecider.GetSlots(activeSigil.neededTargets);
+        float rand = Random.value;
+
+        // Random chance
+        if (rand > chanceToUseActiveAbilities || cardInCombat.summonedOnRound == CombatManager.combatManager.round) return;
 
         if (targets != null){
             activeSigil.ActiveEffect(cardInCombat, targets);
@@ -424,7 +428,6 @@ public class EnemyAI : EnemyBase
             }
         }
     }
-
     public override EnemyAI GetEnemyAI(){
         return this;
     }

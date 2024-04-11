@@ -20,6 +20,8 @@ MonoBehaviour:
   isTutorialEnemy: 0
   isHunter: 0
   currentPacingObject: {fileID: 0}
+  canUseActiveAbilities: 1
+  chanceToUseActiveAbilities: 0.5
   cards:
   - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
   - {fileID: 11400000, guid: c5bee24654a403543bfd3e112a3ea6b2, type: 2}
@@ -34,4 +36,3 @@ MonoBehaviour:
   useKillerStrategyInstead: 0
   canSeePlayerCardsPlacedThisTurn: 0
   canHideCardsThatAreAboutToDie: 1
-  canUseActiveAbilities: 1

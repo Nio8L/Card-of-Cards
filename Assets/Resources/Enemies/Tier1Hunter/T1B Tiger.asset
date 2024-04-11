@@ -21,6 +21,7 @@ MonoBehaviour:
   isHunter: 1
   currentPacingObject: {fileID: 0}
   canUseActiveAbilities: 1
+  chanceToUseActiveAbilities: 0.75
   cards:
   - {fileID: 11400000, guid: 005b63b7f15b4a740ac7c84c83d53d3e, type: 2}
   - {fileID: 11400000, guid: 005b63b7f15b4a740ac7c84c83d53d3e, type: 2}
