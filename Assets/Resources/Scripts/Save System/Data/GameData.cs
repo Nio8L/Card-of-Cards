@@ -37,6 +37,8 @@ public class GameData
 
     public int playerHealth;
 
+    public int combatPoints;
+
     public List<string> cardNames;
     public List<int> cardAttacks;
     public List<int> cardMaxHealths;
@@ -57,6 +59,8 @@ public class GameData
         runTime = 0;
 
         playerHealth = 20;
+
+        combatPoints = 0;
 
         cardNames = new();
         cardAttacks = new();
