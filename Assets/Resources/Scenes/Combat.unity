@@ -4446,6 +4446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1262811046}
   - component: {fileID: 1262811047}
+  - component: {fileID: 1262811048}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -4557,6 +4558,18 @@ MonoBehaviour:
   noDrawNotification: {fileID: 11400000, guid: edcc05000f7204d409a033ff428cdadd, type: 2}
   noDiscardNotification: {fileID: 11400000, guid: 4f2ce7311a7075740bdd2a7684fccbbe, type: 2}
   noGraveNotification: {fileID: 11400000, guid: bec424548e87a7e4da9493439b8d60c7, type: 2}
+--- !u!114 &1262811048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262811044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c200abcbee9ad94eb1b98f550e4ef7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1264100468
 GameObject:
   m_ObjectHideFlags: 0

@@ -161,6 +161,8 @@ public class Deck : MonoBehaviour, IDataPersistence
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             selectedCard.position = new Vector3(mousePosition.x, mousePosition.y, 0);
+            selectedCard.localScale = new Vector2(1.3f,1.3f);
+            selectedCard.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         if (playerDeck){
