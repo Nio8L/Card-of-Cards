@@ -10,7 +10,7 @@ public class Thorns : Sigil
     public override void OnTakeDamageEffect(CardInCombat card)
     {
         card.card.lastBattle.enemyCard.health -= damage;
-        card.lastTypeOfDamage = Card.TypeOfDamage.Scratch;
+        card.card.lastBattle.enemy.lastTypeOfDamage = Card.TypeOfDamage.Scratch;
         Instantiate(thornsParticlesPrefab, card.transform.position, Quaternion.identity);
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
     }

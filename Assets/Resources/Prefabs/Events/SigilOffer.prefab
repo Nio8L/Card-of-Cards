@@ -1440,7 +1440,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleSigilOffers:
   - {fileID: 11400000, guid: 56218e4288590f24f89903ea0ec81850, type: 2}
+  - {fileID: 11400000, guid: 3ad1ed6399c71264b80c4049706af201, type: 2}
   - {fileID: 11400000, guid: d047d9af4e2832c4da620121d89332e7, type: 2}
+  - {fileID: 11400000, guid: 9df749230306c914ab1f1880d6280871, type: 2}
   - {fileID: 11400000, guid: 406336c7aaa0bcd4fadfadd56e1066e6, type: 2}
   - {fileID: 11400000, guid: 5ea4fec66d7a4d3458a82d34a40b5a41, type: 2}
   - {fileID: 11400000, guid: f1efb2a8b94740642a1e09c61c9266c2, type: 2}
@@ -1453,7 +1455,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be1652e94d28ef04da53a4d5eb4d81b6, type: 2}
   - {fileID: 11400000, guid: ce554ca54f3db4b43b8207d62746969e, type: 2}
   - {fileID: 11400000, guid: 06bde4307bad3de44bb43419e60d7d8b, type: 2}
-  - {fileID: 11400000, guid: 9df749230306c914ab1f1880d6280871, type: 2}
   offeredSigils:
   - {fileID: 4294438173029883671}
   - {fileID: 2882250686494072417}

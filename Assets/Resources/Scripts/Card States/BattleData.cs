@@ -8,7 +8,6 @@ public class BattleData
     public int enemyCardOldHp;
     public Card thisCard;
     public int thisCardOldHp;
-
     public CardInCombat enemy;
    
     public BattleData(Card _thisCard, Card _enemyCard, int _thisHp, int _enemyHp, CardInCombat _enemy)

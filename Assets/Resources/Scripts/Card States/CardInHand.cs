@@ -97,8 +97,8 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
 
             if (deck.energy >= card.cost)
             {
-                if(!card.HasSpellSigils() && cardSlot.playerSlot){
-                    // Trying to play a card in a bench slot
+                if(!card.HasSpellSigils()){
+                    // Trying to play a card
                     TryToPlayCard(cardSlot);
                 }
                 else
@@ -159,6 +159,9 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
     #endregion
 
     public void TryToPlayCard(CardSlot cardSlot){
+
+        if (!cardSlot.playerSlot) return;
+
         // Trying to play a card in a bench slot
         if(cardSlot.bench)
         {
