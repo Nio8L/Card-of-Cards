@@ -72,6 +72,12 @@ public class CardSlot : MonoBehaviour
         ignitedParticles.Play();
 
         EventManager.NextTurn += ApplyIgnitedEffects;
+
+        if (duration != 1){
+            smokeParticles.Stop();
+        }else{
+            smokeParticles.Play();
+        }
     }
 
     public void ApplyIgnitedEffects(){
