@@ -154,7 +154,7 @@ public class Card : ScriptableObject
             }
         }
 
-        if(sigils.Count != 3)sigils.Add(negativeSigil);
+        if(sigils.Count != 3) sigils.Add(negativeSigil);
     }
 
     // Effects v
@@ -221,11 +221,11 @@ public class Card : ScriptableObject
         }
 
     }
-    public void ActivateOnBattleEndEffects(CardInCombat card){
+    public void ActivateOnBattleEndEffects(){
         for (int i = 0; i < sigils.Count; i++)
         {
             Sigil sigil = sigils[i];
-            sigil.OnBattleEndEffect(card);
+            sigil.OnBattleEndEffect(this);
         }
 
     }

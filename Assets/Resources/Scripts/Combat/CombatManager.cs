@@ -64,26 +64,28 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     void Awake(){
         combatManager = this;
 
-        // Clear all existing displays
-        DeckUtilities.CloseAllDisplays();
-        
         // Setup tutorial
-        if(ScenePersistenceManager.scenePersistence.inTutorial)
-        {
-            // Find the correct ai
-            ScenePersistenceManager.scenePersistence.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + ScenePersistenceManager.scenePersistence.tutorialCombats[ScenePersistenceManager.scenePersistence.tutorialStage].ReturnPath());
+        try{
+            if(ScenePersistenceManager.scenePersistence.inTutorial)
+            {
+                // Find the correct ai
+                ScenePersistenceManager.scenePersistence.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + ScenePersistenceManager.scenePersistence.tutorialCombats[ScenePersistenceManager.scenePersistence.tutorialStage].ReturnPath());
 
-            deck.cards.AddRange(ScenePersistenceManager.scenePersistence.tutorialDeck);
-            
-            ListWrapper tutorialDeckToLoad = ScenePersistenceManager.scenePersistence.tutorialCardsToAdd[ScenePersistenceManager.scenePersistence.tutorialStage];
+                deck.cards.AddRange(ScenePersistenceManager.scenePersistence.tutorialDeck);
+                
+                ListWrapper tutorialDeckToLoad = ScenePersistenceManager.scenePersistence.tutorialCardsToAdd[ScenePersistenceManager.scenePersistence.tutorialStage];
 
-            // Load the correct deck
-            for (int i = 0; i < tutorialDeckToLoad.list.Count; i++){
-                string card = tutorialDeckToLoad.list[i];
-                Card cardToAdd = Instantiate(Resources.Load<Card>("Cards/" + card)).ResetCard();
-                cardToAdd.name = card;
-                deck.cards.Add(cardToAdd);
+                // Load the correct deck
+                for (int i = 0; i < tutorialDeckToLoad.list.Count; i++){
+                    string card = tutorialDeckToLoad.list[i];
+                    Card cardToAdd = Instantiate(Resources.Load<Card>("Cards/" + card)).ResetCard();
+                    cardToAdd.name = card;
+                    deck.cards.Add(cardToAdd);
+                }
             }
+        }catch(Exception){
+            SceneManager.LoadScene("Main Menu");
+            return;
         }
         
         // Find the enemy ai for this combat
@@ -91,6 +93,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         {
             enemy = ScenePersistenceManager.scenePersistence.currentCombatAI;
         }
+
+        // Clear all existing displays
+        DeckUtilities.CloseAllDisplays();
+        
         // Initialize it
         enemy.Initialize();
 
@@ -604,12 +610,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         if (enemy.isTutorialEnemy) { TutorialWin(); return; }
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < deck.cards.Count; i++)
         {
-            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleEndEffects(playerCombatCards[i]);
-            if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleEndEffects(playerBenchCards[i]);
-            if (enemyCombatCards[i] != null) enemyCombatCards[i].card.ActivateOnBattleEndEffects(enemyCombatCards[i]);
-            if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleEndEffects(enemyBenchCards[i]);
+            deck.cards[i].ActivateOnBattleEndEffects();
         }
 
         // Clear all existing displays
@@ -634,12 +637,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
      
         EventManager.CombatEnd?.Invoke();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < deck.cards.Count; i++)
         {
-            if (playerCombatCards[i] != null) playerCombatCards[i].card.ActivateOnBattleEndEffects(playerCombatCards[i]);
-            if (playerBenchCards[i] != null) playerBenchCards[i].card.ActivateOnBattleEndEffects(playerBenchCards[i]);
-            if (enemyCombatCards[i] != null) enemyCombatCards[i].card.ActivateOnBattleEndEffects(enemyCombatCards[i]);
-            if (enemyBenchCards[i] != null) enemyBenchCards[i].card.ActivateOnBattleEndEffects(enemyBenchCards[i]);
+            deck.cards[i].ActivateOnBattleEndEffects();
         }
 
         // Clear all existing displays

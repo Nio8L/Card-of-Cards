@@ -20,7 +20,7 @@ public class GraveDigger : Sigil
         EventManager.CardDeath -= OnCardDeath;
     }
 
-    public override void OnBattleEndEffect(CardInCombat card)
+    public override void OnBattleEndEffect(Card card)
     {
         EventManager.CardDeath -= OnCardDeath;
     }

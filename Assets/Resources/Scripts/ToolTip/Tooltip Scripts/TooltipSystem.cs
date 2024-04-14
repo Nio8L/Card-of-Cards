@@ -42,7 +42,7 @@ public class TooltipSystem : MonoBehaviour
     }
 
     public static void Hide(){
-        if(tooltipSystem.canvasGroup != null){
+        if(tooltipSystem != null && tooltipSystem.canvasGroup != null){
             AnimationUtilities.ChangeCanvasAlpha(tooltipSystem.transform, 0.1f, 0, 0);
             tooltipSystem.StartCoroutine(CloseTooltip(0.1f));
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -35,10 +36,15 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public List<GameObject> selectableNodes = new List<GameObject>();
     void Awake(){
-        mapManager = this;
-        
-        thisWorld = ScenePersistenceManager.scenePersistence.stages[ScenePersistenceManager.scenePersistence.currentStage];
-        thisWorld = Instantiate(thisWorld);
+        try{
+            mapManager = this;
+            
+            thisWorld = ScenePersistenceManager.scenePersistence.stages[ScenePersistenceManager.scenePersistence.currentStage];
+            thisWorld = Instantiate(thisWorld);
+        }catch (Exception){
+            SceneManager.LoadSceneAsync("Main Menu");
+            return;
+        }
     }
     void Start(){
         if (ScenePersistenceManager.scenePersistence.resetMap){
@@ -78,7 +84,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         // Reset the timer
         Timer.timer.time = 0;
         // Generate a new map
-        GenerateWorld(Mathf.FloorToInt(Random.value*214783646));
+        GenerateWorld(Mathf.FloorToInt(UnityEngine.Random.value*214783646));
     }
     static void GenerateWorld(int seed){
         // Generate a map with a given seed
@@ -93,7 +99,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         mapManager.background.color = mapManager.thisWorld.backgroundColor;
         // Start using the general seed
-        Random.InitState(mapManager.thisWorld.generalSeed);
+        UnityEngine.Random.InitState(mapManager.thisWorld.generalSeed);
     }
     static void ClearMap(){
         // Destroy all nodes and lines
@@ -107,7 +113,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
     static void FullClear(){
         ClearMap();
-        mapManager.thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
+        mapManager.thisWorld.generalSeed = Mathf.FloorToInt(UnityEngine.Random.value*214783646);
         mapManager.thisWorld.mapSeed = 0;
     }
     public static void SelectNode(MapNode mapNode){
@@ -190,7 +196,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         ScenePersistenceManager.scenePersistence.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
 
         thisWorld.mapSeed = data.map.seed;
-        thisWorld.generalSeed = Mathf.FloorToInt(Random.value*214783646);
+        thisWorld.generalSeed = Mathf.FloorToInt(UnityEngine.Random.value*214783646);
         if (!ScenePersistenceManager.scenePersistence.resetMap){
             hasTraveled = data.map.hasTraveled;
         }

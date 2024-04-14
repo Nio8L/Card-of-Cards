@@ -1822,7 +1822,7 @@ MonoBehaviour:
   sigilStar3: {fileID: 6997335917215390900}
   injury1: {fileID: 9154259639871660795}
   injury2: {fileID: 2166153640655777903}
-  injury3: {fileID: 9154259639871660795}
+  injury3: {fileID: 6672569248523074130}
   biteInjuryIcon:
   - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
   - {fileID: 21300000, guid: 75147d89f406afd4c9c8a43e5f0e6dd3, type: 3}
@@ -1846,8 +1846,7 @@ MonoBehaviour:
   canBeBenched: 1
   playerCard: 1
   slot: 0
-  direction: 1
-  animationStartDelay: 0
+  summonedOnRound: 0
 --- !u!114 &8919155628295456012
 MonoBehaviour:
   m_ObjectHideFlags: 0
