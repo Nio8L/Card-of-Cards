@@ -11,13 +11,17 @@ public class CardSelector : MonoBehaviour
 
     int smallestIndex;
 
-    void Start()
-    {
-    }
+    float upperLimit = -3;
 
     // Update is called once per frame
     void Update()
     {  
+        if(CombatManager.combatManager.deck.hoveredCard != null){
+            upperLimit = -1.8f;
+        }else{
+            upperLimit = -3;
+        }
+
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPosition.z = 0;
 
@@ -29,7 +33,7 @@ public class CardSelector : MonoBehaviour
                 double distanceXLeft = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[0].transform.position.x;
                 double distanceXRight = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[^1].transform.position.x;
 
-                if(i != smallestIndex || mouseWorldPosition.y > -3 || mouseWorldPosition.y < -5 || distanceXLeft < -1.3 || distanceXRight > 1.3){
+                if(i != smallestIndex || mouseWorldPosition.y > upperLimit || mouseWorldPosition.y < -5 || distanceXLeft < -1.3 || distanceXRight > 1.3){
                     CombatManager.combatManager.deck.cardsInHand[i].GetComponent<CardInHand>().Unselect(CombatManager.combatManager.deck.cardsInHand[i].transform);
                 }
             }
@@ -46,7 +50,7 @@ public class CardSelector : MonoBehaviour
             }
         }
 
-        if(mouseWorldPosition.y > -3 || mouseWorldPosition.y < -5 || numOfCards == 0){
+        if(mouseWorldPosition.y > upperLimit || mouseWorldPosition.y < -5 || numOfCards == 0){
             return;
         }else{
             double[] distance = new double[numOfCards];
