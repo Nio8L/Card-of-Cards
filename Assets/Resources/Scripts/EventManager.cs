@@ -14,5 +14,7 @@ public class EventManager : MonoBehaviour
 
     public static Action CombatEnd;
 
+    public static Action MainMenu;
+
     public static Action<Card> CardInjured;
 }

@@ -30,6 +30,9 @@ public class CardSlot : MonoBehaviour
     private void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         EventManager.CombatEnd += OnCombatEnd;
+        
+        //We want to reset the slots if we exit mid combat
+        EventManager.MainMenu += OnCombatEnd;
     }
     private void OnEnable() {
         if(turnsIgnited > 0){
@@ -42,6 +45,9 @@ public class CardSlot : MonoBehaviour
             EventManager.NextTurn -= ApplyIgnitedEffects;
         }
         EventManager.CombatEnd -= OnCombatEnd;
+        
+        //We want to reset the slots if we exit mid combat
+        EventManager.MainMenu -= OnCombatEnd;
     }
 
     public void ResetSlot(){

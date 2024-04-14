@@ -619,6 +619,14 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         DeckUtilities.CloseAllDisplays();
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         combatUI.EndCombat(true);
+
+        if(CombatPoints.combatPoints.combatPointsCount >= 2 && enemy.huntAI){
+            for(int i = 0; i < CombatPoints.combatPoints.combatPointsCount - 1; i++){
+                battleReward[i].AcceptLostSoul();
+            }
+            CombatPoints.combatPoints.ResetPoints();
+        }
+
         deck.cards.AddRange(battleReward);
     }
 

@@ -13,7 +13,7 @@ public class HuntManager : MonoBehaviour
         playerCards = CombatManager.combatManager.playerCombatCards;
         // Check if there were cards at all player combat slots to see if they have directly hit last turn
         for (int i = 0; i < playerCards.Length; i++){
-            if (CheckColumb(i)){
+            if (CheckColumn(i)){
                 // Place a card in turn
                 turn.benchCards[i] = PickCard();
 
@@ -29,7 +29,7 @@ public class HuntManager : MonoBehaviour
         return strongCards[(int)(Random.value * strongCards.Length)];
     }
 
-    bool CheckColumb(int col){
+    bool CheckColumn(int col){
         // Returns true if the columb col has a player card in the combat slot that has more than 0 damage and if there is no enemy
         if (playerCards[col] != null && playerCards[col].card.attack > 0 && CombatManager.combatManager.enemyBenchCards[col] == null && CombatManager.combatManager.enemyCombatCards[col] == null){
             return true;

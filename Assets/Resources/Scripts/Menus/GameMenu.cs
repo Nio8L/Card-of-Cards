@@ -60,7 +60,7 @@ public class GameMenu : MonoBehaviour
     }
 
     public void OnClickMainMenu(){
-        EventManager.CombatEnd?.Invoke();
+        EventManager.MainMenu?.Invoke();
         ChangeButtonsState();
         SceneManager.LoadSceneAsync("Main Menu");
         // Clear all existing displays
