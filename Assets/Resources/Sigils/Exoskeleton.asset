@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sigilName: Exoskeleton
   negative: 0
-  image: {fileID: 21300000, guid: 1aca7e5546fc6194ba5976e1ee4acaa7, type: 3}
+  image: {fileID: 21300000, guid: 26bc81586d9357246bb01435d5662673, type: 3}
   description: Play on top of another card to restore 2 health.
   targetType: 0
   disableSlotPlay: 0
