@@ -617,8 +617,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
         combatUI.EndCombat(true);
 
-        if(CombatPoints.combatPoints.combatPointsCount >= 2 && enemy.huntAI){
-            for(int i = 0; i < CombatPoints.combatPoints.combatPointsCount - 1; i++){
+        if(CombatPoints.combatPoints.combatPointsCount == 3 && enemy.huntAI){
+            for(int i = 0; i < battleReward.Count; i++){
                 battleReward[i].AcceptLostSoul();
             }
             CombatPoints.combatPoints.ResetPoints();

@@ -183,7 +183,7 @@ public class CardInCombat : CardDisplay
                         EventManager.CardDeath?.Invoke(card);
                     }
                 }
-                else if (CombatManager.combatManager.battleReward.Count < CombatPoints.combatPoints.combatPointsCount + 1 && CombatManager.combatManager.battleReward.Count < 2)
+                else if (CombatManager.combatManager.battleReward.Count < CombatPoints.combatPoints.combatPointsCount + 1 && CombatManager.combatManager.battleReward.Count != 3)
                 {
                     if (card.canRevive) {
                         CombatManager.combatManager.battleReward.Add(card);

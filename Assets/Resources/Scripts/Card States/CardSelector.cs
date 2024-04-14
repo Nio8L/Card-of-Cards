@@ -46,7 +46,7 @@ public class CardSelector : MonoBehaviour
             }
         }
 
-        if(mouseWorldPosition.y > -3 || mouseWorldPosition.y < -5){
+        if(mouseWorldPosition.y > -3 || mouseWorldPosition.y < -5 || numOfCards == 0){
             return;
         }else{
             double[] distance = new double[numOfCards];
