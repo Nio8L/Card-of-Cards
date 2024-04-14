@@ -18,7 +18,7 @@ public class Mimicry : Sigil
         EventManager.CardCreated -= CopyCard;
     }
 
-    public override void OnBattleEndEffect(CardInCombat card)
+    public override void OnBattleEndEffect(Card card)
     {
         EventManager.CardCreated -= CopyCard;
     }

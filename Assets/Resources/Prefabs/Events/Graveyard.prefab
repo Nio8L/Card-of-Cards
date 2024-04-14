@@ -1499,6 +1499,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
   - {fileID: 11400000, guid: 12cf04cbfd3f21045a9e9d3cdfc63fdc, type: 2}
   - {fileID: 11400000, guid: 261d088f7e03775468fac6fc6f8e45a3, type: 2}
+  - {fileID: 11400000, guid: fa2d9e08ec630844a9bde4934deaf5a5, type: 2}
   cardOfferHolder: {fileID: 2946070431287014438}
   selectedCardBorder: {fileID: 3835966193412560094}
   selectedCardDisplay: {fileID: 0}

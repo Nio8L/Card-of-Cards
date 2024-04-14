@@ -20,8 +20,8 @@ public class Adrenaline : Sigil
         card.card.attack -= card.card.injuries.Count;
     }
 
-    public override void OnBattleEndEffect(CardInCombat card)
+    public override void OnBattleEndEffect(Card card)
     {
-        card.card.ResetAttack();
+        card.ResetAttack();
     }
 }

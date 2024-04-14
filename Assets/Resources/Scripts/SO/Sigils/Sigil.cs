@@ -50,7 +50,7 @@ public class Sigil : ScriptableObject
             Activates right before the start of a fight
         */
     }
-    public virtual void OnBattleEndEffect(CardInCombat card){
+    public virtual void OnBattleEndEffect(Card card){
         /*
             Triggers at the end of the combat
         */
