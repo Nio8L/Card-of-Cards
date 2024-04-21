@@ -3107,9 +3107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd7b4da13b986e4184e4a9c413689e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages:
-  - {fileID: 11400000, guid: d761de50ce8779d49b65e8dc21572e73, type: 2}
-  currentStage: 0
+  worlds: []
+  currentWorld: 0
   resetMap: 0
   currentCombatAI: {fileID: 0}
   playerDeck: []
@@ -3835,7 +3834,7 @@ MonoBehaviour:
   continueButton: {fileID: 1379767598}
   loadButton: {fileID: 1584879426}
   baseGameStages:
-  - {fileID: 11400000, guid: 3cbec12538a8a8a4b990823ee701809c, type: 2}
+  - {fileID: 11400000, guid: 2c31274c4b9aed947aabb6bf7a15832a, type: 2}
   - {fileID: 11400000, guid: 3fe192a63646f2c48a0dd0b8702caf02, type: 2}
   tutorialCards:
   - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
