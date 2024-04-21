@@ -17,3 +17,4 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 67619654238d0ab42b1d897ff98f8917, type: 3}
   description: On kill add a Fly card in your draw pile.
   flyCard: {fileID: 11400000, guid: 7d285f45f54974e429959653b7ac58e7, type: 2}
+  flyParticlesPrefab: {fileID: 1926404441810095300, guid: a80d9962d7f25c945ad44635c4fdd247, type: 3}

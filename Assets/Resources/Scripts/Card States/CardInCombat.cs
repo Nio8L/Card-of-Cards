@@ -79,6 +79,8 @@ public class CardInCombat : CardDisplay
             // Player card
             if (rightClickedRecently || !ActiveAbilityManager.activeAbilityManager.cardsCanBench) return false;
             
+            AnimationUtilities.CancelAnimations(gameObject);
+
             benched = !benched;
             SoundManager.soundManager.Play("CardSlide");
             if (benched)
@@ -109,6 +111,9 @@ public class CardInCombat : CardDisplay
             return true;
         }else if (!playerCard && (!playerInput || force)){
             // Enemy card
+
+            AnimationUtilities.CancelAnimations(gameObject);
+
             benched = !benched;
             SoundManager.soundManager.Play("CardSlide");
             if (benched)
