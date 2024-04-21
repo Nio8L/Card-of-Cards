@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sigilName: External Armor
   negative: 0
-  image: {fileID: 21300000, guid: 8ac53f304360ccd459b970c9c4c323b5, type: 3}
+  image: {fileID: 21300000, guid: 3cd9582824a5a6d43a50a9b33b5a5317, type: 3}
   description: On death create an Empty Husk card.
   cardsToGive:
   - {fileID: 11400000, guid: f6d3519a8e69c3a4f92777f23a9fe716, type: 2}

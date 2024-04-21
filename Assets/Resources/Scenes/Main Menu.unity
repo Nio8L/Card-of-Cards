@@ -3107,7 +3107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd7b4da13b986e4184e4a9c413689e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages: []
+  stages:
+  - {fileID: 11400000, guid: d761de50ce8779d49b65e8dc21572e73, type: 2}
   currentStage: 0
   resetMap: 0
   currentCombatAI: {fileID: 0}
@@ -3576,7 +3577,7 @@ MonoBehaviour:
   mainMenu: {fileID: 1929760794}
   backButton: {fileID: 81527803}
   startCards:
-  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
   - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
   - {fileID: 11400000, guid: 12cf04cbfd3f21045a9e9d3cdfc63fdc, type: 2}
   - {fileID: 11400000, guid: 81c05b993bd4e38469e7d0b8e0c149ae, type: 2}
@@ -3834,7 +3835,7 @@ MonoBehaviour:
   continueButton: {fileID: 1379767598}
   loadButton: {fileID: 1584879426}
   baseGameStages:
-  - {fileID: 11400000, guid: 629f4c5d037757443a2798a1f1e844b8, type: 2}
+  - {fileID: 11400000, guid: 3cbec12538a8a8a4b990823ee701809c, type: 2}
   - {fileID: 11400000, guid: 3fe192a63646f2c48a0dd0b8702caf02, type: 2}
   tutorialCards:
   - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}

@@ -161,10 +161,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         if(combatUI.endCombatText.text == "You won!") {
             if (enemy.isHunter){
                 // Switch floor or go to end screen
-                if (ScenePersistenceManager.scenePersistence.stages.Count - 1 == ScenePersistenceManager.scenePersistence.currentStage){
+                if (ScenePersistenceManager.scenePersistence.worlds.Count - 1 == ScenePersistenceManager.scenePersistence.currentWorld){
                     SceneManager.LoadSceneAsync("End Screen");
                 }else{
-                    ScenePersistenceManager.scenePersistence.currentStage++;
+                    ScenePersistenceManager.scenePersistence.currentWorld++;
                     ScenePersistenceManager.scenePersistence.resetMap = true;
                     SceneManager.LoadSceneAsync("Map");
                 }
@@ -585,11 +585,15 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     {
         playerHealth = data.playerHealth;
 
+        ScenePersistenceManager.scenePersistence.currentWorld = data.map.world;
+
         enemy = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
     }
     public void SaveData(GameData data)
     {
         data.playerHealth = playerHealth;
+
+        data.map.world = ScenePersistenceManager.scenePersistence.currentWorld;
 
         if(enemy != null){
             data.enemyAI = enemy.ReturnPath();

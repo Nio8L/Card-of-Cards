@@ -29,6 +29,8 @@ public class CombatPoints : MonoBehaviour, IDataPersistence
     }
 
     public void AddPoint(){
+        if(CombatManager.combatManager.enemy != null) return;
+        
         if(CombatManager.combatManager.enemy.huntAI) return;
         
         if(combatPointsCount < combatPointsMax){
