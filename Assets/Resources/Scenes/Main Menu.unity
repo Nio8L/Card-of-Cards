@@ -3643,8 +3643,8 @@ MonoBehaviour:
   startCards:
   - {fileID: 11400000, guid: 42f827799dfd9b44cb6e1098879cd4c0, type: 2}
   - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-  - {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
-  - {fileID: 11400000, guid: 0be3245f335aeec4ea8bd093136ee0fd, type: 2}
+  - {fileID: 11400000, guid: 81c05b993bd4e38469e7d0b8e0c149ae, type: 2}
+  - {fileID: 11400000, guid: fa2d9e08ec630844a9bde4934deaf5a5, type: 2}
   - {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
 --- !u!1 &1798329752
 GameObject:

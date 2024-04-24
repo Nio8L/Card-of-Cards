@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Empower")]
 public class Empower : Sigil
 {
+    public GameObject visualEffect;
     public override void OnBattleEndEffect(Card card)
     {
         card.ResetAttack();
@@ -19,6 +20,10 @@ public class Empower : Sigil
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
 
             card.card.attack++;
+
+            GameObject effect = Instantiate(visualEffect, card.transform.position, Quaternion.identity);
+            effect.transform.SetParent(card.transform);
+            SoundManager.soundManager.Play("Fearless");
         }
         
     }

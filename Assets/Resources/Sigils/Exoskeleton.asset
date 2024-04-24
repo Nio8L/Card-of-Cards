@@ -19,3 +19,4 @@ MonoBehaviour:
   targetType: 0
   disableSlotPlay: 0
   bonusHealth: 2
+  particles: {fileID: 2733686474300300302, guid: ceb1d19fbcdf68143bb8d7f2ca21d19e, type: 3}
