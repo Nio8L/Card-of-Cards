@@ -29,9 +29,10 @@ public class MainMenu : MonoBehaviour
             loadButton.interactable = false;
         }
 
-        ScenePersistenceManager.scenePersistence.stages.Clear();
+        ScenePersistenceManager.scenePersistence.worlds.Clear();
         //Reset the map world
-        ScenePersistenceManager.scenePersistence.stages = baseGameStages;
+        ScenePersistenceManager.scenePersistence.worlds = baseGameStages;
+        ScenePersistenceManager.scenePersistence.currentWorld = 0;
     
     }
 
@@ -76,8 +77,8 @@ public class MainMenu : MonoBehaviour
         ScenePersistenceManager.scenePersistence.inTutorial = true;
         MapWorld tutorial = Resources.Load<MapWorld>("Map Worlds/Tutorial");
 
-        ScenePersistenceManager.scenePersistence.stages.Clear();
-        ScenePersistenceManager.scenePersistence.stages.Add(tutorial);
+        ScenePersistenceManager.scenePersistence.worlds.Clear();
+        ScenePersistenceManager.scenePersistence.worlds.Add(tutorial);
 
         SceneManager.LoadSceneAsync("Map");
     }

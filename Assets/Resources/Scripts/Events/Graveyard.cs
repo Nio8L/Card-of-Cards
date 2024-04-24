@@ -79,6 +79,7 @@ public class Graveyard : MonoBehaviour, IEvent
 
         getCardOffersButton.gameObject.SetActive(false);
         pickCardButton.gameObject.SetActive(true);
+        cardSlotHandler.cardSlots[0].gameObject.SetActive(false);
     }
 
     //Picks a card without repeating the cards in alreadyOffered

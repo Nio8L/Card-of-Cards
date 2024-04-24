@@ -17,7 +17,7 @@ public class EventCardSlotHandler : MonoBehaviour
     public void AddCardOnAvailableSlot(Card card){
         foreach (EventCardSlot cardSlot in cardSlots)
         {
-            if(cardSlot != null && cardSlot.card == null){
+            if(cardSlot != null && cardSlot.card == null && cardSlot.gameObject.activeSelf){
                 if(card.name == "Lost Soul"){
                     IEnumerable<IEvent> events = FindObjectsOfType<MonoBehaviour>().OfType<IEvent>();
                     foreach(IEvent ievent in events){

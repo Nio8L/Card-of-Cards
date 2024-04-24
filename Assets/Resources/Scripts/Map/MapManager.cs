@@ -37,10 +37,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public List<GameObject> selectableNodes = new List<GameObject>();
     void Awake(){
         try{
-            mapManager = this;
-            
-            thisWorld = ScenePersistenceManager.scenePersistence.stages[ScenePersistenceManager.scenePersistence.currentStage];
-            thisWorld = Instantiate(thisWorld);
+            mapManager = this; 
         }catch (Exception){
             SceneManager.LoadSceneAsync("Main Menu");
             return;
@@ -50,7 +47,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         if (ScenePersistenceManager.scenePersistence.resetMap){
             ScenePersistenceManager.scenePersistence.resetMap = false;
             ClearMap();
-            LoadWorld(ScenePersistenceManager.scenePersistence.stages[ScenePersistenceManager.scenePersistence.currentStage]);
+            LoadWorld(ScenePersistenceManager.scenePersistence.worlds[ScenePersistenceManager.scenePersistence.currentWorld]);
         }else{
             GenerateWorld();
         }
@@ -194,6 +191,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         ScenePersistenceManager.scenePersistence.currentCombatAI = Resources.Load<EnemyBase>("Enemies/" + data.enemyAI);
+        ScenePersistenceManager.scenePersistence.currentWorld = data.map.world;
+
+        thisWorld = ScenePersistenceManager.scenePersistence.worlds[ScenePersistenceManager.scenePersistence.currentWorld];
+        thisWorld = Instantiate(thisWorld);
 
         thisWorld.mapSeed = data.map.seed;
         thisWorld.generalSeed = Mathf.FloorToInt(UnityEngine.Random.value*214783646);
@@ -218,7 +219,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
     public void SaveData(GameData data)
     {
-         if(ScenePersistenceManager.scenePersistence.currentCombatAI != null){
+        if(ScenePersistenceManager.scenePersistence.currentCombatAI != null){
             data.enemyAI = ScenePersistenceManager.scenePersistence.currentCombatAI.ReturnPath();
         }else{
             data.enemyAI = "";
@@ -226,10 +227,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         data.map.seed = thisWorld.mapSeed;
         data.map.hasTraveled = hasTraveled;
+        
         if(hasTraveled){
             data.map.layerIndex = currentNodeScript.thisNode.layerIndex;
             data.map.nodeIndex = currentNodeScript.thisNode.index;
         }
+
+        data.map.world = ScenePersistenceManager.scenePersistence.currentWorld;
     }
 
     public static void LoadWorld(MapWorld newWorld){

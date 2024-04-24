@@ -91,6 +91,10 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         gameObject.SetActive(false);
     }
 
+    private void OnDisable() {
+        DataPersistenceManager.DataManager.SaveSettings();
+    }
+
     public void SliderChange(){
         audioText.text = "SOUND LEVEL: " + audioSlider.value.ToString() + "%";
         DataPersistenceManager.DataManager.audioLevel = audioSlider.value;

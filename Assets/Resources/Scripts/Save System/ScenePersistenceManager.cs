@@ -7,8 +7,8 @@ public class ScenePersistenceManager : MonoBehaviour
     public static ScenePersistenceManager scenePersistence;
 
     //[HideInInspector]
-    public List<MapWorld> stages = new List<MapWorld>();
-    public int currentStage = 0;
+    public List<MapWorld> worlds = new List<MapWorld>();
+    public int currentWorld = 0;
     public bool resetMap;
 
     [Header("Between scenes tracking")]

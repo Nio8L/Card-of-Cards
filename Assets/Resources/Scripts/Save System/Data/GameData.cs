@@ -19,11 +19,14 @@ public class Map{
     public int nodeIndex;
     public bool hasTraveled;
 
+    public int world;
+
     public Map(){
         seed = 0;
         layerIndex = 0;
         nodeIndex = 0;
         hasTraveled = false;
+        world = 0;
     }
 }
 

@@ -31,7 +31,7 @@ MonoBehaviour:
     nodes:
     - thisRoom: 3
       thisEnemy: {fileID: 0}
-      thisEvent: {fileID: 8874671725921539771, guid: b5139f2339d074842999ad8fd78f8dcc, type: 3}
+      thisEvent: {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
       layerIndex: 0
       index: 0
   - size: 1
