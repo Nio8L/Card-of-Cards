@@ -82,6 +82,8 @@ public class AnimationUtilities : MonoBehaviour{
                 DestroyAfterInst();
             }else if (animation == "ChangeFOV"){
                 ChangeFOVInst();
+            }else if (animation == "Shake"){
+                target.GetComponent<CombatCamera>().Shake();
             }
 
             // Return true if the animation is complete
@@ -272,6 +274,14 @@ public class AnimationUtilities : MonoBehaviour{
     }
     public static void StartTimer(Transform target, float time){
         AnimationInstance newAnimation = new AnimationInstance(target, time, "StartTimer");
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
+
+    public static void CameraShake(float delay){
+        // Starts camera shake in the given time
+        AnimationInstance newAnimation = new AnimationInstance(Camera.main.transform, 0, "Shake");
+        newAnimation.SetDelay(delay);
+
         animationUtilities.allAnimations.Add(newAnimation);
     }
 

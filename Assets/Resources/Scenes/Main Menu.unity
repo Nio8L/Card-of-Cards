@@ -3834,7 +3834,7 @@ MonoBehaviour:
   continueButton: {fileID: 1379767598}
   loadButton: {fileID: 1584879426}
   baseGameStages:
-  - {fileID: 11400000, guid: 2c31274c4b9aed947aabb6bf7a15832a, type: 2}
+  - {fileID: 11400000, guid: 629f4c5d037757443a2798a1f1e844b8, type: 2}
   - {fileID: 11400000, guid: 3fe192a63646f2c48a0dd0b8702caf02, type: 2}
   tutorialCards:
   - {fileID: 11400000, guid: 9535dc9104a871c4aa976e9fce732efa, type: 2}
