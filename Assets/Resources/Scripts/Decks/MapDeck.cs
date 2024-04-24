@@ -70,6 +70,8 @@ public class MapDeck : MonoBehaviour, IDataPersistence
     }
 
     public void SaveData(GameData data){
+        if(MapManager.mapManager.onEvent && !MapManager.mapManager.eventUsed) return;
+        
         data.cardNames.Clear();
         data.cardAttacks.Clear();
         data.cardMaxHealths.Clear();
