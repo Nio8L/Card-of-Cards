@@ -5,6 +5,8 @@ public class CombatPoints : MonoBehaviour, IDataPersistence
 {
     public static CombatPoints combatPoints;
 
+    public bool disabled = false;
+
     public int combatPointsCount = 0;
     private readonly int combatPointsMax = 3;
 
@@ -19,6 +21,10 @@ public class CombatPoints : MonoBehaviour, IDataPersistence
         combatPoints = this;
         DontDestroyOnLoad(gameObject);
 
+        if(disabled) return;
+
+        HideCircles();
+
         EventManager.CombatEnd += AddPoint;
     }
 
@@ -29,8 +35,8 @@ public class CombatPoints : MonoBehaviour, IDataPersistence
     }
 
     public void AddPoint(){
-        if(CombatManager.combatManager.enemy != null) return;
-        
+        if(CombatManager.combatManager == null) return;
+
         if(CombatManager.combatManager.enemy.huntAI) return;
         
         if(combatPointsCount < combatPointsMax){
@@ -46,6 +52,17 @@ public class CombatPoints : MonoBehaviour, IDataPersistence
         }
     }
     
+    public void LoadPoints(int numberOfPoints){
+        combatPointsCount = numberOfPoints;
+
+        for(int i = 0; i < combatPointsCount; i++){
+            if (pointCircles[i] != null)
+            {
+                pointCircles[i].color = Color.red;
+            }
+        }
+    }
+
     public void RemovePoint(){
         if(combatPointsCount > 0){
             combatPointsCount--;
@@ -67,6 +84,14 @@ public class CombatPoints : MonoBehaviour, IDataPersistence
         RemovePoints(combatPointsMax);
     }
 
+    public void HideCircles(){
+        bool setActive = !(SceneManager.GetActiveScene().name == "Main Menu");
+        
+        for(int i = 0; i < 3; i++){
+            pointCircles[i].gameObject.SetActive(setActive);
+        }
+    }
+
     void OnEnable() {
         SceneManager.sceneLoaded += OnSceneChange;
     }
@@ -76,19 +101,23 @@ public class CombatPoints : MonoBehaviour, IDataPersistence
     }
 
     private void OnSceneChange(Scene scene, LoadSceneMode mode){
-        if(SceneManager.GetActiveScene().name == "Main Menu"){
-            Destroy(gameObject);
-        }
+        if(disabled) return;
+        
+        HideCircles();
     }
 
     public void LoadData(GameData data)
     {
+        if(SceneManager.GetActiveScene().name == "Main Menu") return;
+
         ResetPoints();
-        AddPoints(data.combatPoints);
+        LoadPoints(data.combatPoints);
     }
 
     public void SaveData(GameData data)
     {
+        if(SceneManager.GetActiveScene().name == "Main Menu") return;
+
         data.combatPoints = combatPointsCount;
     }
 }

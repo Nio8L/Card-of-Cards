@@ -188,12 +188,23 @@ public class CardInCombat : CardDisplay
                         EventManager.CardDeath?.Invoke(card);
                     }
                 }
-                else if (CombatManager.combatManager.battleReward.Count < CombatPoints.combatPoints.combatPointsCount + 1 && CombatManager.combatManager.battleReward.Count != 3)
+                else if (!CombatPoints.combatPoints.disabled)
                 {
-                    if (card.canRevive) {
-                        CombatManager.combatManager.battleReward.Add(card);
-                    }else{
-                        EventManager.CardDeath?.Invoke(card);
+                    if (CombatManager.combatManager.battleReward.Count < CombatPoints.combatPoints.combatPointsCount + 1 && CombatManager.combatManager.battleReward.Count != 3)
+                    {
+                        if (card.canRevive) {
+                            CombatManager.combatManager.battleReward.Add(card);
+                        }else{
+                            EventManager.CardDeath?.Invoke(card);
+                        }
+                    }
+                }else{
+                    if(CombatManager.combatManager.battleReward.Count < 3){
+                        if (card.canRevive) {
+                            CombatManager.combatManager.battleReward.Add(card);
+                        }else{
+                            EventManager.CardDeath?.Invoke(card);
+                        }
                     }
                 }
 
