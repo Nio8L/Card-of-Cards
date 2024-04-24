@@ -57,6 +57,7 @@ public class Sacrifice : MonoBehaviour, IEvent
             if(cardSlotHandler.cardSlots[0].card.name == "Lost Soul"){
                 cardSlotHandler.cardSlots[0].DropCard();
                 ActivateLostSoulButtons();
+                timesUsed--;
                 return;
             }
 
@@ -158,6 +159,8 @@ public class Sacrifice : MonoBehaviour, IEvent
         cardSlotHandler.cardSlots[0].RemoveCard();
 
         StartCoroutine(DelayedLeave(1f));
+
+        timesUsed++;
     }
 
     private void ActivateLostSoulButtons(){

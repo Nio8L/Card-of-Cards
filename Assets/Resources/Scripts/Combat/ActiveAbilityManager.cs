@@ -253,8 +253,19 @@ public class ActiveAbilityManager : MonoBehaviour
     }
 
     public void SigilButton(int index){
-        // Used by the UI buttons
-        SetupSigilIcons(index);
+        // Used by the UI buttons   
+        int found = 0;
+        int useSigilAt = 0;
+        for (int i = 0; i < selectedCard.card.sigils.Count; i++){
+            if (selectedCard.card.sigils[i].GetActiveSigil() != null){
+                if (found == index){
+                    useSigilAt = i;
+                    break;
+                }
+                found++;
+            }
+        }
+        SetupSigilIcons(useSigilAt);
     }
     public void UseSigil(){
         // Activate the sigil
