@@ -18,6 +18,11 @@ public class MainMenu : MonoBehaviour
 
     public List<Card> tutorialCards = new List<Card>();
     private void Start() {
+        // Generate a new seed based on the time and date to ensure that its always random
+        System.TimeSpan timeSpan =  System.DateTime.Now.TimeOfDay;
+        int newSeed = (int)(timeSpan.TotalSeconds + timeSpan.TotalDays + timeSpan.Milliseconds);
+        Random.InitState(newSeed);
+
         //Reset tutorial
         ScenePersistenceManager.scenePersistence.inTutorial = false;
         ScenePersistenceManager.scenePersistence.tutorialStage = 0;
@@ -79,6 +84,8 @@ public class MainMenu : MonoBehaviour
 
         ScenePersistenceManager.scenePersistence.worlds.Clear();
         ScenePersistenceManager.scenePersistence.worlds.Add(tutorial);
+
+        ScenePersistenceManager.scenePersistence.resetMap = true;
 
         SceneManager.LoadSceneAsync("Map");
     }

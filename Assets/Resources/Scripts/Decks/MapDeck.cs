@@ -18,12 +18,12 @@ public class MapDeck : MonoBehaviour, IDataPersistence
 
     private void Start() {
         if (ScenePersistenceManager.scenePersistence.playerDeck.Count > 0)
-            {
-                cardsToBeAdded = CopyCardList(ScenePersistenceManager.scenePersistence.playerDeck);
-                ScenePersistenceManager.scenePersistence.playerDeck.Clear();
-                AddCard(cardsToBeAdded.Count);
-                //Debug.Log("Added deck");
-            }
+        {
+            cardsToBeAdded = CopyCardList(ScenePersistenceManager.scenePersistence.playerDeck);
+            ScenePersistenceManager.scenePersistence.playerDeck.Clear();
+            AddCard(cardsToBeAdded.Count);
+            //Debug.Log("Added deck");
+        }
     }
 
     public bool HasInjuredCards(){

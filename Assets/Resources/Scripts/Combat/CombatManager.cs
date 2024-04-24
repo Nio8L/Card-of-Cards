@@ -458,6 +458,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
     }
     #endregion
+ 
     #region Attacks
     public void DirectHit(CardInCombat card)
     {
@@ -499,6 +500,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
         // Updates the health bars
         combatUI.UpdateHPText();
+
+        // Start camera shake
+        AnimationUtilities.CameraShake(card.slot * 0.2f + 0.5f);
     } 
     public void CardCombat2Attackers(CardInCombat playerCard, CardInCombat enemyCard)
     {
@@ -548,6 +552,9 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // Start the attack animation for the cards
         playerCard.MoveAnimationStarter(0.5f, new Vector3(playerCard.transform.position.x, 1f, 0f), true, playerCard.slot * 0.2f);
         enemyCard. MoveAnimationStarter(0.5f, new Vector3(enemyCard .transform.position.x, 1f, 0f), true, enemyCard.slot  * 0.2f);
+
+        // Start camera shake
+        AnimationUtilities.CameraShake(playerCard.slot * 0.2f + 0.5f);
     } 
     public void CardCombat1Attacker(CardInCombat attacker, CardInCombat defender, int damage){
         /*
@@ -580,6 +587,11 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         float animationDelay = 0.5f;
         if (gamePhase == 2) animationDelay = attacker.slot * 0.2f;
         attacker.MoveAnimationStarter(0.5f, new Vector3(attacker.GetSlot().transform.position.x, 1f, 0f), true, animationDelay);
+
+        // Start camera shake
+        // AnimationUtilities.CameraShake();
+        // Start camera shake
+        AnimationUtilities.CameraShake(animationDelay + 0.5f);
     }
     #endregion
 
@@ -605,7 +617,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
     }
     #endregion
-
 
     #region EndConditions
     void WinGame()
@@ -636,7 +647,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         deck.cards.AddRange(battleReward);
     }
-
     void LoseGame()
     {
         if (timerToNextTurn > resetTimerTo) return;
@@ -655,7 +665,6 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         combatUI.EndCombat(false);
         
     }
-
     void TutorialWin()
     {
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);

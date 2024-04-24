@@ -20,8 +20,8 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     [SerializeField] private Slider musicSlider;
     [SerializeField] private TextMeshProUGUI musicSliderText;
     [SerializeField] private Button musicButton;
-
     [SerializeField] private Button redMarksButton;
+    [SerializeField] private Button screenShakeButton;
 
     [Header("Sprites")]
     public Sprite onImage;
@@ -31,6 +31,7 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
     public bool disableMusic = false;
 
     public bool redMarks = false;
+    public bool screenShake = true;
 
     public void SaveData(SettingsData data){
         data.audioLevel = (int)audioSlider.value;
@@ -39,35 +40,56 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         data.disableAudio = disableAudio;
         data.disableMusic = disableMusic;
         data.redMarkers = redMarks;
+        data.screenShake = screenShake;
     }
 
     public void LoadData(SettingsData data){
         audioSlider.value = data.audioLevel;
         musicSlider.value = data.musicLevel;
 
+        // Sound
+
         if(data.disableAudio){
             audioButton.image.sprite = offImage;
         }else{
             audioButton.image.sprite = onImage;
         }
+
         disableAudio = data.disableAudio;
         SoundManager.soundManager.disableAudio = data.disableAudio;
         
+        // Music
+
         if(data.disableMusic){
             musicButton.image.sprite = offImage;
         }else{
             musicButton.image.sprite = onImage;
         }
+
         disableMusic = data.disableMusic;
         SoundManager.soundManager.disableMusic = data.disableMusic;
         
+        // Red markers
+
         if(data.redMarkers){
             redMarksButton.image.sprite = onImage;
         }else{
             redMarksButton.image.sprite = offImage;
         }
+
         DataPersistenceManager.DataManager.redMarkers = data.redMarkers;
         redMarks = data.redMarkers;
+
+        // Screen shake
+    
+        if(data.screenShake){
+            screenShakeButton.image.sprite = onImage;
+        }else{
+            screenShakeButton.image.sprite = offImage;
+        }
+        
+        DataPersistenceManager.DataManager.screenShake = data.screenShake;
+        screenShake = data.screenShake;
 
     }
 
@@ -148,5 +170,16 @@ public class SettingsMenu : MonoBehaviour, ISettingsPersistence
         }
         
         DeckUtilities.UpdateAllDisplays();
+    }
+
+    public void ScreenShakeToggleClick(){
+        if(screenShake){
+            screenShakeButton.image.sprite = offImage;
+        }else{
+            screenShakeButton.image.sprite = onImage;
+        }
+
+        screenShake = !screenShake;
+        DataPersistenceManager.DataManager.screenShake = screenShake;
     }
 }

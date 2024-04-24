@@ -16,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
     public float audioLevel = 0;
     public float musicLevel = 0;
     public bool redMarkers = false; 
+    public bool screenShake = true;
 
     private GameData gameData;
     private SettingsData settingsData;

@@ -13,6 +13,7 @@ public class SettingsData
     public bool disableMusic;
 
     public bool redMarkers;
+    public bool screenShake;
 
     public SettingsData(){
         audioLevel = 100;
@@ -24,5 +25,7 @@ public class SettingsData
         autoSave = true;
 
         redMarkers = false;
+
+        screenShake = true;
     }
 }
