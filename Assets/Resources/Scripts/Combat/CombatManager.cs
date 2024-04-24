@@ -355,7 +355,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         if (enemy.huntAI)
         {
             if (round == enemy.huntRounds + 1){
-                GameObject.Find("EndTurnButton").SetActive(false);
+                if (GameObject.Find("EndTurnButton") != null)
+                {
+                    GameObject.Find("EndTurnButton").SetActive(false);
+                }
                 Invoke("WinGame", 2f);
             }
         }
