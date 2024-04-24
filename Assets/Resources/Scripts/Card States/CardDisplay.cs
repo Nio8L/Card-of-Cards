@@ -223,7 +223,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    //Set the active sigil start if the sigil can be used
+    //Set the active sigil star if the sigil can be used
     public void SetActiveSigilStar(Sigil sigil)
     {
         Sprite spriteToUse;
@@ -241,8 +241,9 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         else
         {
-            sigil3.sprite = spriteToUse;
+            sigilStar3.sprite = spriteToUse;
         }
+        Debug.Log("updated active");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
