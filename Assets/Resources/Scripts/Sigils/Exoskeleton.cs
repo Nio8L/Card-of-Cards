@@ -7,12 +7,16 @@ public class Exoskeleton : SpellSigil
 {
     public int bonusHealth;
 
+    public GameObject particles;
+
     public override void OnPlay(CardSlot slot)
     {
         CardInCombat cardInCombat = CombatManager.combatManager.GetCardAtSlot(slot);
         
         cardInCombat.card.health += bonusHealth;
         cardInCombat.UpdateCardAppearance();
+
+        Instantiate(particles, slot.transform.position, Quaternion.identity);
     }
 
     public override bool CanBePlayed(CardSlot slot, bool player)
