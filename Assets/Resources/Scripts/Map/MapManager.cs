@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public bool canTravel;
     public bool canScroll;
     public bool eventUsed;
+    public bool onEvent;
     public bool hasTraveled = false;
 
     [Header("Objects")]
@@ -136,6 +138,8 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }
     }
     public static void ActivateNode(MapNode mapNode){
+        mapManager.onEvent = false;
+        
         if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Combat || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunt || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunter){
             // Click on combat like rooms
             EnemyBase ai = mapNode.enemyOnThisNode;
@@ -171,6 +175,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
             ScenePersistenceManager.scenePersistence.lastEvent = eventObject.name;
             mapManager.eventUsed = false;
+            mapManager.onEvent = true;
 
         }
 
@@ -209,6 +214,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
             {
                 SelectNode(thisWorld.GetGameObjectFromNode(thisWorld.floor[data.map.layerIndex].nodes[data.map.nodeIndex]).GetComponent<MapNode>());
 
+                if(data.map.eventRoom.name != ""){
+                    if(!data.map.eventRoom.used){
+                        ActivateNode(thisWorld.GetGameObjectFromNode(thisWorld.floor[data.map.layerIndex].nodes[data.map.nodeIndex]).GetComponent<MapNode>());
+                    }
+                }
             } 
         }
 
@@ -227,6 +237,13 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
         data.map.seed = thisWorld.mapSeed;
         data.map.hasTraveled = hasTraveled;
+
+        if(mapManager.onEvent){
+            data.map.eventRoom.name = ScenePersistenceManager.scenePersistence.lastEvent;
+            data.map.eventRoom.used = mapManager.eventUsed;
+        }else{
+            data.map.eventRoom = null;
+        }
         
         if(hasTraveled){
             data.map.layerIndex = currentNodeScript.thisNode.layerIndex;

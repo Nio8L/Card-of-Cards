@@ -13,6 +13,12 @@ public class ListWrapper
 }
 
 [System.Serializable]
+public class EventRoom{
+    public string name;
+    public bool used;
+}
+
+[System.Serializable]
 public class Map{
     public int seed;
     public int layerIndex;
@@ -21,12 +27,15 @@ public class Map{
 
     public int world;
 
+    public EventRoom eventRoom;
+
     public Map(){
         seed = 0;
         layerIndex = 0;
         nodeIndex = 0;
         hasTraveled = false;
         world = 0;
+        eventRoom = null;
     }
 }
 
