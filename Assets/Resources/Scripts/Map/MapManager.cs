@@ -36,10 +36,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
 
     public List<GameObject> selectableNodes = new List<GameObject>();
     void Awake(){
-        try{
-            mapManager = this; 
-        }catch (Exception){
-            SceneManager.LoadSceneAsync("Main Menu");
+        mapManager = this; 
+
+        if (ScenePersistenceManager.scenePersistence == null){
+             SceneManager.LoadSceneAsync("Main Menu");
             return;
         }
     }
