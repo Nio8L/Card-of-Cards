@@ -88,7 +88,6 @@ public class CardSlot : MonoBehaviour
         if (cardInCombat != null && !cardInCombat.card.fireImmune)
         {
             cardInCombat.card.health--;
-            cardInCombat.card.ActivateOnTakeDamageEffects(cardInCombat);
             GameObject fireExplosion = Instantiate(CombatManager.combatManager.fireExplosionPrefab, transform);
             fireExplosion.transform.localScale = Vector3.one;
             AnimationUtilities.ChangeAlpha(fireExplosion.transform, 0.6f, 0.8f, 0f);
