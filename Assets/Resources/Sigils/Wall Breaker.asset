@@ -15,6 +15,6 @@ MonoBehaviour:
   sigilName: Wall Breaker
   negative: 0
   image: {fileID: 21300000, guid: 600f35b82e9a6774d89003b0d94771f1, type: 3}
-  description: Deal 1 bonus damage and deal 1 damage to the creture behind if the
+  description: Deal 1 bonus damage and deal 1 damage to the creature behind if the
     enemy has more max health.
   bonusDamage: 1
