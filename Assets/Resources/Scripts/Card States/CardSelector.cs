@@ -12,52 +12,44 @@ public class CardSelector : MonoBehaviour
     int smallestIndex;
 
     float upperLimit = -3;
-    float lowerLimit = -5;
 
     // Update is called once per frame
     void Update()
-    {  
+    {   
+        if (Input.GetMouseButton(0) && CombatManager.combatManager.deck.selectedCard != null) return;
+        int numOfCards = CombatManager.combatManager.deck.cardsInHand.Count;
+       
+        // If there are no cards return
+        if (numOfCards < 1) return;
+
         if(CombatManager.combatManager.deck.hoveredCard != null){
             upperLimit = -1.8f;
-            lowerLimit = -100;
         }else{
             upperLimit = -3;
-            lowerLimit = -5;
         }
 
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPosition.z = 0;
-        
-        //Debug.Log(lowerLimit + " " + mouseWorldPosition.y);
 
-        int numOfCards = CombatManager.combatManager.deck.cardsInHand.Count;
-        
+        float distanceXLeft = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[0].transform.position.x;
+        float distanceXRight = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[^1].transform.position.x;
+
         for(int i = 0; i < numOfCards; i++){
-            if (CombatManager.combatManager.deck.cardsInHand.Count > 0)
-            {
-                float distanceXLeft = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[0].transform.position.x;
-                float distanceXRight = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[^1].transform.position.x;
-
+            if(i != smallestIndex || mouseWorldPosition.y > upperLimit || distanceXLeft < -1.3 || distanceXRight > 1.3){
                 GameObject card = CombatManager.combatManager.deck.cardsInHand[i];
-
-                if(i != smallestIndex || mouseWorldPosition.y > upperLimit || mouseWorldPosition.y < lowerLimit || distanceXLeft < -1.3 || distanceXRight > 1.3){
-                    card.GetComponent<CardInHand>().Unselect(card.transform);
-                }
+                card.GetComponent<CardInHand>().Unselect(card.transform);
             }
-            
         }
 
         if (CombatManager.combatManager.deck.cardsInHand.Count > 0)
         {
-            float distanceXLeft = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[0].transform.position.x;
-            float distanceXRight = mouseWorldPosition.x - CombatManager.combatManager.deck.cardsInHand[^1].transform.position.x;
             
             if(distanceXLeft < - 1.3 || distanceXRight > 1.3){
                 return;
             }
         }
 
-        if(mouseWorldPosition.y > upperLimit || mouseWorldPosition.y < lowerLimit || numOfCards == 0){
+        if(mouseWorldPosition.y > upperLimit || numOfCards == 0){
             return;
         }else{
             float[] distance = new float[numOfCards];
