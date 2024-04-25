@@ -20,6 +20,9 @@ public class FireBreathing : Sigil
                 CombatManager.combatManager.playerBenchSlots[card.slot] .GetComponent<CardSlot>().IgniteSlot(ignitionDuration);
             }
         card.deck.PlaySigilAnimation(card.transform, card.card, this);
+
+        SoundManager.soundManager.Play("FireBreathing");
+
         }
     }
 }
