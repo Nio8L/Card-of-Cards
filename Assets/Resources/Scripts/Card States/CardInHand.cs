@@ -45,24 +45,11 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
                 tiltAngle = Mathf.Lerp(0, targetAngle, 1 - travelTime / 0.5f);
                 transform.localScale = Vector3.one * scale;
                 travelTime -= Time.deltaTime;
-                UpdateTilt(tiltAngle);
+                //UpdateTilt(tiltAngle);
                 if (travelTime <= 0)
                 {
                     dontTidy = false;
                     deck.TidyHand();
-                }
-            }
-            else
-            {
-                transform.localPosition = Vector3.Lerp(startPos, targetLocation, 1 - travelTime / 0.5f);
-                float scale = Mathf.Lerp(1f, 0.5f, 1 - travelTime / 0.5f);
-                tiltAngle = Mathf.Lerp(targetAngle, 0, 1 - travelTime / 0.5f);
-                transform.localScale = Vector3.one * scale;
-                travelTime -= Time.deltaTime;
-                UpdateTilt(tiltAngle);
-                if (travelTime <= 0)
-                {
-                    Destroy(gameObject);
                 }
             }
         }
@@ -150,6 +137,7 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
         }
         else
         {
+            transform.localScale = Vector3.one;
             if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
                 SoundManager.soundManager.Play("CardRetract");
             }
@@ -234,10 +222,8 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
 
     public void Select(){
         transform.SetAsLastSibling();
-        transform.localScale = new Vector2(1.3f,1.3f);
+        AnimationUtilities.ChangeScale(transform, 0.1f, 0, Vector3.one * 1.3f);
         AnimationUtilities.MoveToPoint(transform, 0.1f, 0f, new Vector2(transform.position.x, transform.position.y + CombatManager.combatManager.deck.spaceForHoveredCard));
-        //transform.position = new Vector2(transform.position.x, transform.position.y + CombatManager.combatManager.deck.spaceForHoveredCard);
-        //transform.rotation = Quaternion.Euler(0, 0, 0);
         AnimationUtilities.ChangeRotation(transform, 0.1f, 0f, Quaternion.Euler(0, 0, 0));
     }
 
@@ -246,7 +232,9 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
         if (card == deck.hoveredCard)
         {
             AnimationUtilities.CancelAnimations(card.gameObject);
-            deck.hoveredCard.localScale = new Vector2(1,1);
+            //deck.hoveredCard.localScale = new Vector2(1,1); 
+            AnimationUtilities.ChangeScale(deck.hoveredCard, 0.1f, 0, Vector3.one);
+            AnimationUtilities.ChangeRotation(deck.hoveredCard, 0.1f, 0f, Quaternion.Euler(0, 0, tiltAngle));
             deck.hoveredCard = null;
             deck.TidyHand();
         }
