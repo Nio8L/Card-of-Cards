@@ -232,10 +232,20 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
         }
     }
 
+    public void Select(){
+        transform.SetAsLastSibling();
+        transform.localScale = new Vector2(1.3f,1.3f);
+        AnimationUtilities.MoveToPoint(transform, 0.1f, 0f, new Vector2(transform.position.x, transform.position.y + CombatManager.combatManager.deck.spaceForHoveredCard));
+        //transform.position = new Vector2(transform.position.x, transform.position.y + CombatManager.combatManager.deck.spaceForHoveredCard);
+        //transform.rotation = Quaternion.Euler(0, 0, 0);
+        AnimationUtilities.ChangeRotation(transform, 0.1f, 0f, Quaternion.Euler(0, 0, 0));
+    }
+
     public void Unselect(Transform card) 
     {
         if (card == deck.hoveredCard)
         {
+            AnimationUtilities.CancelAnimations(card.gameObject);
             deck.hoveredCard.localScale = new Vector2(1,1);
             deck.hoveredCard = null;
             deck.TidyHand();

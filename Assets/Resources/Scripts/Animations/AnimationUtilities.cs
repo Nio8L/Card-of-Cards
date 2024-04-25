@@ -34,6 +34,7 @@ public class AnimationUtilities : MonoBehaviour{
         float totalTime;
         string animation;
         List<Vector3> points = new List<Vector3>();
+        List<Quaternion> quaternions = new List<Quaternion>();
         List<float> values = new List<float>();
         
         List<bool> bools = new List<bool>();
@@ -48,6 +49,12 @@ public class AnimationUtilities : MonoBehaviour{
             // Adds Vector3 to a list
             points.Add(position);
         }
+
+        public void AddQuaternion(Quaternion quaternion){
+            //Adds a Quaternion to a list
+            quaternions.Add(quaternion);
+        }
+
         public void AddValue(float value){
             // Adds floats to a list
             values.Add(value);
@@ -72,6 +79,8 @@ public class AnimationUtilities : MonoBehaviour{
             timeLeft -= Time.deltaTime;
             if (animation == "MoveToPoint"){
                 MoveToPointInst();
+            }else if(animation == "ChangeRotation"){
+                ChangeRotationInst();
             }else if (animation == "ChangeAlpha"){
                 ChangeAlphaInst();
             }else if (animation == "ReturnMoveToPoint"){
@@ -95,6 +104,12 @@ public class AnimationUtilities : MonoBehaviour{
             Vector3 newPosition = Vector3.Lerp(points[0], points[1], 1 - timeLeft/totalTime);
             target.transform.position = newPosition;
         } 
+
+        void ChangeRotationInst(){
+            Quaternion newRotation = Quaternion.Lerp(quaternions[0], quaternions[1], 1 - timeLeft/totalTime);
+            target.transform.rotation = newRotation;
+        }
+
         void ChangeAlphaInst(){
             // Change the alpha of an object
             float alpha = Mathf.Lerp(values[0], values[1], 1 - timeLeft/totalTime);
@@ -207,6 +222,16 @@ public class AnimationUtilities : MonoBehaviour{
         newAnimation.AddPoint(endPoint  );
         animationUtilities.allAnimations.Add(newAnimation);
     }
+
+    public static void ChangeRotation(Transform target, float time, float delay, Quaternion rotation){
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeRotation");
+        newAnimation.SetDelay(delay);
+
+        newAnimation.AddQuaternion(target.rotation);
+        newAnimation.AddQuaternion(rotation);
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
+
     public static void ChangeAlpha(Transform target, float time, float delay, float alpha){
         // Change the alpha of an object
         AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeAlpha");

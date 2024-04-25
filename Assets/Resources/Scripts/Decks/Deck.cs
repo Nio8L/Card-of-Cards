@@ -248,7 +248,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                     continue;
                 }
                 
-                //Tilt cards so they form //|\\
+                //Tilt cards so they form \\|//
                 cardsInHand[i].transform.localPosition = new Vector2(centerPointForcardsInHand.x - (0.5f * cardsInHand.Count - 0.5f) * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)) + i * (spaceBetweenCardsInHand / (cardsInHand.Count / 2f)), centerPointForcardsInHand.y);
                 targetCard.tiltAngle = (cardsInHand.Count / 2 - i) * 10;
                 targetCard.UpdateTilt(targetCard.tiltAngle);
@@ -276,10 +276,11 @@ public class Deck : MonoBehaviour, IDataPersistence
         
         if (hoveredCard != null) 
         {
-            hoveredCard.SetAsLastSibling();
+            hoveredCard.GetComponent<CardInHand>().Select();
+            /*hoveredCard.SetAsLastSibling();
             hoveredCard.localScale = new Vector2(1.3f,1.3f);
-            hoveredCard.position = new Vector2(hoveredCard.position.x, hoveredCard.position.y+spaceForHoveredCard);
-            hoveredCard.rotation = Quaternion.Euler(0, 0, 0);
+            hoveredCard.position = new Vector2(hoveredCard.position.x, hoveredCard.position.y + spaceForHoveredCard);
+            hoveredCard.rotation = Quaternion.Euler(0, 0, 0);*/
         }
         
     }
