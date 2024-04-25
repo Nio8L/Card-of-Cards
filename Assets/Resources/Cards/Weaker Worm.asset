@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
-  m_Name: WeakerWorm
+  m_Name: Weaker Worm
   m_EditorClassIdentifier: 
   maxHealth: 1
   health: 0

@@ -243,7 +243,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             sigilStar3.sprite = spriteToUse;
         }
-        Debug.Log("updated active");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
