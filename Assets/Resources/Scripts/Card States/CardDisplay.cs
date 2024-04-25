@@ -250,7 +250,8 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (displayType == DisplayType.Display)
         {
-            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            //transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            AnimationUtilities.ChangeScale(transform, 0.1f, 0, Vector3.one * 1.5f);
             transform.SetAsLastSibling();
             SoundManager.soundManager.Play("CardPickUp");
         }
@@ -260,7 +261,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (displayType == DisplayType.Display)
         {
-            transform.localScale = Vector3.one;
+            AnimationUtilities.ChangeScale(transform, 0.1f, 0, Vector3.one);
         }
     }
 

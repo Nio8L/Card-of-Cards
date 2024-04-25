@@ -72,6 +72,8 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
         if (ActiveAbilityManager.activeAbilityManager.selectedCard != null) return;
         CardSlot cardSlot = CheckForSlot();
 
+        transform.localScale = Vector3.one;
+
         deck.selectedCard = null;
         deck.TidyHand();
 
@@ -137,7 +139,6 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
         }
         else
         {
-            transform.localScale = Vector3.one;
             if(!GameObject.Find("GameMenu").GetComponent<GameMenu>().aboutToOpenMenu){
                 SoundManager.soundManager.Play("CardRetract");
             }
