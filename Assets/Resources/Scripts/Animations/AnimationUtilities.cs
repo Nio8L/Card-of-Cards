@@ -93,6 +93,8 @@ public class AnimationUtilities : MonoBehaviour{
                 ChangeFOVInst();
             }else if (animation == "Shake"){
                 target.GetComponent<CombatCamera>().Shake();
+            }else if (animation == "ChangeScale"){
+                ChangeScaleInst();
             }
 
             // Return true if the animation is complete
@@ -104,12 +106,10 @@ public class AnimationUtilities : MonoBehaviour{
             Vector3 newPosition = Vector3.Lerp(points[0], points[1], 1 - timeLeft/totalTime);
             target.transform.position = newPosition;
         } 
-
         void ChangeRotationInst(){
             Quaternion newRotation = Quaternion.Lerp(quaternions[0], quaternions[1], 1 - timeLeft/totalTime);
             target.transform.rotation = newRotation;
         }
-
         void ChangeAlphaInst(){
             // Change the alpha of an object
             float alpha = Mathf.Lerp(values[0], values[1], 1 - timeLeft/totalTime);
@@ -156,6 +156,11 @@ public class AnimationUtilities : MonoBehaviour{
             Camera camera = target.GetComponent<Camera>();
             camera.orthographicSize = size;
         }
+        void ChangeScaleInst(){
+            // Change an object's scale
+            Vector3 newScale = Vector3.Lerp(points[0], points[1], 1 - timeLeft/totalTime);
+            target.transform.localScale = newScale;
+        }
         public Transform GetTarget(){
             // Return this animationInstance's target
             return target;
@@ -185,7 +190,6 @@ public class AnimationUtilities : MonoBehaviour{
         }
         return false;
     }
-
     public static void CancelAnimations(GameObject gameObject){
         for (int i = 0; i < animationUtilities.allAnimations.Count; i++){
             AnimationInstance animationInstance = animationUtilities.allAnimations[i];
@@ -202,6 +206,15 @@ public class AnimationUtilities : MonoBehaviour{
 
         newAnimation.AddPoint(target.transform.position);
         newAnimation.AddPoint(point);
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
+    public static void MoveToPoint(Transform target, float time, float delay, Vector3 startPoint, Vector3 endPoint){
+        // Move a given target to a point in a certain time after a delay
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "MoveToPoint");
+        newAnimation.SetDelay(delay);
+
+        newAnimation.AddPoint(startPoint);
+        newAnimation.AddPoint(endPoint);
         animationUtilities.allAnimations.Add(newAnimation);
     }
     public static void ReturnMoveToPoint(Transform target, float time, float delay, Vector3 point){
@@ -222,7 +235,6 @@ public class AnimationUtilities : MonoBehaviour{
         newAnimation.AddPoint(endPoint  );
         animationUtilities.allAnimations.Add(newAnimation);
     }
-
     public static void ChangeRotation(Transform target, float time, float delay, Quaternion rotation){
         AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeRotation");
         newAnimation.SetDelay(delay);
@@ -231,7 +243,6 @@ public class AnimationUtilities : MonoBehaviour{
         newAnimation.AddQuaternion(rotation);
         animationUtilities.allAnimations.Add(newAnimation);
     }
-
     public static void ChangeAlpha(Transform target, float time, float delay, float alpha){
         // Change the alpha of an object
         AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeAlpha");
@@ -301,7 +312,6 @@ public class AnimationUtilities : MonoBehaviour{
         AnimationInstance newAnimation = new AnimationInstance(target, time, "StartTimer");
         animationUtilities.allAnimations.Add(newAnimation);
     }
-
     public static void CameraShake(float delay){
         // Starts camera shake in the given time
         AnimationInstance newAnimation = new AnimationInstance(Camera.main.transform, 0, "Shake");
@@ -309,7 +319,15 @@ public class AnimationUtilities : MonoBehaviour{
 
         animationUtilities.allAnimations.Add(newAnimation);
     }
+    public static void ChangeScale(Transform target, float time, float delay, Vector3 scale){
+        // Move a given target to a point in a certain time after a delay
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "ChangeScale");
+        newAnimation.SetDelay(delay);
 
+        newAnimation.AddPoint(target.transform.localScale);
+        newAnimation.AddPoint(scale);
+        animationUtilities.allAnimations.Add(newAnimation);
+    }
 
 
 }
