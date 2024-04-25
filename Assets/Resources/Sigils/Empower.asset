@@ -15,5 +15,5 @@ MonoBehaviour:
   sigilName: Empower
   negative: 0
   image: {fileID: 21300000, guid: 4e894e050b27fa24c85a4853a6402cf5, type: 3}
-  description: Gain 1 damage until the end of the combat on kill.
+  description: On kill gain 1 attack until the end of the combat.
   visualEffect: {fileID: 6545133902334774296, guid: 44e38e417c94d7843a78dbd443389f1b, type: 3}

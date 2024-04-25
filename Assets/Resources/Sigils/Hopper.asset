@@ -15,7 +15,8 @@ MonoBehaviour:
   sigilName: Hopper
   negative: 0
   image: {fileID: 21300000, guid: 972fd83f7acd47249aab8d0960eb953f, type: 3}
-  description: Move to a free combat slot and attack.
+  description: 'Move to a free combat slot and attack. Resets on kill and at the
+    start of the turn. '
   canBeUsed: 0
   neededTargets: 1
   enemyDecider: {fileID: 11400000, guid: 7c686950c4134464aa539bac644d4316, type: 2}

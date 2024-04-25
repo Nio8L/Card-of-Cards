@@ -15,7 +15,7 @@ MonoBehaviour:
   sigilName: Blessed
   negative: 0
   image: {fileID: 21300000, guid: a01e6e1bb29e27d43a0e31f0eee12ca4, type: 3}
-  description: This card costs 1 less energy, has 1 more damage and 1 more health.
+  description: This card costs 1 less energy, has 1 more attack and 1 more health.
   costReduction: 1
   damageBuff: 1
   healthBuff: 1

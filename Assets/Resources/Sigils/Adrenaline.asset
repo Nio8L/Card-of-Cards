@@ -15,4 +15,4 @@ MonoBehaviour:
   sigilName: Adrenaline
   negative: 0
   image: {fileID: 21300000, guid: 79410e3b17a029c44b5f784f494a0069, type: 3}
-  description: Gain 1 damage for every injury this card has.
+  description: Gain 1 attack for every injury this card has.

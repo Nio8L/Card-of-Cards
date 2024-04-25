@@ -15,5 +15,5 @@ MonoBehaviour:
   sigilName: Hopeful Light
   negative: 0
   image: {fileID: 21300000, guid: 83cc847ca67c47e4185f48aac4f16a34, type: 3}
-  description: Gain 1 energy at the start of your turn.
+  description: At the start of your turn gain 1 energy.
   energyPerTurn: 1

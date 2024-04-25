@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee396fae27463443bc67534f99fc56d, type: 3}
+  m_Name: T2H Beetle
+  m_EditorClassIdentifier: 
+  maxHealth: 16
+  path: Tier2Hunt
+  huntAI: 1
+  huntRounds: 3
+  pacingObject: {fileID: 425041068175166581, guid: 8dc656d5c7feaf24b9f9b407aece9f5d, type: 3}
+  isTutorialEnemy: 0
+  isHunter: 0
+  currentPacingObject: {fileID: 0}
+  canUseActiveAbilities: 0
+  chanceToUseActiveAbilities: 0
+  ignoreCardDeathRules: 0
+  turnZero: 1
+  turns:
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 81c05b993bd4e38469e7d0b8e0c149ae, type: 2}
+    - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 81c05b993bd4e38469e7d0b8e0c149ae, type: 2}
+    - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: d85b736867980014d8c0b79cf0773479, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1
+  - combatCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchCards:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    benchColumbs: 0000000000
+    forcePlace: 0
+    pushBench: 1

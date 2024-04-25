@@ -22,8 +22,5 @@ MonoBehaviour:
   fireImmune: 0
   playerCard: 1
   typeOfDamage: 1
-  sigils:
-  - {fileID: 11400000, guid: 49e498f4ff76a824da4cf16f328d668e, type: 2}
-  - {fileID: 11400000, guid: 3a5255f6c7969d145918cdb7eacb8539, type: 2}
-  - {fileID: 11400000, guid: d047d9af4e2832c4da620121d89332e7, type: 2}
+  sigils: []
   injuries: 
