@@ -11,6 +11,7 @@ public class Fearless : Sigil
     {
         if (canRevive && card.card.health <= 0)
         {
+            card.deck.PlaySigilAnimation(card.transform, card.card, this);
             card.card.ResetHP();
             canRevive = false;
             GameObject effect = Instantiate(visualEffect, card.transform.position, Quaternion.identity);
