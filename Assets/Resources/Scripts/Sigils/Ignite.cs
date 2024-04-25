@@ -13,6 +13,9 @@ public class Ignite : ActiveSigil
 
             targetSlot.IgniteSlot(ignitionDuration);
         }
+
+        SoundManager.soundManager.Play("Ignite");
+
         canBeUsed = false;
     }
 

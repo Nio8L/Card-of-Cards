@@ -157,7 +157,7 @@ public class Card : ScriptableObject
         if(sigils.Count != 3) sigils.Add(negativeSigil);
     }
 
-    // Effects v
+    // Effects
     public void ActivateOnHitEffects(CardInCombat card) 
     {
         for (int i = 0; i < sigils.Count; i++)
