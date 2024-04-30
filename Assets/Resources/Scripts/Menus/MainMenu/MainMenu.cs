@@ -85,8 +85,6 @@ public class MainMenu : MonoBehaviour
         ScenePersistenceManager.scenePersistence.worlds.Clear();
         ScenePersistenceManager.scenePersistence.worlds.Add(tutorial);
 
-        ScenePersistenceManager.scenePersistence.resetMap = true;
-
         SceneManager.LoadSceneAsync("Map");
     }
 }

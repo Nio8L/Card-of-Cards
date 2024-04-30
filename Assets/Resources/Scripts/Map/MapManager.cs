@@ -41,7 +41,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         mapManager = this; 
 
         if (ScenePersistenceManager.scenePersistence == null){
-             SceneManager.LoadSceneAsync("Main Menu");
+            SceneManager.LoadSceneAsync("Main Menu");
             return;
         }
     }
@@ -76,6 +76,10 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }
     }
     static void GenerateWorld(){
+        // If no world is selected load the current one
+        if (mapManager.thisWorld == null){ 
+            mapManager.thisWorld = Instantiate(ScenePersistenceManager.scenePersistence.worlds[ScenePersistenceManager.scenePersistence.currentWorld]);
+        }
         //Prevent the map generating a world if the seed isn't new
         if(mapManager.thisWorld.mapSeed != 0){
             return;

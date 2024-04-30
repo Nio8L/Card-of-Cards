@@ -2862,7 +2862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4b4a2682cdfe848ad5faa26b732a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisWorld: {fileID: 11400000, guid: 629f4c5d037757443a2798a1f1e844b8, type: 2}
+  thisWorld: {fileID: 0}
   mapDeck: {fileID: 527827822}
   REGENERATE: 0
   currentNode: {fileID: 0}
@@ -2871,6 +2871,7 @@ MonoBehaviour:
   canTravel: 1
   canScroll: 1
   eventUsed: 0
+  onEvent: 0
   hasTraveled: 0
   eventCanvas: {fileID: 455741962}
   mapLegend: {fileID: 1683274915}
