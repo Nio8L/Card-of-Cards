@@ -27,6 +27,8 @@ public class MainMenu : MonoBehaviour
         ScenePersistenceManager.scenePersistence.inTutorial = false;
         ScenePersistenceManager.scenePersistence.tutorialStage = 0;
         ScenePersistenceManager.scenePersistence.tutorialDeck.Clear();
+        ScenePersistenceManager.scenePersistence.playerDeck.Clear();
+        MapSaver.mapSaver.InitializeMapSaver();
 
         ScenePersistenceManager.scenePersistence.currentCombatAI = null;
         if (!DataPersistenceManager.DataManager.HasGameData()){

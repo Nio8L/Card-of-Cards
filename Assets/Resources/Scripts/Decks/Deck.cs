@@ -145,7 +145,7 @@ public class Deck : MonoBehaviour, IDataPersistence
                 AddCard(cardsToBeAdded.Count);
             }
            
-            if(!DataPersistenceManager.DataManager.AutoSaveData){
+            if(!DataPersistenceManager.DataManager.AutoSaveData && !ScenePersistenceManager.scenePersistence.inTutorial){
                 cards = ScenePersistenceManager.scenePersistence.playerDeck;
             }
 
