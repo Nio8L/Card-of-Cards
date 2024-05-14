@@ -139,9 +139,17 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     private void OnEnable() {
         EventManager.CardDeath += CardDeath;
+
+        if(!DataPersistenceManager.DataManager.AutoSaveData){
+            playerHealth = MapSaver.mapSaver.playerHP;
+        }
     }
     private void OnDisable() {
         EventManager.CardDeath -= CardDeath;
+
+        if(!DataPersistenceManager.DataManager.AutoSaveData){
+            MapSaver.mapSaver.playerHP = playerHealth;
+        }
     }
     public void EndGame()
     {

@@ -149,4 +149,8 @@ public class MapDeck : MonoBehaviour, IDataPersistence
 
         playerHealthText.text = playerHealth + "/" + 20;
     }
+
+    private void OnDisable() {
+        ScenePersistenceManager.scenePersistence.playerDeck = CopyCardList(cards);
+    }
 }

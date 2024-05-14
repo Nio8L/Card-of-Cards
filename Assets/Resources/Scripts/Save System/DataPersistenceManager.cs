@@ -66,10 +66,8 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     public void OnSceneUnloaded(Scene scene){
-        if(AutoSaveData){
-            if (!ScenePersistenceManager.scenePersistence.inTutorial) SaveGame();
-            SaveSettings();
-        }
+        if (!ScenePersistenceManager.scenePersistence.inTutorial) SaveGame();
+        SaveSettings();
     }
 
     public void ChangeSelectedProfileId(string newProfileId){
@@ -116,6 +114,8 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     public void SaveGame(){
+        if(!AutoSaveData) return;
+
         if(gameData == null){
             //Debug.LogWarning("No data was found. There needs to be a game started to save.");
             return;
@@ -147,6 +147,8 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     public void LoadGame(){
+        if(!AutoSaveData) return;
+
         gameData = dataHandler.Load(selectedProfileId);
 
         if(gameData == null){
@@ -160,10 +162,8 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     private void OnApplicationQuit() {
-        if(AutoSaveData){
-            if (!ScenePersistenceManager.scenePersistence.inTutorial) SaveGame();
-            SaveSettings();
-        }
+        if (!ScenePersistenceManager.scenePersistence.inTutorial) SaveGame();
+        SaveSettings();
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects(){

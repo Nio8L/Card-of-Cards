@@ -33,8 +33,10 @@ public class SaveSlotsMenu : MonoBehaviour
         DataPersistenceManager.DataManager.ChangeSelectedProfileId(saveSlot.GetProfileId());
 
         if(!isLoadingGame){
+            ScenePersistenceManager.scenePersistence.playerDeck.Clear();
             ScenePersistenceManager.scenePersistence.playerDeck.AddRange(startCards);
             ScenePersistenceManager.scenePersistence.currentCombatAI = defaultFight;
+            MapSaver.mapSaver.map = new();
             DataPersistenceManager.DataManager.NewGame();
         }
 

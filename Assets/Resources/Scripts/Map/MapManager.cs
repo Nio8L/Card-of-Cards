@@ -75,7 +75,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
             REGENERATE = false;
         }
     }
-    static void GenerateWorld(){
+    public static void GenerateWorld(){
         // If no world is selected load the current one
         if (mapManager.thisWorld == null){ 
             mapManager.thisWorld = Instantiate(ScenePersistenceManager.scenePersistence.worlds[ScenePersistenceManager.scenePersistence.currentWorld]);
@@ -89,7 +89,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         // Generate a new map
         GenerateWorld(Mathf.FloorToInt(UnityEngine.Random.value*214783646));
     }
-    static void GenerateWorld(int seed){
+    public static void GenerateWorld(int seed){
         // Generate a map with a given seed
         mapManager.thisWorld.mapSeed = seed;
         mapManager.thisWorld.GenerateLayout  ();
@@ -266,5 +266,28 @@ public class MapManager : MonoBehaviour, IDataPersistence
         mapManager.thisWorld = newWorld;
 
         GenerateWorld(newWorld.mapSeed);
+    }
+
+    public void OnSceneLoaded(){
+        Debug.Log("load");
+        if(!DataPersistenceManager.DataManager.AutoSaveData){
+            MapSaver.mapSaver.LoadMapData();
+        }
+    }
+
+    public void OnSceneUnloaded(){
+        Debug.Log("save");
+        if(!DataPersistenceManager.DataManager.AutoSaveData){
+            MapSaver.mapSaver.SaveMapData();
+        }
+    }
+
+    private void OnEnable() {
+        OnSceneLoaded();
+        
+    }
+
+    private void OnDisable() {
+        OnSceneUnloaded();
     }
 }

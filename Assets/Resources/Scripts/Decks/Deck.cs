@@ -135,7 +135,6 @@ public class Deck : MonoBehaviour, IDataPersistence
         CardsInCombatParent = GameObject.Find("CardsInCombat").transform;
 
         energyText = GameObject.Find("EnergyText").GetComponent<TextMeshProUGUI>();
-        drawPile = CopyCardList(cards);
 
         if (playerDeck)
         {
@@ -146,11 +145,17 @@ public class Deck : MonoBehaviour, IDataPersistence
                 AddCard(cardsToBeAdded.Count);
             }
            
+            if(!DataPersistenceManager.DataManager.AutoSaveData){
+                cards = ScenePersistenceManager.scenePersistence.playerDeck;
+            }
+
         }
 
         for(int i = 0; i < cards.Count; i++){
             cards[i].playerCard = playerDeck;
         }
+        
+        drawPile = CopyCardList(cards);
     }
 
     private void Update()

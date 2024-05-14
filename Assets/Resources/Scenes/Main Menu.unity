@@ -2318,7 +2318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: AutoSaveData
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialDecks.Array.size
@@ -3207,6 +3207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1615226577}
   - component: {fileID: 1615226576}
+  - component: {fileID: 1615226578}
   m_Layer: 0
   m_Name: ScenePersistenceManager
   m_TagString: Untagged
@@ -3268,6 +3269,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1615226578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615226575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202aef37df4ec994388a1ca7a4852ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map:
+    seed: 0
+    layerIndex: 0
+    nodeIndex: 0
+    hasTraveled: 0
+    world: 0
+    eventRoom:
+      name: 
+      used: 0
 --- !u!1 &1687319066
 GameObject:
   m_ObjectHideFlags: 0
