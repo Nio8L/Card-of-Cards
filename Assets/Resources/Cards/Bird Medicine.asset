@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
+  m_Name: Bird Medicine
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  health: 0
+  attack: 0
+  defaultAttack: 0
+  cost: 2
+  image: {fileID: 21300000, guid: 8e4ee50ce31b923418399c7bedd21b43, type: 3}
+  canRevive: 1
+  fireImmune: 0
+  playerCard: 1
+  typeOfDamage: 3
+  sigils:
+  - {fileID: 11400000, guid: 71ab72e787e343d4ba02339bc699c580, type: 2}
+  injuries: 

@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aef3f3de12ba4e47b9cf45643fd0e58, type: 3}
   m_Name: Event Testing
   m_EditorClassIdentifier: 
-  backgroundColor: {r: 0.4627451, g: 0.43137255, b: 0.3529412, a: 1}
+  backgroundColor: {r: 0.4417424, g: 0.3529412, b: 0.4627451, a: 1}
   stages: 0
   minWidth: 1
   maxWidth: 1
-  spawnBoss: 0
+  spawnBoss: 1
   events:
   - {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}
   - {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
+  - {fileID: 8874671725921539771, guid: a8a22ad2b7d92954984c272c767205a2, type: 3}
   combats: []
   hunts: []
-  hunters: []
+  hunters:
+  - {fileID: 11400000, guid: 27995cc155f18f64a87787e2022b876a, type: 2}
   floor: []
   layerBuilder:
   - size: 1
@@ -48,6 +50,14 @@ MonoBehaviour:
     - thisRoom: 3
       thisEnemy: {fileID: 0}
       thisEvent: {fileID: 8874671725921539771, guid: f44aa404ff38208489389d043e729ff8, type: 3}
+      layerIndex: 0
+      index: 0
+  - size: 1
+    index: 0
+    nodes:
+    - thisRoom: 3
+      thisEnemy: {fileID: 0}
+      thisEvent: {fileID: 8874671725921539771, guid: a8a22ad2b7d92954984c272c767205a2, type: 3}
       layerIndex: 0
       index: 0
   - size: 1
