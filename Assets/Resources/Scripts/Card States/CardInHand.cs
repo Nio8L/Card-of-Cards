@@ -117,6 +117,7 @@ public class CardInHand : CardDisplay, IDragHandler, IBeginDragHandler
                         }
                         
                         // Remove this spell card from the deck
+                        deck.energy -= card.cost;
                         deck.cards.Remove(card);
                         if (deck.cardsInHand.Contains(gameObject)) deck.cardsInHand.Remove(gameObject);
                         if (deck.cardsInHandAsCards.Contains(card)) deck.cardsInHandAsCards.Remove(card);

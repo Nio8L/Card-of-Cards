@@ -165,6 +165,13 @@ public class CardInCombat : CardDisplay
             if (card.health > 0) return;
 
             EventManager.CardInjured?.Invoke(card);
+
+            for (int s = 0; s < card.sigils.Count; s++){
+                if (card.sigils[s].sigilType == Sigil.SigilType.UntilDeath){
+                    card.sigils.RemoveAt(s);
+                    s--;
+                }
+            }
             
             card.CreateCard(lastTypeOfDamage);
 

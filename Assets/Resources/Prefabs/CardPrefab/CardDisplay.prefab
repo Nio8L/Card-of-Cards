@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7f28c3df851974f88f20d2c12db15e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayType: 0
   card: {fileID: 11400000, guid: 1cd7351d9ea538f4cb85c2a4291d22af, type: 2}
   icon: {fileID: 953368072737798972}
   cardName: {fileID: 6344712495058417655}
@@ -340,6 +341,11 @@ MonoBehaviour:
   sigil1: {fileID: 2987148086769719521}
   sigil2: {fileID: 3925912463419355061}
   sigil3: {fileID: 3958260002492222603}
+  activeStar: {fileID: 0}
+  selectedActiveStar: {fileID: 0}
+  sigilStar1: {fileID: 0}
+  sigilStar2: {fileID: 0}
+  sigilStar3: {fileID: 0}
   injury1: {fileID: 2318935107876578058}
   injury2: {fileID: 2444913582742933727}
   injury3: {fileID: 5412968310248428319}
@@ -356,6 +362,9 @@ MonoBehaviour:
   scrachDamageIcon: {fileID: 21300000, guid: ea3a24fb371f8a04b97ff0f4d8a51e02, type: 3}
   poisonDamageIcon: {fileID: 21300000, guid: e687f1344b8491248adfb5d1ba6552c7, type: 3}
   heartDamageIcon: {fileID: 21300000, guid: 929f6c112a221e94988c184058470bc9, type: 3}
+  deathMarkScratch: {fileID: 0}
+  deathMarkBite: {fileID: 0}
+  deathMarkPoison: {fileID: 0}
 --- !u!114 &3310143477785212519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,7 +579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -90.379, y: -10.5}
+  m_AnchoredPosition: {x: -90.379, y: -11}
   m_SizeDelta: {x: 110.7572, y: 35.7113}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4958272050714556454

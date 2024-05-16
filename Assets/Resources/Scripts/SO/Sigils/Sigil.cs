@@ -5,6 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil")]
 public class Sigil : ScriptableObject
 {
+    public enum SigilType{
+        Permanent,
+        UntilDeath,
+        UntilCombatEnd,
+    }
+
+    public SigilType sigilType;
     public string sigilName;
     public bool negative;
     public Sprite image;

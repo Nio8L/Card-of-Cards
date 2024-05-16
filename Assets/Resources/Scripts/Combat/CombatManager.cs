@@ -627,36 +627,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     #endregion
 
     #region EndConditions
-    void WinGame()
-    {
-        if (timerToNextTurn > resetTimerTo) return;
-        timerToNextTurn = 1000f;
-
-        EventManager.CombatEnd?.Invoke();
-
-        if (enemy.isTutorialEnemy) { TutorialWin(); return; }
-
-        for (int i = 0; i < deck.cards.Count; i++)
-        {
-            deck.cards[i].ActivateOnBattleEndEffects();
-        }
-
-        // Clear all existing displays
-        DeckUtilities.CloseAllDisplays();
-        TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
-        combatUI.EndCombat(true);
-
-        if(CombatPoints.combatPoints.combatPointsCount == 3 && enemy.huntAI){
-            for(int i = 0; i < battleReward.Count; i++){
-                battleReward[i].AcceptLostSoul();
-            }
-            CombatPoints.combatPoints.ResetPoints();
-        }
-
-        deck.cards.AddRange(battleReward);
-    }
-    void LoseGame()
-    {
+    void PrepareEndGame(){
         if (timerToNextTurn > resetTimerTo) return;
         timerToNextTurn = 1000f;
      
@@ -670,6 +641,38 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         // Clear all existing displays
         DeckUtilities.CloseAllDisplays();
         TooltipSystem.tooltipSystem.tooltip.gameObject.SetActive(false);
+
+        // Remove temporary sigils
+        for (int i = 0; i < deck.cards.Count; i++){
+            Card card = deck.cards[i];
+            for (int s = 0; s < card.sigils.Count; s++){
+                if (card.sigils[s].sigilType == Sigil.SigilType.UntilCombatEnd){
+                    card.sigils.RemoveAt(s);
+                    s--;
+                }
+            }
+        }
+    }
+    void WinGame()
+    {
+        PrepareEndGame();
+
+        if (enemy.isTutorialEnemy) { TutorialWin(); return; }
+
+        combatUI.EndCombat(true);
+
+        if(CombatPoints.combatPoints.combatPointsCount == 3 && enemy.huntAI){
+            for(int i = 0; i < battleReward.Count; i++){
+                battleReward[i].AcceptLostSoul();
+            }
+            CombatPoints.combatPoints.ResetPoints();
+        }
+
+        deck.cards.AddRange(battleReward);
+    }
+    void LoseGame()
+    {
+        PrepareEndGame();
         combatUI.EndCombat(false);
         
     }
