@@ -269,14 +269,12 @@ public class MapManager : MonoBehaviour, IDataPersistence
     }
 
     public void OnSceneLoaded(){
-        Debug.Log("load");
         if(!DataPersistenceManager.DataManager.AutoSaveData){
             MapSaver.mapSaver.LoadMapData();
         }
     }
 
     public void OnSceneUnloaded(){
-        Debug.Log("save");
         if(!DataPersistenceManager.DataManager.AutoSaveData){
             MapSaver.mapSaver.SaveMapData();
         }

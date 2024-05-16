@@ -40,7 +40,7 @@ public class DeckUtilities : MonoBehaviour
             if      (sceneName == "Map")    cards = MapManager.mapManager.mapDeck.cards;
             else if (sceneName == "Combat") cards = CombatManager.combatManager.deck.cards;
 
-            if (cards.Count != 0) SingularDisplay("deck", cards, "Your deck");
+            if (cards.Count != 0) SingularDisplay("deck", cards, "Your Deck");
         }
         
         if (Input.GetKeyUp(KeyCode.Escape)){

@@ -149,6 +149,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
 
         if(!DataPersistenceManager.DataManager.AutoSaveData){
             MapSaver.mapSaver.playerHP = playerHealth;
+            MapSaver.mapSaver.map.world = ScenePersistenceManager.scenePersistence.currentWorld;
         }
     }
     public void EndGame()
@@ -214,7 +215,7 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             startPlayerTurn = false;
         }
 
-        if (gamePhase == 0 && Input.GetKeyUp(KeyCode.E) && enemy != null && (!enemy.huntAI || round <= enemy.huntRounds)){
+        if (gamePhase == 0 && Input.GetKeyUp(KeyCode.E) && GameObject.Find("EndTurnButton").GetComponent<Button>().interactable && enemy != null && (!enemy.huntAI || round <= enemy.huntRounds)){
             StartEnemyTurn();
         }
         if (Input.GetKeyUp(KeyCode.A)){

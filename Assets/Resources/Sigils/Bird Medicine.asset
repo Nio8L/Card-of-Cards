@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85b71da42ecc7404eac7ab550ee7c57e, type: 3}
-  m_Name: BirdMedicine
+  m_Name: Bird Medicine
   m_EditorClassIdentifier: 
   sigilType: 0
   sigilName: Bird Medicine
   negative: 0
   image: {fileID: 21300000, guid: dadf88d9135f7534d9119ee6237d45f8, type: 3}
-  description: Play on top of another card to give it the overwhelm sigil permanently.
+  description: Play on top of another card to give it the Overwhelm sigil permanently.
   targetType: 0
   disableSlotPlay: 1
   sigilToGive: {fileID: 11400000, guid: 3a5255f6c7969d145918cdb7eacb8539, type: 2}
