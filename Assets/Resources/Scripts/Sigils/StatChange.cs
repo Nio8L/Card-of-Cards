@@ -26,7 +26,7 @@ public class StatChange : SpellSigil
         }
         cardInCombat.UpdateCardAppearance();
 
-        Instantiate(particles, slot.transform.position, Quaternion.identity);
+        if (particles != null) Instantiate(particles, slot.transform.position, Quaternion.identity);
     }
 
     public override bool CanBePlayed(CardSlot slot, bool player)

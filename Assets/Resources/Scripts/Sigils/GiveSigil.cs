@@ -22,21 +22,22 @@ public class GiveSigil : SpellSigil
         cardInCombat.card.sigils.Add(sigilToGive);
         cardInCombat.UpdateCardAppearance();
 
-        Instantiate(particles, slot.transform.position, Quaternion.identity);
+        if (particles != null) Instantiate(particles, slot.transform.position, Quaternion.identity);
     }
 
     public override bool CanBePlayed(CardSlot slot, bool player)
     {
         CardInCombat target = CombatManager.combatManager.GetCardAtSlot(slot);
+        
+        if(target == null){
+            return false;
+        }
 
         if (target.card.sigils.Count >= 3) return false;
 
         if(slot.playerSlot != player) return false;
 
-        if(target != null){
-            return true;
-        }
-
-        return false;
+        return true;
+        
     }
 }

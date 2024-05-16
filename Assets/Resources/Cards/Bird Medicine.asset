@@ -16,12 +16,13 @@ MonoBehaviour:
   health: 0
   attack: 0
   defaultAttack: 0
-  cost: 2
+  cost: 3
   image: {fileID: 21300000, guid: 8e4ee50ce31b923418399c7bedd21b43, type: 3}
   canRevive: 1
   fireImmune: 0
   playerCard: 1
   typeOfDamage: 3
   sigils:
+  - {fileID: 11400000, guid: 71ab72e787e343d4ba02339bc699c580, type: 2}
   - {fileID: 11400000, guid: 71ab72e787e343d4ba02339bc699c580, type: 2}
   injuries: 
