@@ -16,7 +16,7 @@ MonoBehaviour:
   sigilName: Extra life
   negative: 0
   image: {fileID: 21300000, guid: bb32c229d5d3c564097babb070d4921e, type: 3}
-  description: Play on top of another card to give it the fearless sigil until they
+  description: Play on top of another card to give it the Fearless sigil until they
     die.
   targetType: 0
   disableSlotPlay: 1

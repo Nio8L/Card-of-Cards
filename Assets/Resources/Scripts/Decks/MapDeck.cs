@@ -14,6 +14,9 @@ public class MapDeck : MonoBehaviour, IDataPersistence
     public GameObject playerHealthDash;
     public TextMeshProUGUI playerHealthText;
 
+
+    public TextMeshProUGUI numberOfCards;
+
     private List<Card> cardsToBeAdded;
 
     private void Start() {
@@ -22,6 +25,8 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             cardsToBeAdded = CopyCardList(ScenePersistenceManager.scenePersistence.playerDeck);
             ScenePersistenceManager.scenePersistence.playerDeck.Clear();
             AddCard(cardsToBeAdded.Count);
+
+            numberOfCards.text = cards.Count + "";
             //Debug.Log("Added deck");
         }
     }
@@ -148,6 +153,12 @@ public class MapDeck : MonoBehaviour, IDataPersistence
         playerHealthDash.transform.localPosition = new Vector3(playerVal * 200 - 150, 1, 1);
 
         playerHealthText.text = playerHealth + "/" + 20;
+    }
+
+    public void ShowDeck(){
+        if (cards.Count != 0 || DeckUtilities.GetDisplayWithName("deck") != null){
+            DeckUtilities.SingularDisplay("deck", cards, "Your Deck");
+        }
     }
 
     private void OnDisable() {

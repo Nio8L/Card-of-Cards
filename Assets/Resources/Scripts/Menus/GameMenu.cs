@@ -81,6 +81,7 @@ public class GameMenu : MonoBehaviour
         }
         
         for(int i = 0; i < stuffToDisable.Length; i++){
+            if(stuffToDisable[i] == null) continue;
             stuffToDisable[i].SetActive(!stuffToDisable[i].activeSelf);
         }
     }
