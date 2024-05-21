@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibleName: Screaming Totem
   description: 'If you end your turn with more cards in combat slots that in bench
-    slots gain 2 hp. \nActive: Heal 2 hp for every one of your cards that''s on the
+    slots gain 2 hp. Active: Heal 2 hp for every one of your cards that''s on the
     board.'
   totemSprite: {fileID: 21300000, guid: ba098855ebd25764b9622360a189cbdd, type: 3}
   healBy: 2

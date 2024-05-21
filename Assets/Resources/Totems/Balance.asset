@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Balance
   m_EditorClassIdentifier: 
   visibleName: Balance Totem
-  description: 
+  description: 'Heal a random card for every 3 cards played in a turn. Active: heal
+    all cards'
   totemSprite: {fileID: 21300000, guid: 4b1e52e1dd3e32344bba46be6110cc5a, type: 3}
   cardsNeededForActivation: 3
   healBy: 1
