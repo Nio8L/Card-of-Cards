@@ -46,6 +46,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
         }
     }
     void Start(){
+        TotemManager.LoadScene();
         if (ScenePersistenceManager.scenePersistence.resetMap){
             ScenePersistenceManager.scenePersistence.resetMap = false;
             ClearMap();

@@ -15,7 +15,7 @@ MonoBehaviour:
   sigilType: 0
   sigilName: Bird Strength
   negative: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 3ec211482d4eb4c4aa9aef09fc5bac14, type: 3}
   description: Play on top of another card to give it +1 attack permanently.
   targetType: 0
   disableSlotPlay: 1

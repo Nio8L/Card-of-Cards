@@ -24,6 +24,8 @@ public class CombatUI : MonoBehaviour
 
     public void BeginCombat(){
         endCombatMenu.SetActive(false);
+
+        TotemManager.LoadScene();
         
         UpdateRoundText();
 

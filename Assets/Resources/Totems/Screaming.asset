@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9f88e95fd51bd4c89d08d7d155503a, type: 3}
+  m_Name: Screaming
+  m_EditorClassIdentifier: 
+  visibleName: Screaming Totem
+  description: 'If you end your turn with more cards in combat slots that in bench
+    slots gain 2 hp. \nActive: Heal 2 hp for every one of your cards that''s on the
+    board.'
+  totemSprite: {fileID: 21300000, guid: ba098855ebd25764b9622360a189cbdd, type: 3}
+  healBy: 2
+  particles: {fileID: 1310063385754101084, guid: 253ef5d441b5d754ab9a28271df9df47, type: 3}

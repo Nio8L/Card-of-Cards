@@ -284,6 +284,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
         }
 
         cardInCombat.card.ActivateOnSummonEffects(cardInCombat);
+
+        EventManager.CardPlayed?.Invoke(card);
     }
 
     #region Game Phases
