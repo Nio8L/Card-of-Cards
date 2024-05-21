@@ -303,6 +303,8 @@ public class Deck : MonoBehaviour, IDataPersistence
             else return;
         }
 
+        Card cardToDraw = drawPile[0];
+
         if (playerDeck)
         {
             SoundManager.soundManager.Play("CardDraw", UnityEngine.Random.Range(0, 13));
@@ -312,19 +314,21 @@ public class Deck : MonoBehaviour, IDataPersistence
             card.transform.position = drawPileText.transform.position;
 
             CardInHand cardInHand = card.GetComponent<CardInHand>();
-            cardInHand.card = drawPile[0];
+            cardInHand.card = cardToDraw;
             cardInHand.deck = this;
             cardsInHand.Add(card);
             cardInHand.startPos = drawPileText.transform.parent.localPosition;
         }
 
-        cardsInHandAsCards.Add(drawPile[0]);
+        cardsInHandAsCards.Add(cardToDraw);
         
-        drawPile[0].ActivateOnDrawEffects();
+        cardToDraw.ActivateOnDrawEffects();
 
         drawPile.RemoveAt(0);
         TidyHand();
         CombatManager.combatManager.combatUI.UpdatePileNumbers();
+
+        EventManager.CardDrawn?.Invoke(cardToDraw);
     }
 
     public void DrawCard(int numOfCards)

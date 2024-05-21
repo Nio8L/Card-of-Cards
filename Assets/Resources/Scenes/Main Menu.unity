@@ -4242,9 +4242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totems:
-  - {fileID: 11400000, guid: 9d30c667824d7384b8fc3c1cfd56fe42, type: 2}
-  - {fileID: 11400000, guid: c06ead737375b67448cb63c871c2db53, type: 2}
-  - {fileID: 11400000, guid: c06ead737375b67448cb63c871c2db53, type: 2}
+  - {fileID: 11400000, guid: 5aa34792334c0b448aa45ee7f376c802, type: 2}
 --- !u!4 &1999475379
 Transform:
   m_ObjectHideFlags: 0

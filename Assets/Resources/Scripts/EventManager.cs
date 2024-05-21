@@ -20,5 +20,7 @@ public class EventManager : MonoBehaviour
 
     public static Action<Card> CardDeath;
 
+    public static Action<Card> CardDrawn;
+
     
 }
