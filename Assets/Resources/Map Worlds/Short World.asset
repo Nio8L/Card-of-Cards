@@ -17,6 +17,15 @@ MonoBehaviour:
   minWidth: 0
   maxWidth: 0
   spawnBoss: 0
+  roomChances:
+  - roomType: 1
+    chanceToAppear: 0.2
+  - roomType: 2
+    chanceToAppear: 0.35
+  - roomType: 3
+    chanceToAppear: 0.25
+  - roomType: 4
+    chanceToAppear: 0.2
   events: []
   combats: []
   hunts: []

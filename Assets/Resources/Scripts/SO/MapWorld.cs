@@ -14,6 +14,8 @@ public class MapWorld : ScriptableObject
     public int minWidth;
     public int maxWidth;
     public bool spawnBoss;
+    [Header("Spawn chances for all rooms should add up to 1")]
+    public List<Room>          roomChances = new List<Room>();
     public List<GameObject>    events  = new List<GameObject>();
     public List<EnemyAI>       combats = new List<EnemyAI>();
     public List<ScriptedEnemy> hunts   = new List<ScriptedEnemy>();
@@ -31,7 +33,7 @@ public class MapWorld : ScriptableObject
     public enum RoomType
     {
         None,
-        Combat,
+        Elite,
         Hunt,
         Event,
         Restsite,
@@ -73,6 +75,11 @@ public class MapWorld : ScriptableObject
             
         }
 
+    }
+    [System.Serializable]
+    public class Room{
+        public RoomType roomType;
+        public float chanceToAppear;
     }
     public void GenerateLayout(){
         Random.InitState(mapSeed);
@@ -227,20 +234,29 @@ public class MapWorld : ScriptableObject
 
                 // Random
                 for (int node = 0; node < thisLayer.nodes.Length; node++){
-                    RoomType roomTypeToUse = RoomType.Combat;
+                    RoomType roomTypeToUse = RoomType.Elite;
+
+                    // Select a room 
                     bool end = false;
                     while (!end){
                         // Pick a random room
-                        int roomToUse = Mathf.FloorToInt(Random.value * 4);
-                        if      (roomToUse == 0) roomTypeToUse = RoomType.Combat;
-                        else if (roomToUse == 1) roomTypeToUse = RoomType.Hunt;
-                        else if (roomToUse == 2) roomTypeToUse = RoomType.Restsite;
-                        else                     roomTypeToUse = RoomType.Event;
+                        float roomToUse = Random.value;
+                        for (int i = 0; i < roomChances.Count; i++){
+                            if (roomToUse <= roomChances[i].chanceToAppear){
+                                roomTypeToUse = roomChances[i].roomType;
+                                break;
+                            }else{
+                                roomToUse -= roomChances[i].chanceToAppear;                         
+                            }
+                        }
 
                         // Check if its banned
                         end = true;
                         for (int i = 0; i < bannedRooms.Count; i++){
-                            if (bannedRooms[i] == roomTypeToUse) end = false;
+                            if (bannedRooms[i] == roomTypeToUse){
+                                end = false;
+                                break;
+                            }
                         }
                     }
 
@@ -289,7 +305,7 @@ public class MapWorld : ScriptableObject
                     if (roomTypeToUse != RoomType.Event){
                         EnemyBase enemy;
                         do{
-                            if      (roomTypeToUse == RoomType.Combat) enemy = combats[Random.Range(0, combats.Count)];
+                            if      (roomTypeToUse == RoomType.Elite) enemy = combats[Random.Range(0, combats.Count)];
                             else if (roomTypeToUse == RoomType.Hunt  ) enemy = hunts  [Random.Range(0, hunts  .Count)];
                             else                                       enemy = hunters[Random.Range(0, hunters.Count)];
                         }while(lastEnemy == enemy);

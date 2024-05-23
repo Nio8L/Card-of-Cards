@@ -17,6 +17,15 @@ MonoBehaviour:
   minWidth: 1
   maxWidth: 1
   spawnBoss: 1
+  roomChances:
+  - roomType: 1
+    chanceToAppear: 0
+  - roomType: 2
+    chanceToAppear: 0
+  - roomType: 3
+    chanceToAppear: 1
+  - roomType: 4
+    chanceToAppear: 0
   events:
   - {fileID: 8874671725921539771, guid: bae60c8cb1a915e4f9bff52e5a0bb8f8, type: 3}
   - {fileID: 8874671725921539771, guid: 872b02ad6d6275a4c9d0b2c258831802, type: 3}

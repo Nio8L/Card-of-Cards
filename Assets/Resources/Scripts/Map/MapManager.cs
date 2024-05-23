@@ -145,7 +145,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public static void ActivateNode(MapNode mapNode){
         mapManager.onEvent = false;
         
-        if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Combat || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunt || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunter){
+        if (mapNode.thisNode.thisRoom == MapWorld.RoomType.Elite || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunt || mapNode.thisNode.thisRoom == MapWorld.RoomType.Hunter){
             // Click on combat like rooms
             EnemyBase ai = mapNode.enemyOnThisNode;
             ScenePersistenceManager.scenePersistence.currentCombatAI = ai;
