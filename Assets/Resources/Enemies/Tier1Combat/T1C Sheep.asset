@@ -22,6 +22,7 @@ MonoBehaviour:
   currentPacingObject: {fileID: 0}
   canUseActiveAbilities: 1
   chanceToUseActiveAbilities: 0.5
+  totemRewardPool: {fileID: 11400000, guid: d6bec899ecfe9854dab49746d252108d, type: 2}
   cards:
   - {fileID: 11400000, guid: 326f5f86760b25848b7da29bc2951f65, type: 2}
   - {fileID: 11400000, guid: a5accf83233f95c4f9a406af37c36c36, type: 2}

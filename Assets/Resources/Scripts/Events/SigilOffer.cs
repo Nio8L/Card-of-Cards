@@ -33,7 +33,7 @@ public class SigilOffer : MonoBehaviour, IEvent
         //Add the correct cards into the deck display
         Vector2 point = new Vector2(Camera.main.pixelWidth * 1f/4f, 0);
         deckDisplay = DeckUtilities.CreateDisplay(point, Camera.main.pixelWidth/2, Camera.main.pixelHeight * 0.85f, "Your Deck", "EventDisplay");
-        deckDisplay.RepositionNameplate(new Vector3(515, 490, 0));
+        //deckDisplay.RepositionNameplate(new Vector3(515, 490, 0));
         deckDisplay.cards = MapManager.mapManager.mapDeck.cards;
 
         GenerateOffers();

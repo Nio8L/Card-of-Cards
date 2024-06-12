@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da03e4dc73899440b426a09f91143ec, type: 3}
+  m_Name: Elite rewards
+  m_EditorClassIdentifier: 
+  totems:
+  - {fileID: 11400000, guid: c06ead737375b67448cb63c871c2db53, type: 2}
+  - {fileID: 11400000, guid: 5aa34792334c0b448aa45ee7f376c802, type: 2}
+  - {fileID: 11400000, guid: 9d30c667824d7384b8fc3c1cfd56fe42, type: 2}

@@ -154,6 +154,8 @@ public class CombatManager : MonoBehaviour, IDataPersistence
     }
     public void EndGame()
     {
+        DeckUtilities.CloseAllDisplays();
+
         SoundManager.soundManager.Play("ButtonClick");
         inCombat = false;
         combatUI.LoadOutOfCombat();

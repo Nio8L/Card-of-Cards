@@ -44,6 +44,27 @@ public class CombatUI : MonoBehaviour
                 endCombatText.text = "You beat the tutorial!";
             }else{
                 endCombatText.text = "You won!";
+
+                // Find the totem reward display object
+                GameObject totemDisplay = endCombatMenu.transform.GetChild(0).GetChild(3).gameObject;
+                 if (CombatManager.combatManager.battleReward.Count > 0){
+                    // If there is a card reward create a deck display
+                    DeckDisplay deckDisplay = DeckUtilities.CreateDisplay(Vector2.zero, 800, 350, "", "reward");
+
+                    deckDisplay.cards = CombatManager.combatManager.battleReward;
+
+                    // Disable the totem ui
+                    totemDisplay.SetActive(false);
+                }else{
+                    TotemPool rewardPool = CombatManager.combatManager.enemy.totemRewardPool;
+                    if (rewardPool != null){
+                        Totem totemReward = rewardPool.GetTotem();
+                        totemDisplay.GetComponent<TotemDisplay>().UpdateDisplay(totemReward);
+                        TotemManager.AddTotem(totemReward);
+                    }else{
+                        totemDisplay.SetActive(false);
+                    }
+                }
             }
         }else{
             endCombatText.text = "You lost...";
