@@ -82,8 +82,6 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         cardName.text = card.name;
         cardCost.text = card.cost.ToString();
-        cardHealth.text = card.health.ToString();
-        cardAttack.text = card.attack.ToString();
 
         sigil1.color = new Color(1, 1, 1, 0);
         sigil2.color = new Color(1, 1, 1, 0);
@@ -147,10 +145,16 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         if (displayType == DisplayType.Combat)
         {
+            cardHealth.text = card.health.ToString();
+            cardAttack.text = card.attack.ToString();
+
             sigilStar1.color = new Color(1, 1, 1, 0);
             sigilStar2.color = new Color(1, 1, 1, 0);
             sigilStar3.color = new Color(1, 1, 1, 0);
             ShowSigilStars();
+        }else{
+            cardHealth.text = card.defaultHealth.ToString();
+            cardAttack.text = card.defaultAttack.ToString();
         }
     }
     public void SelectCard(){

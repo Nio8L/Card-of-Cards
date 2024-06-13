@@ -115,7 +115,7 @@ public class Sacrifice : MonoBehaviour, IEvent
         int worth = 0;
         
         worth += card.defaultAttack;
-        worth += card.maxHealth;
+        worth += card.health;
         worth += card.cost * 2;
         
         foreach(Sigil sigil in card.sigils){
@@ -155,7 +155,7 @@ public class Sacrifice : MonoBehaviour, IEvent
             NotificationManager.notificationManager.NotifyAutoEnd(fullSoulNotification, new Vector3(-470, 250, 0), 2f);
             return;
         }
-        blessedCard.sigils.Add(blessSigil);
+        blessedCard.AddSigil(blessSigil);
         cardSlotHandler.cardSlots[0].RemoveCard();
 
         StartCoroutine(DelayedLeave(1f));

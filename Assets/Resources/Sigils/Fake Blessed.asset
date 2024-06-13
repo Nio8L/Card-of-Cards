@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44c94bb4277752498dcd0005d70e86c, type: 3}
-  m_Name: Blessed
+  m_Script: {fileID: 11500000, guid: 53acfb6489447dd4aa1f35b1118998ec, type: 3}
+  m_Name: Fake Blessed
   m_EditorClassIdentifier: 
   sigilType: 0
   sigilName: Blessed
   negative: 0
   image: {fileID: 21300000, guid: a01e6e1bb29e27d43a0e31f0eee12ca4, type: 3}
   description: This card costs 1 less energy, has 1 more attack and 1 more health.
-  costReduction: 1
-  damageBuff: 1
-  healthBuff: 1
-  fakeSigil: {fileID: 11400000, guid: 5e56ac91277bb0b4c93a1e937344c044, type: 2}

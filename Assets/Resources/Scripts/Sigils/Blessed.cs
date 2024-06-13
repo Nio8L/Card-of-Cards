@@ -8,29 +8,20 @@ public class Blessed : Sigil
     public int costReduction;
     public int damageBuff;
     public int healthBuff;
-    bool used;
 
-    public override void OnDrawEffect(Card card)
+    public Sigil fakeSigil;
+
+    public override void OnAcquireEffect(Card card)
     {
-        if (used) return;
-
         card.cost -= costReduction;
-        card.attack += damageBuff;
-        card.maxHealth += healthBuff;
-        card.health += healthBuff;
+        card.defaultAttack += damageBuff;
+        card.defaultHealth += healthBuff;
 
-        used = true;
+        string sigilName = this.sigilName;
+        Sigil sigil = Instantiate(fakeSigil);
+        sigil.sigilName = sigilName;
+        sigil.name = fakeSigil.name;
+
+        card.sigils[card.sigils.IndexOf(this)] = sigil;
     }
-    public override void OnBattleEndEffect(Card card)
-    {
-        if (!used) return;
-
-        card.cost += costReduction;
-        card.ResetAttack();
-        card.maxHealth -= healthBuff;
-
-        used = false;
-    }
-
-
 }

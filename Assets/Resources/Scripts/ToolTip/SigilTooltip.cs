@@ -45,7 +45,7 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
                 if(index < cardInCombat.card.sigils.Count){
                     tooltipTrigger.content = cardInCombat.card.sigils[index].description;
-                    tooltipTrigger.header = cardInCombat.card.sigils[index].name;
+                    tooltipTrigger.header = cardInCombat.card.sigils[index].sigilName;
                 }
             }else{
                 // Card display ?
@@ -53,7 +53,7 @@ public class SigilTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 cardDisplay = transform.parent.gameObject.GetComponent<CardDisplay>();
                 if(index < cardDisplay.card.sigils.Count){
                     tooltipTrigger.content = cardDisplay.card.sigils[index].description;
-                    tooltipTrigger.header = cardDisplay.card.sigils[index].name;
+                    tooltipTrigger.header = cardDisplay.card.sigils[index].sigilName;
                 }
             }
         }

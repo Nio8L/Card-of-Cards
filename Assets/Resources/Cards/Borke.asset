@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Borke
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  defaultHealth: 3
   health: 3
   attack: 2
   defaultAttack: 2
@@ -20,6 +20,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 5e1f996749d0d5047ae49d1ce796460f, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 2
   sigils:
   - {fileID: 11400000, guid: f6ab41d59a109654788bf8f2dab9e20b, type: 2}

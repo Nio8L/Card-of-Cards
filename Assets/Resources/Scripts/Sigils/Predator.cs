@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Sigil/Predator")]
 public class Predator : Sigil
 {
+    public int heal;
     public GameObject particles;
     public override void OnHitEffect(CardInCombat card)
     {
@@ -13,8 +14,7 @@ public class Predator : Sigil
         {
             Instantiate(particles, card.transform.position, Quaternion.identity);
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
-            card.card.health += 2;
-            if (card.card.health > card.card.maxHealth) card.card.health = card.card.maxHealth;
+            card.card.health += heal;
         }
 
     }

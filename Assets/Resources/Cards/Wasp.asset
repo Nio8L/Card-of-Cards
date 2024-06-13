@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Wasp
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  defaultHealth: 2
   health: 0
   attack: 0
   defaultAttack: 2

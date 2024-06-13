@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Firefly
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  defaultHealth: 1
   health: 1
   attack: 1
   defaultAttack: 1
@@ -20,8 +20,8 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 83215345279043549aed97dfbee9d0dd, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 0
   sigils:
   - {fileID: 11400000, guid: e9bddd1f38643b84f94d6483e71381a1, type: 2}
   injuries: 
-  playerCard: 1

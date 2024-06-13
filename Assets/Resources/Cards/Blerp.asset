@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Blerp
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  defaultHealth: 3
   health: 0
   attack: 0
   defaultAttack: 1
@@ -20,9 +20,9 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: b89363cf4e8f7d14299ee5f3d2331a2a, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 0
   sigils:
   - {fileID: 11400000, guid: dcf5e999ed4eed444bba0fd50d701357, type: 2}
   - {fileID: 11400000, guid: a1dea42d16aa4944aac2a88d4b0e88f6, type: 2}
   injuries: 
-  playerCard: 1

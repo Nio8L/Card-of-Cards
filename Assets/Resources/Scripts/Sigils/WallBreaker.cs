@@ -12,7 +12,7 @@ public class WallBreaker : Sigil
         BattleData battleData = card.card.lastBattle;
         if (battleData.enemy.benched) return;
 
-        if(battleData.enemyCard.maxHealth > card.card.maxHealth){
+        if(battleData.enemyCard.health > card.card.health){
             card.deck.PlaySigilAnimation(card.transform, card.card, this);
             battleData.enemyCard.health -= bonusDamage;
             if (card.playerCard){

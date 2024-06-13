@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Parrot
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  defaultHealth: 2
   health: 0
   attack: 1
   defaultAttack: 1
   cost: 2
   image: {fileID: 21300000, guid: 6af96027b02a9894eb350fbbcddd4267, type: 3}
   canRevive: 1
-  captain: 0
+  fireImmune: 0
+  playerCard: 1
   typeOfDamage: 2
   sigils:
   - {fileID: 11400000, guid: ef5c7a074d677b443884fb7ebfa4c7a2, type: 2}
