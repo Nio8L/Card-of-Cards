@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Fly
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  defaultHealth: 1
   health: 0
   attack: 0
   defaultAttack: 1
@@ -20,8 +20,8 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 6043aa87c52ff9244a35c698685dc176, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 0
   sigils:
   - {fileID: 11400000, guid: 7601caa93dc6b0e4f884d277ee6d2fd3, type: 2}
   injuries: 
-  playerCard: 1

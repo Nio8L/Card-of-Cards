@@ -15,11 +15,7 @@ public class Cauterize : ActiveSigil
 
     public override void ActiveEffect(CardInCombat card)
     {
-        if(card.card.health + heal <= card.card.maxHealth){
-            card.card.health += heal;
-        }else if(card.card.maxHealth > card.card.health){
-            card.card.health = card.card.maxHealth;
-        }
+        card.card.health += heal;
         
         card.GetSlot().IgniteSlot(turnsToIgnite);
 

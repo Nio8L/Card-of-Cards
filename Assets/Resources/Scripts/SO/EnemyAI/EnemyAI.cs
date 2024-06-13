@@ -280,7 +280,7 @@ public class EnemyAI : EnemyBase
         {
             foreach (Card card in CombatManager.combatManager.enemyDeck.cardsInHandAsCards)
             {
-                if ((cardToPick == null || cardToPick.maxHealth < card.maxHealth) && card.cost <= CombatManager.combatManager.enemyDeck.energy) cardToPick = card;
+                if ((cardToPick == null || cardToPick.defaultHealth < card.defaultHealth) && card.cost <= CombatManager.combatManager.enemyDeck.energy) cardToPick = card;
             }
         }
         else if (currentStrategy == Strategy.Aggressive || currentStrategy == Strategy.Killer)

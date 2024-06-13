@@ -2318,7 +2318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: AutoSaveData
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 462752054979566137, guid: ba4cbc11506a3994eb3d615a81545424, type: 3}
       propertyPath: tutorialDecks.Array.size
@@ -3720,8 +3720,8 @@ MonoBehaviour:
   startCards:
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
   - {fileID: 11400000, guid: b3c1a16de11706f428132de6de3bdf95, type: 2}
-  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
-  - {fileID: 11400000, guid: 1157aa9d3d57fef41942bc46a9b963d5, type: 2}
+  - {fileID: 11400000, guid: ab23abb6c95ee174b90091ee18fed011, type: 2}
+  - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
   - {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
 --- !u!1 &1798329752
 GameObject:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Tiger
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  defaultHealth: 3
   health: 0
   attack: 0
   defaultAttack: 2
@@ -20,6 +20,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: d11182a4744e23e4fb52c3ecefff2c58, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 1
   sigils:
   - {fileID: 11400000, guid: 876284141274f094caf3b348ed70d661, type: 2}

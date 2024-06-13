@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Red Panda
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  defaultHealth: 2
   health: 2
   attack: 2
   defaultAttack: 1
@@ -20,6 +20,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 116b56ae35d40144fb3ee94339460fad, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 2
   sigils:
   - {fileID: 11400000, guid: ce554ca54f3db4b43b8207d62746969e, type: 2}

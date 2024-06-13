@@ -77,6 +77,13 @@ public class Sigil : ScriptableObject
            Triggers whenever this card is in the draw pile and it is not drawn.
         */
     }
+
+    public virtual void OnAcquireEffect(Card card){
+        /*
+           Triggers whenever this sigil is placed on a card.
+        */
+    }
+
     public virtual ActiveSigil GetActiveSigil(){
         /*
             Ignore this unless you are working with active sigils 

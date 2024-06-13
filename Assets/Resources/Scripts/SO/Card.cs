@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Card")]
 public class Card : ScriptableObject
 {
-    public int maxHealth;
+    public int defaultHealth;
     [HideInInspector]
     public int health;
     [HideInInspector]
@@ -89,7 +89,7 @@ public class Card : ScriptableObject
 
         playerCard = cardToCopyFrom.playerCard;
 
-        maxHealth = cardToCopyFrom.maxHealth;
+        defaultHealth = cardToCopyFrom.defaultHealth;
         defaultAttack = cardToCopyFrom.defaultAttack;
         attack = cardToCopyFrom.attack;
         cost = cardToCopyFrom.cost;
@@ -99,7 +99,7 @@ public class Card : ScriptableObject
         injuries = cardToCopyFrom.injuries;
 
         if(cardToCopyFrom.name == "Lost Soul"){
-            maxHealth = 0;
+            defaultHealth = 0;
             health = 0;
         }
     }
@@ -141,7 +141,7 @@ public class Card : ScriptableObject
         }
 
         injuries.Add(causeOfDeath);
-        health = maxHealth;
+        health = defaultHealth;
         
         if (sigils.Count == 3){
             for (int i = sigils.Count-1; i >= 0; i--)
@@ -154,7 +154,12 @@ public class Card : ScriptableObject
             }
         }
 
-        if(sigils.Count != 3) sigils.Add(negativeSigil);
+        if(sigils.Count != 3) AddSigil(negativeSigil);
+    }
+
+    public void AddSigil(Sigil sigil){
+        sigils.Add(sigil);
+        sigil.OnAcquireEffect(this);
     }
 
     // Effects
@@ -255,7 +260,7 @@ public class Card : ScriptableObject
     }
     public void ResetHP() 
     {
-        health = maxHealth;
+        health = defaultHealth;
     }
     public void ResetAttack(){
         attack = defaultAttack;
@@ -275,6 +280,7 @@ public class Card : ScriptableObject
             string oldSigilName = sigils[i].name;
             sigils[i] = Instantiate(sigils[i]);
             sigils[i].name = oldSigilName;
+            sigils[i].OnAcquireEffect(this);
         }
 
         return this;

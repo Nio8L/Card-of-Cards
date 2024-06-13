@@ -16,7 +16,7 @@ public class StatChange : SpellSigil
         CardInCombat cardInCombat = CombatManager.combatManager.GetCardAtSlot(slot);
         
         if (permanentBuff){
-            cardInCombat.card.maxHealth     += bonusHealth;
+            cardInCombat.card.defaultHealth += bonusHealth;
             cardInCombat.card.health        += bonusHealth;
             cardInCombat.card.defaultAttack += bonusAttack;
             cardInCombat.card.attack        += bonusAttack;

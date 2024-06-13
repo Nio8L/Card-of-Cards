@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b64f3054083cc1449341ff42cff7948, type: 3}
   m_Name: Life Steal
   m_EditorClassIdentifier: 
+  sigilType: 0
   sigilName: Life Steal
   negative: 0
   image: {fileID: 21300000, guid: 03cf373125e07d744a785d40fcb19829, type: 3}
-  description: On hit heal this card's owner by 1.
+  description: On hit heal this card's owner for 1.
   particles: {fileID: 3720235810481157537, guid: 97f7907d018a5f44a98c3db69615958e, type: 3}
   heal: 1

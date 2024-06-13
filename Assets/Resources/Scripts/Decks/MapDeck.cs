@@ -52,8 +52,8 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             cards[^1].name = data.cardNames[i];
             cards[^1].defaultAttack = data.cardAttacks[i];
             cards[^1].attack = cards[^1].defaultAttack;
-            cards[^1].maxHealth = data.cardMaxHealths[i];
-            cards[^1].health = cards[^1].maxHealth;
+            cards[^1].defaultHealth = data.cardDefaultHealths[i];
+            cards[^1].health = cards[^1].defaultHealth;
             cards[^1].cost = data.cardCosts[i];
             cards[^1].image = Resources.Load<Sprite>("Sprites/Creatures/" + data.cardImages[i]);
 
@@ -61,7 +61,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
                 Sigil originalSigil = Resources.Load<Sigil>("Sigils/" + data.cardSigils[i].list[j]);
                 Sigil sigilToAdd = Instantiate(originalSigil);
                 sigilToAdd.name = originalSigil.name;
-                cards[^1].sigils.Add(sigilToAdd);
+                cards[^1].AddSigil(sigilToAdd);
             }
             cards[^1].typeOfDamage = (Card.TypeOfDamage) Enum.Parse(typeof(Card.TypeOfDamage), data.cardDamageType[i]);
 
@@ -79,7 +79,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
         
         data.cardNames.Clear();
         data.cardAttacks.Clear();
-        data.cardMaxHealths.Clear();
+        data.cardDefaultHealths.Clear();
         data.cardCosts.Clear();
         data.cardImages.Clear();
         
@@ -92,7 +92,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
         for(int i = 0; i < cards.Count; i++){
             data.cardNames.Add(cards[i].name);
             data.cardAttacks.Add(cards[i].defaultAttack);
-            data.cardMaxHealths.Add(cards[i].maxHealth);
+            data.cardDefaultHealths.Add(cards[i].defaultHealth);
             data.cardCosts.Add(cards[i].cost);
             data.cardImages.Add(cards[i].image.name);
 

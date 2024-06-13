@@ -18,9 +18,7 @@ public class Scales : Sigil
     }
     void Heal(CardInCombat card){
         card.card.health += 1;
-        if (card.card.health > card.card.maxHealth){
-            card.card.health = card.card.maxHealth;
-        }
+        
         Instantiate(particles, card.transform.position, Quaternion.identity);
         card.UpdateCardAppearance();
 

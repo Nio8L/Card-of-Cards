@@ -19,7 +19,7 @@ public class GiveSigil : SpellSigil
 
         CardInCombat cardInCombat = CombatManager.combatManager.GetCardAtSlot(slot);
         
-        cardInCombat.card.sigils.Add(sigilToGive);
+        cardInCombat.card.AddSigil(sigilToGive);
         cardInCombat.UpdateCardAppearance();
 
         if (particles != null) Instantiate(particles, slot.transform.position, Quaternion.identity);

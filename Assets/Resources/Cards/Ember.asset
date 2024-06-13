@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Ember
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  defaultHealth: 1
   health: 0
   attack: 0
   defaultAttack: 1
@@ -20,6 +20,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 2beb8037dba65cf43b779398789d41ea, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 0
   sigils:
   - {fileID: 11400000, guid: f1efb2a8b94740642a1e09c61c9266c2, type: 2}

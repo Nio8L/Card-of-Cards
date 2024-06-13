@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Hurt mouse
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  defaultHealth: 1
   health: 0
   attack: 0
   defaultAttack: 1
@@ -20,8 +20,8 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 99aff79ce12a6ec428370403e97f083b, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 1
   sigils:
   - {fileID: 11400000, guid: cf8280fd27d50cf44b80e0e2d72a861d, type: 2}
   injuries: 00000000
-  playerCard: 1

@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Protector Ant
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  defaultHealth: 3
   health: 0
   attack: 1
   defaultAttack: 1
   cost: 1
   image: {fileID: 21300000, guid: 2283b7c672d8019448aa627979264ffc, type: 3}
   canRevive: 1
-  captain: 0
+  fireImmune: 0
+  playerCard: 1
   typeOfDamage: 1
   sigils: []
   injuries: 
