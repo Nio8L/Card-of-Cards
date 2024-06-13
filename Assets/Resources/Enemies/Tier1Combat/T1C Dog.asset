@@ -20,6 +20,9 @@ MonoBehaviour:
   isTutorialEnemy: 0
   isHunter: 0
   currentPacingObject: {fileID: 0}
+  canUseActiveAbilities: 0
+  chanceToUseActiveAbilities: 0
+  totemRewardPool: {fileID: 11400000, guid: d6bec899ecfe9854dab49746d252108d, type: 2}
   cards:
   - {fileID: 11400000, guid: 1e497f11c6f7e7f4ca164e92100fdc21, type: 2}
   - {fileID: 11400000, guid: 21b0c7bc8d9e0cf4991bfef98469bae2, type: 2}

@@ -71,4 +71,11 @@ public class TotemManager : MonoBehaviour
         totemManager.totems.RemoveAt(totemIndex);
         UpdateIcons();
     }
+
+    public static void AddTotem(Totem totemToAdd){
+        if (totemManager.totems.Count < 3){
+            totemManager.totems.Add(totemToAdd);
+            UpdateIcons();
+        }
+    }
 }

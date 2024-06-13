@@ -37,6 +37,7 @@ public class MapWorld : ScriptableObject
         Hunt,
         Event,
         Restsite,
+        Unknown,
         Hunter
     };
 
@@ -301,6 +302,13 @@ public class MapWorld : ScriptableObject
 
                 // Generate encounter
                 if (layer >= layerBuilder.Count){
+                    // Select unknown 
+                    if (roomTypeToUse == RoomType.Unknown){
+                        float rand = Random.value;
+                        if      (rand <= 0.1f)  roomTypeToUse = RoomType.Elite; // 10%
+                        else if (rand <= 0.55f) roomTypeToUse = RoomType.Hunt;  // 45%
+                        else                    roomTypeToUse = RoomType.Event; // 45%
+                    }
                     // Select a combat
                     if (roomTypeToUse != RoomType.Event){
                         EnemyBase enemy;
@@ -312,6 +320,7 @@ public class MapWorld : ScriptableObject
                         
                         nodeGameObject.AssignEnemy(enemy);
                         lastEnemy = enemy;
+                        continue;
                     }
 
                     // Select an event
@@ -323,6 +332,7 @@ public class MapWorld : ScriptableObject
 
                         nodeGameObject.AssignEvent(eventToUse);
                         lastEvent = eventToUse;
+                        continue;
                     }
                 }else{
                     // Use pre-build layers

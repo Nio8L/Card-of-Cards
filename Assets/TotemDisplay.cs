@@ -20,8 +20,8 @@ public class TotemDisplay : MonoBehaviour
         }else{
             thisImage.color = new Color(0, 0, 0, 0);
             thisImage.sprite = null;
-            thisTrigger.header = "Totem slot";
-            thisTrigger.content  = "This slot is currently empty";
+            thisTrigger.header = "";
+            thisTrigger.content  = "";
         }
     }
 

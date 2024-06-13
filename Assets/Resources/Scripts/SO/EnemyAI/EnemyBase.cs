@@ -26,6 +26,7 @@ public class EnemyBase : ScriptableObject
     [Header("General Settings")]
     public bool canUseActiveAbilities = false;
     public float chanceToUseActiveAbilities; // from 0 to 1
+    public TotemPool totemRewardPool;
 
     public virtual void Initialize()
     {

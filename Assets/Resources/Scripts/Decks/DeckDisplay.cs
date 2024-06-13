@@ -48,7 +48,6 @@ public class DeckDisplay : MonoBehaviour
         // Show the display
         ShowDisplay();
     }
-
     void Update(){
         // Check if the player is trying to scroll
         Scroll();
@@ -61,6 +60,7 @@ public class DeckDisplay : MonoBehaviour
         if (!placedInPrefab){
             // If the display is created via code ajust it
             ChangePosition(point);
+            RepositionNameplate(new Vector3(point.x, point.y + height/2, 0));
         }else{
             widthModifier = Camera.main.pixelWidth/canvas.pixelRect.width;
             heightModifier = Camera.main.pixelHeight/canvas.pixelRect.height;
@@ -132,7 +132,11 @@ public class DeckDisplay : MonoBehaviour
     }
 
     public void RepositionNameplate(Vector3 position){
-        nameplate.transform.localPosition = position;
+        if (deckName.text == ""){
+            nameplate.gameObject.SetActive(false);
+        }else{
+            nameplate.transform.localPosition = position;
+        }
     }
 
     void SortList(){
