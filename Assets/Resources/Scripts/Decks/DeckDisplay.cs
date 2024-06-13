@@ -132,8 +132,8 @@ public class DeckDisplay : MonoBehaviour
     }
 
     public void RepositionNameplate(Vector3 position){
-        if (name == ""){
-            nameplate.transform.parent.gameObject.SetActive(false);
+        if (deckName.text == ""){
+            nameplate.gameObject.SetActive(false);
         }else{
             nameplate.transform.localPosition = position;
         }

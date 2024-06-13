@@ -498,8 +498,10 @@ public class CombatManager : MonoBehaviour, IDataPersistence
             // Win if the enemies health drops to or below 0
             if (enemyHealth <= 0)
             {
-                if (GameObject.Find("EndTurnButton") != null) GameObject.Find("EndTurnButton").SetActive(false);
-                Invoke("WinGame", 2f);
+                if (GameObject.Find("EndTurnButton") != null){
+                    GameObject.Find("EndTurnButton").SetActive(false);
+                    Invoke("WinGame", 2f);
+                }
             }
         }
         else

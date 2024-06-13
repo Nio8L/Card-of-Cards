@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f343d334e3d08d44b83c5f3087b2e40, type: 3}
   m_Name: Auto Win
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 25
   health: 0
   attack: 0
-  defaultAttack: 20
+  defaultAttack: 25
   cost: 0
   image: {fileID: 21300000, guid: 3c87739999038a14ebd3388978e7e528, type: 3}
   canRevive: 1
   fireImmune: 0
+  playerCard: 1
   typeOfDamage: 2
   sigils:
   - {fileID: 11400000, guid: 3a5255f6c7969d145918cdb7eacb8539, type: 2}
-  - {fileID: 11400000, guid: f6ab41d59a109654788bf8f2dab9e20b, type: 2}
-  - {fileID: 11400000, guid: 49e498f4ff76a824da4cf16f328d668e, type: 2}
+  - {fileID: 11400000, guid: aa09815ad0ad1a444950913f12927742, type: 2}
+  - {fileID: 11400000, guid: dcf5e999ed4eed444bba0fd50d701357, type: 2}
   injuries: 
