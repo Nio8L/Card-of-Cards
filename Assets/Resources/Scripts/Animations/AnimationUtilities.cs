@@ -42,7 +42,7 @@ public class AnimationUtilities : MonoBehaviour{
             // Constructor
             target    = _target   ;
             timeLeft  = _timeLeft ;
-            totalTime = _timeLeft;
+            totalTime = _timeLeft ;
             animation = _animation;
         }
         public void AddPoint(Vector3 position){
@@ -79,6 +79,8 @@ public class AnimationUtilities : MonoBehaviour{
             timeLeft -= Time.deltaTime;
             if (animation == "MoveToPoint"){
                 MoveToPointInst();
+            }else if (animation == "MoveToPointUI"){
+                MoveToPointUIInst();
             }else if(animation == "ChangeRotation"){
                 ChangeRotationInst();
             }else if (animation == "ChangeAlpha"){
@@ -105,6 +107,11 @@ public class AnimationUtilities : MonoBehaviour{
             // Move an object to a certain point
             Vector3 newPosition = Vector3.Lerp(points[0], points[1], 1 - timeLeft/totalTime);
             target.transform.position = newPosition;
+        } 
+        void MoveToPointUIInst(){
+            // Move an object to a certain point
+            Vector3 newPosition = Vector3.Lerp(points[0], points[1], 1 - timeLeft/totalTime);
+            target.transform.localPosition = newPosition;
         } 
         void ChangeRotationInst(){
             Quaternion newRotation = Quaternion.Lerp(quaternions[0], quaternions[1], 1 - timeLeft/totalTime);
@@ -201,12 +208,7 @@ public class AnimationUtilities : MonoBehaviour{
     }
     public static void MoveToPoint(Transform target, float time, float delay, Vector3 point){
         // Move a given target to a point in a certain time after a delay
-        AnimationInstance newAnimation = new AnimationInstance(target, time, "MoveToPoint");
-        newAnimation.SetDelay(delay);
-
-        newAnimation.AddPoint(target.transform.position);
-        newAnimation.AddPoint(point);
-        animationUtilities.allAnimations.Add(newAnimation);
+        MoveToPoint(target, time, delay, target.position, point);       
     }
     public static void MoveToPoint(Transform target, float time, float delay, Vector3 startPoint, Vector3 endPoint){
         // Move a given target to a point in a certain time after a delay
@@ -217,14 +219,24 @@ public class AnimationUtilities : MonoBehaviour{
         newAnimation.AddPoint(endPoint);
         animationUtilities.allAnimations.Add(newAnimation);
     }
-    public static void ReturnMoveToPoint(Transform target, float time, float delay, Vector3 point){
-        // Move a given target to a point in a certain time after a delay and then return back
-        AnimationInstance newAnimation = new AnimationInstance(target, time, "ReturnMoveToPoint");
+
+    public static void MoveToPointUI(Transform target, float time, float delay, Vector3 point){
+        // Move a given target to a point in a certain time after a delay
+        MoveToPointUI(target, time, delay, target.localPosition, point);       
+    }
+    public static void MoveToPointUI(Transform target, float time, float delay, Vector3 startPoint, Vector3 endPoint){
+        // Move a given target to a point in a certain time after a delay
+        AnimationInstance newAnimation = new AnimationInstance(target, time, "MoveToPointUI");
         newAnimation.SetDelay(delay);
 
-        newAnimation.AddPoint(target.transform.position);
-        newAnimation.AddPoint(point);
+        newAnimation.AddPoint(startPoint);
+        newAnimation.AddPoint(endPoint);
         animationUtilities.allAnimations.Add(newAnimation);
+    }
+
+    public static void ReturnMoveToPoint(Transform target, float time, float delay, Vector3 point){
+        // Move a given target to a point in a certain time after a delay and then return back
+        ReturnMoveToPoint(target, time, delay, target.position, point);
     }
     public static void ReturnMoveToPoint(Transform target, float time, float delay, Vector3 startPoint, Vector3 endPoint){
         // Move a given target to a point in a certain time after a delay and then return back

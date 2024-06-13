@@ -15,4 +15,4 @@ MonoBehaviour:
   visibleName: Lost Totem
   description: When you draw a lost soul draw another card.
   totemSprite: {fileID: 21300000, guid: 23f2e1c342fa9f14b80e3e759b3a9274, type: 3}
-  lostSoul: {fileID: 11400000, guid: fdab33c06df5f464dbd295af056351c7, type: 2}
+  lostSoulBase: {fileID: 0}
