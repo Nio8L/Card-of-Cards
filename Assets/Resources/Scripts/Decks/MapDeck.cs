@@ -26,9 +26,9 @@ public class MapDeck : MonoBehaviour, IDataPersistence
             ScenePersistenceManager.scenePersistence.playerDeck.Clear();
             AddCard(cardsToBeAdded.Count);
 
-            numberOfCards.text = cards.Count + "";
-            //Debug.Log("Added deck");
         }
+        
+        numberOfCards.text = cards.Count + "";
     }
 
     public bool HasInjuredCards(){
@@ -162,6 +162,7 @@ public class MapDeck : MonoBehaviour, IDataPersistence
     }
 
     private void OnDisable() {
+        if(DataPersistenceManager.DataManager.AutoSaveData) return;
         ScenePersistenceManager.scenePersistence.playerDeck = CopyCardList(cards);
     }
 }

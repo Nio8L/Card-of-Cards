@@ -9,6 +9,11 @@ public class MapSaver : MonoBehaviour
         public string name;
 
         public bool used;
+
+        public EventRoom(){
+            name = "";
+            used = false;
+        }
     }
 
     [System.Serializable]
@@ -28,7 +33,7 @@ public class MapSaver : MonoBehaviour
             nodeIndex = 0;
             hasTraveled = false;
             world = 0;
-            eventRoom = null;
+            eventRoom = new();
         }
     }
 
@@ -86,10 +91,11 @@ public class MapSaver : MonoBehaviour
         map.hasTraveled = MapManager.mapManager.hasTraveled;
 
         if(MapManager.mapManager.onEvent){
+            Debug.Log(ScenePersistenceManager.scenePersistence.lastEvent);
             map.eventRoom.name = ScenePersistenceManager.scenePersistence.lastEvent;
             map.eventRoom.used = MapManager.mapManager.eventUsed;
         }else{
-            map.eventRoom = null;
+            map.eventRoom = new();
         }
         
         if(MapManager.mapManager.hasTraveled){
