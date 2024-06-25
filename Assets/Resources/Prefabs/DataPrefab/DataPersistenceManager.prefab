@@ -45,3 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: savedata.json
+  AutoSaveData: 1
+  audioLevel: 0
+  musicLevel: 0
+  redMarkers: 0
+  screenShake: 1

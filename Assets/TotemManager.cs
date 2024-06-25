@@ -9,8 +9,8 @@ public class TotemManager : MonoBehaviour
 {
     public static TotemManager totemManager;
     public List<Totem> totems = new List<Totem>();
-
     static Transform parentUIObject;
+    Vector3 pillarPosition;
     void Awake(){
         // Destroy this object if a TotemManager already exists
         if(totemManager != null){
@@ -31,8 +31,11 @@ public class TotemManager : MonoBehaviour
         }else{
             UnsubscribeTotems();
         }
+        
+        MovePillar(true);
     }
     public static void UpdateIcons(){
+        MovePillar(false);
         for (int i = 0; i < 3; i++){
             TotemDisplay targetDisplay = parentUIObject.GetChild(i).GetComponent<TotemDisplay>();
             if (i < totemManager.totems.Count){
@@ -76,6 +79,23 @@ public class TotemManager : MonoBehaviour
         if (totemManager.totems.Count < 3){
             totemManager.totems.Add(totemToAdd);
             UpdateIcons();
+        }
+    }
+
+    public static void MovePillar(bool instant){
+        AnimationUtilities.CancelAnimations(parentUIObject.gameObject);
+
+        totemManager.pillarPosition = parentUIObject.transform.localPosition;
+        Debug.Log(totemManager.pillarPosition);
+
+        float timeToMove = 0.4f;
+        if (instant) timeToMove = 0f;
+        if (totemManager.totems.Count == 0){
+            Vector3 endPoint = new Vector3(256, 0, 0) + totemManager.pillarPosition;
+            AnimationUtilities.MoveToPointUI(parentUIObject, timeToMove, 0f, endPoint);
+        }else{
+            Vector3 endPoint = totemManager.pillarPosition;
+            AnimationUtilities.MoveToPointUI(parentUIObject, timeToMove, 0f, endPoint);
         }
     }
 }

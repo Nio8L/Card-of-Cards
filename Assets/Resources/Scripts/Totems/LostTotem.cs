@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName="Totem/LostTotem")]
 public class LostTotem : Totem
 {
-    public Card lostSoul;
+    public Card lostSoulBase;
     public override void Setup()
     {
         EventManager.CardDrawn += Check;
@@ -24,15 +24,15 @@ public class LostTotem : Totem
 
     public override void Active()
     {
-        String cardName = lostSoul.name;
-        lostSoul = Instantiate(lostSoul).ResetCard();
-        lostSoul.name = cardName;
+        Card lostSoul;
+        lostSoul = Instantiate(lostSoulBase).ResetCard();
+        lostSoul.name = lostSoulBase.name;
         CombatManager.combatManager.deck.cards.Add(lostSoul);
         CombatManager.combatManager.deck.drawPile.Add(lostSoul);
-         CombatManager.combatManager.deck.DrawCard(lostSoul);
+        CombatManager.combatManager.deck.DrawCard(lostSoul);
     }
 
     void Check(Card card){
-        if (card.playerCard && card.name == lostSoul.name) Passive();
+        if (card.playerCard && card.name == lostSoulBase.name) Passive();
     }
 }
